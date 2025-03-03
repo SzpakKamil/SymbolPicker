@@ -1022,7 +1022,7 @@ public struct SymbolPicker: View {
             } else {
                 let filteredSymbols = symbolDictionary.flatMap { sectionKey, sectionSymbols in
                     sectionSymbols.filter { symbolName, symbolDescription in
-                        symbolName.localizedStandardContains(searchText) || symbolDescription.localizedStandardContains(searchText)
+                        symbolDescription.localizedStandardContains(searchText)
                     }
                 }
 
@@ -1084,7 +1084,7 @@ public struct SymbolPicker: View {
                 .padding(.horizontal, 4)
                 .background(.gray.opacity(0.001))
                 .accessibilityElement()
-                .accessibilityLabel(description)
+                .accessibilityLabel(LocalizedStringKey(description))
                 .accessibilityAddTraits([.isButton, .isImage])
         }
         .buttonStyle(.plain)
