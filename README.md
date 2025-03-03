@@ -6,7 +6,7 @@ A native macOS component for browsing and selecting SF Symbols with style and co
 
 SFSymbolsPicker provides an elegant, native-feeling symbol picker for macOS applications. Built to seamlessly integrate with SwiftUI, this package makes it easy to incorporate Apple's SF Symbols into your application with a familiar interface that users will immediately understand.
 
-![A screenshot of the SFSymbolsPicker component showing a grid of SF Symbols](https://developer.apple.com/sf-symbols/)
+![A screenshot of the SFSymbolsPicker component showing a grid of SF Symbols](https://imgur.com/a/B8hTdTv)
 
 The package offers two primary ways to implement symbol picking:
 - The `SymbolPicker` view component for custom UI implementations
