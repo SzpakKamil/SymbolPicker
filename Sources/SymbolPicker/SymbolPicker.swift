@@ -1084,7 +1084,7 @@ public struct SymbolPicker: View {
                 .padding(.horizontal, 4)
                 .background(.gray.opacity(0.001))
                 .accessibilityElement()
-                .accessibilityLabel(LocalizedStringKey(description))
+                .accessibilityLabel(description)
                 .accessibilityAddTraits([.isButton, .isImage])
         }
         .buttonStyle(.plain)

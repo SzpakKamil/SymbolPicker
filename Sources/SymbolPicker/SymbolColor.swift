@@ -7,7 +7,7 @@
 
 import SwiftUICore
 
-public enum SymbolColor: Int, Identifiable, CaseIterable{
+public enum SymbolColor: Int, Identifiable, Codable, CaseIterable{
     case red = 0
     case orange = 1
     case yellow = 2

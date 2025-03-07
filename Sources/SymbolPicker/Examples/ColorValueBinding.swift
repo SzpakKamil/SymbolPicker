@@ -31,5 +31,6 @@ private struct ExampleUsage1: View {
 
 #Preview {
     ExampleUsage1()
+        .environment(\.locale, .init(identifier: "de"))
         .frame(width: 200, height: 200)
 }
