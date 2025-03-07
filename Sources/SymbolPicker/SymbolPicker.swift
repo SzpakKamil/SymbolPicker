@@ -1020,17 +1020,12 @@ public struct SymbolPicker: View {
                 .drawingGroup()
                 .padding(.horizontal, 12)
             } else {
-                let filteredSymbols = symbolDictionary.flatMap { sectionKey, sectionSymbols in
-                    sectionSymbols.filter { symbolName, symbolDescription in
-                        symbolDescription.localizedStandardContains(searchText)
-                    }
-                }
-
-                let items = filteredSymbols.sorted { $0.key < $1.key }
-
+                let sortedKeys = getFilteredSymbolKeys(from: symbolDictionary, matching: searchText)
+                
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 28, maximum: 28))]) {
-                    ForEach(items, id: \.key) { (symbolName, symbolDescription) in
-                        symbolButton(for: symbolName, description: symbolDescription)
+                    ForEach(sortedKeys, id: \.self) { symbolName in
+                        let description = getSymbolDescription(for: symbolName, in: symbolDictionary)
+                        symbolButton(for: symbolName, description: description)
                     }
                 }
                 .drawingGroup()
@@ -1042,6 +1037,31 @@ public struct SymbolPicker: View {
         .clipped()
         .offset(y: -17)
         .padding(.top, 5)
+    }
+    
+    // Helper function to get filtered and sorted symbol keys
+    private func getFilteredSymbolKeys(from dictionary: [String: [String: String]], matching searchText: String) -> [String] {
+        var uniqueSymbols = Set<String>()
+        
+        for (_, sectionSymbols) in dictionary {
+            for (symbolName, symbolDescription) in sectionSymbols {
+                if symbolDescription.localizedStandardContains(searchText) {
+                    uniqueSymbols.insert(symbolName)
+                }
+            }
+        }
+        
+        return uniqueSymbols.sorted()
+    }
+
+    // Helper function to get symbol description
+    private func getSymbolDescription(for symbolName: String, in dictionary: [String: [String: String]]) -> String {
+        for (_, sectionSymbols) in dictionary {
+            if let description = sectionSymbols[symbolName] {
+                return description
+            }
+        }
+        return ""
     }
     
     public func colorOption(for color: SymbolColor) -> some View{
