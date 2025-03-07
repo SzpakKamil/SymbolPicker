@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "SymbolPicker",
+    defaultLocalization: "en",
     platforms: [
         .macOS(.v13),
     ],
@@ -13,7 +14,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SymbolPicker"),
+            name: "SymbolPicker", resources: [.process("Resources")]),
 
     ]
 )
