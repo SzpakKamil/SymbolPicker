@@ -259,8 +259,8 @@ struct ModifierExample: View {
 ## Requirements
 
 ### -  macOS 12.0+
-### - Swift 5.7+
-### - Xcode 14.0+
+### - Swift 5.4+
+### - Xcode 12.5+
 
 ## Installation
 

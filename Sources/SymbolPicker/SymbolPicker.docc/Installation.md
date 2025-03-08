@@ -8,8 +8,8 @@ This guide explains how to add the SymbolPicker package to your macOS SwiftUI ap
 
 Before installing SymbolPicker, ensure your development environment meets these requirements:
 - macOS 12.0 or later
-- Swift 5.7 or later
-- Xcode 14.0 or later
+- Swift 5.4 or later
+- Xcode 12.5 or later
 
 ## Installation Methods
 
@@ -93,7 +93,7 @@ If your project builds without errors, SymbolPicker is successfully installed.
 - Ensure GitHub is accessible from your network
 
 **Version Compatibility Errors**
-- Confirm you're using macOS 12.0+ and Xcode 14.0+
+- Confirm you're using macOS 12.0+ and Xcode 12.5+
 - Update your Swift version to 5.7 or later
 
 **Build Failures After Adding the Package**
