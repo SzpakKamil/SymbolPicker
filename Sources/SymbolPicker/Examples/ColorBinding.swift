@@ -22,7 +22,7 @@ private struct ExampleUsage2: View {
             }
             
             Image(systemName: selectedSymbol)
-                .foregroundStyle(color)
+                .spForegroundStyle(color)
                 .font(.system(size: 24))
                 .padding()
         }
