@@ -20,7 +20,7 @@ private struct ExampleUsage3: View {
             .symbolPicker(isPresented: $isPickerPresented, symbolName: $selectedSymbol, symbolColor: $symbolColor)
             
             Image(systemName: selectedSymbol)
-                .foregroundStyle(symbolColor.color)
+                .spForegroundStyle(symbolColor.color)
                 .font(.system(size: 24))
                 .padding()
         }

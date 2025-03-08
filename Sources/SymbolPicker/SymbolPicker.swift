@@ -962,7 +962,9 @@ public struct SymbolPicker: View {
     public var body: some View {
         VStack{
             colorPicker
-            searchField
+            if #available(macOS 13.0, *) {
+                searchField
+            }
             symbolsList
             Spacer()
         }
@@ -970,6 +972,7 @@ public struct SymbolPicker: View {
     }
 
 
+    @available(macOS 13.0, *)
     @ViewBuilder public var searchField: some View{
         List{}
             .offset(y: -10)
@@ -1011,7 +1014,7 @@ public struct SymbolPicker: View {
                             Text(key.components(separatedBy: "_").last ?? "")
                                 .font(.callout)
                                 .fontWeight(.medium)
-                                .foregroundStyle(Color.primary.opacity(0.4))
+                                .spForegroundStyle(Color.primary.opacity(0.4))
                                 .padding(.horizontal, 5)
                             Spacer()
                         }
@@ -1081,7 +1084,7 @@ public struct SymbolPicker: View {
         .accessibilityElement()
         .accessibilityLabel(color.name)
         .accessibilityAddTraits(.isButton)
-        .foregroundStyle(color.color)
+        .spForegroundStyle(color.color)
         .buttonStyle(.plain)
     }
     
@@ -1091,21 +1094,38 @@ public struct SymbolPicker: View {
         Button{
             symbolName = systemImage
         }label:{
-            Image(systemName: systemImage)
-                .imageScale(.large)
-                .frame(width: 22, height: 22)
-                .fontWeight(.medium)
-                .padding(.vertical, 5)
-                .padding(.horizontal, 5)
-                .background(primaryColor.opacity(symbolName == systemImage ? 0.25 : 0))
-                .foregroundStyle(symbolName == systemImage ? invertedColor : primaryColor.opacity(0.8))
-                .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
-                .padding(.vertical, 4)
-                .padding(.horizontal, 4)
-                .background(.gray.opacity(0.001))
-                .accessibilityElement()
-                .accessibilityLabel(description)
-                .accessibilityAddTraits([.isButton, .isImage])
+            if #available(macOS 13.0, *) {
+                Image(systemName: systemImage)
+                    .imageScale(.large)
+                    .frame(width: 22, height: 22)
+                    .fontWeight(.medium)
+                    .padding(.vertical, 5)
+                    .padding(.horizontal, 5)
+                    .background(primaryColor.opacity(symbolName == systemImage ? 0.25 : 0))
+                    .spForegroundStyle(symbolName == systemImage ? invertedColor : primaryColor.opacity(0.8))
+                    .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 4)
+                    .background(.gray.opacity(0.001))
+                    .accessibilityElement()
+                    .accessibilityLabel(description)
+                    .accessibilityAddTraits([.isButton, .isImage])
+            } else {
+                Image(systemName: systemImage)
+                    .imageScale(.large)
+                    .frame(width: 22, height: 22)
+                    .padding(.vertical, 5)
+                    .padding(.horizontal, 5)
+                    .background(primaryColor.opacity(symbolName == systemImage ? 0.25 : 0))
+                    .spForegroundStyle(symbolName == systemImage ? invertedColor : primaryColor.opacity(0.8))
+                    .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 4)
+                    .background(Color.gray.opacity(0.001))
+                    .accessibilityElement()
+                    .accessibilityLabel(description)
+                    .accessibilityAddTraits([.isButton, .isImage])
+            }
         }
         .buttonStyle(.plain)
     }
