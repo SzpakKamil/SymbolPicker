@@ -5,9 +5,10 @@
 //  Created by Kamil Szpak on 03/03/2025.
 //
 
-import SwiftUICore
+import SwiftUI
+import SwiftData
 
-public enum SymbolColor: Int, Identifiable, Codable, CaseIterable{
+public enum SymbolColor: Int, Identifiable, Codable, CaseIterable, Hashable {
     case red = 0
     case orange = 1
     case yellow = 2
@@ -27,76 +28,76 @@ public enum SymbolColor: Int, Identifiable, Codable, CaseIterable{
     public var id: Int { self.rawValue }
     
     public var name: String {
-        switch self{
+        switch self {
         case .red:
-            "Red"
+            return "Red"
         case .orange:
-            "Orange"
+            return "Orange"
         case .yellow:
-            "Yellow"
+            return "Yellow"
         case .green:
-            "Green"
+            return "Green"
         case .mint:
-            "Mint"
+            return "Mint"
         case .teal:
-            "Teal"
+            return "Teal"
         case .cyan:
-            "Cyan"
+            return "Cyan"
         case .blue:
-            "Blue"
+            return "Blue"
         case .indigo:
-            "Indigo"
+            return "Indigo"
         case .purple:
-            "Purple"
+            return "Purple"
         case .magenta:
-            "Magenta"
+            return "Magenta"
         case .pink:
-            "Pink"
+            return "Pink"
         case .grey:
-            "Grey"
+            return "Grey"
         case .moro:
-            "Moro"
+            return "Moro"
         case .brown:
-            "Brown"
+            return "Brown"
         }
     }
     
-    public var value: [Double]{
-        switch self{
+    public var value: [Double] {
+        switch self {
         case .red:
-            [0.906, 0.392, 0.416, 1]
+            return [0.906, 0.392, 0.416, 1]
         case .orange:
-            [0.945, 0.537, 0.427, 1]
+            return [0.945, 0.537, 0.427, 1]
         case .yellow:
-            [0.925, 0.671, 0.384, 1]
+            return [0.925, 0.671, 0.384, 1]
         case .green:
-            [0.945, 0.749, 0.298, 1]
+            return [0.945, 0.749, 0.298, 1]
         case .mint:
-            [0.451, 0.780, 0.435, 1]
+            return [0.451, 0.780, 0.435, 1]
         case .teal:
-            [0.216, 0.792, 0.678, 1]
+            return [0.216, 0.792, 0.678, 1]
         case .cyan:
-            [0.298, 0.698, 0.945, 1]
+            return [0.298, 0.698, 0.945, 1]
         case .blue:
-            [0.259, 0.514, 0.969, 1]
+            return [0.259, 0.514, 0.969, 1]
         case .indigo:
-            [0.302, 0.392, 0.737, 1]
+            return [0.302, 0.392, 0.737, 1]
         case .purple:
-            [0.490, 0.329, 0.729, 1]
+            return [0.490, 0.329, 0.729, 1]
         case .magenta:
-            [0.698, 0.490, 0.871, 1]
+            return [0.698, 0.490, 0.871, 1]
         case .pink:
-            [0.906, 0.557, 0.816, 1]
+            return [0.906, 0.557, 0.816, 1]
         case .grey:
-            [0.533, 0.565, 0.604, 1]
+            return [0.533, 0.565, 0.604, 1]
         case .moro:
-            [0.584, 0.663, 0.592, 1]
+            return [0.584, 0.663, 0.592, 1]
         case .brown:
-            [0.651, 0.565, 0.455, 1]
+            return [0.651, 0.565, 0.455, 1]
         }
     }
     
-    public var color: Color{
+    public var color: Color {
         Color(red: self.value[0], green: self.value[1], blue: self.value[2])
     }
 }
