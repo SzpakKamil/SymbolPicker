@@ -9,7 +9,6 @@ import SwiftUI
 
 private struct ExampleUsage3: View {
     @State private var selectedSymbol: String = "car.fill"
-    @State private var symbolColor = SymbolColor.red
     @State private var isPickerPresented: Bool = false
 
     var body: some View {
@@ -17,10 +16,9 @@ private struct ExampleUsage3: View {
             Button("Select Symbol") {
                 isPickerPresented.toggle()
             }
-            .symbolPicker(isPresented: $isPickerPresented, symbolName: $selectedSymbol, symbolColor: $symbolColor)
+            .symbolPicker(isPresented: $isPickerPresented, symbolName: $selectedSymbol, dismissOnSymbolChange: true)
             
             Image(systemName: selectedSymbol)
-                .spForegroundStyle(symbolColor.color)
                 .font(.system(size: 24))
                 .padding()
         }
