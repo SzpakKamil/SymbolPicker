@@ -1,5 +1,5 @@
 //
-//  SymbolPicker.swift
+//  SymbolPickerOld.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 5/12/24.
@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-@available(macOS 12.0, *)
-public struct SymbolPicker: View {
-    @Environment(\.dismiss) var dismiss
+public struct SymbolPickerOld: View {
+    @Binding public var isPresented: Bool
     @Environment(\.colorScheme) var colorScheme
     @Binding public var symbolName: String
     @Binding public var colorValue: Color
@@ -964,7 +963,7 @@ public struct SymbolPicker: View {
 
     public var body: some View {
         VStack{
-            if colorValue != .clear{
+            if colorValue == .clear{
                 colorPicker
             }
             if #available(macOS 13.0, *) {
@@ -1100,7 +1099,7 @@ public struct SymbolPicker: View {
         Button{
             symbolName = systemImage
             if dismissOnSymbolChange{
-                dismiss()
+                isPresented = false
             }
         }label:{
             if #available(macOS 13.0, *) {
@@ -1139,7 +1138,8 @@ public struct SymbolPicker: View {
         .buttonStyle(.plain)
     }
     
-    public init(symbolName: Binding<String>, colorOption: ColorOption? = nil, dismissOnSymbolChange: Bool = false) {
+    public init(isPresented: Binding<Bool>, symbolName: Binding<String>, colorOption: ColorOption? = nil, dismissOnSymbolChange: Bool = false) {
+        self._isPresented = isPresented
         self._symbolName = symbolName
         self.dismissOnSymbolChange = dismissOnSymbolChange
         
@@ -1192,7 +1192,5 @@ public struct SymbolPicker: View {
             self._colorValue = .constant(.clear)
         }
     }
-
 }
-
 

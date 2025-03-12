@@ -18,7 +18,11 @@ private struct ExampleUsage2: View {
                 isPickerPresented.toggle()
             }
             .popover(isPresented: $isPickerPresented) {
-                SymbolPicker(symbolName: $selectedSymbol, color: $color)
+                if #available(macOS 12.0, *) {
+                    SymbolPicker(symbolName: $selectedSymbol, colorOption: .color($color))
+                } else {
+                    SymbolPickerOld(isPresented: $isPickerPresented, symbolName: $selectedSymbol, colorOption: .color($color))
+                }
             }
             
             Image(systemName: selectedSymbol)
