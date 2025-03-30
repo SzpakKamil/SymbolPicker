@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftData
 
 public enum SymbolColor: Int, Identifiable, Codable, CaseIterable, Hashable {
+    
     case red = 0
     case orange = 1
     case yellow = 2
