@@ -1148,7 +1148,7 @@ public struct SymbolPicker: View {
     public init(symbolName: Binding<String>, color: Binding<SymbolColor>?, dismissOnSymbolChange: Bool = false) {
         self.pickerData = .init(isPresented:.constant(false), symbolName: symbolName, color: color, dismissOnSymbolChange: dismissOnSymbolChange)
     }
-x
+
     public init(symbolName: Binding<String>, dismissOnSymbolChange: Bool = false) {
         self.pickerData = .init(isPresented:.constant(false), symbolName: symbolName, dismissOnSymbolChange: dismissOnSymbolChange)
     }
