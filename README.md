@@ -20,28 +20,7 @@ The package offers two primary ways to implement symbol picking:
 - Customizable symbol rendering styles
 - Multiple color selection options (RGB values, SwiftUI Color, or predefined SymbolColor)
 - Dark and light mode compatibility
-- macOS 13+ optimization
-
-## Topics
-
-### Essentials
-
-- ``SymbolPicker``
-- ``symbolPicker(isPresented:symbolName:colorValues:)``
-- ``symbolPicker(isPresented:symbolName:color:)``
-- ``symbolPicker(isPresented:symbolName:symbolColor:)``
-
-### Views
-
-- ``SymbolPicker``
-- ``CategoryView``
-- ``SymbolGrid``
-
-### Supporting Types
-
-- ``SymbolColor``
-- ``SymbolPickerModifier``
-- ``SymbolCategory``
+- macOS 11+ optimization
 
 ## Symbol Picker Component
 
@@ -50,9 +29,21 @@ The core component of the package is the `SymbolPicker` view which can be embedd
 ```swift
 SymbolPicker(
     symbolName: Binding<String>,
-    colorValues: Binding<[Double]>
+    color: Binding<[Double]>,
+    dismissOnSymbolChange: Bool = false
 )
 ```
+
+You can also use SymbolPicker without color selection:
+
+```swift
+SymbolPicker(
+    symbolName: Binding<String>,
+    dismissOnSymbolChange: Bool = false
+)
+```
+
+> **Note:** When `dismissOnSymbolChange` is set to `true`, the popover will automatically dismiss when a symbol is selected.
 
 ## Symbol Picker Modifiers
 
@@ -64,7 +55,8 @@ The package provides three flexible modifier options to accommodate different co
 .symbolPicker(
     isPresented: Binding<Bool>,
     symbolName: Binding<String>,
-    colorValues: Binding<[Double]>
+    color: Binding<[Double]>,
+    dismissOnSymbolChange: Bool = false
 )
 ```
 
@@ -76,7 +68,8 @@ or
 .symbolPicker(
     isPresented: Binding<Bool>,
     symbolName: Binding<String>,
-    color: Binding<Color>
+    color: Binding<Color>,
+    dismissOnSymbolChange: Bool = false
 )
 ```
 
@@ -86,9 +79,22 @@ or
 .symbolPicker(
     isPresented: Binding<Bool>,
     symbolName: Binding<String>,
-    symbolColor: Binding<SymbolColor>
+    color: Binding<SymbolColor>,
+    dismissOnSymbolChange: Bool = false
 )
 ```
+
+### Without Color Selection
+
+```swift
+.symbolPicker(
+    isPresented: Binding<Bool>,
+    symbolName: Binding<String>,
+    dismissOnSymbolChange: Bool = false
+)
+```
+
+> **Note:** When running on macOS 11, the `isPresented` parameter is required for all symbolPicker implementations.
 
 ## SymbolColor Options
 
@@ -144,9 +150,8 @@ struct ContentView: View {
             .popover(isPresented: $isPickerPresented) {
                 SymbolPicker(
                     symbolName: $selectedSymbol,
-                    colorValues: $colorValues
+                    color: $colorValues
                 )
-                .frame(width: 500, height: 400)
             }
         }
         .padding()
@@ -179,7 +184,40 @@ struct ContentView: View {
         .symbolPicker(
             isPresented: $isPickerPresented,
             symbolName: $selectedSymbol,
-            symbolColor: $symbolColor
+            color: $symbolColor
+        )
+    }
+}
+```
+
+### Example Without Color Selection
+
+```swift
+import SwiftUI
+import SymbolPicker
+
+struct ContentView: View {
+    @State private var selectedSymbol: String = "star.fill"
+    @State private var isPickerPresented: Bool = false
+    
+    var body: some View {
+        VStack {
+            Image(systemName: selectedSymbol)
+                .font(.system(size: 64))
+                .symbolRenderingMode(.monochrome)
+                .padding()
+            
+            Text("Symbol: \(selectedSymbol)")
+                .font(.subheadline)
+            
+            Button("Select Symbol") {
+                isPickerPresented.toggle()
+            }
+        }
+        .symbolPicker(
+            isPresented: $isPickerPresented,
+            symbolName: $selectedSymbol,
+            dismissOnSymbolChange: true
         )
     }
 }
