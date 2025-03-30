@@ -9,15 +9,23 @@ import SwiftUI
 
 private struct ExampleUsage3: View {
     @State private var selectedSymbol: String = "car.fill"
-    @State private var isPickerPresented: Bool = false
+    @State private var selectedColor: SymbolColor = .red
+    @State private var isPicker1Presented: Bool = false
+    @State private var isPicker2Presented: Bool = false
 
     var body: some View {
-        VStack {
-            Button("Select Symbol") {
-                isPickerPresented.toggle()
+        VStack{
+            HStack {
+                Button("Color Selected") {
+                    isPicker1Presented.toggle()
+                }
+                .symbolPicker(isPresented: $isPicker1Presented, symbolName: $selectedSymbol, color: $selectedColor, dismissOnSymbolChange: true)
+                
+                Button("No Color Selected") {
+                    isPicker2Presented.toggle()
+                }
+                .symbolPicker(isPresented: $isPicker2Presented, symbolName: $selectedSymbol, dismissOnSymbolChange: true)
             }
-            .symbolPicker(isPresented: $isPickerPresented, symbolName: $selectedSymbol, dismissOnSymbolChange: true)
-            
             Image(systemName: selectedSymbol)
                 .font(.system(size: 24))
                 .padding()
@@ -27,5 +35,5 @@ private struct ExampleUsage3: View {
 
 #Preview {
     ExampleUsage3()
-        .frame(width: 200, height: 200)
+        .frame(width: 300, height: 200)
 }
