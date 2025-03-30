@@ -19,9 +19,9 @@ private struct ExampleUsage3: View {
             }
             .popover(isPresented: $isPickerPresented) {
                 if #available(macOS 12.0, *) {
-                    SymbolPicker(symbolName: $selectedSymbol, colorOption: .symbolColor($symbolColor))
+                    SymbolPicker(symbolName: $selectedSymbol, color: $symbolColor)
                 } else {
-                    SymbolPickerOld(isPresented: $isPickerPresented, symbolName: $selectedSymbol, colorOption: .symbolColor($symbolColor))
+                    SymbolPickerOld(isPresented: $isPickerPresented, symbolName: $selectedSymbol, color: $symbolColor)
                 }
             }
             

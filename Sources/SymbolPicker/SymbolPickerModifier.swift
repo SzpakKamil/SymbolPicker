@@ -8,38 +8,61 @@
 import SwiftUI
 
 struct SymbolPickerModifier: ViewModifier {
-    @Binding var isPresented: Bool
-    @Binding var symbolName: String
-    var dismissOnSymbolChange: Bool = false
-    var colorOption: ColorOption?
-
-    init(isPresented: Binding<Bool>, symbolName: Binding<String>, colorOption: ColorOption?, dismissOnSymbolChange: Bool = false) {
-        self._isPresented = isPresented
-        self._symbolName = symbolName
-        self.colorOption = colorOption
-        self.dismissOnSymbolChange = dismissOnSymbolChange
-    }
-
+    var pickerData: SymbolPickerData
     @ViewBuilder func body(content: Content) -> some View {
         content
-            .popover(isPresented: $isPresented){
+            .popover(isPresented: pickerData.isPresented){
                 if #available(macOS 12.0, *) {
-                    SymbolPicker(symbolName: $symbolName, colorOption: colorOption, dismissOnSymbolChange: dismissOnSymbolChange)
+                    SymbolPicker(for: pickerData)
                 } else {
-                    SymbolPickerOld(isPresented: $isPresented, symbolName: $symbolName, colorOption: colorOption, dismissOnSymbolChange: dismissOnSymbolChange)
+                    SymbolPickerOld(for: pickerData)
                 }
             }
     }
-}
+    
+    init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<[Double]>?, dismissOnSymbolChange: Bool = false) {
+        self.pickerData = .init(isPresented: isPresented, symbolName: symbolName, color: color, dismissOnSymbolChange: dismissOnSymbolChange)
+    }
+    
+    init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<SymbolColor>?, dismissOnSymbolChange: Bool = false) {
+        self.pickerData = .init(isPresented: isPresented, symbolName: symbolName, color: color, dismissOnSymbolChange: dismissOnSymbolChange)
+    }
+    
+    init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<Color>?, dismissOnSymbolChange: Bool = false) {
+        self.pickerData = .init(isPresented: isPresented, symbolName: symbolName, color: color, dismissOnSymbolChange: dismissOnSymbolChange)
+    }
 
-public enum ColorOption {
-    case colorValues(Binding<[Double]>)
-    case color(Binding<Color>)
-    case symbolColor(Binding<SymbolColor>)
+    init(isPresented: Binding<Bool>, symbolName: Binding<String>, dismissOnSymbolChange: Bool = false) {
+        self.pickerData = .init(isPresented: isPresented, symbolName: symbolName, dismissOnSymbolChange: dismissOnSymbolChange)
+    }
 }
 
 public extension View {
-    func symbolPicker(isPresented: Binding<Bool>, symbolName: Binding<String>, colorOption: ColorOption? = nil, dismissOnSymbolChange: Bool = false) -> some View {
-        modifier(SymbolPickerModifier(isPresented: isPresented, symbolName: symbolName, colorOption: colorOption, dismissOnSymbolChange: dismissOnSymbolChange))
+    func symbolPicker(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<Color>?, dismissOnSymbolChange: Bool = false) -> some View {
+        if let color{
+            modifier(SymbolPickerModifier(isPresented: isPresented, symbolName: symbolName, color: color, dismissOnSymbolChange: dismissOnSymbolChange))
+        }else{
+            modifier(SymbolPickerModifier(isPresented: isPresented, symbolName: symbolName, dismissOnSymbolChange: dismissOnSymbolChange))
+        }
+    }
+    
+    func symbolPicker(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<SymbolColor>?, dismissOnSymbolChange: Bool = false) -> some View {
+        if let color{
+            modifier(SymbolPickerModifier(isPresented: isPresented, symbolName: symbolName, color: color, dismissOnSymbolChange: dismissOnSymbolChange))
+        }else{
+            modifier(SymbolPickerModifier(isPresented: isPresented, symbolName: symbolName, dismissOnSymbolChange: dismissOnSymbolChange))
+        }
+    }
+    
+    func symbolPicker(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<[Double]>?, dismissOnSymbolChange: Bool = false) -> some View {
+        if let color{
+            modifier(SymbolPickerModifier(isPresented: isPresented, symbolName: symbolName, color: color, dismissOnSymbolChange: dismissOnSymbolChange))
+        }else{
+            modifier(SymbolPickerModifier(isPresented: isPresented, symbolName: symbolName, dismissOnSymbolChange: dismissOnSymbolChange))
+        }
+    }
+    
+    func symbolPicker(isPresented: Binding<Bool>, symbolName: Binding<String>, dismissOnSymbolChange: Bool = false) -> some View {
+        modifier(SymbolPickerModifier(isPresented: isPresented, symbolName: symbolName, dismissOnSymbolChange: dismissOnSymbolChange))
     }
 }

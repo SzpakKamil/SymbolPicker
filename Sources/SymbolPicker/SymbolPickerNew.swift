@@ -11,10 +11,8 @@ import SwiftUI
 public struct SymbolPicker: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
-    @Binding public var symbolName: String
-    @Binding public var colorValue: Color
+    var pickerData: SymbolPickerData
     @State private var searchText = ""
-    var dismissOnSymbolChange: Bool = false
 
     public var symbolDictionary: [String: [String:String]] = [
         "1_Maps": [
@@ -964,12 +962,12 @@ public struct SymbolPicker: View {
 
     public var body: some View {
         VStack{
-            if colorValue != .clear{
+            if pickerData.colorValue?.wrappedValue != .clear{
                 colorPicker
             }
             if #available(macOS 13.0, *) {
                 searchField
-                    .padding(.top, colorValue != .clear ? 0 : 10)
+                    .padding(.top, pickerData.colorValue?.wrappedValue != .clear ? 0 : 10)
             }
             symbolsList
             Spacer()
@@ -1075,9 +1073,9 @@ public struct SymbolPicker: View {
     
     public func colorOption(for color: SymbolColor) -> some View{
         Button{
-            colorValue = color.color
+            pickerData.colorValue?.wrappedValue = color.color
         }label:{
-            Image(systemName: colorValue == color.color ? "checkmark.circle.fill" : "circle.fill")
+            Image(systemName: pickerData.colorValue?.wrappedValue == color.color ? "checkmark.circle.fill" : "circle.fill")
                 .resizable()
                 .scaledToFit()
                 .overlay(
@@ -1098,8 +1096,8 @@ public struct SymbolPicker: View {
         let primaryColor = colorScheme == .dark ? Color.white : Color.black
         let invertedColor = colorScheme == .dark ? Color.white : Color.black
         Button{
-            symbolName = systemImage
-            if dismissOnSymbolChange{
+            pickerData.symbolName.wrappedValue = systemImage
+            if pickerData.dismissOnSymbolChange{
                 dismiss()
             }
         }label:{
@@ -1110,8 +1108,8 @@ public struct SymbolPicker: View {
                     .fontWeight(.medium)
                     .padding(.vertical, 5)
                     .padding(.horizontal, 5)
-                    .background(primaryColor.opacity(symbolName == systemImage ? 0.25 : 0))
-                    .spForegroundStyle(symbolName == systemImage ? invertedColor : primaryColor.opacity(0.8))
+                    .background(primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.25 : 0))
+                    .spForegroundStyle(pickerData.symbolName.wrappedValue == systemImage ? invertedColor : primaryColor.opacity(0.8))
                     .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
                     .padding(.vertical, 4)
                     .padding(.horizontal, 4)
@@ -1125,8 +1123,8 @@ public struct SymbolPicker: View {
                     .frame(width: 22, height: 22)
                     .padding(.vertical, 5)
                     .padding(.horizontal, 5)
-                    .background(primaryColor.opacity(symbolName == systemImage ? 0.25 : 0))
-                    .spForegroundStyle(symbolName == systemImage ? invertedColor : primaryColor.opacity(0.8))
+                    .background(primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.25 : 0))
+                    .spForegroundStyle(pickerData.symbolName.wrappedValue == systemImage ? invertedColor : primaryColor.opacity(0.8))
                     .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
                     .padding(.vertical, 4)
                     .padding(.horizontal, 4)
@@ -1139,60 +1137,25 @@ public struct SymbolPicker: View {
         .buttonStyle(.plain)
     }
     
-    public init(symbolName: Binding<String>, colorOption: ColorOption? = nil, dismissOnSymbolChange: Bool = false) {
-        self._symbolName = symbolName
-        self.dismissOnSymbolChange = dismissOnSymbolChange
-        
-        // Set the colorValue based on the colorOption type
-        if let colorOption = colorOption {
-            switch colorOption {
-            case .colorValues(let colorValues):
-                self._colorValue = Binding(get: {
-                    Color(red: colorValues.wrappedValue[0], green: colorValues.wrappedValue[1], blue: colorValues.wrappedValue[2])
-                }, set: { newValue in
-                    #if canImport(UIKit)
-                    // Use UIColor on iOS and tvOS
-                    typealias NativeColor = UIColor
-                    #elseif canImport(AppKit)
-                    // Use NSColor on macOS
-                    typealias NativeColor = NSColor
-                    #endif
-                    
-                    // Variables to store the individual color components
-                    var r: CGFloat = 0
-                    var g: CGFloat = 0
-                    var b: CGFloat = 0
-                    var o: CGFloat = 1
-                    
-                    #if !os(macOS)
-                    // For iOS and tvOS, safely extract the color components
-                    guard NativeColor(newValue).getRed(&r, green: &g, blue: &b, alpha: &o) else {
-                        // Return default black color with full opacity if conversion fails
-                        colorValues.wrappedValue = [0, 0, 0, 1]
-                        return
-                    }
-                    #else
-                    // On macOS, convert the color to the sRGB color space and extract the RGB components
-                    NativeColor(newValue).usingColorSpace(.sRGB)?.getRed(&r, green: &g, blue: &b, alpha: &o)
-                    #endif
-                    colorValues.wrappedValue = [r, g, b, o]
-                })
-            case .color(let color):
-                self._colorValue = color
-            case .symbolColor(let symbolColor):
-                self._colorValue = .init(get: {
-                    symbolColor.wrappedValue.color
-                }, set: { newValue in
-                    if let color = SymbolColor.allCases.first(where: { $0.color == newValue }) {
-                        symbolColor.wrappedValue = color
-                    }
-                })
-            }
-        } else {
-            self._colorValue = .constant(.clear)
-        }
+    public init(symbolName: Binding<String>, color: Binding<Color>?, dismissOnSymbolChange: Bool = false) {
+        self.pickerData = .init(isPresented:.constant(false), symbolName: symbolName, color: color, dismissOnSymbolChange: dismissOnSymbolChange)
     }
-
+    
+    public init(symbolName: Binding<String>, color: Binding<[Double]>?, dismissOnSymbolChange: Bool = false) {
+        self.pickerData = .init(isPresented:.constant(false), symbolName: symbolName, color: color, dismissOnSymbolChange: dismissOnSymbolChange)
+    }
+    
+    public init(symbolName: Binding<String>, color: Binding<SymbolColor>?, dismissOnSymbolChange: Bool = false) {
+        self.pickerData = .init(isPresented:.constant(false), symbolName: symbolName, color: color, dismissOnSymbolChange: dismissOnSymbolChange)
+    }
+x
+    public init(symbolName: Binding<String>, dismissOnSymbolChange: Bool = false) {
+        self.pickerData = .init(isPresented:.constant(false), symbolName: symbolName, dismissOnSymbolChange: dismissOnSymbolChange)
+    }
+    
+    public init(for data: SymbolPickerData) {
+        self.pickerData = data
+    }
 }
 
 
