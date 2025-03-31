@@ -1,6 +1,18 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Color Selected" : {
+
+    },
+    "Filled" : {
+
+    },
+    "No Color Selected" : {
+
+    },
+    "Not filled" : {
+
+    },
     "Search Symbols" : {
       "localizations" : {
         "de" : {
@@ -24,6 +36,7 @@
       }
     },
     "Select Symbol" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
