@@ -1,11 +1,10 @@
-# ``SymbolPicker``
+# `SymbolPicker`
 
 A native macOS component for browsing and selecting SF Symbols with style and color customization.
 
 ## Overview
 
 SymbolPicker provides an elegant, native-feeling symbol picker for macOS applications. Built to seamlessly integrate with SwiftUI, this package makes it easy to incorporate Apple's SF Symbols into your application with a familiar interface that users will immediately understand.
-
 
 The package offers two primary ways to implement symbol picking:
 - The `SymbolPicker` view component for custom UI implementations
@@ -19,6 +18,7 @@ The package offers two primary ways to implement symbol picking:
 - Dynamic search functionality
 - Customizable symbol rendering styles
 - Multiple color selection options (RGB values, SwiftUI Color, or predefined SymbolColor)
+- Option to use filled or outline symbol variants
 - Dark and light mode compatibility
 - macOS 11+ optimization
 
@@ -30,6 +30,7 @@ The core component of the package is the `SymbolPicker` view which can be embedd
 SymbolPicker(
     symbolName: Binding<String>,
     color: Binding<[Double]>,
+    useFilledSymbols: Bool = true,
     dismissOnSymbolChange: Bool = false
 )
 ```
@@ -39,11 +40,14 @@ You can also use SymbolPicker without color selection:
 ```swift
 SymbolPicker(
     symbolName: Binding<String>,
+    useFilledSymbols: Bool = true,
     dismissOnSymbolChange: Bool = false
 )
 ```
 
 > **Note:** When `dismissOnSymbolChange` is set to `true`, the popover will automatically dismiss when a symbol is selected.
+>
+> **Note:** The `useFilledSymbols` parameter determines which variant of symbols is displayed. When set to `true` (default), filled variants like "star.fill" are preferred. When set to `false`, outline variants like "star" are used.
 
 ## Symbol Picker Modifiers
 
@@ -56,6 +60,7 @@ The package provides three flexible modifier options to accommodate different co
     isPresented: Binding<Bool>,
     symbolName: Binding<String>,
     color: Binding<[Double]>,
+    useFilledSymbols: Bool = true,
     dismissOnSymbolChange: Bool = false
 )
 ```
@@ -69,6 +74,7 @@ or
     isPresented: Binding<Bool>,
     symbolName: Binding<String>,
     color: Binding<Color>,
+    useFilledSymbols: Bool = true,
     dismissOnSymbolChange: Bool = false
 )
 ```
@@ -80,6 +86,7 @@ or
     isPresented: Binding<Bool>,
     symbolName: Binding<String>,
     color: Binding<SymbolColor>,
+    useFilledSymbols: Bool = true,
     dismissOnSymbolChange: Bool = false
 )
 ```
@@ -90,6 +97,7 @@ or
 .symbolPicker(
     isPresented: Binding<Bool>,
     symbolName: Binding<String>,
+    useFilledSymbols: Bool = true,
     dismissOnSymbolChange: Bool = false
 )
 ```
@@ -150,7 +158,8 @@ struct ContentView: View {
             .popover(isPresented: $isPickerPresented) {
                 SymbolPicker(
                     symbolName: $selectedSymbol,
-                    color: $colorValues
+                    color: $colorValues,
+                    useFilledSymbols: true
                 )
             }
         }
@@ -160,14 +169,14 @@ struct ContentView: View {
 }
 ```
 
-### Example Using Predefined Colors
+### Example Using Predefined Colors and Outline Variants
 
 ```swift
 import SwiftUI
 import SymbolPicker
 
 struct ContentView: View {
-    @State private var selectedSymbol: String = "car.fill"
+    @State private var selectedSymbol: String = "car"
     @State private var symbolColor: SymbolColor = .blue
     @State private var isPickerPresented: Bool = false
     
@@ -184,7 +193,8 @@ struct ContentView: View {
         .symbolPicker(
             isPresented: $isPickerPresented,
             symbolName: $selectedSymbol,
-            color: $symbolColor
+            color: $symbolColor,
+            useFilledSymbols: false
         )
     }
 }
@@ -217,6 +227,7 @@ struct ContentView: View {
         .symbolPicker(
             isPresented: $isPickerPresented,
             symbolName: $selectedSymbol,
+            useFilledSymbols: true,
             dismissOnSymbolChange: true
         )
     }
