@@ -794,7 +794,7 @@ public struct SymbolPickerData {
             "ellipsis": "Symbol of ellipsis",
             "circle.dotted": "Symbol of a dotted circle",
             "checklist": "Symbol of a checklist",
-            "square.grid.4x3": "Symbol of a 4x3 grid square",
+            "square.grid.4x3.fill": "Symbol of a 4x3 grid square",
             "point.3.filled.connected.trianglepath.dotted": "Symbol of three filled points connected by a dotted triangle path",
             "rays": "Symbol of rays",
             "swiftdata": "Symbol of SwiftData",
