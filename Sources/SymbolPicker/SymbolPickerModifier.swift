@@ -9,11 +9,27 @@ import SwiftUI
 
 public struct SymbolPickerModifier: ViewModifier {
     var pickerData: SymbolPickerData
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @ViewBuilder public func body(content: Content) -> some View {
+        #if os(macOS)
         content
             .popover(isPresented: pickerData.isPresented){
                 SymbolPicker(for: pickerData)
             }
+        #else
+        if horizontalSizeClass == .regular{
+            content
+                .popover(isPresented: pickerData.isPresented){
+                    SymbolPicker(for: pickerData)
+                }
+        }else{
+            content
+                .sheet(isPresented: pickerData.isPresented){
+                    SymbolPicker(for: pickerData)
+                }
+        }
+        #endif
+
     }
     
     init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<[Double]>?, dismissOnSymbolChange: Bool = false, useFilledSymbols: Bool = true) {

@@ -25,7 +25,7 @@ private struct SymbolModifierColorFilledNotFilled: View {
                 Button("Not filled") {
                     isPicker2Presented.toggle()
                 }
-                .symbolPicker(isPresented: $isPicker2Presented, symbolName: $selectedSymbol, color: $selectedColor, dismissOnSymbolChange: true, useFilledSymbols: false)
+                .symbolPicker(isPresented: $isPicker2Presented, symbolName: $selectedSymbol, color: $selectedColor, dismissOnSymbolChange: false, useFilledSymbols: false)
             }
             Image(systemName: selectedSymbol)
                 .font(.system(size: 24))

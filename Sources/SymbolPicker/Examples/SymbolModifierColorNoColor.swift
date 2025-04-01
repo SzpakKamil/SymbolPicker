@@ -24,7 +24,7 @@ private struct SymbolModifierColorNoColor: View {
                 Button("No Color Selected") {
                     isPicker2Presented.toggle()
                 }
-                .symbolPicker(isPresented: $isPicker2Presented, symbolName: $selectedSymbol, color: $selectedColor, dismissOnSymbolChange: true)
+                .symbolPicker(isPresented: $isPicker2Presented, symbolName: $selectedSymbol, dismissOnSymbolChange: true)
             }
             Image(systemName: selectedSymbol)
                 .font(.system(size: 24))
