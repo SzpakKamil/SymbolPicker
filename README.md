@@ -1,10 +1,10 @@
 # `SymbolPicker`
 
-A native macOS component for browsing and selecting SF Symbols with style and color customization.
+A native Apple component for browsing and selecting SF Symbols with style and color customization.
 
 ## Overview
 
-SymbolPicker provides an elegant, native-feeling symbol picker for macOS applications. Built to seamlessly integrate with SwiftUI, this package makes it easy to incorporate Apple's SF Symbols into your application with a familiar interface that users will immediately understand.
+SymbolPicker provides an elegant, native-feeling symbol picker for Apple platforms. Built to seamlessly integrate with SwiftUI, this package makes it easy to incorporate Apple's SF Symbols into your application with a familiar interface that users will immediately understand.
 
 The package offers two primary ways to implement symbol picking:
 - The `SymbolPicker` view component for custom UI implementations
@@ -20,7 +20,10 @@ The package offers two primary ways to implement symbol picking:
 - Multiple color selection options (RGB values, SwiftUI Color, or predefined SymbolColor)
 - Option to use filled or outline symbol variants
 - Dark and light mode compatibility
-- macOS 11+ optimization
+- Cross-platform support:
+  - iOS 14+
+  - iPadOS 14+
+  - macOS 11+
 
 ## Symbol Picker Component
 
@@ -234,6 +237,54 @@ struct ContentView: View {
 }
 ```
 
+## iOS and iPadOS Implementation Notes
+
+The `.symbolPicker` view modifier automatically handles the appropriate presentation style based on the platform:
+
+- On iPhone (iOS), it uses sheets
+- On iPad (iPadOS), it uses popovers
+
+This means you don't need to manually implement different presentation methods for each platform. Simply use the `.symbolPicker` modifier and it will adapt appropriately:
+
+```swift
+import SwiftUI
+import SymbolPicker
+
+struct MobileContentView: View {
+    @State private var selectedSymbol: String = "star.fill"
+    @State private var symbolColor: SymbolColor = .blue
+    @State private var isPickerPresented: Bool = false
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                Image(systemName: selectedSymbol)
+                    .foregroundColor(symbolColor.color)
+                    .font(.system(size: 80))
+                    .padding()
+                
+                Text("Current symbol: \(selectedSymbol)")
+                    .font(.headline)
+                
+                Button("Select Symbol") {
+                    isPickerPresented.toggle()
+                }
+                .padding()
+            }
+            .navigationTitle("Symbol Picker Demo")
+            // The symbolPicker modifier automatically handles the correct 
+            // presentation style for each platform (sheet on iPhone, popover on iPad)
+            .symbolPicker(
+                isPresented: $isPickerPresented,
+                symbolName: $selectedSymbol,
+                color: $symbolColor,
+                useFilledSymbols: true
+            )
+        }
+    }
+}
+```
+
 ## Integration with Other Frameworks
 
 SymbolPicker is designed to work seamlessly with other SwiftUI components and can be easily integrated into various UI patterns:
@@ -245,6 +296,8 @@ SymbolPicker is designed to work seamlessly with other SwiftUI components and ca
 
 ## Requirements
 
+- iOS 14.0+
+- iPadOS 14.0+
 - macOS 11.0+
 - Swift 5.4+
 - Xcode 12.5+

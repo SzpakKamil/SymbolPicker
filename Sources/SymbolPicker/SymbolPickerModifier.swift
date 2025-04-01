@@ -17,7 +17,7 @@ public struct SymbolPickerModifier: ViewModifier {
                 SymbolPicker(for: pickerData)
             }
         #else
-        if horizontalSizeClass == .regular{
+        if UIDevice.current.userInterfaceIdiom == .pad{
             content
                 .popover(isPresented: pickerData.isPresented){
                     SymbolPicker(for: pickerData)
