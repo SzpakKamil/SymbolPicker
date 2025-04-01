@@ -23,6 +23,7 @@ public struct SymbolPickerNew: View {
         #endif
     }
     
+    #if !os(macOS)
     var usePopover: Bool{
         if #available(iOS 17.0, *) {
             UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .vision
@@ -30,7 +31,8 @@ public struct SymbolPickerNew: View {
             UIDevice.current.userInterfaceIdiom == .pad
         }
     }
-
+    #endif
+    
     #if os(macOS)
     @ViewBuilder public var contentMacOS: some View{
         VStack{
@@ -162,9 +164,12 @@ public struct SymbolPickerNew: View {
     }
     
     @ViewBuilder public var symbolsList: some View {
-        #if os(iOS) || os(visionOS)
+        #if os(iOS)
         let sizeWidth: CGFloat = 35
         let sizeHeight: CGFloat = 40
+        #elseif os(visionOS)
+        let sizeWidth: CGFloat = 28
+        let sizeHeight: CGFloat = 28
         #else
         let sizeWidth: CGFloat = 28
         let sizeHeight: CGFloat = 28
@@ -241,7 +246,13 @@ public struct SymbolPickerNew: View {
     public func colorOption(for color: SymbolColor) -> some View{
         #if os(macOS)
         let symbolName = pickerData.colorValue?.wrappedValue == color.color ? "checkmark.circle.fill" : "circle.fill"
+        let outlineColor = Color.black
         #else
+        #if os(visionOS)
+        let outlineColor = Color.primary
+        #else
+        let outlineColor = Color.white
+        #endif
         let symbolName = "circle.fill"
         #endif
         Button{
@@ -268,7 +279,7 @@ public struct SymbolPickerNew: View {
                 .padding(4.5)
                 .overlay(
                     Circle()
-                        .stroke(.black.opacity(pickerData.colorValue?.wrappedValue == color.color ? 0.2 : 0), lineWidth: 2.7)
+                        .stroke(outlineColor.opacity(pickerData.colorValue?.wrappedValue == color.color ? 0.2 : 0), lineWidth: 2.7)
                 )
                 #endif
             
@@ -283,32 +294,45 @@ public struct SymbolPickerNew: View {
     @ViewBuilder func symbolButton(for systemImage: String, description: String) -> some View {
         let primaryColor = colorScheme == .dark ? Color.white : Color.black
         let invertedColor = colorScheme == .dark ? Color.white : Color.black
+        #if os(iOS)
+        let sizeWidth: CGFloat = 28
+        let sizeHeight: CGFloat = 32
+        let cornerRadius: CGFloat = 9
+        let padding: CGFloat = 5
+        let backgroundPadding: CGFloat = 4
+        let foregroundColor = primaryColor.opacity(0.4)
+        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.1 : 0)
+        #elseif os(visonOS)
+        let sizeWidth: CGFloat = 22
+        let sizeHeight: CGFloat = 22
+        let cornerRadius: CGFloat = 15
+        let padding: CGFloat = 7
+        let backgroundPadding: CGFloat = 1
+        let foregroundColor = primaryColor.opacity(0.4)
+        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.1 : 0)
+        #else
+        let sizeWidth: CGFloat = 22
+        let sizeHeight: CGFloat = 22
+        let cornerRadius: CGFloat = 7
+        let padding: CGFloat = 5
+        let backgroundPadding: CGFloat = 4
+        let foregroundColor = pickerData.symbolName.wrappedValue == systemImage ? invertedColor :       primaryColor.opacity(0.8)
+        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.25 : 0)
+        #endif
         Button{
             pickerData.symbolName.wrappedValue = systemImage
             if pickerData.dismissOnSymbolChange{
                 dismiss()
             }
         }label:{
-            #if os(iOS) || os(visionOS)
-            let sizeWidth: CGFloat = 28
-            let sizeHeight: CGFloat = 32
-            let cornerRadius: CGFloat = 9
-            let padding: CGFloat = 5
-            let backgroundPadding: CGFloat = 4
-            let foregroundColor = primaryColor.opacity(0.4)
-            let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.1 : 0)
-            #else
-            let sizeWidth: CGFloat = 22
-            let sizeHeight: CGFloat = 22
-            let cornerRadius: CGFloat = 7
-            let padding: CGFloat = 5
-            let backgroundPadding: CGFloat = 4
-            let foregroundColor = pickerData.symbolName.wrappedValue == systemImage ? invertedColor : primaryColor.opacity(0.8)
-            let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.25 : 0)
-            #endif
+
             if #available(macOS 13.0, iOS 16.0, visionOS 1.0, *) {
                 Image(systemName: systemImage)
+                    #if os(visionOS)
+                    .imageScale(.medium)
+                    #else
                     .imageScale(.large)
+                    #endif
                     .frame(width: sizeWidth, height: sizeHeight)
                     .fontWeight(.medium)
                     .padding(.vertical, padding)
@@ -317,11 +341,7 @@ public struct SymbolPickerNew: View {
                     .spForegroundStyle(foregroundColor)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
                     .padding(.vertical, 4)
-                    .padding(.horizontal, backgroundPadding)
                     .background(.gray.opacity(0.001))
-                    .accessibilityElement()
-                    .accessibilityLabel(description)
-                    .accessibilityAddTraits([.isButton, .isImage])
             } else {
                 Image(systemName: systemImage)
                     .imageScale(.large)
@@ -332,14 +352,15 @@ public struct SymbolPickerNew: View {
                     .spForegroundStyle(foregroundColor)
                     .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
                     .padding(.vertical, 4)
-                    .padding(.horizontal, backgroundPadding)
                     .background(Color.gray.opacity(0.001))
-                    .accessibilityElement()
-                    .accessibilityLabel(description)
-                    .accessibilityAddTraits([.isButton, .isImage])
+
             }
         }
+        .accessibilityElement()
+        .accessibilityLabel(description)
+        .accessibilityAddTraits([.isButton, .isImage])
         .buttonStyle(.plain)
+        .padding(.horizontal, backgroundPadding)
     }
     
 
@@ -351,5 +372,5 @@ public struct SymbolPickerNew: View {
 }
 #Preview {
     Text("Fix")
-        .symbolPicker(isPresented: .constant(true), symbolName: .constant("car"))
+        .symbolPicker(isPresented: .constant(true), symbolName: .constant("car.fill"), color: .constant(SymbolColor.blue))
 }

@@ -11,6 +11,7 @@ public struct SymbolPickerModifier: ViewModifier {
     var pickerData: SymbolPickerData
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
+    #if !os(macOS)
     var usePopover: Bool{
         if #available(iOS 17.0, *) {
             UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .vision
@@ -18,6 +19,7 @@ public struct SymbolPickerModifier: ViewModifier {
             UIDevice.current.userInterfaceIdiom == .pad
         }
     }
+    #endif
 
     @ViewBuilder public func body(content: Content) -> some View {
         #if os(macOS)

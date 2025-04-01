@@ -16,6 +16,8 @@ public struct SymbolPickerOld: View {
     var pickerData: SymbolPickerData
     @State private var searchText = ""
     
+    
+    #if !os(macOS)
     var usePopover: Bool{
         if #available(iOS 17.0, *) {
             UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .vision
@@ -23,7 +25,7 @@ public struct SymbolPickerOld: View {
             UIDevice.current.userInterfaceIdiom == .pad
         }
     }
-
+    #endif
     public var body: some View {
         #if os(macOS)
         contentMacOS
@@ -183,12 +185,17 @@ public struct SymbolPickerOld: View {
     }
     
 
-    
     @ViewBuilder
     public func colorOption(for color: SymbolColor) -> some View{
         #if os(macOS)
         let symbolName = pickerData.colorValue?.wrappedValue == color.color ? "checkmark.circle.fill" : "circle.fill"
+        let outlineColor = Color.black
         #else
+        #if os(visionOS)
+        let outlineColor = Color.primary
+        #else
+        let outlineColor = Color.white
+        #endif
         let symbolName = "circle.fill"
         #endif
         Button{
@@ -215,7 +222,7 @@ public struct SymbolPickerOld: View {
                 .padding(4.5)
                 .overlay(
                     Circle()
-                        .stroke(.black.opacity(pickerData.colorValue?.wrappedValue == color.color ? 0.2 : 0), lineWidth: 2.7)
+                        .stroke(outlineColor.opacity(pickerData.colorValue?.wrappedValue == color.color ? 0.2 : 0), lineWidth: 2.7)
                 )
                 #endif
             
@@ -230,63 +237,53 @@ public struct SymbolPickerOld: View {
     @ViewBuilder func symbolButton(for systemImage: String, description: String) -> some View {
         let primaryColor = colorScheme == .dark ? Color.white : Color.black
         let invertedColor = colorScheme == .dark ? Color.white : Color.black
+        #if os(iOS)
+        let sizeWidth: CGFloat = 28
+        let sizeHeight: CGFloat = 32
+        let cornerRadius: CGFloat = 9
+        let padding: CGFloat = 5
+        let backgroundPadding: CGFloat = 4
+        let foregroundColor = primaryColor.opacity(0.4)
+        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.1 : 0)
+        #elseif os(visonOS)
+        let sizeWidth: CGFloat = 22
+        let sizeHeight: CGFloat = 22
+        let cornerRadius: CGFloat = 15
+        let padding: CGFloat = 7
+        let backgroundPadding: CGFloat = 1
+        let foregroundColor = primaryColor.opacity(0.4)
+        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.1 : 0)
+        #else
+        let sizeWidth: CGFloat = 22
+        let sizeHeight: CGFloat = 22
+        let cornerRadius: CGFloat = 7
+        let padding: CGFloat = 5
+        let backgroundPadding: CGFloat = 4
+        let foregroundColor = pickerData.symbolName.wrappedValue == systemImage ? invertedColor :       primaryColor.opacity(0.8)
+        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.25 : 0)
+        #endif
         Button{
             pickerData.symbolName.wrappedValue = systemImage
             if pickerData.dismissOnSymbolChange{
                 pickerData.isPresented.wrappedValue = false
             }
         }label:{
-            #if os(iOS) || os(visionOS)
-            let sizeWidth: CGFloat = 28
-            let sizeHeight: CGFloat = 32
-            let cornerRadius: CGFloat = 9
-            let padding: CGFloat = 5
-            let backgroundPadding: CGFloat = 4
-            let foregroundColor = primaryColor.opacity(0.4)
-            let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.1 : 0)
-            #else
-            let sizeWidth: CGFloat = 22
-            let sizeHeight: CGFloat = 22
-            let cornerRadius: CGFloat = 7
-            let padding: CGFloat = 5
-            let backgroundPadding: CGFloat = 4
-            let foregroundColor = pickerData.symbolName.wrappedValue == systemImage ? invertedColor : primaryColor.opacity(0.8)
-            let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.25 : 0)
-            #endif
-            if #available(macOS 13.0, iOS 16.0, *) {
-                Image(systemName: systemImage)
-                    .imageScale(.large)
-                    .frame(width: sizeWidth, height: sizeHeight)
-                    .fontWeight(.medium)
-                    .padding(.vertical, padding)
-                    .padding(.horizontal, padding)
-                    .background(backgroundColor)
-                    .spForegroundStyle(foregroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, backgroundPadding)
-                    .background(.gray.opacity(0.001))
-                    .accessibilityElement()
-                    .accessibilityLabel(description)
-                    .accessibilityAddTraits([.isButton, .isImage])
-            } else {
-                Image(systemName: systemImage)
-                    .imageScale(.large)
-                    .frame(width: sizeWidth, height: sizeHeight)
-                    .padding(.vertical, padding)
-                    .padding(.horizontal, padding)
-                    .background(backgroundColor)
-                    .spForegroundStyle(foregroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, backgroundPadding)
-                    .background(Color.gray.opacity(0.001))
-                    .accessibilityElement()
-                    .accessibilityLabel(description)
-                    .accessibilityAddTraits([.isButton, .isImage])
-            }
+            Image(systemName: systemImage)
+                .imageScale(.large)
+                .frame(width: sizeWidth, height: sizeHeight)
+                .padding(.vertical, padding)
+                .padding(.horizontal, padding)
+                .background(backgroundColor)
+                .spForegroundStyle(foregroundColor)
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+                .padding(.vertical, 4)
+                .background(Color.gray.opacity(0.001))
         }
+        .accessibilityElement()
+        .accessibilityLabel(description)
+        .accessibilityAddTraits([.isButton, .isImage])
         .buttonStyle(.plain)
+        .padding(.horizontal, backgroundPadding)
     }
     
 
