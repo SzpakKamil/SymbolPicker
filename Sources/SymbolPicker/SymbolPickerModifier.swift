@@ -10,6 +10,15 @@ import SwiftUI
 public struct SymbolPickerModifier: ViewModifier {
     var pickerData: SymbolPickerData
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    var usePopover: Bool{
+        if #available(iOS 17.0, *) {
+            UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .vision
+        } else {
+            UIDevice.current.userInterfaceIdiom == .pad
+        }
+    }
+
     @ViewBuilder public func body(content: Content) -> some View {
         #if os(macOS)
         content
@@ -17,7 +26,7 @@ public struct SymbolPickerModifier: ViewModifier {
                 SymbolPicker(for: pickerData)
             }
         #else
-        if UIDevice.current.userInterfaceIdiom == .pad{
+        if usePopover{
             content
                 .popover(isPresented: pickerData.isPresented){
                     SymbolPicker(for: pickerData)
@@ -29,7 +38,6 @@ public struct SymbolPickerModifier: ViewModifier {
                 }
         }
         #endif
-
     }
     
     init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<[Double]>?, dismissOnSymbolChange: Bool = false, useFilledSymbols: Bool = true) {

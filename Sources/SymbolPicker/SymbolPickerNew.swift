@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(macOS 12.0, iOS 15.0, *)
+@available(macOS 12.0, iOS 15.0, visionOS 1.0, *)
 public struct SymbolPickerNew: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -22,6 +22,14 @@ public struct SymbolPickerNew: View {
         contentIOS
         #endif
     }
+    
+    var usePopover: Bool{
+        if #available(iOS 17.0, *) {
+            UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .vision
+        } else {
+            UIDevice.current.userInterfaceIdiom == .pad
+        }
+    }
 
     #if os(macOS)
     @ViewBuilder public var contentMacOS: some View{
@@ -29,7 +37,7 @@ public struct SymbolPickerNew: View {
             if pickerData.colorValue?.wrappedValue != .clear{
                 colorPicker
             }
-            if #available(macOS 13.0, iOS 16.0, *) {
+            if #available(iOS 16.0, macOS 13.0, visionOS 1.0, *) {
                 searchField
                     .padding(.top, pickerData.colorValue?.wrappedValue != .clear ? 0 : 10)
             }
@@ -40,9 +48,9 @@ public struct SymbolPickerNew: View {
     }
     #endif
     
-    #if os(iOS)
+    #if os(iOS) || os(visionOS)
     @ViewBuilder public var contentIOS: some View{
-        if #available(iOS 16.0, *) {
+        if #available(iOS 16.0, macOS 13.0, visionOS 1.0, *) {
             NavigationStack{
                 List{
                     selectedSymbolView
@@ -64,13 +72,13 @@ public struct SymbolPickerNew: View {
                                 .tint(.primary)
                                 .symbolRenderingMode(.hierarchical)
                         }
-                        .opacity(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 1)
+                        .opacity(usePopover ? 0 : 1)
                         .allowsHitTesting(UIDevice.current.userInterfaceIdiom != .pad)
                     }
                 }
-                .padding(.top, UIDevice.current.userInterfaceIdiom == .pad ? 0 : -30)
+                .padding(.top, usePopover ? 0 : -30)
             }
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 350 : nil, height: UIDevice.current.userInterfaceIdiom == .pad ? 500 : nil)
+            .frame(width: usePopover ? 350 : nil, height: usePopover ? 500 : nil)
         } else {
             NavigationView{
                 List{
@@ -92,19 +100,19 @@ public struct SymbolPickerNew: View {
                                 .tint(.primary)
                                 .symbolRenderingMode(.hierarchical)
                         }
-                        .opacity(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 1)
-                        .allowsHitTesting(UIDevice.current.userInterfaceIdiom != .pad)
+                        .opacity(usePopover ? 0 : 1)
+                        .allowsHitTesting(!usePopover)
                     }
                 }
                 .padding(.top, -30)
             }
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 400 : nil, height: UIDevice.current.userInterfaceIdiom == .pad ? 430 : nil)
+            .frame(width: usePopover ? 400 : nil, height: usePopover ? 430 : nil)
         }
     }
     #endif
     
     
-    @available(macOS 13.0, iOS 16.0, *)
+    @available(macOS 13.0, iOS 16.0, visionOS 1.0, *)
     @ViewBuilder public var searchField: some View{
         List{}
             .offset(y: -10)
@@ -132,7 +140,7 @@ public struct SymbolPickerNew: View {
     }
     
     @ViewBuilder public var colorPicker: some View{
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         let size: CGFloat = 40
         #else
         let size: CGFloat = 21
@@ -154,7 +162,7 @@ public struct SymbolPickerNew: View {
     }
     
     @ViewBuilder public var symbolsList: some View {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         let sizeWidth: CGFloat = 35
         let sizeHeight: CGFloat = 40
         #else
@@ -184,7 +192,7 @@ public struct SymbolPickerNew: View {
                             Text(key.components(separatedBy: "_").last ?? "")
                                 .font(.callout)
                                 .fontWeight(.semibold)
-                            #if os(iOS)
+                            #if os(iOS) || os(visionOS)
                                 .spForegroundStyle(Color.primary)
                             #else
                                 .spForegroundStyle(Color.primary.opacity(0.4))
@@ -242,7 +250,7 @@ public struct SymbolPickerNew: View {
             Image(systemName: symbolName)
                 .resizable()
                 .scaledToFit()
-                #if os(iOS)
+                #if os(iOS) || os(visionOS)
                 .overlay(
                     Circle()
                         .stroke(.black.opacity(0.05), lineWidth: 2)
@@ -281,7 +289,7 @@ public struct SymbolPickerNew: View {
                 dismiss()
             }
         }label:{
-            #if os(iOS)
+            #if os(iOS) || os(visionOS)
             let sizeWidth: CGFloat = 28
             let sizeHeight: CGFloat = 32
             let cornerRadius: CGFloat = 9
@@ -298,7 +306,7 @@ public struct SymbolPickerNew: View {
             let foregroundColor = pickerData.symbolName.wrappedValue == systemImage ? invertedColor : primaryColor.opacity(0.8)
             let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.25 : 0)
             #endif
-            if #available(macOS 13.0, iOS 16.0, *) {
+            if #available(macOS 13.0, iOS 16.0, visionOS 1.0, *) {
                 Image(systemName: systemImage)
                     .imageScale(.large)
                     .frame(width: sizeWidth, height: sizeHeight)
@@ -340,4 +348,8 @@ public struct SymbolPickerNew: View {
     }
     
 
+}
+#Preview {
+    Text("Fix")
+        .symbolPicker(isPresented: .constant(true), symbolName: .constant("car"))
 }
