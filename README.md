@@ -1,5 +1,8 @@
 # `SymbolPicker`
 
+![Banner](./Resources/Banner.jpg)
+
+
 A native Apple component for browsing and selecting SF Symbols with style and color customization.
 
 ## Overview
@@ -294,6 +297,23 @@ SymbolPicker is designed to work seamlessly with other SwiftUI components and ca
 - Incorporate into `List` for selection interfaces
 - Use with `TabView` for multi-pane interfaces
 
+## Installation
+
+### Swift Package Manager
+
+Add the following to your `Package.swift` file:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/SzpakKamil/SymbolPicker.git", from: "0.5.0")
+]
+```
+
+Or add it directly via Xcode:
+1. File > Swift Packages > Add Package Dependency
+2. Enter package URL: `https://github.com/SzpakKamil/SymbolPicker.git`
+3. Select the version you want to use
+
 ## Requirements
 
 - iOS 14.0+
@@ -301,3 +321,7 @@ SymbolPicker is designed to work seamlessly with other SwiftUI components and ca
 - macOS 11.0+
 - Swift 5.4+
 - Xcode 12.5+
+
+## License
+
+SymbolPicker is available under the MIT license.
