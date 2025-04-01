@@ -10,6 +10,7 @@ import SwiftUI
 @available(macOS 12.0, iOS 15.0, *)
 public struct SymbolPickerNew: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.colorScheme) var colorScheme
     var pickerData: SymbolPickerData
     @State private var searchText = ""
@@ -64,11 +65,12 @@ public struct SymbolPickerNew: View {
                                 .symbolRenderingMode(.hierarchical)
                         }
                         .opacity(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 1)
-                        .allowsHitTesting(UIDevice.current.userInterfaceIdiom == .pad)
+                        .allowsHitTesting(UIDevice.current.userInterfaceIdiom != .pad)
                     }
                 }
-                .padding(.top, UIDevice.current.userInterfaceIdiom == .pad ? -15 : -30)
+                .padding(.top, UIDevice.current.userInterfaceIdiom == .pad ? 0 : -30)
             }
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 350 : nil, height: UIDevice.current.userInterfaceIdiom == .pad ? 500 : nil)
         } else {
             NavigationView{
                 List{
@@ -91,11 +93,12 @@ public struct SymbolPickerNew: View {
                                 .symbolRenderingMode(.hierarchical)
                         }
                         .opacity(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 1)
-                        .allowsHitTesting(UIDevice.current.userInterfaceIdiom == .pad)
+                        .allowsHitTesting(UIDevice.current.userInterfaceIdiom != .pad)
                     }
                 }
                 .padding(.top, -30)
             }
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 400 : nil, height: UIDevice.current.userInterfaceIdiom == .pad ? 430 : nil)
         }
     }
     #endif

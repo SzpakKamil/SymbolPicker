@@ -11,6 +11,7 @@ import SwiftUI
 @available(macOS, deprecated: 12.0, message: "Use the newer initializer available in macOS 12.0+ SymbolPicker(for: SymbolPickerData)")
 @available(iOS, deprecated: 15.0, message: "Use the newer initializer available in macOS 12.0+ SymbolPicker(for: SymbolPickerData)")
 public struct SymbolPickerOld: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.colorScheme) var colorScheme
     var pickerData: SymbolPickerData
     @State private var searchText = ""
@@ -52,25 +53,14 @@ public struct SymbolPickerOld: View {
                         pickerData.isPresented.wrappedValue = false
                     }
                     .opacity(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 1)
-                    .allowsHitTesting(UIDevice.current.userInterfaceIdiom == .pad)
+                    .allowsHitTesting(UIDevice.current.userInterfaceIdiom != .pad)
                 }
             }
-            .padding(.top, UIDevice.current.userInterfaceIdiom == .pad ? -15 : -30)
+            .padding(.top, UIDevice.current.userInterfaceIdiom == .pad ? 0 : -30)
         }
+        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 400 : nil, height: UIDevice.current.userInterfaceIdiom == .pad ? 430 : nil)
     }
     #endif
-    
-    
-    @available(macOS 13.0, iOS 16.0, *)
-    @ViewBuilder public var searchField: some View{
-        List{}
-            .offset(y: -10)
-            .listStyle(.sidebar)
-            .scrollContentBackground(.hidden)
-            .searchable(text: $searchText, placement: .sidebar, prompt: "Search Symbols")
-            .scrollDisabled(true)
-            .frame(height: 41)
-    }
     
     @ViewBuilder public var selectedSymbolView: some View{
         HStack{
