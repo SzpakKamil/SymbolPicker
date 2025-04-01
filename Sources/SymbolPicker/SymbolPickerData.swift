@@ -52,7 +52,7 @@ public struct SymbolPickerData {
           "opticaldiscdrive": "Symbol of an optical disc drive",
           "hearingdevice.ear": "Symbol of a hearing device",
           "hifispeaker": "Symbol of a HiFi speaker",
-          "tv.and.hifispeaker": "Symbol of a TV with a HiFi speaker",
+          "tv.and.hifispeaker.fill": "Symbol of a TV with a HiFi speaker",
           "earpods": "Symbol of earpods",
           "airpods": "Symbol of AirPods",
           "airpods.gen3": "Symbol of AirPods Gen 3",
@@ -1965,6 +1965,31 @@ public struct SymbolPickerData {
         } else {
             self.colorValue = .constant(.clear)
         }
+    }
+    
+    // Helper function to get filtered and sorted symbol keys
+    public func getFilteredSymbolKeys(from dictionary: [String: [String: String]], matching searchText: String) -> [String] {
+        var uniqueSymbols = Set<String>()
+        
+        for (_, sectionSymbols) in dictionary {
+            for (symbolName, symbolDescription) in sectionSymbols {
+                if symbolDescription.localizedStandardContains(searchText) {
+                    uniqueSymbols.insert(symbolName)
+                }
+            }
+        }
+        
+        return uniqueSymbols.sorted()
+    }
+
+    // Helper function to get symbol description
+    public func getSymbolDescription(for symbolName: String, in dictionary: [String: [String: String]]) -> String {
+        for (_, sectionSymbols) in dictionary {
+            if let description = sectionSymbols[symbolName] {
+                return description
+            }
+        }
+        return ""
     }
     
     public init(isPresented: Binding<Bool>, symbolName: Binding<String>, dismissOnSymbolChange: Bool = false, useFilledSymbols: Bool = true) {

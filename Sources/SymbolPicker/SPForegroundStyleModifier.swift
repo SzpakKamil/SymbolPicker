@@ -10,7 +10,7 @@ import SwiftUI
 struct SPForegroundStyleModifier: ViewModifier {
     let color: Color
     func body(content: Content) -> some View {
-        if #available(macOS 12.0, *) {
+        if #available(macOS 12.0, iOS 15.0, *) {
             content
                 .foregroundStyle(color)
         } else {
