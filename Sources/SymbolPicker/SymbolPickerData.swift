@@ -1,5 +1,6 @@
 import SwiftUI
 
+@MainActor
 public struct SymbolPickerData {
     public var isPresented: Binding<Bool>
     public var symbolName: Binding<String>
@@ -1910,6 +1911,7 @@ public struct SymbolPickerData {
             self.colorValue = .constant(.clear)
         }
     }
+    
     
     public init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<SymbolColor>?, dismissOnSymbolChange: Bool = false, useFilledSymbols: Bool = true) {
         self.symbolName = symbolName
