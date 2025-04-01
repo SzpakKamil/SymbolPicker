@@ -341,12 +341,3 @@ public struct SymbolPickerNew: View {
     
 
 }
-
-
-#Preview {
-    Text("Text")
-        .popover(isPresented: .constant(true)) {
-            SymbolPicker(for: .init(isPresented: .constant(true), symbolName: .constant("car.fill"), color: .constant(SymbolColor.red)))
-        }
-
-}
