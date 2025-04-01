@@ -10,7 +10,6 @@ import SwiftUI
 @available(macOS 12.0, iOS 15.0, *)
 public struct SymbolPickerNew: View {
     @Environment(\.dismiss) var dismiss
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.colorScheme) var colorScheme
     var pickerData: SymbolPickerData
     @State private var searchText = ""
@@ -50,7 +49,6 @@ public struct SymbolPickerNew: View {
                     symbolsList
                 }
                 .listRowSpacing(15)
-                .frame(width: horizontalSizeClass == .regular ? 400 : nil, height: horizontalSizeClass == .regular ? 430 : nil)
                 .navigationTitle("Icon")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar{
@@ -65,11 +63,11 @@ public struct SymbolPickerNew: View {
                                 .tint(.primary)
                                 .symbolRenderingMode(.hierarchical)
                         }
-                        .opacity(horizontalSizeClass == .regular ? 0 : 1)
-                        .allowsHitTesting(horizontalSizeClass != .regular)
+                        .opacity(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 1)
+                        .allowsHitTesting(UIDevice.current.userInterfaceIdiom == .pad)
                     }
                 }
-                .padding(.top, horizontalSizeClass == .regular ? -15 : -30)
+                .padding(.top, UIDevice.current.userInterfaceIdiom == .pad ? -15 : -30)
             }
         } else {
             NavigationView{
@@ -79,7 +77,6 @@ public struct SymbolPickerNew: View {
                     symbolsList
                 }
                 .listRowSpacing(15)
-                .frame(width: horizontalSizeClass == .regular ? 400 : nil, height: horizontalSizeClass == .regular ? 430 : nil)
                 .navigationTitle("Icon")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar{
@@ -93,8 +90,8 @@ public struct SymbolPickerNew: View {
                                 .tint(.primary)
                                 .symbolRenderingMode(.hierarchical)
                         }
-                        .opacity(horizontalSizeClass == .regular ? 0 : 1)
-                        .allowsHitTesting(horizontalSizeClass != .regular)
+                        .opacity(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 1)
+                        .allowsHitTesting(UIDevice.current.userInterfaceIdiom == .pad)
                     }
                 }
                 .padding(.top, -30)
