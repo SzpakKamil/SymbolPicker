@@ -11,7 +11,6 @@ import SwiftUI
 @available(macOS, deprecated: 12.0, message: "Use the newer initializer available in macOS 12.0+ SymbolPicker(for: SymbolPickerData)")
 @available(iOS, deprecated: 15.0, message: "Use the newer initializer available in macOS 12.0+ SymbolPicker(for: SymbolPickerData)")
 public struct SymbolPickerOld: View {
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.colorScheme) var colorScheme
     var pickerData: SymbolPickerData
     @State private var searchText = ""
@@ -45,7 +44,6 @@ public struct SymbolPickerOld: View {
                 if pickerData.colorValue?.wrappedValue != .clear{ colorPicker }
                 symbolsList
             }
-            .frame(width: horizontalSizeClass == .regular ? 400 : nil, height: horizontalSizeClass == .regular ? 430 : nil)
             .navigationTitle("Icon")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
@@ -53,11 +51,11 @@ public struct SymbolPickerOld: View {
                     Button("OK"){
                         pickerData.isPresented.wrappedValue = false
                     }
-                    .opacity(horizontalSizeClass == .regular ? 0 : 1)
-                    .allowsHitTesting(horizontalSizeClass != .regular)
+                    .opacity(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 1)
+                    .allowsHitTesting(UIDevice.current.userInterfaceIdiom == .pad)
                 }
             }
-            .padding(.top, -30)
+            .padding(.top, UIDevice.current.userInterfaceIdiom == .pad ? -15 : -30)
         }
     }
     #endif
