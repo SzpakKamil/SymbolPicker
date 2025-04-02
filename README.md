@@ -1,6 +1,6 @@
 # `SymbolPicker`
 
-![Banner](./Resources/Banner.jpg)
+![Banner](./Resources/SymbolPickerBanner.jpg)
 
 
 A native Apple component for browsing and selecting SF Symbols with style and color customization.
