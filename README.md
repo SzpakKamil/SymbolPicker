@@ -27,6 +27,7 @@ The package offers two primary ways to implement symbol picking:
   - iOS 14+
   - iPadOS 14+
   - macOS 11+
+  - visionOS 1.0+
 
 ## Symbol Picker Component
 
@@ -240,12 +241,13 @@ struct ContentView: View {
 }
 ```
 
-## iOS and iPadOS Implementation Notes
+## iOS, iPadOS, and visionOS Implementation Notes
 
 The `.symbolPicker` view modifier automatically handles the appropriate presentation style based on the platform:
 
 - On iPhone (iOS), it uses sheets
 - On iPad (iPadOS), it uses popovers
+- On Vision Pro (visionOS), it uses popovers
 
 This means you don't need to manually implement different presentation methods for each platform. Simply use the `.symbolPicker` modifier and it will adapt appropriately:
 
@@ -305,7 +307,7 @@ Add the following to your `Package.swift` file:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/SzpakKamil/SymbolPicker.git", from: "0.5.0")
+    .package(url: "https://github.com/SzpakKamil/SymbolPicker.git", from: "0.6.0")
 ]
 ```
 
@@ -318,6 +320,7 @@ Or add it directly via Xcode:
 
 - iOS 14.0+
 - iPadOS 14.0+
+- visionOS 1.0+
 - macOS 11.0+
 - Swift 5.4+
 - Xcode 12.5+
