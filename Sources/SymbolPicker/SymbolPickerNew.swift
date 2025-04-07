@@ -14,13 +14,22 @@ public struct SymbolPickerNew: View {
     @Environment(\.colorScheme) var colorScheme
     var pickerData: SymbolPickerData
     @State private var searchText = ""
+    @State private var symbolDictionary: [SymbolSection] = []
 
     public var body: some View {
-        #if os(macOS)
-        contentMacOS
-        #else
-        contentIOS
-        #endif
+        Group{
+            #if os(macOS)
+            contentMacOS
+            #else
+            contentIOS
+            #endif
+        }
+        .onAppear{
+            symbolDictionary = [pickerData.symbolSections[0], pickerData.symbolSections[1]]
+        }
+        .task {
+            symbolDictionary = pickerData.symbolSections
+        }
     }
     
     #if !os(macOS)
@@ -174,17 +183,13 @@ public struct SymbolPickerNew: View {
         let sizeWidth: CGFloat = 28
         let sizeHeight: CGFloat = 28
         #endif
-        let symbolDictionary = pickerData.useFilledSymbols ? pickerData.symbolDictionaryFilled : pickerData.symbolDictionaryNotFilled
         ScrollView(.vertical) {
             if searchText.isEmpty {
-                let keys = symbolDictionary.keys.sorted { Int($0.components(separatedBy: "_")[0]) ?? 0 < Int($1.components(separatedBy: "_")[0]) ?? 0 }
-                ForEach(keys, id: \.self) { key in
+                ForEach(symbolDictionary) { section in
                     Section {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: sizeWidth, maximum: sizeHeight))]) {
-                            ForEach(symbolDictionary[key]?.keys.sorted() ?? [], id: \.self) { symbolName in
-                                if let symbolDescription = symbolDictionary[key]?[symbolName] {
-                                    symbolButton(for: symbolName, description: symbolDescription)
-                                }
+                            ForEach(section.symbols) { symbol in
+                                symbolButton(for: symbol)
                             }
                         }
                         #if os(macOS)
@@ -194,7 +199,7 @@ public struct SymbolPickerNew: View {
                         #endif
                     } header: {
                         HStack {
-                            Text(key.components(separatedBy: "_").last ?? "")
+                            Text(section.title)
                                 .font(.callout)
                                 .fontWeight(.semibold)
                             #if os(iOS) || os(visionOS)
@@ -214,12 +219,9 @@ public struct SymbolPickerNew: View {
                 .padding(.top, 5)
                 #endif
             } else {
-                let sortedKeys = pickerData.getFilteredSymbolKeys(from: symbolDictionary, matching: searchText)
-                
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: sizeWidth, maximum: sizeHeight))]) {
-                    ForEach(sortedKeys, id: \.self) { symbolName in
-                        let description = pickerData.getSymbolDescription(for: symbolName, in: symbolDictionary)
-                        symbolButton(for: symbolName, description: description)
+                    ForEach(pickerData.getFilteredSymbolKeys(matching: searchText)) { symbol in
+                        symbolButton(for: symbol)
                     }
                 }
                 .drawingGroup()
@@ -291,7 +293,7 @@ public struct SymbolPickerNew: View {
         .buttonStyle(.plain)
     }
     
-    @ViewBuilder func symbolButton(for systemImage: String, description: String) -> some View {
+    @ViewBuilder func symbolButton(for symbolModel: SymbolModel) -> some View {
         let primaryColor = colorScheme == .dark ? Color.white : Color.black
         let invertedColor = colorScheme == .dark ? Color.white : Color.black
         #if os(iOS)
@@ -301,7 +303,7 @@ public struct SymbolPickerNew: View {
         let padding: CGFloat = 5
         let backgroundPadding: CGFloat = 4
         let foregroundColor = primaryColor.opacity(0.4)
-        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.1 : 0)
+        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == (pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName) ? 0.1 : 0)
         #elseif os(visonOS)
         let sizeWidth: CGFloat = 22
         let sizeHeight: CGFloat = 22
@@ -309,25 +311,25 @@ public struct SymbolPickerNew: View {
         let padding: CGFloat = 7
         let backgroundPadding: CGFloat = 1
         let foregroundColor = primaryColor.opacity(0.4)
-        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.1 : 0)
+        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == (pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName) ? 0.1 : 0)
         #else
         let sizeWidth: CGFloat = 22
         let sizeHeight: CGFloat = 22
         let cornerRadius: CGFloat = 7
         let padding: CGFloat = 5
         let backgroundPadding: CGFloat = 4
-        let foregroundColor = pickerData.symbolName.wrappedValue == systemImage ? invertedColor :       primaryColor.opacity(0.8)
-        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == systemImage ? 0.25 : 0)
+        let foregroundColor = pickerData.symbolName.wrappedValue == (pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName) ? invertedColor :       primaryColor.opacity(0.8)
+        let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == (pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName) ? 0.25 : 0)
         #endif
         Button{
-            pickerData.symbolName.wrappedValue = systemImage
+            pickerData.symbolName.wrappedValue = pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName
             if pickerData.dismissOnSymbolChange{
                 dismiss()
             }
         }label:{
 
             if #available(macOS 13.0, iOS 16.0, visionOS 1.0, *) {
-                Image(systemName: systemImage)
+                Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
                     #if os(visionOS)
                     .imageScale(.medium)
                     #else
@@ -343,7 +345,7 @@ public struct SymbolPickerNew: View {
                     .padding(.vertical, 4)
                     .background(.gray.opacity(0.001))
             } else {
-                Image(systemName: systemImage)
+                Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
                     .imageScale(.large)
                     .frame(width: sizeWidth, height: sizeHeight)
                     .padding(.vertical, padding)
@@ -357,7 +359,7 @@ public struct SymbolPickerNew: View {
             }
         }
         .accessibilityElement()
-        .accessibilityLabel(description)
+        .accessibilityLabel(symbolModel.description)
         .accessibilityAddTraits([.isButton, .isImage])
         .buttonStyle(.plain)
         .padding(.horizontal, backgroundPadding)
