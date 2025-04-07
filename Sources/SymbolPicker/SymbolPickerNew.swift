@@ -26,9 +26,9 @@ public struct SymbolPickerNew: View {
         }
         .onAppear{
             symbolDictionary = [pickerData.symbolSections[0], pickerData.symbolSections[1]]
-        }
-        .task {
-            symbolDictionary = pickerData.symbolSections
+            Task{
+                symbolDictionary = pickerData.symbolSections
+            }
         }
     }
     
