@@ -16,7 +16,13 @@ public struct SymbolPickerOld: View {
     var pickerData: SymbolPickerData
     @State private var searchText = ""
     @State private var symbolDictionary: [SymbolSection] = []
-
+    
+    #if !os(macOS)
+    var usePopover: Bool{
+        UIDevice.current.userInterfaceIdiom == .pad
+    }
+    #endif
+    
     public var body: some View {
         Group{
             #if os(macOS)
@@ -27,31 +33,17 @@ public struct SymbolPickerOld: View {
         }
         .onAppear{
             symbolDictionary = [pickerData.symbolSections[0], pickerData.symbolSections[1]]
-        }
-        .task {
-            symbolDictionary = pickerData.symbolSections
-        }
-    }
-    
-    #if !os(macOS)
-    var usePopover: Bool{
-        if #available(iOS 17.0, *) {
-            UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .vision
-        } else {
-            UIDevice.current.userInterfaceIdiom == .pad
+            Task{
+                symbolDictionary = pickerData.symbolSections
+            }
         }
     }
-    #endif
-    
+
     #if os(macOS)
     @ViewBuilder public var contentMacOS: some View{
         VStack{
             if pickerData.colorValue?.wrappedValue != .clear{
                 colorPicker
-            }
-            if #available(iOS 16.0, macOS 13.0, visionOS 1.0, *) {
-                searchField
-                    .padding(.top, pickerData.colorValue?.wrappedValue != .clear ? 0 : 10)
             }
             symbolsList
             Spacer()
@@ -68,41 +60,22 @@ public struct SymbolPickerOld: View {
                 if pickerData.colorValue?.wrappedValue != .clear{ colorPicker }
                 symbolsList
             }
-            .listRowSpacing(15)
             .navigationTitle("Icon")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
-                ToolbarItem(placement: .topBarTrailing){
-                    Button{
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("OK"){
                         pickerData.isPresented.wrappedValue = false
-                    }label:{
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title3)
-                            .foregroundStyle(.secondary)
-                            .tint(.primary)
-                            .symbolRenderingMode(.hierarchical)
                     }
                     .opacity(usePopover ? 0 : 1)
                     .allowsHitTesting(!usePopover)
                 }
             }
-            .padding(.top, -30)
+            .padding(.top, usePopover ? 0 : -30)
         }
         .frame(width: usePopover ? 400 : nil, height: usePopover ? 430 : nil)
     }
     #endif
-    
-    
-    @available(macOS 13.0, iOS 16.0, visionOS 1.0, *)
-    @ViewBuilder public var searchField: some View{
-        List{}
-            .offset(y: -10)
-            .listStyle(.sidebar)
-            .scrollContentBackground(.hidden)
-            .searchable(text: $searchText, placement: .sidebar, prompt: "Search Symbols")
-            .scrollDisabled(true)
-            .frame(height: 41)
-    }
     
     @ViewBuilder public var selectedSymbolView: some View{
         HStack{
@@ -213,7 +186,6 @@ public struct SymbolPickerOld: View {
     }
     
 
-    
     @ViewBuilder
     public func colorOption(for color: SymbolColor) -> some View{
         #if os(macOS)
@@ -297,36 +269,16 @@ public struct SymbolPickerOld: View {
                 pickerData.isPresented.wrappedValue = false
             }
         }label:{
-
-            if #available(macOS 13.0, iOS 16.0, visionOS 1.0, *) {
-                Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
-                    #if os(visionOS)
-                    .imageScale(.medium)
-                    #else
-                    .imageScale(.large)
-                    #endif
-                    .frame(width: sizeWidth, height: sizeHeight)
-                    .fontWeight(.medium)
-                    .padding(.vertical, padding)
-                    .padding(.horizontal, padding)
-                    .background(backgroundColor)
-                    .spForegroundStyle(foregroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-                    .padding(.vertical, 4)
-                    .background(.gray.opacity(0.001))
-            } else {
-                Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
-                    .imageScale(.large)
-                    .frame(width: sizeWidth, height: sizeHeight)
-                    .padding(.vertical, padding)
-                    .padding(.horizontal, padding)
-                    .background(backgroundColor)
-                    .spForegroundStyle(foregroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-                    .padding(.vertical, 4)
-                    .background(Color.gray.opacity(0.001))
-
-            }
+            Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
+                .imageScale(.large)
+                .frame(width: sizeWidth, height: sizeHeight)
+                .padding(.vertical, padding)
+                .padding(.horizontal, padding)
+                .background(backgroundColor)
+                .spForegroundStyle(foregroundColor)
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+                .padding(.vertical, 4)
+                .background(Color.gray.opacity(0.001))
         }
         .accessibilityElement()
         .accessibilityLabel(symbolModel.description)
@@ -339,10 +291,5 @@ public struct SymbolPickerOld: View {
     public init(for data: SymbolPickerData) {
         self.pickerData = data
     }
-    
+}
 
-}
-#Preview {
-    Text("Fix")
-        .symbolPicker(isPresented: .constant(true), symbolName: .constant("car.fill"), color: .constant(SymbolColor.blue))
-}
