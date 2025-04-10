@@ -3,9 +3,9 @@ import SwiftUI
 @MainActor
 public class SymbolPickerData: ObservableObject {
     @Published public var searchText: String = ""
-    @Published public var isPresented: Binding<Bool>
-    @Published public var symbolName: Binding<String>
-    @Published public var colorValue: Binding<Color>?
+    public var isPresented: Binding<Bool>
+    public var symbolName: Binding<String>
+    public var colorValue: Binding<Color>?
     @Published public var dismissOnSymbolChange: Bool
     @Published public var useFilledSymbols: Bool
     @Published  public var loadedSymbols: [SymbolSection] = []
