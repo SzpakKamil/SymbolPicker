@@ -19,12 +19,12 @@ private struct SymbolModifierColorNoColor: View {
                 Button("Color Selected") {
                     isPicker1Presented.toggle()
                 }
-                .symbolPicker(isPresented: $isPicker1Presented, symbolName: $selectedSymbol, color: $selectedColor, dismissOnSymbolChange: true)
+                .symbolPicker(isPresented: $isPicker1Presented, symbolName: $selectedSymbol, color: $selectedColor, dismissOnSymbolChange: false)
                 
                 Button("No Color Selected") {
                     isPicker2Presented.toggle()
                 }
-                .symbolPicker(isPresented: $isPicker2Presented, symbolName: $selectedSymbol, dismissOnSymbolChange: true)
+                .symbolPicker(isPresented: $isPicker2Presented, symbolName: $selectedSymbol, dismissOnSymbolChange: false)
             }
             Image(systemName: selectedSymbol)
                 .font(.system(size: 24))

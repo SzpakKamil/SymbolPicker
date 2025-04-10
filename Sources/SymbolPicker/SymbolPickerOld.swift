@@ -13,8 +13,7 @@ import SwiftUI
 public struct SymbolPickerOld: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.colorScheme) var colorScheme
-    var pickerData: SymbolPickerData
-    @State private var searchText = ""
+    @ObservedObject var pickerData: SymbolPickerData
     @State private var symbolDictionary: [SymbolSection] = []
     
     #if !os(macOS)
@@ -127,55 +126,39 @@ public struct SymbolPickerOld: View {
         let sizeHeight: CGFloat = 28
         #endif
         ScrollView(.vertical) {
-            if searchText.isEmpty {
-                ForEach(symbolDictionary) { section in
-                    Section {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: sizeWidth, maximum: sizeHeight))]) {
-                            ForEach(section.symbols) { symbol in
-                                symbolButton(for: symbol)
-                            }
-                        }
-                        #if os(macOS)
-                        .offset(y: -3)
-                        #else
-                        .padding(.horizontal, 4)
-                        #endif
-                    } header: {
-                        HStack {
-                            Text(section.title)
-                                .font(.callout)
-                                .fontWeight(.semibold)
-                            #if os(iOS) || os(visionOS)
-                                .spForegroundStyle(Color.primary)
-                            #else
-                                .spForegroundStyle(Color.primary.opacity(0.4))
-                                .padding(.horizontal, 5)
-                            #endif
-                            Spacer()
+            ForEach(pickerData.loadedSymbols) { section in
+                Section {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: sizeWidth, maximum: sizeHeight))]) {
+                        ForEach(section.symbols) { symbol in
+                            symbolButton(for: symbol)
                         }
                     }
-                }
-                #if os(macOS)
-                .padding(.horizontal, 12)
-                #else
-                .padding(.horizontal, 3)
-                .padding(.top, 5)
-                #endif
-            } else {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: sizeWidth, maximum: sizeHeight))]) {
-                    ForEach(pickerData.getFilteredSymbolKeys(matching: searchText)) { symbol in
-                        symbolButton(for: symbol)
+#if os(macOS)
+                    .offset(y: -3)
+#else
+                    .padding(.horizontal, 4)
+#endif
+                } header: {
+                    HStack {
+                        Text(section.title)
+                            .font(.callout)
+                            .fontWeight(.semibold)
+#if os(iOS) || os(visionOS)
+                            .spForegroundStyle(Color.primary)
+#else
+                            .spForegroundStyle(Color.primary.opacity(0.4))
+                            .padding(.horizontal, 5)
+#endif
+                        Spacer()
                     }
                 }
-                .drawingGroup()
-                .offset(y: -3)
-                #if os(macOS)
-                .padding(.horizontal, 12)
-                #else
-                .padding(.horizontal, 3)
-                .padding(.top, 5)
-                #endif
             }
+#if os(macOS)
+            .padding(.horizontal, 12)
+#else
+            .padding(.horizontal, 3)
+            .padding(.top, 5)
+#endif
         }
         #if os(macOS)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -292,4 +275,5 @@ public struct SymbolPickerOld: View {
         self.pickerData = data
     }
 }
+
 
