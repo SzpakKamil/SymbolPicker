@@ -12,7 +12,9 @@ public struct SymbolPickerNew: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var pickerData: SymbolPickerData
+    @State private var searchText = ""
+    @State private var loadedSymbols: [SymbolSection] = []
+    var pickerData: SymbolPickerData
 
     public var body: some View {
         Group{
@@ -22,11 +24,8 @@ public struct SymbolPickerNew: View {
             contentIOS
             #endif
         }
-        .onAppear(perform: pickerData.loadAllSymbols)
-        .onChange(of: pickerData.searchText){_ in pickerData.handleSearchText() }
-        .onChange(of: pickerData.symbolName.wrappedValue){_ in
-            pickerData.searchText = "q"
-        }
+        .onAppear{ pickerData.loadAllSymbols(loadedSymbols: $loadedSymbols) }
+        .onChange(of: searchText){_ in pickerData.handleSearchText(for: searchText, loadedSymbols: $loadedSymbols) }
     }
     
     #if !os(macOS)
@@ -126,7 +125,7 @@ public struct SymbolPickerNew: View {
             .offset(y: -10)
             .listStyle(.sidebar)
             .scrollContentBackground(.hidden)
-            .searchable(text: $pickerData.searchText, placement: .sidebar, prompt: "Search Symbols")
+            .searchable(text: $searchText, placement: .sidebar, prompt: "Search Symbols")
             .scrollDisabled(true)
             .frame(height: 41)
     }
@@ -181,7 +180,7 @@ public struct SymbolPickerNew: View {
         let sizeHeight: CGFloat = 28
         #endif
         ScrollView(.vertical) {
-            ForEach(pickerData.loadedSymbols) { section in
+            ForEach(loadedSymbols) { section in
                 Section {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: sizeWidth, maximum: sizeHeight))]) {
                         ForEach(section.symbols) { symbol in

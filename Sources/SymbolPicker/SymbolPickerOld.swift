@@ -13,15 +13,10 @@ import SwiftUI
 public struct SymbolPickerOld: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var pickerData: SymbolPickerData
-    @State private var symbolDictionary: [SymbolSection] = []
-    
-    #if !os(macOS)
-    var usePopover: Bool{
-        UIDevice.current.userInterfaceIdiom == .pad
-    }
-    #endif
-    
+    @State private var searchText = ""
+    @State private var loadedSymbols: [SymbolSection] = []
+    var pickerData: SymbolPickerData
+
     public var body: some View {
         Group{
             #if os(macOS)
@@ -30,19 +25,29 @@ public struct SymbolPickerOld: View {
             contentIOS
             #endif
         }
-        .onAppear{
-            symbolDictionary = [pickerData.symbolSections[0], pickerData.symbolSections[1]]
-            Task{
-                symbolDictionary = pickerData.symbolSections
-            }
+        .onAppear{ pickerData.loadAllSymbols(loadedSymbols: $loadedSymbols) }
+        .onChange(of: searchText){_ in pickerData.handleSearchText(for: searchText, loadedSymbols: $loadedSymbols) }
+    }
+    
+    #if !os(macOS)
+    var usePopover: Bool{
+        if #available(iOS 17.0, *) {
+            UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .vision
+        } else {
+            UIDevice.current.userInterfaceIdiom == .pad
         }
     }
-
+    #endif
+    
     #if os(macOS)
     @ViewBuilder public var contentMacOS: some View{
         VStack{
             if pickerData.colorValue?.wrappedValue != .clear{
                 colorPicker
+            }
+            if #available(iOS 16.0, macOS 13.0, visionOS 1.0, *) {
+                searchField
+                    .padding(.top, pickerData.colorValue?.wrappedValue != .clear ? 0 : 10)
             }
             symbolsList
             Spacer()
@@ -70,11 +75,23 @@ public struct SymbolPickerOld: View {
                     .allowsHitTesting(!usePopover)
                 }
             }
-            .padding(.top, usePopover ? 0 : -30)
+            .padding(.top, -30)
         }
         .frame(width: usePopover ? 400 : nil, height: usePopover ? 430 : nil)
     }
     #endif
+    
+    
+    @available(macOS 13.0, iOS 16.0, visionOS 1.0, *)
+    @ViewBuilder public var searchField: some View{
+        List{}
+            .offset(y: -10)
+            .listStyle(.sidebar)
+            .scrollContentBackground(.hidden)
+            .searchable(text: $searchText, placement: .sidebar, prompt: "Search Symbols")
+            .scrollDisabled(true)
+            .frame(height: 41)
+    }
     
     @ViewBuilder public var selectedSymbolView: some View{
         HStack{
@@ -126,39 +143,39 @@ public struct SymbolPickerOld: View {
         let sizeHeight: CGFloat = 28
         #endif
         ScrollView(.vertical) {
-            ForEach(pickerData.loadedSymbols) { section in
+            ForEach(loadedSymbols) { section in
                 Section {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: sizeWidth, maximum: sizeHeight))]) {
                         ForEach(section.symbols) { symbol in
                             symbolButton(for: symbol)
                         }
                     }
-#if os(macOS)
+                    #if os(macOS)
                     .offset(y: -3)
-#else
+                    #else
                     .padding(.horizontal, 4)
-#endif
+                    #endif
                 } header: {
                     HStack {
                         Text(section.title)
                             .font(.callout)
                             .fontWeight(.semibold)
-#if os(iOS) || os(visionOS)
+                        #if os(iOS) || os(visionOS)
                             .spForegroundStyle(Color.primary)
-#else
+                        #else
                             .spForegroundStyle(Color.primary.opacity(0.4))
                             .padding(.horizontal, 5)
-#endif
+                        #endif
                         Spacer()
                     }
                 }
             }
-#if os(macOS)
+            #if os(macOS)
             .padding(.horizontal, 12)
-#else
+            #else
             .padding(.horizontal, 3)
             .padding(.top, 5)
-#endif
+            #endif
         }
         #if os(macOS)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -169,6 +186,7 @@ public struct SymbolPickerOld: View {
     }
     
 
+    
     @ViewBuilder
     public func colorOption(for color: SymbolColor) -> some View{
         #if os(macOS)
@@ -252,16 +270,36 @@ public struct SymbolPickerOld: View {
                 pickerData.isPresented.wrappedValue = false
             }
         }label:{
-            Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
-                .imageScale(.large)
-                .frame(width: sizeWidth, height: sizeHeight)
-                .padding(.vertical, padding)
-                .padding(.horizontal, padding)
-                .background(backgroundColor)
-                .spForegroundStyle(foregroundColor)
-                .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-                .padding(.vertical, 4)
-                .background(Color.gray.opacity(0.001))
+
+            if #available(macOS 13.0, iOS 16.0, visionOS 1.0, *) {
+                Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
+                    #if os(visionOS)
+                    .imageScale(.medium)
+                    #else
+                    .imageScale(.large)
+                    #endif
+                    .frame(width: sizeWidth, height: sizeHeight)
+                    .fontWeight(.medium)
+                    .padding(.vertical, padding)
+                    .padding(.horizontal, padding)
+                    .background(backgroundColor)
+                    .spForegroundStyle(foregroundColor)
+                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+                    .padding(.vertical, 4)
+                    .background(.gray.opacity(0.001))
+            } else {
+                Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
+                    .imageScale(.large)
+                    .frame(width: sizeWidth, height: sizeHeight)
+                    .padding(.vertical, padding)
+                    .padding(.horizontal, padding)
+                    .background(backgroundColor)
+                    .spForegroundStyle(foregroundColor)
+                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+                    .padding(.vertical, 4)
+                    .background(Color.gray.opacity(0.001))
+
+            }
         }
         .accessibilityElement()
         .accessibilityLabel(symbolModel.description)
@@ -274,6 +312,10 @@ public struct SymbolPickerOld: View {
     public init(for data: SymbolPickerData) {
         self.pickerData = data
     }
+    
+
 }
-
-
+#Preview {
+    Text("Fix")
+        .symbolPicker(isPresented: .constant(true), symbolName: .constant("car.fill"), color: .constant(SymbolColor.blue))
+}
