@@ -1,14 +1,12 @@
 import SwiftUI
 
 @MainActor
-public class SymbolPickerData: ObservableObject {
-    @Published public var searchText: String = ""
+public struct SymbolPickerData {
     public var isPresented: Binding<Bool>
     public var symbolName: Binding<String>
     public var colorValue: Binding<Color>?
-    @Published public var dismissOnSymbolChange: Bool
-    @Published public var useFilledSymbols: Bool
-    @Published  public var loadedSymbols: [SymbolSection] = []
+    public var dismissOnSymbolChange: Bool
+    public var useFilledSymbols: Bool
     public let symbolSections: [SymbolSection] = [
         .init(
             title: "Maps",
@@ -1111,9 +1109,9 @@ public class SymbolPickerData: ObservableObject {
         }
     }
     
-    public func handleSearchText() {
+    public func handleSearchText(for searchText: String, loadedSymbols: Binding<[SymbolSection]>) {
         if searchText == ""{
-            loadAllSymbols()
+            loadAllSymbols(loadedSymbols: loadedSymbols)
         }else{
             var uniqueSymbols = Set<SymbolModel>()
             
@@ -1124,7 +1122,7 @@ public class SymbolPickerData: ObservableObject {
                     }
                 }
             }
-            loadedSymbols = [.init(title: "Found Symbols", symbols: uniqueSymbols.sorted())]
+            loadedSymbols.wrappedValue = [.init(title: "Found Symbols", symbols: uniqueSymbols.sorted())]
         }
     }
     
@@ -1136,10 +1134,10 @@ public class SymbolPickerData: ObservableObject {
         self.colorValue = .constant(.clear)
     }
     
-    func loadAllSymbols(){
-        loadedSymbols = [symbolSections[0], symbolSections[1]]
+    func loadAllSymbols(loadedSymbols: Binding<[SymbolSection]>){
+        loadedSymbols.wrappedValue = [symbolSections[0], symbolSections[1]]
         Task{
-            loadedSymbols = symbolSections
+            loadedSymbols.wrappedValue = symbolSections
         }
     }
 }
