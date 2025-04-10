@@ -1072,6 +1072,31 @@ public struct SymbolPickerData {
         }
     }
     
+    func loadAllSymbols(for loadedSymbols: Binding<[SymbolSection]>){
+        loadedSymbols.wrappedValue = [symbolSections[0], symbolSections[1]]
+        Task{
+            loadedSymbols.wrappedValue = symbolSections
+        }
+    }
+    public func handleSearchText(for searchText: String, loadedSymbols: Binding<[SymbolSection]>) {
+        Task{
+            if searchText == ""{
+                loadAllSymbols(for: loadedSymbols)
+            }else{
+                var uniqueSymbols = Set<SymbolModel>()
+                print(searchText)
+                for sectionSymbols in symbolSections {
+                    for symbol in sectionSymbols.symbols {
+                        if symbol.description.localizedStandardContains(searchText) && !uniqueSymbols.contains(symbol) {
+                            uniqueSymbols.insert(symbol)
+                        }
+                    }
+                }
+                loadedSymbols.wrappedValue = [.init(title: "Found Symbols", symbols: uniqueSymbols.sorted())]
+            }
+        }
+    }
+    
     public init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<[Double]>?, dismissOnSymbolChange: Bool = false, useFilledSymbols: Bool = true) {
         self.symbolName = symbolName
         self.dismissOnSymbolChange = dismissOnSymbolChange
@@ -1130,7 +1155,7 @@ public struct SymbolSection: Identifiable, Equatable, Comparable, Hashable{
         return lhs.title < rhs.title
     }
     public static func ==(lhs: SymbolSection, rhs: SymbolSection) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.id == rhs.id && lhs.symbols == rhs.symbols
     }
 }
 
