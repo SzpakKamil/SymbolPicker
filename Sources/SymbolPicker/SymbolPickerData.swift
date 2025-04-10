@@ -1109,22 +1109,6 @@ public struct SymbolPickerData {
         }
     }
     
-    public func handleSearchText(for searchText: String, loadedSymbols: Binding<[SymbolSection]>) {
-        if searchText == ""{
-            loadAllSymbols(loadedSymbols: loadedSymbols)
-        }else{
-            var uniqueSymbols = Set<SymbolModel>()
-            
-            for sectionSymbols in symbolSections {
-                for symbol in sectionSymbols.symbols {
-                    if symbol.description.localizedStandardContains(searchText) {
-                        uniqueSymbols.insert(symbol)
-                    }
-                }
-            }
-            loadedSymbols.wrappedValue = [.init(title: "Found Symbols", symbols: uniqueSymbols.sorted())]
-        }
-    }
     
     public init(isPresented: Binding<Bool>, symbolName: Binding<String>, dismissOnSymbolChange: Bool = false, useFilledSymbols: Bool = true) {
         self.symbolName = symbolName
@@ -1134,12 +1118,6 @@ public struct SymbolPickerData {
         self.colorValue = .constant(.clear)
     }
     
-    func loadAllSymbols(loadedSymbols: Binding<[SymbolSection]>){
-        loadedSymbols.wrappedValue = [symbolSections[0], symbolSections[1]]
-        Task{
-            loadedSymbols.wrappedValue = symbolSections
-        }
-    }
 }
 
 

@@ -25,8 +25,31 @@ public struct SymbolPickerOld: View {
             contentIOS
             #endif
         }
-        .onAppear{ pickerData.loadAllSymbols(loadedSymbols: $loadedSymbols) }
-        .onChange(of: searchText){_ in pickerData.handleSearchText(for: searchText, loadedSymbols: $loadedSymbols) }
+        .onAppear{ loadAllSymbols() }
+        .onChange(of: searchText){_ in handleSearchText() }
+    }
+    
+    func loadAllSymbols(){
+        loadedSymbols = [pickerData.symbolSections[0], pickerData.symbolSections[1]]
+        Task{
+            loadedSymbols = pickerData.symbolSections
+        }
+    }
+    public func handleSearchText() {
+        if searchText == ""{
+            loadAllSymbols()
+        }else{
+            var uniqueSymbols = Set<SymbolModel>()
+            
+            for sectionSymbols in pickerData.symbolSections {
+                for symbol in sectionSymbols.symbols {
+                    if symbol.description.localizedStandardContains(searchText) && !uniqueSymbols.contains(symbol) {
+                        uniqueSymbols.insert(symbol)
+                    }
+                }
+            }
+            loadedSymbols = [.init(title: "Found Symbols", symbols: uniqueSymbols.sorted())]
+        }
     }
     
     #if !os(macOS)
@@ -267,7 +290,7 @@ public struct SymbolPickerOld: View {
         Button{
             pickerData.symbolName.wrappedValue = pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName
             if pickerData.dismissOnSymbolChange{
-                pickerData.isPresented.wrappedValue = false
+                pickerData.isPresented.wrappedValue  = false
             }
         }label:{
 
