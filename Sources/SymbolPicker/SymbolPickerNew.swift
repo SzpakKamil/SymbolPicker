@@ -118,7 +118,6 @@ public struct SymbolPickerNew: View {
     }
     #endif
     
-    
     @available(macOS 13.0, iOS 16.0, visionOS 1.0, *)
     @ViewBuilder public var searchField: some View{
         List{}
@@ -222,8 +221,6 @@ public struct SymbolPickerNew: View {
         #endif
         .id(searchText)
     }
-    
-
     
     @ViewBuilder
     public func colorOption(for color: SymbolColor) -> some View{
@@ -346,14 +343,7 @@ public struct SymbolPickerNew: View {
         .padding(.horizontal, backgroundPadding)
     }
     
-
     public init(for data: SymbolPickerData) {
         self.pickerData = data
     }
-    
-
-}
-#Preview {
-    Text("Fix")
-        .symbolPicker(isPresented: .constant(true), symbolName: .constant("car.fill"), color: .constant(SymbolColor.blue))
 }
