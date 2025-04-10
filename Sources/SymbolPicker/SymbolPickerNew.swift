@@ -24,8 +24,33 @@ public struct SymbolPickerNew: View {
             contentIOS
             #endif
         }
-        .onAppear{ pickerData.loadAllSymbols(loadedSymbols: $loadedSymbols) }
-        .onChange(of: searchText){_ in pickerData.handleSearchText(for: searchText, loadedSymbols: $loadedSymbols) }
+        .onAppear{ loadAllSymbols() }
+        .onChange(of: searchText){_ in  handleSearchText() }
+    }
+    
+    func loadAllSymbols(){
+        loadedSymbols = [pickerData.symbolSections[0], pickerData.symbolSections[1]]
+        Task{
+            loadedSymbols = pickerData.symbolSections
+        }
+    }
+    
+    public func handleSearchText() {
+        if searchText == ""{
+            loadAllSymbols()
+        }else{
+            var uniqueSymbols = Set<SymbolModel>()
+            print(searchText)
+            for sectionSymbols in pickerData.symbolSections {
+                for symbol in sectionSymbols.symbols {
+
+                    if symbol.description.localizedStandardContains(searchText) && !uniqueSymbols.contains(symbol) {
+                        uniqueSymbols.insert(symbol)
+                    }
+                }
+            }
+            loadedSymbols = [.init(title: "Found Symbols", symbols: uniqueSymbols.sorted())]
+        }
     }
     
     #if !os(macOS)
@@ -220,6 +245,7 @@ public struct SymbolPickerNew: View {
         .offset(y: -17)
         .padding(.top, 5)
         #endif
+        .id(searchText)
     }
     
 
