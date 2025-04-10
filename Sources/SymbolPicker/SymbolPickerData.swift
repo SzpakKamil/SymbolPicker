@@ -1,13 +1,14 @@
 import SwiftUI
 
 @MainActor
-public struct SymbolPickerData {
-    public var isPresented: Binding<Bool>
-    public var symbolName: Binding<String>
-    public var colorValue: Binding<Color>?
-    public var dismissOnSymbolChange: Bool
-    public var useFilledSymbols: Bool
-    
+public class SymbolPickerData: ObservableObject {
+    @Published public var searchText: String = ""
+    @Published public var isPresented: Binding<Bool>
+    @Published public var symbolName: Binding<String>
+    @Published public var colorValue: Binding<Color>?
+    @Published public var dismissOnSymbolChange: Bool
+    @Published public var useFilledSymbols: Bool
+    @Published  public var loadedSymbols: [SymbolSection] = []
     public let symbolSections: [SymbolSection] = [
         .init(
             title: "Maps",
@@ -1110,19 +1111,21 @@ public struct SymbolPickerData {
         }
     }
     
-    // Helper function to get filtered and sorted symbol keys
-    public func getFilteredSymbolKeys(matching searchText: String) -> [SymbolModel] {
-        var uniqueSymbols = Set<SymbolModel>()
-        
-        for sectionSymbols in symbolSections {
-            for symbol in sectionSymbols.symbols {
-                if symbol.description.localizedStandardContains(searchText) {
-                    uniqueSymbols.insert(symbol)
+    public func handleSearchText() {
+        if searchText == ""{
+            loadAllSymbols()
+        }else{
+            var uniqueSymbols = Set<SymbolModel>()
+            
+            for sectionSymbols in symbolSections {
+                for symbol in sectionSymbols.symbols {
+                    if symbol.description.localizedStandardContains(searchText) {
+                        uniqueSymbols.insert(symbol)
+                    }
                 }
             }
+            loadedSymbols = [.init(title: "Found Symbols", symbols: uniqueSymbols.sorted())]
         }
-        
-        return uniqueSymbols.sorted()
     }
     
     public init(isPresented: Binding<Bool>, symbolName: Binding<String>, dismissOnSymbolChange: Bool = false, useFilledSymbols: Bool = true) {
@@ -1131,6 +1134,13 @@ public struct SymbolPickerData {
         self.isPresented = isPresented
         self.useFilledSymbols = useFilledSymbols
         self.colorValue = .constant(.clear)
+    }
+    
+    func loadAllSymbols(){
+        loadedSymbols = [symbolSections[0], symbolSections[1]]
+        Task{
+            loadedSymbols = symbolSections
+        }
     }
 }
 
