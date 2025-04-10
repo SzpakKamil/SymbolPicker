@@ -24,6 +24,9 @@ public struct SymbolPickerNew: View {
         }
         .onAppear(perform: pickerData.loadAllSymbols)
         .onChange(of: pickerData.searchText){_ in pickerData.handleSearchText() }
+        .onChange(of: pickerData.symbolName.wrappedValue){_ in
+            pickerData.searchText = "q"
+        }
     }
     
     #if !os(macOS)
