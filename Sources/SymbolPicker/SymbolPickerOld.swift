@@ -315,7 +315,3 @@ public struct SymbolPickerOld: View {
     
 
 }
-#Preview {
-    Text("Fix")
-        .symbolPicker(isPresented: .constant(true), symbolName: .constant("car.fill"), color: .constant(SymbolColor.blue))
-}
