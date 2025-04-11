@@ -60,9 +60,16 @@ public struct SymbolPickerOld: View {
     @ViewBuilder public var contentIOS: some View{
         NavigationView{
             List{
-                selectedSymbolView
-                if pickerData.colorValue?.wrappedValue != .clear{ colorPicker }
-                symbolsList
+                Section {
+                    selectedSymbolView
+                }
+
+                Section {
+                    if pickerData.colorValue?.wrappedValue != .clear{ colorPicker }
+                }
+                Section {
+                    symbolsList
+                }
             }
             .navigationTitle("Icon")
             .navigationBarTitleDisplayMode(.inline)
@@ -143,6 +150,12 @@ public struct SymbolPickerOld: View {
         let sizeHeight: CGFloat = 28
         #endif
         ScrollView(.vertical) {
+            #if os(iOS)
+            SearchBar(text: $searchText, prompt: "Search Symbols")
+                .padding(.bottom, -8)
+                .padding(.top, 3)
+                .padding(.horizontal, -8)
+            #endif
             ForEach(loadedSymbols) { section in
                 Section {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: sizeWidth, maximum: sizeHeight))]) {
@@ -177,6 +190,7 @@ public struct SymbolPickerOld: View {
             .padding(.top, 5)
             #endif
         }
+        
         #if os(macOS)
         .frame(maxWidth: .infinity, alignment: .leading)
         .clipped()
@@ -314,4 +328,8 @@ public struct SymbolPickerOld: View {
     }
     
 
+}
+
+#Preview {
+    SymbolPickerOld(for: .init(isPresented: .constant(true), symbolName: .constant("car"), color: .constant(SymbolColor.red)))
 }
