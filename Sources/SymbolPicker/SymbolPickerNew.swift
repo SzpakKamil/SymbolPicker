@@ -178,7 +178,7 @@ public struct SymbolPickerNew: View {
         let sizeWidth: CGFloat = 28
         let sizeHeight: CGFloat = 28
         #endif
-        ScrollView(.vertical) {
+        ScrollView {
             ForEach(loadedSymbols) { section in
                 Section {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: sizeWidth, maximum: sizeHeight))]) {
@@ -192,17 +192,19 @@ public struct SymbolPickerNew: View {
                     .padding(.horizontal, 4)
                     #endif
                 } header: {
-                    HStack {
-                        Text(section.title)
-                            .font(.callout)
-                            .fontWeight(.semibold)
-                        #if os(iOS) || os(visionOS)
-                            .spForegroundStyle(Color.primary)
-                        #else
-                            .spForegroundStyle(Color.primary.opacity(0.4))
-                            .padding(.horizontal, 5)
-                        #endif
-                        Spacer()
+                    if !section.title.isEmpty{
+                        HStack {
+                            Text(section.title)
+                                .font(.callout)
+                                .fontWeight(.semibold)
+                                #if os(iOS) || os(visionOS)
+                                .spForegroundStyle(Color.primary)
+                                #else
+                                .spForegroundStyle(Color.primary.opacity(0.4))
+                                .padding(.horizontal, 5)
+                                #endif
+                            Spacer()
+                        }
                     }
                 }
             }
@@ -218,8 +220,18 @@ public struct SymbolPickerNew: View {
         .clipped()
         .offset(y: -17)
         .padding(.top, 5)
+        #else
+        .safeAreaInset(edge: .top){
+            SearchBar(text: $searchText, prompt: "Search Symbols"){}
+                .padding(.bottom, -8)
+                .padding(.top, 3)
+            #if os(iOS)
+                .padding(.horizontal, -13)
+            #else
+                .padding(.horizontal, -23)
+            #endif
+        }
         #endif
-        .id(searchText)
     }
     
     @ViewBuilder
@@ -346,4 +358,8 @@ public struct SymbolPickerNew: View {
     public init(for data: SymbolPickerData) {
         self.pickerData = data
     }
+}
+
+#Preview {
+    SymbolPicker(for: .init(isPresented: .constant(true), symbolName: .constant("car"), color: .constant(SymbolColor.cyan)))
 }

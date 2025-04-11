@@ -1079,10 +1079,10 @@ public struct SymbolPickerData {
         }
     }
     public func handleSearchText(for searchText: String, loadedSymbols: Binding<[SymbolSection]>) {
-        Task{
-            if searchText == ""{
+        Task {
+            if searchText == "" {
                 loadAllSymbols(for: loadedSymbols)
-            }else{
+            } else {
                 var uniqueSymbols = Set<SymbolModel>()
                 print(searchText)
                 for sectionSymbols in symbolSections {
@@ -1092,7 +1092,7 @@ public struct SymbolPickerData {
                         }
                     }
                 }
-                loadedSymbols.wrappedValue = [.init(title: "Found Symbols", symbols: uniqueSymbols.sorted())]
+                loadedSymbols.wrappedValue = [.init(title: "", symbols: Array(uniqueSymbols).sorted())]
             }
         }
     }
@@ -1193,6 +1193,9 @@ public struct SymbolModel: Identifiable, Equatable, Hashable, Comparable{
         return lhs.filledSymbolName < rhs.filledSymbolName
     }
     public static func ==(lhs: SymbolModel, rhs: SymbolModel) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.notFilledSymbolName == rhs.notFilledSymbolName || lhs.filledSymbolName == rhs.filledSymbolName
+    }
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine("\(id)-\(notFilledSymbolName)")
     }
 }
