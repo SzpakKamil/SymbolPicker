@@ -139,11 +139,15 @@ public struct SymbolPickerNew: View {
                 .spForegroundStyle(pickerData.colorValue?.wrappedValue ?? .clear == .clear ? .primary : .white)
                 .padding(10)
                 .if{ content in
+                    #if !os(visionOS)
                     if #available(iOS 16.0, macOS 13.0, *){
                         content.background((pickerData.colorValue?.wrappedValue ?? .clear).gradient)
                     }else{
                         content.background((pickerData.colorValue?.wrappedValue ?? .clear))
                     }
+                    #else
+                    content.background((pickerData.colorValue?.wrappedValue ?? .clear))
+                    #endif
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
             Spacer()
@@ -230,11 +234,13 @@ public struct SymbolPickerNew: View {
         .safeAreaInset(edge: .top){
             SearchBar(text: $searchText, prompt: "Search Symbols"){}
                 .padding(.bottom, -8)
-                .padding(.top, 3)
             #if os(iOS)
+                .padding(.top, 3)
                 .padding(.horizontal, -13)
             #else
-                .padding(.horizontal, -23)
+                .padding(.top, -10)
+                .padding(.bottom, -5)
+                .padding(.horizontal, -25)
             #endif
         }
         #endif
@@ -249,7 +255,7 @@ public struct SymbolPickerNew: View {
         #if os(visionOS)
         let outlineColor = Color.primary
         #else
-        let outlineColor = Color.white
+        let outlineColor = colorScheme == .dark ? Color.white : Color.black
         #endif
         let symbolName = "circle.fill"
         #endif

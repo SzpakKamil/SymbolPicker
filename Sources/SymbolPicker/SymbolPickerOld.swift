@@ -210,7 +210,7 @@ public struct SymbolPickerOld: View {
         #if os(visionOS)
         let outlineColor = Color.primary
         #else
-        let outlineColor = Color.white
+        let outlineColor = colorScheme == .dark ? Color.white : Color.black
         #endif
         let symbolName = "circle.fill"
         #endif
