@@ -138,7 +138,13 @@ public struct SymbolPickerNew: View {
                 .frame(width: 32, height: 32)
                 .spForegroundStyle(pickerData.colorValue?.wrappedValue ?? .clear == .clear ? .primary : .white)
                 .padding(10)
-                .background(pickerData.colorValue?.wrappedValue ?? .clear)
+                .if{ content in
+                    if #available(iOS 16.0, macOS 13.0, *){
+                        content.background((pickerData.colorValue?.wrappedValue ?? .clear).gradient)
+                    }else{
+                        content.background((pickerData.colorValue?.wrappedValue ?? .clear))
+                    }
+                }
                 .clipShape(RoundedRectangle(cornerRadius: 13, style: .continuous))
             Spacer()
         }
@@ -317,40 +323,28 @@ public struct SymbolPickerNew: View {
                 dismiss()
             }
         }label:{
-
-            if #available(macOS 13.0, iOS 16.0, visionOS 1.0, *) {
-                Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
-                    #if os(visionOS)
-                    .imageScale(.medium)
-                    #else
-                    .imageScale(.large)
-                    #endif
-                    .frame(width: sizeWidth, height: sizeHeight)
-                    .fontWeight(.medium)
-                    .padding(.vertical, padding)
-                    .padding(.horizontal, padding)
-                    .background(backgroundColor)
-                    .spForegroundStyle(foregroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-                    .padding(.vertical, 4)
-                    .background(.gray.opacity(0.001))
-            } else {
-                Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
-                    .imageScale(.large)
-                    .frame(width: sizeWidth, height: sizeHeight)
-                    .padding(.vertical, padding)
-                    .padding(.horizontal, padding)
-                    .background(backgroundColor)
-                    .spForegroundStyle(foregroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-                    .padding(.vertical, 4)
-                    .background(Color.gray.opacity(0.001))
-
-            }
+            Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: sizeWidth * 0.95, height: sizeHeight * 0.7)
+                .frame(width: sizeWidth, height: sizeHeight)
+                .if{ content in
+                    if #available(macOS 13.0, iOS 16.0, visionOS 1.0, *) {
+                        content.fontWeight(.medium)
+                    }
+                }
+                .padding(.vertical, padding)
+                .padding(.horizontal, padding)
+                .background(backgroundColor)
+                .spForegroundStyle(foregroundColor)
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+                .padding(.vertical, 4)
+                .background(Color.gray.opacity(0.001))
         }
         .accessibilityElement()
         .accessibilityLabel(symbolModel.description)
         .accessibilityAddTraits([.isButton, .isImage])
+        .dynamicTypeSize(.large)
         .buttonStyle(.plain)
         .padding(.horizontal, backgroundPadding)
     }
