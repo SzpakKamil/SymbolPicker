@@ -284,36 +284,23 @@ public struct SymbolPickerOld: View {
                 pickerData.isPresented.wrappedValue  = false
             }
         }label:{
-
-            if #available(macOS 13.0, iOS 16.0, visionOS 1.0, *) {
-                Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
-                    #if os(visionOS)
-                    .imageScale(.medium)
-                    #else
-                    .imageScale(.large)
-                    #endif
-                    .frame(width: sizeWidth, height: sizeHeight)
-                    .fontWeight(.medium)
-                    .padding(.vertical, padding)
-                    .padding(.horizontal, padding)
-                    .background(backgroundColor)
-                    .spForegroundStyle(foregroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-                    .padding(.vertical, 4)
-                    .background(.gray.opacity(0.001))
-            } else {
-                Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
-                    .imageScale(.large)
-                    .frame(width: sizeWidth, height: sizeHeight)
-                    .padding(.vertical, padding)
-                    .padding(.horizontal, padding)
-                    .background(backgroundColor)
-                    .spForegroundStyle(foregroundColor)
-                    .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-                    .padding(.vertical, 4)
-                    .background(Color.gray.opacity(0.001))
-
-            }
+            Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: sizeWidth * 0.95, height: sizeHeight * 0.7)
+                .frame(width: sizeWidth, height: sizeHeight)
+                .if{ content in
+                    if #available(macOS 13.0, iOS 16.0, visionOS 1.0, *) {
+                        content.fontWeight(.medium)
+                    }
+                }
+                .padding(.vertical, padding)
+                .padding(.horizontal, padding)
+                .background(backgroundColor)
+                .spForegroundStyle(foregroundColor)
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+                .padding(.vertical, 4)
+                .background(Color.gray.opacity(0.001))
         }
         .accessibilityElement()
         .accessibilityLabel(symbolModel.description)
