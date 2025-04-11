@@ -44,10 +44,10 @@ public struct SymbolPickerNew: View {
             if pickerData.colorValue?.wrappedValue != .clear{
                 colorPicker
             }
-            if #available(iOS 16.0, macOS 13.0, visionOS 1.0, *) {
-                searchField
-                    .padding(.top, pickerData.colorValue?.wrappedValue != .clear ? 0 : 10)
-            }
+            SearchBar(text: $searchText, prompt: "Search Symbols")
+                .padding(.horizontal, 12)
+                .padding(.bottom, 10)
+            
             symbolsList
             Spacer()
         }
@@ -117,17 +117,6 @@ public struct SymbolPickerNew: View {
         }
     }
     #endif
-    
-    @available(macOS 13.0, iOS 16.0, visionOS 1.0, *)
-    @ViewBuilder public var searchField: some View{
-        List{}
-            .offset(y: -10)
-            .listStyle(.sidebar)
-            .scrollContentBackground(.hidden)
-            .searchable(text: $searchText, placement: .sidebar, prompt: "Search Symbols")
-            .scrollDisabled(true)
-            .frame(height: 41)
-    }
     
     @ViewBuilder public var selectedSymbolView: some View{
         HStack{

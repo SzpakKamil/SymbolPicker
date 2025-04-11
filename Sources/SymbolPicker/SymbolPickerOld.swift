@@ -31,11 +31,7 @@ public struct SymbolPickerOld: View {
     
     #if !os(macOS)
     var usePopover: Bool{
-        if #available(iOS 17.0, *) {
-            UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .vision
-        } else {
-            UIDevice.current.userInterfaceIdiom == .pad
-        }
+        UIDevice.current.userInterfaceIdiom == .pad
     }
     #endif
     
@@ -45,10 +41,9 @@ public struct SymbolPickerOld: View {
             if pickerData.colorValue?.wrappedValue != .clear{
                 colorPicker
             }
-            if #available(iOS 16.0, macOS 13.0, visionOS 1.0, *) {
-                searchField
-                    .padding(.top, pickerData.colorValue?.wrappedValue != .clear ? 0 : 10)
-            }
+            SearchBar(text: $searchText, prompt: "Search Symbols")
+                .padding(.horizontal, 12)
+                .padding(.bottom, 10)
             symbolsList
             Spacer()
         }
@@ -87,18 +82,6 @@ public struct SymbolPickerOld: View {
         .frame(width: usePopover ? 400 : nil, height: usePopover ? 430 : nil)
     }
     #endif
-    
-    
-    @available(macOS 13.0, iOS 16.0, visionOS 1.0, *)
-    @ViewBuilder public var searchField: some View{
-        List{}
-            .offset(y: -10)
-            .listStyle(.sidebar)
-            .scrollContentBackground(.hidden)
-            .searchable(text: $searchText, placement: .sidebar, prompt: "Search Symbols")
-            .scrollDisabled(true)
-            .frame(height: 41)
-    }
     
     @ViewBuilder public var selectedSymbolView: some View{
         HStack{
@@ -198,8 +181,6 @@ public struct SymbolPickerOld: View {
         .padding(.top, 5)
         #endif
     }
-    
-
     
     @ViewBuilder
     public func colorOption(for color: SymbolColor) -> some View{
@@ -309,12 +290,9 @@ public struct SymbolPickerOld: View {
         .padding(.horizontal, backgroundPadding)
     }
     
-
     public init(for data: SymbolPickerData) {
         self.pickerData = data
     }
-    
-
 }
 
 #Preview {
