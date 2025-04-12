@@ -1072,27 +1072,43 @@ public struct SymbolPickerData {
         }
     }
     
-    func loadAllSymbols(for loadedSymbols: Binding<[SymbolSection]>){
-        loadedSymbols.wrappedValue = [symbolSections[0], symbolSections[1]]
-        Task{
-            loadedSymbols.wrappedValue = symbolSections
+    public func handleSearchText(for searchText: String, loadedSymbols: Binding<[SymbolSection]>) {
+        // If search text is empty, load all symbols asynchronously
+        if searchText.isEmpty {
+            loadAllSymbols(for: loadedSymbols)
+            return
+        }
+
+        // Perform search asynchronously
+        Task.detached(priority: .userInitiated) {
+            let trimmedSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+            var uniqueSymbols: Set<SymbolModel> = []
+
+            // Iterate through sections and filter symbols
+            for section in symbolSections {
+                let filteredSymbols = section.symbols.filter { symbol in
+                    symbol.lowercasedDescription.contains(trimmedSearchText) && !uniqueSymbols.contains(symbol)
+                }
+                for symbol in filteredSymbols {
+                    uniqueSymbols.insert(symbol)
+                }
+            }
+
+            // Sort results in the background
+            let sortedSymbols = uniqueSymbols.sorted()
+
+            // Update UI on the main thread
+            await MainActor.run {
+                loadedSymbols.wrappedValue = [.init(title: "", symbols: sortedSymbols)]
+            }
         }
     }
-    public func handleSearchText(for searchText: String, loadedSymbols: Binding<[SymbolSection]>) {
-        Task {
-            if searchText == "" {
-                loadAllSymbols(for: loadedSymbols)
-            } else {
-                var uniqueSymbols = Set<SymbolModel>()
-                print(searchText)
-                for sectionSymbols in symbolSections {
-                    for symbol in sectionSymbols.symbols {
-                        if symbol.description.localizedStandardContains(searchText) && !uniqueSymbols.contains(symbol) {
-                            uniqueSymbols.insert(symbol)
-                        }
-                    }
-                }
-                loadedSymbols.wrappedValue = [.init(title: "", symbols: Array(uniqueSymbols).sorted())]
+
+    func loadAllSymbols(for loadedSymbols: Binding<[SymbolSection]>) {
+        loadedSymbols.wrappedValue = [symbolSections[0], symbolSections[1]]
+        Task.detached(priority: .userInitiated) {
+            await MainActor.run {
+                loadedSymbols.wrappedValue = symbolSections
             }
         }
     }
@@ -1146,10 +1162,10 @@ public struct SymbolPickerData {
 }
 
 
-public struct SymbolSection: Identifiable, Equatable, Comparable, Hashable{
+public struct SymbolSection: Identifiable, Equatable, Sendable, Comparable, Hashable{
     public var id: String{ title }
-    var title: String
-    var symbols: [SymbolModel]
+    let title: String
+    let symbols: [SymbolModel]
     
     public static func <(lhs: SymbolSection, rhs: SymbolSection) -> Bool {
         return lhs.title < rhs.title
@@ -1159,11 +1175,12 @@ public struct SymbolSection: Identifiable, Equatable, Comparable, Hashable{
     }
 }
 
-public struct SymbolModel: Identifiable, Equatable, Hashable, Comparable{
+public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparable{
     public let id: String
     public let filledSymbolName: String
     public let notFilledSymbolName: String
     public let description: String
+    public let lowercasedDescription: String
     public init(symbolName: String, description: String) {
         self.id = symbolName
         self.filledSymbolName = symbolName
@@ -1173,6 +1190,7 @@ public struct SymbolModel: Identifiable, Equatable, Hashable, Comparable{
         }
         notFilledSymbolName = components.joined(separator: ".")
         self.description = description
+        self.lowercasedDescription = description.lowercased()
     }
     
     public init(symbolNameFilled: String, symbolNameNotFilled: String, description: String) {
@@ -1180,12 +1198,14 @@ public struct SymbolModel: Identifiable, Equatable, Hashable, Comparable{
         self.filledSymbolName = symbolNameFilled
         notFilledSymbolName = symbolNameNotFilled
         self.description = description
+        self.lowercasedDescription = description.lowercased()
     }
     public init(symbolNameFilledNotFilled: String, description: String) {
         self.id = symbolNameFilledNotFilled
         self.filledSymbolName = symbolNameFilledNotFilled
         notFilledSymbolName = symbolNameFilledNotFilled
         self.description = description
+        self.lowercasedDescription = description.lowercased()
     }
     
     
