@@ -2,22 +2,107 @@
 //  SymbolPicker.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 31/03/2025.
+//  Created by Kamil Szpak on 5/12/24.
 //
 
 import SwiftUI
 
-public struct SymbolPicker: View{
+public struct SymbolPicker: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.colorScheme) var colorScheme
+    @State private var searchText = ""
+    @State private var loadedSymbols: [SymbolSection] = []
     var pickerData: SymbolPickerData
-    
-    public var body: some View{
-        if #available(macOS 12.0, iOS 15.0, visionOS 1.0, *) {
-            SymbolPickerNew(for: pickerData)
-        } else {
-            SymbolPickerOld(for: pickerData)
+
+    public var body: some View {
+        Group{
+            #if os(macOS)
+            contentMacOS
+            #else
+            contentIOS
+            #endif
         }
+        .onAppear{ pickerData.loadAllSymbols(for: $loadedSymbols) }
+        .onChange(of: searchText){_ in  pickerData.handleSearchText(for: searchText, loadedSymbols: $loadedSymbols) }
     }
     
+    #if !os(macOS)
+    var usePopover: Bool{
+        if #available(iOS 17.0, *) {
+            UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .vision
+        } else {
+            UIDevice.current.userInterfaceIdiom == .pad
+        }
+    }
+    #endif
+    
+    #if os(macOS)
+    @ViewBuilder public var contentMacOS: some View{
+        GeometryReader{ geo in
+            VStack{
+                if pickerData.colorValue?.wrappedValue != .clear{ SPColorPicker(pickerData: pickerData, geo: geo) }
+                SearchBar(text: $searchText, prompt: "Search Symbols")
+                    .padding(.horizontal, 12)
+                    .padding(.bottom, 10)
+                
+                SPSymbolsList(searchText: $searchText, pickerData: pickerData, loadedSymbols: loadedSymbols, geo: geo)
+                Spacer()
+            }
+        }
+        .frame(width: 310, height: 430)
+    }
+    #endif
+    
+    #if os(iOS) || os(visionOS)
+    @ViewBuilder public var contentIOS: some View{
+        if #available(iOS 16.0, macOS 13.0, visionOS 1.0, *) {
+            NavigationStack{
+                GeometryReader{ geo in
+                    List{
+                        SPSelectedSymbol(pickerData: pickerData, geo: geo)
+                        if pickerData.colorValue?.wrappedValue != .clear{ SPColorPicker(pickerData: pickerData, geo: geo) }
+                        SPSymbolsList(searchText: $searchText, pickerData: pickerData, loadedSymbols: loadedSymbols, geo: geo)
+                    }
+                    .listRowSpacing(15)
+                    .navigationTitle("Icon")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar{
+                        ToolbarItem(placement: .topBarTrailing){
+                            SPDismissButton(pickerData: pickerData)
+                        }
+                    }
+                    .padding(.top, usePopover ? 0 : -30)
+                }
+            }
+            .frame(width: usePopover ? 350 : nil, height: usePopover ? 500 : nil)
+        } else {
+            NavigationView{
+                GeometryReader{ geo in
+                    List{
+                        SPSelectedSymbol(pickerData: pickerData, geo: geo)
+                        if pickerData.colorValue?.wrappedValue != .clear{ SPColorPicker(pickerData: pickerData, geo: geo) }
+                        SPSymbolsList(searchText: $searchText, pickerData: pickerData, loadedSymbols: loadedSymbols, geo: geo)
+                    }
+                    .if{ content in
+                        if #available(iOS 15.0, macOS 12.0, *){
+                            content.listRowSpacing(15)
+                        }
+                    }
+                    .navigationTitle("Icon")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar{
+                        ToolbarItem(placement: .topBarTrailing){
+                            SPDismissButton(pickerData: pickerData)
+                        }
+                    }
+                    .padding(.top, -30)
+                }
+            }
+            .frame(width: usePopover ? 400 : nil, height: usePopover ? 430 : nil)
+        }
+    }
+    #endif
+
     public init(for data: SymbolPickerData) {
         self.pickerData = data
     }
@@ -74,3 +159,4 @@ public struct SymbolPicker: View{
         self.pickerData = .init(isPresented: isPresented, symbolName: symbolName, dismissOnSymbolChange: dismissOnSymbolChange, useFilledSymbols: useFilledSymbols)
     }
 }
+
