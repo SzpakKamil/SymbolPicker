@@ -43,11 +43,17 @@ struct SPSymbolsListContent: View {
         let sizeHeight: CGFloat = 28
         #endif
         ScrollView {
-            #if os(iOS)
+            #if !os(macOS)
             SearchBar(text: $searchText, prompt: "Search Symbols")
+            #if os(iOS)
             .padding(.bottom, -8)
             .padding(.top, 3)
             .padding(.horizontal, -8)
+            #else
+            .padding(.top, -5)
+            .padding(.bottom, -20)
+            .padding(.horizontal, -20)
+            #endif
             #endif
             ForEach(loadedSymbols) { section in
                 Section {
