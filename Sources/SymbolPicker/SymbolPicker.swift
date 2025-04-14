@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SearchBar
 
 public struct SymbolPicker: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -44,7 +45,6 @@ public struct SymbolPicker: View {
                 SearchBar(text: $searchText, prompt: "Search Symbols")
                     .padding(.horizontal, 12)
                     .padding(.bottom, 10)
-                
                 SPSymbolsList(searchText: $searchText, pickerData: pickerData, loadedSymbols: loadedSymbols, geo: geo)
                 Spacer()
             }
