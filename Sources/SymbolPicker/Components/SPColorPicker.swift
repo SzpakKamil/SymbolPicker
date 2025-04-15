@@ -25,15 +25,6 @@ struct SPColorPickerContent: View {
     var geo: GeometryProxy
     var size: CGFloat
     
-    #if os(macOS)
-        let outlineColor = Color.black
-    #elseif os(visionOS)
-        let outlineColor = Color.primary
-    #else
-        var outlineColor: Color{ colorScheme == .dark ? Color.white : Color.black }
-    #endif
-    
-    
     var body: some View {
         
         LazyVGrid(columns: [GridItem(.adaptive(minimum: size, maximum: size))]){
@@ -75,6 +66,15 @@ struct SPColorOption: View{
     #else
         let symbolName = "circle.fill"
     #endif
+    
+#if os(macOS)
+    let outlineColor = Color.black
+#elseif os(visionOS)
+    let outlineColor = Color.primary
+#else
+    var outlineColor: Color{ colorScheme == .dark ? Color.white : Color.black }
+#endif
+    
     var body: some View{
         Button{
             pickerData.colorValue?.wrappedValue = color
@@ -138,7 +138,7 @@ struct SPCustomColorPicker: View {
             SPCustomColorPickerNew(geo: geo, color: binding)
                 .frame(width: size, height: size)
         } else {
-            SPCustomColorPickerOld(geo: geo, color: $color)
+            SPCustomColorPickerOld(geo: geo, color: binding)
                 .frame(width: size, height: size)
         }
         #endif
