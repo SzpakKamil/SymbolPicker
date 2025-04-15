@@ -8,25 +8,70 @@
 import SwiftUI
 import SwiftData
 
-public enum SymbolColor: Int, Identifiable, Codable, CaseIterable, Hashable {
+public enum SymbolColor:Identifiable, Codable, CaseIterable, Hashable {
+    public static var allCases: [SymbolColor]{
+        [.red, .orange, .yellow, .green, .mint, .teal, .cyan, .blue, .indigo, .purple, .magenta, .pink, .grey, .moro,. brown]
+    }
     
-    case red = 0
-    case orange = 1
-    case yellow = 2
-    case green = 3
-    case mint = 4
-    case teal = 5
-    case cyan = 6
-    case blue = 7
-    case indigo = 8
-    case purple = 9
-    case magenta = 10
-    case pink = 11
-    case grey = 12
-    case moro = 13
-    case brown = 14
     
-    public var id: Int { self.rawValue }
+    case red
+    case orange
+    case yellow
+    case green
+    case mint
+    case teal
+    case cyan
+    case blue
+    case indigo
+    case purple
+    case magenta
+    case pink
+    case grey
+    case moro
+    case brown
+    case customColor([Double])
+    
+    public var id: Double {
+        switch self {
+        case .red:
+            0
+        case .orange:
+            1
+        case .yellow:
+            2
+        case .green:
+            3
+        case .mint:
+            4
+        case .teal:
+            5
+        case .cyan:
+            6
+        case .blue:
+            7
+        case .indigo:
+            8
+        case .purple:
+            9
+        case .magenta:
+            10
+        case .pink:
+            11
+        case .grey:
+            12
+        case .moro:
+            13
+        case .brown:
+            14
+        case .customColor(let array):
+            if array.count != 4{
+                15
+            }else{
+                array.reduce(0){ ($0 + 0.1) * ($1 + 0.1)}
+            }
+
+        }
+    }
     
     public var name: String {
         switch self {
@@ -60,6 +105,8 @@ public enum SymbolColor: Int, Identifiable, Codable, CaseIterable, Hashable {
             return "Moro"
         case .brown:
             return "Brown"
+        case .customColor:
+            return "Custom"
         }
     }
     
@@ -95,6 +142,8 @@ public enum SymbolColor: Int, Identifiable, Codable, CaseIterable, Hashable {
             return [0.584, 0.663, 0.592, 1]
         case .brown:
             return [0.651, 0.565, 0.455, 1]
+        case .customColor(let colorValue):
+            return colorValue
         }
     }
     

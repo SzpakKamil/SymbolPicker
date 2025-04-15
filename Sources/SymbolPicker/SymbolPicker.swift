@@ -41,7 +41,7 @@ public struct SymbolPicker: View {
     @ViewBuilder public var contentMacOS: some View{
         GeometryReader{ geo in
             VStack{
-                if pickerData.colorValue?.wrappedValue != .clear{ SPColorPicker(pickerData: pickerData, geo: geo) }
+                if pickerData.colorValue?.wrappedValue != .customColor([0,0,0,0]){ SPColorPicker(pickerData: pickerData, geo: geo) }
                 SearchBar(text: $searchText, prompt: "Search Symbols")
                     .padding(.horizontal, 12)
                     .padding(.bottom, 10)
@@ -60,7 +60,7 @@ public struct SymbolPicker: View {
                 GeometryReader{ geo in
                     List{
                         SPSelectedSymbol(pickerData: pickerData, geo: geo)
-                        if pickerData.colorValue?.wrappedValue != .clear{ SPColorPicker(pickerData: pickerData, geo: geo) }
+                        if pickerData.colorValue?.wrappedValue != .customColor([0,0,0,0]){ SPColorPicker(pickerData: pickerData, geo: geo) }
                         SPSymbolsList(searchText: $searchText, pickerData: pickerData, loadedSymbols: loadedSymbols, geo: geo)
                     }
                     .listRowSpacing(15)
@@ -80,7 +80,7 @@ public struct SymbolPicker: View {
                 GeometryReader{ geo in
                     List{
                         SPSelectedSymbol(pickerData: pickerData, geo: geo)
-                        if pickerData.colorValue?.wrappedValue != .clear{ SPColorPicker(pickerData: pickerData, geo: geo) }
+                        if pickerData.colorValue?.wrappedValue != .customColor([0,0,0,0]){ SPColorPicker(pickerData: pickerData, geo: geo) }
                         SPSymbolsList(searchText: $searchText, pickerData: pickerData, loadedSymbols: loadedSymbols, geo: geo)
                     }
                     .if{ content in
