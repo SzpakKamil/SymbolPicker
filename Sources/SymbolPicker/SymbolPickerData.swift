@@ -4,7 +4,7 @@ import SwiftUI
 public struct SymbolPickerData {
     public var isPresented: Binding<Bool>
     public var symbolName: Binding<String>
-    public var colorValue: Binding<Color>?
+    public var colorValue: Binding<SymbolColor>?
     public var dismissOnSymbolChange: Bool
     public var useFilledSymbols: Bool
     public let symbolSections: [SymbolSection] = [
@@ -1047,9 +1047,13 @@ public struct SymbolPickerData {
         self.useFilledSymbols = useFilledSymbols
         
         if let color {
-            self.colorValue = color
+                self.colorValue = .init(get: {
+                    SymbolColor.customColor(color.wrappedValue.components)
+                }, set: { newValue in
+                    color.wrappedValue = Color(red: newValue.value[0], green: newValue.value[1], blue: newValue.value[2])
+                })
         } else {
-            self.colorValue = .constant(.clear)
+            self.colorValue = .constant(.customColor([0,0,0,0]))
         }
     }
     
@@ -1060,15 +1064,9 @@ public struct SymbolPickerData {
         self.useFilledSymbols = useFilledSymbols
         
         if let color {
-            self.colorValue = .init(get: {
-                color.wrappedValue.color
-            }, set: { newValue in
-                if let newColor = SymbolColor.allCases.first(where: { $0.color == newValue }) {
-                    color.wrappedValue = newColor
-                }
-            })
+            self.colorValue = color
         } else {
-            self.colorValue = .constant(.clear)
+            self.colorValue = .constant(.customColor([0,0,0,0]))
         }
     }
     
@@ -1121,32 +1119,12 @@ public struct SymbolPickerData {
         
         if let colorOption = color {
             self.colorValue = Binding(get: {
-                Color(red: colorOption.wrappedValue[0], green: colorOption.wrappedValue[1], blue: colorOption.wrappedValue[2])
+                SymbolColor.customColor(colorOption.wrappedValue)
             }, set: { newValue in
-#if canImport(UIKit)
-                typealias NativeColor = UIColor
-#elseif canImport(AppKit)
-                typealias NativeColor = NSColor
-#endif
-                
-                var r: CGFloat = 0
-                var g: CGFloat = 0
-                var b: CGFloat = 0
-                var o: CGFloat = 1
-                
-#if !os(macOS)
-                guard NativeColor(newValue).getRed(&r, green: &g, blue: &b, alpha: &o) else {
-                    colorOption.wrappedValue = [0, 0, 0, 1]
-                    return
-                }
-#else
-                NativeColor(newValue).usingColorSpace(.sRGB)?.getRed(&r, green: &g, blue: &b, alpha: &o)
-#endif
-                
-                colorOption.wrappedValue = [r, g, b, o]
+                colorOption.wrappedValue = newValue.value
             })
         } else {
-            self.colorValue = .constant(.clear)
+            self.colorValue = .constant(.customColor([0,0,0,0]))
         }
     }
     
@@ -1156,7 +1134,7 @@ public struct SymbolPickerData {
         self.dismissOnSymbolChange = dismissOnSymbolChange
         self.isPresented = isPresented
         self.useFilledSymbols = useFilledSymbols
-        self.colorValue = .constant(.clear)
+        self.colorValue = .constant(.customColor([0,0,0,0]))
     }
     
 }

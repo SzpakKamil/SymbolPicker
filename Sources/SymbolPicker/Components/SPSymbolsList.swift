@@ -36,8 +36,8 @@ struct SPSymbolsListContent: View {
         var sizeWidth: CGFloat = size1
         let sizeHeight: CGFloat = size1 * 1.1
         #elseif os(visionOS)
-        let sizeWidth: CGFloat = 28
-        let sizeHeight: CGFloat = 28
+        let sizeWidth: CGFloat = size1
+        let sizeHeight: CGFloat = size1 * 1.1
         #else
         let sizeWidth: CGFloat = 28
         let sizeHeight: CGFloat = 28
@@ -111,19 +111,19 @@ struct SPSymbolsListContent: View {
         let foregroundColor = primaryColor.opacity(0.4)
         let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == (pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName) ? 0.1 : 0)
         #elseif os(visonOS)
-        let sizeWidth: CGFloat = 22
-        let sizeHeight: CGFloat = 22
-        let cornerRadius: CGFloat = 15
-        let padding: CGFloat = 7
-        let backgroundPadding: CGFloat = 1
+        let sizeWidth: CGFloat = size2
+        let sizeHeight: CGFloat = size2
+        let cornerRadius: CGFloat = 8
+        let padding: CGFloat = 9
+        let backgroundPadding: CGFloat = 0
         let foregroundColor = primaryColor.opacity(0.4)
         let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == (pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName) ? 0.1 : 0)
         #else
         let sizeWidth: CGFloat = 22
         let sizeHeight: CGFloat = 22
         let cornerRadius: CGFloat = 7
-        let padding: CGFloat = 5
-        let backgroundPadding: CGFloat = 4
+        let padding: CGFloat = 7
+        let backgroundPadding: CGFloat = 0
         let foregroundColor = pickerData.symbolName.wrappedValue == (pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName) ? invertedColor :       primaryColor.opacity(0.8)
         let backgroundColor = primaryColor.opacity(pickerData.symbolName.wrappedValue == (pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName) ? 0.25 : 0)
         #endif
@@ -133,8 +133,12 @@ struct SPSymbolsListContent: View {
                 dismissalAction()
             }
         }label:{
-            Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName : symbolModel.notFilledSymbolName)
+            Image(systemName: pickerData.useFilledSymbols ? symbolModel.filledSymbolName :  symbolModel.notFilledSymbolName)
+            #if os(visionOS)
+                .font(.title3)
+            #else
                 .font(.title2)
+            #endif
                 .frame(width: sizeWidth, height: sizeHeight)
                 .if{ content in
                     if #available(macOS 13.0, iOS 16.0, visionOS 1.0, *) {
@@ -152,7 +156,14 @@ struct SPSymbolsListContent: View {
         .accessibilityElement()
         .accessibilityLabel(symbolModel.description)
         .accessibilityAddTraits([.isButton, .isImage])
+        #if os(visionOS)
+        .buttonBorderShape(.roundedRectangle(radius: 8))
+        .buttonStyle(.borderless)
+        .dynamicTypeSize(...DynamicTypeSize.xLarge)
+        #else
         .buttonStyle(.plain)
+        #endif
+
         .padding(.horizontal, backgroundPadding)
     }
     
@@ -167,6 +178,16 @@ struct SPSymbolsListNew: View {
     let loadedSymbols: [SymbolSection]
     var geo: GeometryProxy
     var size1: CGFloat{
+        #if os(visionOS)
+        switch dynamicTypeSize{
+        case .xSmall: return geo.size.width * 0.09
+        case .small: return geo.size.width * 0.095
+        case .medium: return geo.size.width * 0.095
+        case .large: return geo.size.width * 0.095
+        case .xLarge: return geo.size.width * 0.15
+        default: return geo.size.width * 0.15
+        }
+        #else
         switch dynamicTypeSize{
         case .xSmall: return geo.size.width * 0.07
         case .small: return geo.size.width * 0.085
@@ -182,8 +203,19 @@ struct SPSymbolsListNew: View {
         case .accessibility5: return geo.size.width * 0.23
         @unknown default: return geo.size.width * 0.135
         }
+        #endif
     }
     var size2: CGFloat{
+        #if os(visionOS)
+        switch dynamicTypeSize{
+        case .xSmall: return geo.size.width * 0.09
+        case .small: return geo.size.width * 0.095
+        case .medium: return geo.size.width * 0.095
+        case .large: return geo.size.width * 0.095
+        case .xLarge: return geo.size.width * 0.15
+        default: return geo.size.width * 0.15
+        }
+        #else
         switch dynamicTypeSize{
         case .xSmall: return geo.size.width * 0.07
         case .small: return geo.size.width * 0.075
@@ -199,6 +231,7 @@ struct SPSymbolsListNew: View {
         case .accessibility5: return geo.size.width * 0.19
         @unknown default: return geo.size.width * 0.135
         }
+        #endif
     }
     var body: some View {
         SPSymbolsListContent(searchText: $searchText, pickerData: pickerData, loadedSymbols: loadedSymbols, geo: geo, size1: size1, size2: size2) {
@@ -253,4 +286,9 @@ struct SPSymbolsListOld: View {
             pickerData.isPresented.wrappedValue = false
         }
     }
+}
+
+
+#Preview{
+    SymbolPicker(isPresented: .constant(true), symbolName: .constant("car.fill"))
 }

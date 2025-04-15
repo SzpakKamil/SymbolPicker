@@ -24,11 +24,40 @@ struct SPColorPickerContent: View {
     let pickerData: SymbolPickerData
     var geo: GeometryProxy
     var size: CGFloat
+    
+    #if os(macOS)
+        let outlineColor = Color.black
+    #elseif os(visionOS)
+        let outlineColor = Color.primary
+    #else
+        var outlineColor: Color{ colorScheme == .dark ? Color.white : Color.black }
+    #endif
+    
     var body: some View {
         
         LazyVGrid(columns: [GridItem(.adaptive(minimum: size, maximum: size))]){
             ForEach(SymbolColor.allCases){
                 colorOption(for: $0)
+            }
+            let binding = Binding {
+                pickerData.colorValue?.wrappedValue.color ?? .clear
+            } set: { newValue in
+                pickerData.colorValue?.wrappedValue = .customColor(newValue.components)
+            }
+
+            ZStack{
+                ColorPicker(selection: binding, supportsOpacity: false) {
+                    EmptyView()
+                }
+                #if os(macOS)
+                .frame(width: size, height: size)
+                .clipped()
+                .opacity(0.03)
+                #endif
+                #if os(macOS)
+                colorOption(for: .customColor(binding.wrappedValue.components))
+                    .allowsHitTesting(false)
+                #endif
             }
         }
 #if os(macOS)
@@ -44,45 +73,44 @@ struct SPColorPickerContent: View {
     
     @ViewBuilder
     public func colorOption(for color: SymbolColor) -> some View{
-#if os(macOS)
-        let symbolName = pickerData.colorValue?.wrappedValue == color.color ? "checkmark.circle.fill" : "circle.fill"
-        let outlineColor = Color.black
-#else
-#if os(visionOS)
-        let outlineColor = Color.primary
-#else
-        let outlineColor = colorScheme == .dark ? Color.white : Color.black
-#endif
+        #if os(macOS)
+        var symbolName: String{
+            if case .customColor = color {
+                "pencil.circle.fill"
+            }else{
+                pickerData.colorValue?.wrappedValue == color ? "checkmark.circle.fill" : "circle.fill"
+            }
+        }
+        #else
         let symbolName = "circle.fill"
-#endif
+        #endif
         Button{
-            pickerData.colorValue?.wrappedValue = color.color
+            pickerData.colorValue?.wrappedValue = color
         }label:{
             Image(systemName: symbolName)
                 .resizable()
                 .scaledToFit()
-#if os(iOS) || os(visionOS)
+                #if os(iOS) || os(visionOS)
                 .overlay(
                     Circle()
                         .stroke(.black.opacity(0.05), lineWidth: 2)
                 )
-#else
+                #else
                 .overlay(
                     Circle()
                         .stroke(.black.opacity(0.05), lineWidth: 3)
                 )
-#endif
+                #endif
                 .clipShape(.circle)
-#if os(macOS)
+                #if os(macOS)
                 .padding(2)
-#else
+                #else
                 .padding(4.5)
                 .overlay(
                     Circle()
-                        .stroke(outlineColor.opacity(pickerData.colorValue?.wrappedValue == color.color ? 0.2 : 0), lineWidth: 2.7)
+                        .stroke(outlineColor.opacity(pickerData.colorValue?.wrappedValue == color ? 0.2 : 0), lineWidth: 2.7)
                 )
-#endif
-            
+                #endif
         }
         .accessibilityElement()
         .accessibilityLabel(color.name)

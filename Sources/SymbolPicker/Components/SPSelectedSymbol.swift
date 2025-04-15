@@ -57,8 +57,8 @@ struct SPSelectedSymbolContent: View {
                 .font(.largeTitle)
                 .frame(width: size, height: size)
                 .padding(size * 0.15)
-                .spForegroundStyle(pickerData.colorValue?.wrappedValue ?? .clear == .clear ? .primary : .white)
-                .background((pickerData.colorValue?.wrappedValue ?? .clear))
+                .spForegroundStyle(pickerData.colorValue?.wrappedValue == .customColor([0,0,0,1]) ? .primary : .white)
+                .background((pickerData.colorValue?.wrappedValue.color ?? .clear))
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
             Spacer()
         }
