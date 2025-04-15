@@ -131,6 +131,22 @@ The package includes a comprehensive set of predefined colors matching Apple's s
 - `.grey`
 - `.moro`
 - `.brown`
+- `.custom([Double])` - Allows precise custom RGB color values from the in-app color picker
+
+### Using the Custom Color Option
+
+The `.custom([Double])` option provides full flexibility when working with the built-in color picker:
+
+```swift
+// Array represents RGBA values (red, green, blue, alpha)
+// Each value ranges from 0.0 to 1.0
+let customRGBA: [Double] = [0.75, 0.32, 0.88, 1.0] // Purple with full opacity
+let symbolColor: SymbolColor = .custom(customRGBA)
+```
+
+This option is particularly useful when:
+- Implementing specific brand colors
+- Storing and retrieving user-selected custom colors
 
 ## Example
 
@@ -203,6 +219,41 @@ struct ContentView: View {
             symbolName: $selectedSymbol,
             color: $symbolColor,
             useFilledSymbols: false
+        )
+    }
+}
+```
+
+### Example Using Custom Color
+
+```swift
+import SwiftUI
+import SymbolPicker
+
+struct ContentView: View {
+    @State private var selectedSymbol: String = "star.fill"
+    @State private var symbolColor: SymbolColor = .custom([0.85, 0.21, 0.45, 1.0])
+    @State private var isPickerPresented: Bool = false
+    
+    var body: some View {
+        VStack {
+            Image(systemName: selectedSymbol)
+                .foregroundColor(symbolColor.color)
+                .font(.system(size: 64))
+                .padding()
+            
+            Text("Symbol: \(selectedSymbol)")
+                .font(.subheadline)
+            
+            Button("Select Symbol") {
+                isPickerPresented.toggle()
+            }
+        }
+        .symbolPicker(
+            isPresented: $isPickerPresented,
+            symbolName: $selectedSymbol,
+            color: $symbolColor,
+            useFilledSymbols: true
         )
     }
 }
