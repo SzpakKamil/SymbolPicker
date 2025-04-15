@@ -13,12 +13,11 @@ let package = Package(
         .library(name: "SymbolPicker", targets: ["SymbolPicker"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SzpakKamil/SearchBar.git", branch: "main")
+        .package(url: "https://github.com/SzpakKamil/SearchBar.git", from: "1.0.0")
     ],
     targets: [
-        
         .target(
-            name: "SymbolPicker", dependencies: [.product(name: "SearchBar", package: "SearchBar")], resources: [.process("Resources")]),
+            name: "SymbolPicker", dependencies: [.product(name: "SearchBar", package: "SearchBar")]),
 
     ]
 )
