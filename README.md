@@ -22,6 +22,7 @@ The package offers two primary ways to implement symbol picking:
 - Customizable symbol rendering styles
 - Multiple color selection options (RGB values, SwiftUI Color, or predefined SymbolColor)
 - Option to use filled or outline symbol variants
+- Full support for all dynamic type font sizes
 - Dark and light mode compatibility
 - Cross-platform support:
   - iOS 14+
@@ -289,6 +290,14 @@ struct MobileContentView: View {
     }
 }
 ```
+
+## Accessibility Features
+
+SymbolPicker is designed with accessibility in mind, providing a seamless experience for all users:
+
+- **Dynamic Type Support**: The interface fully adapts to all dynamic type font sizes, ensuring readability for users with visual impairments
+- **Readable Layout**: All text and symbols adjust appropriately to the user's preferred font size settings
+- **Consistent with System Behaviors**: Follows the same accessibility patterns as native Apple components
 
 ## Integration with Other Frameworks
 
