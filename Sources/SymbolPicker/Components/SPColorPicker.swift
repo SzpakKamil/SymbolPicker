@@ -53,6 +53,7 @@ struct SPColorPickerContent: View {
 }
 
 struct SPColorOption: View{
+    @Environment(\.colorScheme) var colorScheme
     var pickerData: SymbolPickerData
     var color: SymbolColor
     #if os(macOS)
