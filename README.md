@@ -1,5 +1,9 @@
 # `SymbolPicker`
 
+![Swift Version](https://img.shields.io/badge/Swift-6.1-teal.svg)
+![Build Test](https://img.shields.io/github/actions/workflow/status/1998code/swiftglass/swift.yml?branch=main&style=flat&label=Build&color=%237AE2CF)
+![Platforms](https://img.shields.io/badge/Platforms-iOS%2014.0+%20|%20macOS%2014.0+%20|%20visionOS%201.0+-15437D.svg)
+![License](https://img.shields.io/badge/License-MIT-C8ECFE.svg)
 ![Banner](./Resources/SymbolPickerBanner.jpg)
 
 
