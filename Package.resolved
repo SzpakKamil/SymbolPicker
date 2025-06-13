@@ -1,13 +1,13 @@
 {
-  "originHash" : "e98a01ee9bb6010b6d4d6d8680d0cc7c5fa993e6c1f6c09b35c4c76da20f704d",
+  "originHash" : "3a6bafec25bbb3a4b6100a43afcd52b0c3633646fc9ae76c6841cbe91ed9ebab",
   "pins" : [
     {
       "identity" : "searchbar",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SzpakKamil/SearchBar.git",
       "state" : {
-        "revision" : "4d439902b8b6cb8003d26e40e59e8516b64693f3",
-        "version" : "1.0.0"
+        "branch" : "2.1-beta",
+        "revision" : "80018e6624aac750237af5946540b33fd0b1c1dc"
       }
     }
   ],

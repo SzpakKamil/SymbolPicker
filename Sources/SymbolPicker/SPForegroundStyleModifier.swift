@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SPForegroundStyleModifier.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 08/03/2025.
@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@_documentation(visibility: internal)
 struct SPForegroundStyleModifier: ViewModifier {
     let color: Color
     func body(content: Content) -> some View {
@@ -24,6 +25,7 @@ struct SPForegroundStyleModifier: ViewModifier {
     }
 }
 
+@_documentation(visibility: internal)
 extension View {
     func spForegroundStyle(_ color: Color) -> some View {
         modifier(SPForegroundStyleModifier(color: color))

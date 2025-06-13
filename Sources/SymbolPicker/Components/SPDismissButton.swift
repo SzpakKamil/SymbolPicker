@@ -8,19 +8,29 @@
 import SwiftUI
 
 #if !os(macOS)
-struct SPDismissButton: View {
-    let pickerData: SymbolPickerData
+@_documentation(visibility: internal)
+struct SPDismissButton: View, @MainActor Equatable {
+    @Binding var isPresented: Bool
     var body: some View {
         if #available(iOS 15.0, macOS 12.0, visionOS 1.0, *){
             SPDismissButtonNew()
         }else{
-            SPDismissButtonOld(pickerData: pickerData)
+            SPDismissButtonOld(isPresented: $isPresented)
         }
+    }
+    
+    init(isPresented: Binding<Bool>) {
+        self._isPresented = isPresented
+    }
+    
+    @MainActor static func ==(lhs: SPDismissButton, rhs: SPDismissButton) -> Bool{
+        true
     }
 }
 
+@_documentation(visibility: internal)
 @available(iOS 15.0, macOS 12.0, visionOS 1.0, *)
-struct SPDismissButtonNew: View {
+struct SPDismissButtonNew: View, @MainActor Equatable {
     @Environment(\.dismiss) var dismiss
     var usePopover: Bool{
         if #available(iOS 17.0, *) {
@@ -43,10 +53,15 @@ struct SPDismissButtonNew: View {
         .opacity(usePopover ? 0 : 1)
         .allowsHitTesting(!usePopover)
     }
+    
+    @MainActor static func ==(lhs: SPDismissButtonNew, rhs: SPDismissButtonNew) -> Bool{
+        true
+    }
 }
 
-struct SPDismissButtonOld: View {
-    let pickerData: SymbolPickerData
+@_documentation(visibility: internal)
+struct SPDismissButtonOld: View, @MainActor Equatable {
+    @Binding var isPresented: Bool
 
     var usePopover: Bool{
         if #available(iOS 17.0, *) {
@@ -58,10 +73,14 @@ struct SPDismissButtonOld: View {
     
     var body: some View {
         Button("OK"){
-            pickerData.isPresented.wrappedValue = false
+            isPresented = false
         }
         .opacity(usePopover ? 0 : 1)
         .allowsHitTesting(!usePopover)
+    }
+    
+    @MainActor static func ==(lhs: SPDismissButtonOld, rhs: SPDismissButtonOld) -> Bool{
+        true
     }
 }
 #endif

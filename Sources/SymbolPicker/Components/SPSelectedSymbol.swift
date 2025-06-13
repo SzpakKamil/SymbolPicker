@@ -7,23 +7,44 @@
 
 import SwiftUI
 
-struct SPSelectedSymbol: View {
-    let pickerData: SymbolPickerData
+@_documentation(visibility: internal)
+struct SPSelectedSymbol: View, @MainActor Equatable {
+    var symbolName: String
+    var colorValue: SymbolColor?
     var geo: GeometryProxy
+    var calculatedScale: CGFloat
+    var calculatedOffset: CGFloat
     var body: some View {
         if #available(iOS 15.0, macOS 12.0, visionOS 1.0, *){
-            SPSelectedSymbolNew(pickerData: pickerData, geo: geo)
+            SPSelectedSymbolNew(symbolName: symbolName, colorValue: colorValue, geo: geo, calculatedScale: calculatedScale, calculatedOffset: calculatedOffset)
         }else{
-            SPSelectedSymbolOld(pickerData: pickerData, geo: geo)
+            SPSelectedSymbolOld(symbolName: symbolName, colorValue: colorValue, geo: geo)
         }
     }
+    
+    init(symbolName: String, colorValue: SymbolColor? = nil, geo: GeometryProxy, calculatedScale: CGFloat = 0, calculatedOffset: CGFloat = 0) {
+        self.symbolName = symbolName
+        self.colorValue = colorValue
+        self.geo = geo
+        self.calculatedScale = calculatedScale
+        self.calculatedOffset = calculatedOffset
+    }
+    
+    @MainActor static func ==(lhs: SPSelectedSymbol, rhs: SPSelectedSymbol) -> Bool{
+        lhs.symbolName == rhs.symbolName && lhs.colorValue == rhs.colorValue && lhs.calculatedScale == rhs.calculatedScale && lhs.calculatedOffset == rhs.calculatedOffset
+    }
+    
 }
 
 @available(iOS 15.0, macOS 12.0, visionOS 1.0, *)
-struct SPSelectedSymbolNew: View {
+@_documentation(visibility: internal)
+struct SPSelectedSymbolNew: View, @MainActor Equatable {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    let pickerData: SymbolPickerData
+    var symbolName: String
+    var colorValue: SymbolColor?
     var geo: GeometryProxy
+    var calculatedScale: CGFloat
+    var calculatedOffset: CGFloat
     var size: CGFloat{
         switch dynamicTypeSize{
         case .xSmall: return geo.size.width * 0.115
@@ -42,33 +63,90 @@ struct SPSelectedSymbolNew: View {
         }
     }
     var body: some View {
-        SPSelectedSymbolContent(pickerData: pickerData, geo: geo, size: size)
+        SPSelectedSymbolContent(symbolName: symbolName, colorValue: colorValue, geo: geo, size: size, calculatedScale: calculatedScale, calculatedOffset: calculatedOffset)
+    }
+    
+    @MainActor static func ==(lhs: SPSelectedSymbolNew, rhs: SPSelectedSymbolNew) -> Bool{
+        lhs.symbolName == rhs.symbolName && lhs.colorValue == rhs.colorValue && lhs.calculatedScale == rhs.calculatedScale && lhs.calculatedOffset == rhs.calculatedOffset
     }
 }
 
-struct SPSelectedSymbolContent: View {
-    let pickerData: SymbolPickerData
+@_documentation(visibility: internal)
+struct SPSelectedSymbolContent: View, @MainActor Equatable {
+    var symbolName: String
+    var colorValue: SymbolColor?
+    @Environment(\.colorScheme) var colorScheme
     var geo: GeometryProxy
     var size: CGFloat
+    var calculatedScale: CGFloat
+    var calculatedOffset: CGFloat
+    
     var body: some View {
-        HStack{
-            Spacer()
-            Image(systemName: pickerData.symbolName.wrappedValue)
-                .font(.largeTitle)
-                .frame(width: size, height: size)
-                .padding(size * 0.15)
-                .spForegroundStyle(pickerData.colorValue?.wrappedValue == .customColor([0,0,0,1]) ? .primary : .white)
-                .background((pickerData.colorValue?.wrappedValue.color ?? .clear))
-                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-            Spacer()
+        ZStack{
+            #if !os(macOS)
+            if #available(iOS 26.0, visionOS 26.0, *) {
+                VariableBlurView(direction: .blurredTopClearBottom)
+                    .frame(height: size * 1.5)
+                    .animation(.smooth, value: calculatedScale)
+                    .offset(y: -25)
+                    .ignoresSafeArea()
+            }
+            #endif
+            HStack{
+                Spacer()
+                Image(systemName: symbolName)
+                    .if{ content in
+                        if #available(iOS 26.0, visionOS 26.0, *){
+                            let size = size
+                            content
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: size, height: size)
+                                .padding(size * 0.35)
+                                .spForegroundStyle(colorValue == .customColor([0,0,0,1]) ? .primary : .white)
+                                .background(LinearGradient(
+                                    colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
+                                    startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
+                                    endPoint: colorScheme == .dark ? .bottomTrailing : .topLeading))
+                                .background(Color.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                                .shadow(color: (colorValue?.color ?? .black).opacity(0.5), radius: 20)
+                                .scaleEffect(calculatedScale)
+                                .offset(y: calculatedOffset)
+                        }else{
+                            content
+                                .font(.largeTitle)
+                                .frame(width: size, height: size)
+                                .padding(size * 0.15)
+                                .spForegroundStyle(colorValue == .customColor([0,0,0,1]) ? .primary : .white)
+                                .background((colorValue?.color ?? .clear))
+                                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        }
+                    }
+                
+                Spacer()
+            }
+            .if{ content in
+                if #available(iOS 26.0, visionOS 26.0, *){
+                    content.padding(.top, 20)
+                }else{
+                    content
+                }
+            }
+            .padding(.vertical, 5)
         }
-        .padding(.vertical, 5)
+    }
+    
+    @MainActor static func ==(lhs: SPSelectedSymbolContent, rhs: SPSelectedSymbolContent) -> Bool{
+        lhs.symbolName == rhs.symbolName && lhs.colorValue == rhs.colorValue && lhs.calculatedScale == rhs.calculatedScale && lhs.calculatedOffset == rhs.calculatedOffset && lhs.size == rhs.size
     }
 }
 
-struct SPSelectedSymbolOld: View {
+@_documentation(visibility: internal)
+struct SPSelectedSymbolOld: View, @MainActor Equatable {
     @Environment(\.sizeCategory) var sizeCategory
-    let pickerData: SymbolPickerData
+    var symbolName: String
+    var colorValue: SymbolColor?
     var geo: GeometryProxy
     var size: CGFloat{
         switch sizeCategory{
@@ -89,11 +167,11 @@ struct SPSelectedSymbolOld: View {
     }
     
     var body: some View {
-        SPSelectedSymbolContent(pickerData: pickerData, geo: geo, size: size)
+        SPSelectedSymbolContent(symbolName: symbolName, colorValue: colorValue, geo: geo, size: size, calculatedScale: 0, calculatedOffset: 0)
+    }
+    
+    @MainActor static func ==(lhs: SPSelectedSymbolOld, rhs: SPSelectedSymbolOld) -> Bool{
+        lhs.symbolName == rhs.symbolName && lhs.colorValue == rhs.colorValue && lhs.sizeCategory == rhs.sizeCategory
     }
 }
 
-
-#Preview{
-    SymbolPicker(isPresented: .constant(true), symbolName: .constant("bicycle"), color: .constant(SymbolColor.red))
-}

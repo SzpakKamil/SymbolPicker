@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@_documentation(visibility: internal)
 extension Color{
     var components: [Double]{
         #if canImport(UIKit)
