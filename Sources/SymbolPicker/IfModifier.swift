@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-public extension View {
+@_documentation(visibility: internal)
+extension View {
     func `if`<ModifiedContent: View>(
     @ViewBuilder body: (_ content: Self) -> ModifiedContent
   ) -> ModifiedContent {

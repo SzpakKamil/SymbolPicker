@@ -7,37 +7,34 @@
 
 import SwiftUI
 
+@_documentation(visibility: internal)
 struct SPColorPicker: View {
-    let pickerData: SymbolPickerData
+    @Binding var colorValue: SymbolColor
     var geo: GeometryProxy
     var body: some View {
-        if #available(iOS 15.0, macOS 12.0, visionOS 1.0, *){
-            SPColorPickerNew(pickerData: pickerData, geo: geo)
-        }else{
-            SPColorPickerOld(pickerData: pickerData, geo: geo)
+        if #available(iOS 15.0, macOS 12.0, visionOS 1.0, *) {
+            SPColorPickerNew(colorValue: $colorValue, geo: geo)
+        } else {
+            SPColorPickerOld(colorValue: $colorValue, geo: geo)
         }
     }
 }
 
+@_documentation(visibility: internal)
 struct SPColorPickerContent: View {
     @Environment(\.colorScheme) var colorScheme
-    let pickerData: SymbolPickerData
+    @Binding var colorValue: SymbolColor
     var geo: GeometryProxy
     var size: CGFloat
     
     var body: some View {
-        
         LazyVGrid(columns: [GridItem(.adaptive(minimum: size, maximum: size))]){
-            ForEach(SymbolColor.allCases){
-                SPColorOption(pickerData: pickerData, color: $0)
-            }
-            let binding = Binding {
-                pickerData.colorValue?.wrappedValue.color ?? .clear
-            } set: { newValue in
-                pickerData.colorValue?.wrappedValue = .customColor(newValue.components)
+            ForEach(SymbolColor.allCases) { color in
+                SPColorOption(colorValue: $colorValue, color: color)
+                    .drawingGroup()
             }
 
-            SPCustomColorPicker(pickerData: pickerData, geo: geo, size: size)
+            SPCustomColorPicker(colorValue: $colorValue, geo: geo, size: size)
         }
 #if os(macOS)
         .padding(.top, 12)
@@ -49,37 +46,41 @@ struct SPColorPickerContent: View {
         Divider()
 #endif
     }
-
 }
 
-struct SPColorOption: View{
+@_documentation(visibility: internal)
+struct SPColorOption: View {
     @Environment(\.colorScheme) var colorScheme
-    var pickerData: SymbolPickerData
+    @Binding var colorValue: SymbolColor
     var color: SymbolColor
     #if os(macOS)
-        var symbolName: String{
-            if case .customColor = color {
-                "pencil.circle.fill"
-            }else{
-                pickerData.colorValue?.wrappedValue == color ? "checkmark.circle.fill" : "circle.fill"
-            }
+    var symbolName: String {
+        if case .customColor = color {
+            "pencil.circle.fill"
+        } else {
+            colorValue == color ? "checkmark.circle.fill" : "circle.fill"
         }
+    }
     #else
-        let symbolName = "circle.fill"
+    let symbolName = "circle.fill"
     #endif
     
 #if os(macOS)
     let outlineColor = Color.black
-#elseif os(visionOS)
-    let outlineColor = Color.primary
 #else
-    var outlineColor: Color{ colorScheme == .dark ? Color.white : Color.black }
+    var outlineColor: Color {
+        if #available(iOS 26.0, visionOS 26.0, *) {
+            Color.blue.opacity(colorValue == color ? 1 : 0)
+        } else {
+            (colorScheme == .dark ? Color.white : Color.black).opacity(colorValue == color ? 0.2 : 0)
+        }
+    }
 #endif
     
-    var body: some View{
-        Button{
-            pickerData.colorValue?.wrappedValue = color
-        }label:{
+    var body: some View {
+        Button {
+            colorValue = color
+        } label: {
             Image(systemName: symbolName)
                 .resizable()
                 .scaledToFit()
@@ -94,15 +95,16 @@ struct SPColorOption: View{
                         .stroke(.black.opacity(0.05), lineWidth: 3)
                 )
 #endif
-                .clipShape(.circle)
+                .clipShape(Circle())
 #if os(macOS)
                 .padding(2)
 #else
                 .padding(4.5)
                 .overlay(
                     Circle()
-                        .stroke(outlineColor.opacity(pickerData.colorValue?.wrappedValue == color ? 0.2 : 0), lineWidth: 2.7)
+                        .stroke(outlineColor, lineWidth: 2.7)
                 )
+                .padding(1.5)
 #endif
         }
         .accessibilityElement()
@@ -113,29 +115,30 @@ struct SPColorOption: View{
     }
 }
 
-
-struct SPCustomColorPicker: View {
-    let pickerData: SymbolPickerData
+@_documentation(visibility: internal)
+struct SPCustomColorPicker: View{
+    @Binding var colorValue: SymbolColor
     var geo: GeometryProxy
     var size: CGFloat
     var body: some View {
-        let binding = Binding {
-            pickerData.colorValue?.wrappedValue.color ?? .clear
+        let binding = Binding<Color> {
+            colorValue.color
         } set: { newValue in
-            pickerData.colorValue?.wrappedValue = .customColor(newValue.components)
+            colorValue = .customColor(newValue.components)
         }
         #if os(macOS)
-        ZStack{
+        ZStack {
             ColorPicker("Color Picker", selection: binding, supportsOpacity: false)
                 .labelsHidden()
                 .frame(width: size, height: size)
                 .clipped()
-                .opacity(0.03)
-            SPColorOption(pickerData: pickerData, color: .customColor(binding.wrappedValue.components))
+                .opacity(0.02)
+                .scaleEffect(0.8)
+            SPColorOption(colorValue: $colorValue, color: .customColor(binding.wrappedValue.components))
                 .allowsHitTesting(false)
         }
         #else
-        if #available(iOS 15.0, visionOS 1.0, macOS 13.0, *){
+        if #available(iOS 15.0, visionOS 1.0, macOS 13.0, *) {
             SPCustomColorPickerNew(geo: geo, color: binding)
                 .frame(width: size, height: size)
         } else {
@@ -144,16 +147,19 @@ struct SPCustomColorPicker: View {
         }
         #endif
     }
+    
+ 
 }
 
+@_documentation(visibility: internal)
 @available(iOS 15.0, visionOS 1.0, macOS 13.0, *)
 struct SPCustomColorPickerNew: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     var geo: GeometryProxy
     @Binding var color: Color
     
-    var scale: CGFloat{
-        switch dynamicTypeSize{
+    var scale: CGFloat {
+        switch dynamicTypeSize {
         case .xSmall: return geo.size.width / 380
         case .small: return geo.size.width / 350
         case .medium: return geo.size.width / 320
@@ -169,20 +175,29 @@ struct SPCustomColorPickerNew: View {
         @unknown default: return geo.size.width / 280
         }
     }
+    
     var body: some View {
-        ColorPicker("Color Picker", selection: $color, supportsOpacity: false)
-            .labelsHidden()
-            .scaleEffect(scale)
+        if #available(iOS 17.0, *) {
+            ColorPicker("Color Picker", selection: $color, supportsOpacity: false)
+                .labelsHidden()
+                .scaleEffect(scale * 1.15)
+        } else {
+            ColorPicker("Color Picker", selection: $color, supportsOpacity: false)
+                .labelsHidden()
+                .scaleEffect(scale)
+        }
     }
+    
 }
 
+@_documentation(visibility: internal)
 struct SPCustomColorPickerOld: View {
     @Environment(\.sizeCategory) var sizeCategory
     var geo: GeometryProxy
     @Binding var color: Color
     
-    var scale: CGFloat{
-        switch sizeCategory{
+    var scale: CGFloat {
+        switch sizeCategory {
         case .extraSmall: return geo.size.width / 380
         case .small: return geo.size.width / 350
         case .medium: return geo.size.width / 320
@@ -198,21 +213,24 @@ struct SPCustomColorPickerOld: View {
         @unknown default: return geo.size.width / 280
         }
     }
+    
     var body: some View {
         ColorPicker("Color Picker", selection: $color, supportsOpacity: false)
             .labelsHidden()
             .scaleEffect(scale)
     }
+
 }
 
+@_documentation(visibility: internal)
 @available(iOS 15.0, macOS 12.0, visionOS 1.0, *)
-struct SPColorPickerNew: View {
+struct SPColorPickerNew: View{
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
-    let pickerData: SymbolPickerData
+    @Binding var colorValue: SymbolColor
     var geo: GeometryProxy
     #if os(iOS) || os(visionOS)
     var gridSize: CGFloat {
-        switch dynamicTypeSize{
+        switch dynamicTypeSize {
         case .xSmall: return geo.size.width * 0.08
         case .small: return geo.size.width * 0.085
         case .medium: return geo.size.width * 0.095
@@ -231,18 +249,25 @@ struct SPColorPickerNew: View {
     #else
     let gridSize: CGFloat = 21
     #endif
+    
     var body: some View {
-        SPColorPickerContent(pickerData: pickerData, geo: geo, size: gridSize)
+        if #available(iOS 17.0, *) {
+            SPColorPickerContent(colorValue: $colorValue, geo: geo, size: gridSize * 1.2)
+        } else {
+            SPColorPickerContent(colorValue: $colorValue, geo: geo, size: gridSize)
+        }
     }
+    
 }
 
-struct SPColorPickerOld: View {
+@_documentation(visibility: internal)
+struct SPColorPickerOld: View{
     @Environment(\.sizeCategory) var sizeCategory
-    let pickerData: SymbolPickerData
+    @Binding var colorValue: SymbolColor
     var geo: GeometryProxy
 #if os(iOS) || os(visionOS)
     var gridSize: CGFloat {
-        switch sizeCategory{
+        switch sizeCategory {
         case .extraSmall: return geo.size.width * 0.08
         case .small: return geo.size.width * 0.085
         case .medium: return geo.size.width * 0.095
@@ -261,7 +286,8 @@ struct SPColorPickerOld: View {
 #else
     let gridSize: CGFloat = 21
 #endif
+    
     var body: some View {
-        SPColorPickerContent(pickerData: pickerData, geo: geo, size: gridSize)
+        SPColorPickerContent(colorValue: $colorValue, geo: geo, size: gridSize)
     }
 }
