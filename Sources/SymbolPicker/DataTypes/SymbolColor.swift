@@ -176,9 +176,10 @@ public enum SymbolColor: Identifiable, Equatable, Comparable, Codable, CaseItera
 
     @_documentation(visibility: internal)
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try container.decode(Int.self, forKey: .type)
-        
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            print("Decoding SymbolColor... keys:", container.allKeys)
+            let id = try container.decode(Int.self, forKey: .type)
+            print("Decoded type id:", id)
         switch id {
         case 0:
             self = .red
