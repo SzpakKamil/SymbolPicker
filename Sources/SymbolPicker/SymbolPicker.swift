@@ -77,7 +77,7 @@ public struct SymbolPicker: View {
     #if os(macOS)
     @_documentation(visibility: internal)
     @ViewBuilder public var contentMacOS: some View{
-        let isShowingColorPicker = colorValue != .customColor([0,0,0,0])
+        let isShowingColorPicker = colorValue != .customColor(red: 0, green: 0, blue: 0, alpha: 1)
         var color: Color{
             if colorScheme == .dark{
                 return .black.opacity(0.05)
@@ -121,7 +121,7 @@ public struct SymbolPicker: View {
                             
                             SPSelectedSymbol(symbolName: symbolName, colorValue: colorValue, geo: geo, calculatedScale: scaleCalculated, calculatedOffset: offsetCalculated)
                         }
-                        if colorValue != .customColor([0,0,0,0]){
+                        if colorValue != .customColor(red: 0, green: 0, blue: 0, alpha: 1){
                             SPColorPicker(colorValue: $colorValue, geo: geo)
                                 .listRowInsets(EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12))
                         }
@@ -180,7 +180,7 @@ public struct SymbolPicker: View {
                 GeometryReader{ geo in
                     List{
                         SPSelectedSymbol(symbolName: symbolName, colorValue: colorValue, geo: geo)
-                        if colorValue != .customColor([0,0,0,0]){
+                        if colorValue != .customColor(red: 0, green: 0, blue: 0, alpha: 1){
         
                             SPColorPicker(colorValue: $colorValue, geo: geo)
                         }
@@ -210,9 +210,13 @@ public struct SymbolPicker: View {
     public init(symbolName: Binding<String>, color: Binding<Color>?) {
         self._isPresented = .constant(false)
         self._symbolName = symbolName
-        self._colorValue = Binding{
-            SymbolColor.customColor(color?.wrappedValue.components ?? [0,0,0,0])
-        }set: { value in
+        self._colorValue = Binding {
+            if let components = color?.wrappedValue.components, components.count >= 4 {
+                return SymbolColor.customColor(red: components[0], green: components[1], blue: components[2], alpha: components[3])
+            } else {
+                return SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1)
+            }
+        } set: { value in
             color?.wrappedValue = value.color
         }
     }
@@ -221,9 +225,17 @@ public struct SymbolPicker: View {
     public init(symbolName: Binding<String>, color: Binding<[Double]>?) {
         self._isPresented = .constant(false)
         self._symbolName = symbolName
-        self._colorValue = Binding{
-            SymbolColor.customColor(color?.wrappedValue ?? [0,0,0,0])
-        }set: { value in
+        self._colorValue = Binding {
+            if let components = color?.wrappedValue {
+                let red = components.count > 0 ? components[0] : 0
+                let green = components.count > 1 ? components[1] : 0
+                let blue = components.count > 2 ? components[2] : 0
+                let alpha = components.count > 3 ? components[3] : 0
+                return SymbolColor.customColor(red: red, green: green, blue: blue, alpha: alpha)
+            } else {
+                return SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1)
+            }
+        } set: { value in
             color?.wrappedValue = value.value
         }
     }
@@ -232,9 +244,9 @@ public struct SymbolPicker: View {
     public init(symbolName: Binding<String>, color: Binding<SymbolColor>?) {
         self._isPresented = .constant(false)
         self._symbolName = symbolName
-        self._colorValue = Binding{
-            color?.wrappedValue ?? SymbolColor.customColor([0,0,0,0])
-        }set: { value in
+        self._colorValue = Binding {
+            color?.wrappedValue ?? SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1)
+        } set: { value in
             color?.wrappedValue = value
         }
     }
@@ -243,7 +255,7 @@ public struct SymbolPicker: View {
     public init(symbolName: Binding<String>) {
         self._isPresented = .constant(false)
         self._symbolName = symbolName
-        self._colorValue = .constant(SymbolColor.customColor([0,0,0,0]))
+        self._colorValue = .constant(SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1))
     }
     
     @available(macOS 11.0, iOS 14.0, visionOS 1.0, *)
@@ -253,9 +265,13 @@ public struct SymbolPicker: View {
     public init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<Color>?) {
         self._isPresented = isPresented
         self._symbolName = symbolName
-        self._colorValue = Binding{
-            SymbolColor.customColor(color?.wrappedValue.components ?? [0,0,0,0])
-        }set: { value in
+        self._colorValue = Binding {
+            if let components = color?.wrappedValue.components, components.count >= 4 {
+                return SymbolColor.customColor(red: components[0], green: components[1], blue: components[2], alpha: components[3])
+            } else {
+                return SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1)
+            }
+        } set: { value in
             color?.wrappedValue = value.color
         }
     }
@@ -267,9 +283,17 @@ public struct SymbolPicker: View {
     public init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<[Double]>?) {
         self._isPresented = isPresented
         self._symbolName = symbolName
-        self._colorValue = Binding{
-            SymbolColor.customColor(color?.wrappedValue ?? [0,0,0,0])
-        }set: { value in
+        self._colorValue = Binding {
+            if let components = color?.wrappedValue {
+                let red = components.count > 0 ? components[0] : 0
+                let green = components.count > 1 ? components[1] : 0
+                let blue = components.count > 2 ? components[2] : 0
+                let alpha = components.count > 3 ? components[3] : 0
+                return SymbolColor.customColor(red: red, green: green, blue: blue, alpha: alpha)
+            } else {
+                return SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1)
+            }
+        } set: { value in
             color?.wrappedValue = value.value
         }
     }
@@ -281,9 +305,9 @@ public struct SymbolPicker: View {
     public init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<SymbolColor>?) {
         self._isPresented = isPresented
         self._symbolName = symbolName
-        self._colorValue = Binding{
-            color?.wrappedValue ?? SymbolColor.customColor([0,0,0,0])
-        }set: { value in
+        self._colorValue = Binding {
+            color?.wrappedValue ?? SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1)
+        } set: { value in
             color?.wrappedValue = value
         }
     }
@@ -295,7 +319,7 @@ public struct SymbolPicker: View {
     public init(isPresented: Binding<Bool>, symbolName: Binding<String>) {
         self._isPresented = isPresented
         self._symbolName = symbolName
-        self._colorValue = .constant(SymbolColor.customColor([0,0,0,0]))
+        self._colorValue = .constant(SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1))
     }
     
     func handleSearchText(for searchText: String, loadedSymbols: Binding<[SymbolSection]>) {

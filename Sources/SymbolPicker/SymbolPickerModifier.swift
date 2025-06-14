@@ -58,9 +58,17 @@ public struct SymbolPickerModifier<Content: View>: View {
         self.content = content
         self._isPresented = isPresented
         self._symbolName = symbolName
-        self._colorValue = Binding{
-            SymbolColor.customColor(color?.wrappedValue ?? [0,0,0,0])
-        }set: { value in
+        self._colorValue = Binding {
+            if let components = color?.wrappedValue {
+                let red = components.count > 0 ? components[0] : 0
+                let green = components.count > 1 ? components[1] : 0
+                let blue = components.count > 2 ? components[2] : 0
+                let alpha = components.count > 3 ? components[3] : 0
+                return SymbolColor.customColor(red: red, green: green, blue: blue, alpha: alpha)
+            } else {
+                return SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1)
+            }
+        } set: { value in
             color?.wrappedValue = value.value
         }
     }
@@ -68,9 +76,13 @@ public struct SymbolPickerModifier<Content: View>: View {
         self.content = content
         self._isPresented = isPresented
         self._symbolName = symbolName
-        self._colorValue = Binding{
-            SymbolColor.customColor(color?.wrappedValue.components ?? [0,0,0,0])
-        }set: { value in
+        self._colorValue = Binding {
+            if let components = color?.wrappedValue.components, components.count >= 4 {
+                return SymbolColor.customColor(red: components[0], green: components[1], blue: components[2], alpha: components[3])
+            } else {
+                return SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1)
+            }
+        } set: { value in
             color?.wrappedValue = value.color
         }
     }
@@ -78,17 +90,18 @@ public struct SymbolPickerModifier<Content: View>: View {
         self.content = content
         self._isPresented = isPresented
         self._symbolName = symbolName
-        self._colorValue = Binding{
-            color?.wrappedValue ?? SymbolColor.customColor([0,0,0,0])
-        }set: { value in
+        self._colorValue = Binding {
+            color?.wrappedValue ?? SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1)
+        } set: { value in
             color?.wrappedValue = value
         }
     }
+    
     init(isPresented: Binding<Bool>, symbolName: Binding<String>, @ViewBuilder content: @escaping () -> Content) {
         self.content = content
         self._isPresented = isPresented
         self._symbolName = symbolName
-        self._colorValue = .constant(SymbolColor.customColor([0,0,0,0]))
+        self._colorValue = .constant(SymbolColor.customColor(red: 0,green: 0,blue: 0,alpha: 0))
     }
 }
 

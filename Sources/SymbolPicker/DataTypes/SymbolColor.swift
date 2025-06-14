@@ -27,7 +27,7 @@ public enum SymbolColor: Identifiable, Equatable, Comparable, Codable, CaseItera
     case grey
     case moro
     case brown
-    case customColor([Double])
+    case customColor(red: Double, green: Double, blue: Double, alpha: Double)
     
     public var id: Double {
         switch self {
@@ -61,12 +61,8 @@ public enum SymbolColor: Identifiable, Equatable, Comparable, Codable, CaseItera
             13
         case .brown:
             14
-        case .customColor(let array):
-            if array.count != 4 {
-                15
-            } else {
-                array.reduce(0) { ($0 + 0.1) * ($1 + 0.1) }
-            }
+        case .customColor(let r, let g, let b, let a):
+            (r + 0.1) * (g + 0.1) * (b + 0.1) * (a + 0.1)
         }
     }
     
@@ -139,20 +135,25 @@ public enum SymbolColor: Identifiable, Equatable, Comparable, Codable, CaseItera
             return [0.584, 0.663, 0.592, 1]
         case .brown:
             return [0.651, 0.565, 0.455, 1]
-        case .customColor(let colorValue):
-            return colorValue
+        case .customColor(let r, let g, let b, let a):
+            return [r, g, b, a]
         }
     }
     
     public var color: Color {
-        Color(red: self.value[0], green: self.value[1], blue: self.value[2])
+        switch self {
+        case .customColor(let r, let g, let b, _):
+            return Color(red: r, green: g, blue: b)
+        default:
+            return Color(red: self.value[0], green: self.value[1], blue: self.value[2])
+        }
     }
     
     @_documentation(visibility: internal)
     public static func == (lhs: SymbolColor, rhs: SymbolColor) -> Bool {
         switch (lhs, rhs) {
-        case (.customColor(let lhsArray), .customColor(let rhsArray)):
-            return lhsArray == rhsArray
+        case (.customColor(let lr, let lg, let lb, let la), .customColor(let rr, let rg, let rb, let ra)):
+            return lr == rr && lg == rg && lb == rb && la == ra
         default:
             return lhs.id == rhs.id
         }
@@ -215,7 +216,7 @@ public enum SymbolColor: Identifiable, Equatable, Comparable, Codable, CaseItera
                     debugDescription: "Custom color must have exactly 4 values (RGBA)"
                 )
             }
-            self = .customColor(values)
+            self = .customColor(red: values[0], green: values[1], blue: values[2], alpha: values[3])
         default:
             throw DecodingError.dataCorruptedError(
                 forKey: .type,
@@ -260,9 +261,9 @@ public enum SymbolColor: Identifiable, Equatable, Comparable, Codable, CaseItera
             try container.encode("moro", forKey: .type)
         case .brown:
             try container.encode("brown", forKey: .type)
-        case .customColor(let values):
+        case .customColor(let r, let g, let b, let a):
             try container.encode("customColor", forKey: .type)
-            try container.encode(values, forKey: .customColorValues)
+            try container.encode([r, g, b, a], forKey: .customColorValues)
         }
     }
 }

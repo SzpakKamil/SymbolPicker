@@ -103,7 +103,7 @@ struct SPSelectedSymbolContent: View, @MainActor Equatable {
                                 .scaledToFit()
                                 .frame(width: size, height: size)
                                 .padding(size * 0.35)
-                                .spForegroundStyle(colorValue == .customColor([0,0,0,1]) ? .primary : .white)
+                                .spForegroundStyle(colorValue == .customColor(red: 0, green: 0, blue: 0, alpha: 1) ? .primary : .white)
                                 .background(LinearGradient(
                                     colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
                                     startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
@@ -118,7 +118,7 @@ struct SPSelectedSymbolContent: View, @MainActor Equatable {
                                 .font(.largeTitle)
                                 .frame(width: size, height: size)
                                 .padding(size * 0.15)
-                                .spForegroundStyle(colorValue == .customColor([0,0,0,1]) ? .primary : .white)
+                                .spForegroundStyle(colorValue == .customColor(red: 0, green: 0, blue: 0, alpha: 1) ? .primary : .white)
                                 .background((colorValue?.color ?? .clear))
                                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                         }
