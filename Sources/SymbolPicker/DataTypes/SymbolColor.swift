@@ -168,7 +168,10 @@ public enum SymbolColor: Identifiable, Equatable, Comparable, Codable, CaseItera
     @_documentation(visibility: internal)
     private enum CodingKeys: String, CodingKey {
         case type
-        case customColorValues
+        case customR
+        case customG
+        case customB
+        case customA
     }
 
     @_documentation(visibility: internal)
@@ -208,15 +211,11 @@ public enum SymbolColor: Identifiable, Equatable, Comparable, Codable, CaseItera
         case "brown":
             self = .brown
         case "customColor":
-            let values = try container.decode([Double].self, forKey: .customColorValues)
-            guard values.count == 4 else {
-                throw DecodingError.dataCorruptedError(
-                    forKey: .customColorValues,
-                    in: container,
-                    debugDescription: "Custom color must have exactly 4 values (RGBA)"
-                )
-            }
-            self = .customColor(red: values[0], green: values[1], blue: values[2], alpha: values[3])
+            let r = try container.decode(Double.self, forKey: .customR)
+            let g = try container.decode(Double.self, forKey: .customG)
+            let b = try container.decode(Double.self, forKey: .customB)
+            let a = try container.decode(Double.self, forKey: .customA)
+            self = .customColor(red: r, green: g, blue: b, alpha: a)
         default:
             throw DecodingError.dataCorruptedError(
                 forKey: .type,
@@ -263,7 +262,10 @@ public enum SymbolColor: Identifiable, Equatable, Comparable, Codable, CaseItera
             try container.encode("brown", forKey: .type)
         case .customColor(let r, let g, let b, let a):
             try container.encode("customColor", forKey: .type)
-            try container.encode([r, g, b, a], forKey: .customColorValues)
+            try container.encode(r, forKey: .customR)
+            try container.encode(g, forKey: .customG)
+            try container.encode(b, forKey: .customB)
+            try container.encode(a, forKey: .customA)
         }
     }
 }
