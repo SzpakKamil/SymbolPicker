@@ -19,7 +19,7 @@ public struct SymbolPicker: View {
     @State private var loadedSymbols: [SymbolSection] = []
     @State private var searchDebounceTask: Task<Void, Never>? = nil
     private var dismissType: SymbolPickerDismissType = .manual
-    private var symbolsStyle: SymbolPickerSymbolsStyle = .outlined
+    private var symbolsStyle: SymbolPickerSymbolsStyle = .filled
     
     @State private var offsetCalculated: CGFloat = 0
     @State private var scaleCalculated: CGFloat = 0
