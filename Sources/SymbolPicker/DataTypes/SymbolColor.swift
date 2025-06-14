@@ -177,51 +177,50 @@ public enum SymbolColor: Identifiable, Equatable, Comparable, Codable, CaseItera
     @_documentation(visibility: internal)
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let type = try container.decode(String.self, forKey: .type)
+        let id = try container.decode(Int.self, forKey: .type)
         
-        switch type {
-        case "red":
+        switch id {
+        case 0:
             self = .red
-        case "orange":
+        case 1:
             self = .orange
-        case "yellow":
+        case 2:
             self = .yellow
-        case "green":
+        case 3:
             self = .green
-        case "mint":
+        case 4:
             self = .mint
-        case "teal":
+        case 5:
             self = .teal
-        case "cyan":
+        case 6:
             self = .cyan
-        case "blue":
+        case 7:
             self = .blue
-        case "indigo":
+        case 8:
             self = .indigo
-        case "purple":
+        case 9:
             self = .purple
-        case "magenta":
+        case 10:
             self = .magenta
-        case "pink":
+        case 11:
             self = .pink
-        case "grey":
+        case 12:
             self = .grey
-        case "moro":
+        case 13:
             self = .moro
-        case "brown":
+        case 14:
             self = .brown
-        case "customColor":
-            let r = try container.decode(Double.self, forKey: .customR)
-            let g = try container.decode(Double.self, forKey: .customG)
-            let b = try container.decode(Double.self, forKey: .customB)
-            let a = try container.decode(Double.self, forKey: .customA)
-            self = .customColor(red: r, green: g, blue: b, alpha: a)
         default:
-            throw DecodingError.dataCorruptedError(
-                forKey: .type,
-                in: container,
-                debugDescription: "Unknown color type: \(type)"
-            )
+            let r = try container.decodeIfPresent(Double.self, forKey: .customR)
+            let g = try container.decodeIfPresent(Double.self, forKey: .customG)
+            let b = try container.decodeIfPresent(Double.self, forKey: .customB)
+            let a = try container.decodeIfPresent(Double.self, forKey: .customA)
+            if let r, let g, let b, let a{
+                self = .customColor(red: r, green: g, blue: b, alpha: a)
+            }else{
+                print("Custom color dont have r, g, b, a values")
+                self = SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1)
+            }
         }
     }
     
@@ -230,42 +229,14 @@ public enum SymbolColor: Identifiable, Equatable, Comparable, Codable, CaseItera
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         switch self {
-        case .red:
-            try container.encode("red", forKey: .type)
-        case .orange:
-            try container.encode("orange", forKey: .type)
-        case .yellow:
-            try container.encode("yellow", forKey: .type)
-        case .green:
-            try container.encode("green", forKey: .type)
-        case .mint:
-            try container.encode("mint", forKey: .type)
-        case .teal:
-            try container.encode("teal", forKey: .type)
-        case .cyan:
-            try container.encode("cyan", forKey: .type)
-        case .blue:
-            try container.encode("blue", forKey: .type)
-        case .indigo:
-            try container.encode("indigo", forKey: .type)
-        case .purple:
-            try container.encode("purple", forKey: .type)
-        case .magenta:
-            try container.encode("magenta", forKey: .type)
-        case .pink:
-            try container.encode("pink", forKey: .type)
-        case .grey:
-            try container.encode("grey", forKey: .type)
-        case .moro:
-            try container.encode("moro", forKey: .type)
-        case .brown:
-            try container.encode("brown", forKey: .type)
         case .customColor(let r, let g, let b, let a):
-            try container.encode("customColor", forKey: .type)
-            try container.encode(r, forKey: .customR)
-            try container.encode(g, forKey: .customG)
-            try container.encode(b, forKey: .customB)
-            try container.encode(a, forKey: .customA)
+            try container.encodeIfPresent(id, forKey: .type)
+            try container.encodeIfPresent(r, forKey: .customR)
+            try container.encodeIfPresent(g, forKey: .customG)
+            try container.encodeIfPresent(b, forKey: .customB)
+            try container.encodeIfPresent(a, forKey: .customA)
+        default:
+            try container.encode(id, forKey: .type)
         }
     }
 }
