@@ -124,7 +124,8 @@ struct SPCustomColorPicker: View{
         let binding = Binding<Color> {
             colorValue.color
         } set: { newValue in
-            colorValue = .customColor(newValue.components)
+            let components = newValue.components
+            colorValue = .customColor(red: components[0], green: components[1], blue: components[2], alpha: components[3])
         }
         #if os(macOS)
         ZStack {
@@ -134,7 +135,7 @@ struct SPCustomColorPicker: View{
                 .clipped()
                 .opacity(0.02)
                 .scaleEffect(0.8)
-            SPColorOption(colorValue: $colorValue, color: .customColor(binding.wrappedValue.components))
+            SPColorOption(colorValue: $colorValue, color: .customColor(red: binding.wrappedValue.components[0], green: binding.wrappedValue.components[1], blue: binding.wrappedValue.components[2], alpha: binding.wrappedValue.components[3]))
                 .allowsHitTesting(false)
         }
         #else
@@ -291,3 +292,4 @@ struct SPColorPickerOld: View{
         SPColorPickerContent(colorValue: $colorValue, geo: geo, size: gridSize)
     }
 }
+
