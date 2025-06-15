@@ -8,7 +8,7 @@
 import SwiftUI
 
 @_documentation(visibility: internal)
-struct SPSelectedSymbol: View {
+struct SPSelectedSymbol: View, @MainActor Equatable {
     var symbolName: String
     var colorValue: SymbolColor?
     var geo: GeometryProxy
@@ -38,7 +38,7 @@ struct SPSelectedSymbol: View {
 
 @available(iOS 15.0, macOS 12.0, visionOS 1.0, *)
 @_documentation(visibility: internal)
-struct SPSelectedSymbolNew: View {
+struct SPSelectedSymbolNew: View, @MainActor Equatable {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     var symbolName: String
     var colorValue: SymbolColor?
@@ -72,7 +72,7 @@ struct SPSelectedSymbolNew: View {
 }
 
 @_documentation(visibility: internal)
-struct SPSelectedSymbolContent: View {
+struct SPSelectedSymbolContent: View, @MainActor Equatable {
     var symbolName: String
     var colorValue: SymbolColor?
     @Environment(\.colorScheme) var colorScheme
@@ -143,7 +143,7 @@ struct SPSelectedSymbolContent: View {
 }
 
 @_documentation(visibility: internal)
-struct SPSelectedSymbolOld: View {
+struct SPSelectedSymbolOld: View, @MainActor Equatable {
     @Environment(\.sizeCategory) var sizeCategory
     var symbolName: String
     var colorValue: SymbolColor?
