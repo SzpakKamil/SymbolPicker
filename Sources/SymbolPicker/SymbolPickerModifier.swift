@@ -15,6 +15,7 @@ public struct SymbolPickerModifier<Content: View>: View {
     @Binding var colorValue: SymbolColor
     private var dismissType: SymbolPickerDismissType = .manual
     private var symbolsStyle: SymbolPickerSymbolsStyle = .filled
+    private var action: (() -> Void)? = nil
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     #if !os(macOS)
@@ -32,7 +33,7 @@ public struct SymbolPickerModifier<Content: View>: View {
         content()
             .popover(isPresented: $isPresented){
                 SymbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $colorValue)
-                    .symbolPickerDismissType(dismissType)
+                    .symbolPickerDismiss(type: dismissType, action: action)
                     .symbolPickerSymbolsStyle(symbolsStyle)
             }
         #else
@@ -40,14 +41,14 @@ public struct SymbolPickerModifier<Content: View>: View {
             content()
                 .popover(isPresented: $isPresented){
                     SymbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $colorValue)
-                        .symbolPickerDismissType(dismissType)
+                        .symbolPickerDismiss(type: dismissType, action: action)
                         .symbolPickerSymbolsStyle(symbolsStyle)
                 }
         }else{
             content()
                 .sheet(isPresented: $isPresented){
                     SymbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $colorValue)
-                        .symbolPickerDismissType(dismissType)
+                        .symbolPickerDismiss(type: dismissType, action: action)
                         .symbolPickerSymbolsStyle(symbolsStyle)
                 }
         }
@@ -112,9 +113,10 @@ public extension SymbolPickerModifier{
         copy.symbolsStyle = style
         return copy
     }
-    func symbolPickerDismissType(_ type: SymbolPickerDismissType) -> Self {
+    func symbolPickerDismiss(type: SymbolPickerDismissType = .manual, action: (() -> Void)? = nil) -> Self {
         var copy = self
         copy.dismissType = type
+        copy.action = action
         return copy
     }
 }

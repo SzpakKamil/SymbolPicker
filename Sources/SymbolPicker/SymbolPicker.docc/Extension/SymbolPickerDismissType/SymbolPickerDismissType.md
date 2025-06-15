@@ -15,7 +15,7 @@ An enumeration that defines the dismissal behavior for a `SymbolPicker` view.
 
 ## Overview
 
-The `SymbolPickerDismissType` enum specifies how a `SymbolPicker` view is dismissed, supporting two cases: `onSymbolSelect` and `manual`. It conforms to `Identifiable`, `Equatable`, `Codable`, and `Hashable`, making it suitable for use in SwiftUI views, data persistence, and collections. The dismiss type is applied using the `.symbolPickerDismissType(_:)` modifier on a `SymbolPicker` view. The `onSymbolSelect` case dismisses the picker automatically when a symbol is selected, while the `manual` case requires explicit user action to dismiss. The table below summarizes the available dismiss types, their IDs, and descriptions.
+The `SymbolPickerDismissType` enum specifies how a `SymbolPicker` view is dismissed, supporting two cases: `onSymbolSelect` and `manual`. It conforms to `Identifiable`, `Equatable`, `Codable`, and `Hashable`, making it suitable for use in SwiftUI views, data persistence, and collections. The dismiss type is applied using the `.symbolPickerDismiss(type:action:)` modifier on a `SymbolPicker` view. The `onSymbolSelect` case dismisses the picker automatically when a symbol is selected, while the `manual` case requires explicit user action to dismiss. The table below summarizes the available dismiss types, their IDs, and descriptions.
 
 ### Dismiss Type Grid
 | Dismiss Type Name | ID | Description |

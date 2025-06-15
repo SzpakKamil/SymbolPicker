@@ -15,7 +15,7 @@ A SwiftUI view modifier that presents a symbol picker interface for selecting SF
 
 ## Overview
 
-The `.symbolPicker(isPresented:symbolName:)` modifier attaches a symbol picker to a SwiftUI view, allowing users to select an SF Symbol and bind its name to a `String` property. The picker’s presentation is controlled by a `Binding<Bool>`, and it supports an optional color parameter that can be a `Binding<SymbolColor>?`, `Binding<SwiftUI.Color>?`, or `Binding<[Double]>?`, enabling flexible color customization. The color is converted internally to a `SymbolColor` for rendering. Additional modifiers (`.symbolPickerSymbolsStyle(_:)` and `.symbolPickerDismissType(_:)`) allow customization of symbol style and dismissal behavior. The modifier leverages `SymbolPickerData` to manage its configuration. The table below summarizes the modifier’s parameters.
+The `.symbolPicker(isPresented:symbolName:)` modifier attaches a symbol picker to a SwiftUI view, allowing users to select an SF Symbol and bind its name to a `String` property. The picker’s presentation is controlled by a `Binding<Bool>`, and it supports an optional color parameter that can be a `Binding<SymbolColor>?`, `Binding<SwiftUI.Color>?`, or `Binding<[Double]>?`, enabling flexible color customization. The color is converted internally to a `SymbolColor` for rendering. Additional modifiers (`.symbolPickerSymbolsStyle(_:)` and `.symbolPickerDismiss(type:action:)`) allow customization of symbol style and dismissal behavior. The table below summarizes the modifier’s parameters.
 
 ### Parameters Grid
 | Parameter Name | Type | Description |
@@ -91,13 +91,12 @@ struct ContentView: View {
         }
         .symbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $color)
         .symbolPickerSymbolsStyle(.outlined)
-        .symbolPickerDismissType(.onSymbolSelect)
+        .symbolPickerDismiss(type: .onSymbolSelect)
     }
 }
 ```
 
 ## See Also
-- ``SymbolPicker/SymbolPickerData``
 - ``SymbolPicker/SymbolPickerSymbolsStyle``
 - ``SymbolPicker/SymbolPickerDismissType``
 - ``SymbolPicker/SymbolColor``

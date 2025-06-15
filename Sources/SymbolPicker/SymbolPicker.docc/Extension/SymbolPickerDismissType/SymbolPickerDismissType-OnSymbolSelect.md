@@ -15,7 +15,7 @@ A case of the `SymbolPickerDismissType` enum that automatically dismisses the pi
 
 ## Overview
 
-The `onSymbolSelect` case specifies that a `SymbolPicker` view is dismissed automatically as soon as the user selects a symbol. It has a fixed `id` of `0` and is applied using the `.symbolPickerDismissType(.onSymbolSelect)` modifier. This dismiss type is suitable for streamlined workflows where a single symbol selection completes the user’s task.
+The `onSymbolSelect` case specifies that a `SymbolPicker` view is dismissed automatically as soon as the user selects a symbol. It has a fixed `id` of `0` and is applied using the `.symbolPickerDismiss(type: .onSymbolSelect)` modifier. This dismiss type is suitable for streamlined workflows where a single symbol selection completes the user’s task.
 
 ### Example Usage
 ```swift
@@ -28,7 +28,7 @@ struct ContentView: View {
     
     var body: some View {
         SymbolPicker(isPresented: .constant(true), symbolName: $symbolName)
-            .symbolPickerDismissType(.onSymbolSelect)
+            .symbolPickerDismiss(type: .onSymbolSelect)
     }
 }
 ```

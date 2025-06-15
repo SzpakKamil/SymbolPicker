@@ -40,7 +40,7 @@ struct ContentView: View {
         }
         .symbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $color)
         .symbolPickerSymbolsStyle(.outlined)
-        .symbolPickerDismissType(.onSymbolSelect)
+        .symbolPickerDismiss(type: .onSymbolSelect)
     }
 }
 ```

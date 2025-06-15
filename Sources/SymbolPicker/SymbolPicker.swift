@@ -20,6 +20,7 @@ public struct SymbolPicker: View {
     @State private var searchDebounceTask: Task<Void, Never>? = nil
     private var dismissType: SymbolPickerDismissType = .manual
     private var symbolsStyle: SymbolPickerSymbolsStyle = .filled
+    private var action: (() -> Void)? = nil
     
     @State private var offsetCalculated: CGFloat = 0
     @State private var scaleCalculated: CGFloat = 0
@@ -52,6 +53,9 @@ public struct SymbolPicker: View {
                     handleSearchText(for: newValue, loadedSymbols: $loadedSymbols)
                 }
             }
+        }
+        .onDisappear{
+            action?()
         }
     }
     
@@ -102,7 +106,7 @@ public struct SymbolPicker: View {
                     .padding(.horizontal, 12)
                     .padding(.top, isShowingColorPicker ? 4 : 8)
                     .padding(.bottom, 10)
-                SPSymbolsList(searchText: $searchText, symbolName: $symbolName, isUsingFilledSymbols: isUsingFilledSymbols, dismissType: dismissType, loadedSymbols: loadedSymbols, geo: geo, isPresented: $isPresented)
+                SPSymbolsList(searchText: $searchText, symbolName: $symbolName, isUsingFilledSymbols: isUsingFilledSymbols, dismissType: dismissType, loadedSymbols: loadedSymbols, geo: geo, isPresented: $isPresented, action: action)
                 Spacer()
             }
         }
@@ -125,7 +129,7 @@ public struct SymbolPicker: View {
                             SPColorPicker(colorValue: $colorValue, geo: geo)
                                 .listRowInsets(EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12))
                         }
-                        SPSymbolsList(searchText: $searchText, symbolName: $symbolName, isUsingFilledSymbols: isUsingFilledSymbols, dismissType: dismissType, loadedSymbols: loadedSymbols, geo: geo, isPresented: $isPresented)
+                        SPSymbolsList(searchText: $searchText, symbolName: $symbolName, isUsingFilledSymbols: isUsingFilledSymbols, dismissType: dismissType, loadedSymbols: loadedSymbols, geo: geo, isPresented: $isPresented, action: action)
                         #if os(iOS)
                             .listRowInsets(EdgeInsets(top: 6, leading: 11, bottom: 6, trailing: 11))
                         #else
@@ -166,7 +170,10 @@ public struct SymbolPicker: View {
                                 .navigationTitle("Icon")
                                 .toolbar{
                                     ToolbarItem(placement: .topBarTrailing){
-                                        SPDismissButton(isPresented: $isPresented)
+                                        SPDismissButton{
+                                            isPresented = false
+                                            action?()
+                                        }
                                     }
                                 }
                                 .padding(.top, usePopover ? 0 : -30)
@@ -184,7 +191,7 @@ public struct SymbolPicker: View {
         
                             SPColorPicker(colorValue: $colorValue, geo: geo)
                         }
-                        SPSymbolsList(searchText: $searchText, symbolName: $symbolName, isUsingFilledSymbols: isUsingFilledSymbols, dismissType: dismissType, loadedSymbols: loadedSymbols, geo: geo, isPresented: $isPresented)
+                        SPSymbolsList(searchText: $searchText, symbolName: $symbolName, isUsingFilledSymbols: isUsingFilledSymbols, dismissType: dismissType, loadedSymbols: loadedSymbols, geo: geo, isPresented: $isPresented, action: action)
                     }
                     .if{ content in
                         if #available(iOS 15.0, macOS 12.0, *){
@@ -195,7 +202,10 @@ public struct SymbolPicker: View {
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar{
                         ToolbarItem(placement: .topBarTrailing){
-                            SPDismissButton(isPresented: $isPresented)
+                            SPDismissButton{
+                                isPresented = false
+                                action?()
+                            }
                         }
                     }
                     .padding(.top, -30)
@@ -359,9 +369,10 @@ public extension SymbolPicker{
         copy.symbolsStyle = style
         return copy
     }
-    func symbolPickerDismissType(_ type: SymbolPickerDismissType) -> Self {
+    func symbolPickerDismiss(type: SymbolPickerDismissType = .manual, action: (() -> Void)?) -> Self {
         var copy = self
         copy.dismissType = type
+        copy.action = action
         return copy
     }
 }
