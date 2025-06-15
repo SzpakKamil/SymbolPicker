@@ -9,7 +9,7 @@ import SwiftUI
 
 #if !os(macOS)
 @_documentation(visibility: internal)
-struct SPDismissButton: View, @MainActor Equatable {
+struct SPDismissButton: View {
     var action: () -> Void
     
     var body: some View {
@@ -31,7 +31,7 @@ struct SPDismissButton: View, @MainActor Equatable {
 
 @_documentation(visibility: internal)
 @available(iOS 15.0, macOS 12.0, visionOS 1.0, *)
-struct SPDismissButtonNew: View, @MainActor Equatable {
+struct SPDismissButtonNew: View {
     @Environment(\.dismiss) var dismiss
     var action: () -> Void
     var usePopover: Bool{
@@ -65,7 +65,7 @@ struct SPDismissButtonNew: View, @MainActor Equatable {
 }
 
 @_documentation(visibility: internal)
-struct SPDismissButtonOld: View, @MainActor Equatable {
+struct SPDismissButtonOld: View {
     var action: () -> Void
     var usePopover: Bool{
         if #available(iOS 17.0, *) {
