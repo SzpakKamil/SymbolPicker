@@ -9,7 +9,7 @@ import SwiftUI
 import SearchBar
 
 @_documentation(visibility: internal)
-struct SPSymbolsList: View {
+struct SPSymbolsList: View, @MainActor Equatable {
     @Binding var searchText: String
     @Binding var symbolName: String
     var isUsingFilledSymbols: Bool
@@ -43,7 +43,7 @@ struct SPSymbolsList: View {
 }
 
 @_documentation(visibility: internal)
-struct SPSymbolsListContent: View {
+struct SPSymbolsListContent: View, @MainActor Equatable {
     @Environment(\.colorScheme) var colorScheme
     @Binding var searchText: String
     @Binding var symbolName: String
@@ -154,7 +154,7 @@ struct SPSymbolsListContent: View {
 
 @_documentation(visibility: internal)
 @available(iOS 15.0, macOS 12.0, visionOS 1.0, *)
-struct SPSymbolsListNew: View {
+struct SPSymbolsListNew: View, @MainActor Equatable {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.dismiss) var dismiss
     @Binding var searchText: String
@@ -233,7 +233,7 @@ struct SPSymbolsListNew: View {
 }
 
 @_documentation(visibility: internal)
-struct SPSymbolsListOld: View {
+struct SPSymbolsListOld: View, @MainActor Equatable {
     @Environment(\.sizeCategory) var sizeCategory
     @Binding var searchText: String
     @Binding var symbolName: String
@@ -292,7 +292,7 @@ struct SPSymbolsListOld: View {
 }
 
 
-struct SPSymbolButton: View{
+struct SPSymbolButton: View, @MainActor Equatable{
     @Environment(\.colorScheme) var colorScheme
     var symbolModel: SymbolModel
     @Binding var symbolName: String
