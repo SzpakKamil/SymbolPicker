@@ -39,7 +39,6 @@ struct ContentView: View {
         }
         .symbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $color)
         .symbolPickerSymbolsStyle(.filled)
-        .symbolPickerDismissType(.onSymbolSelect)
     }
 }
 ```

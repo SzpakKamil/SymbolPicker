@@ -21,13 +21,13 @@ Learn about the modifiers available for customizing the `SymbolPicker` package i
 
 ## Overview
 
-The `SymbolPicker` package provides modifiers to customize its appearance and behavior within SwiftUI applications. These modifiers are applied using SwiftUI’s dot syntax (e.g., `.symbolPickerSymbolsStyle(_:)`), supporting accessibility features like VoiceOver and Dynamic Type. Designed as a SwiftUI rebuild of Apple’s unavailable SF Symbol picker, the package offers a native-like experience for iOS, iPadOS, visionOS and macOS. Below, the two available modifiers are detailed, with platform availability noted.
+The `SymbolPicker` package provides modifiers to customize its appearance and behavior within SwiftUI applications. These modifiers are applied using SwiftUI’s dot syntax (e.g., `.symbolPickerSymbolsStyle(_:)`), supporting accessibility features like VoiceOver and Dynamic Type. Designed as a SwiftUI rebuild of Apple’s unavailable SF Symbol picker, the package offers a native-like experience for iOS, iPadOS, visionOS, and macOS. Below, the two available modifiers are detailed, with platform availability noted.
 
 ## Modifiers
 
 ### Appearance and Behavior Modifiers
 - ``SymbolPicker/SymbolPicker/symbolPickerSymbolsStyle(_:)``: Configures the display style of symbols (e.g., `.filled`, `.outline`).
-- ``SymbolPicker/SymbolPicker/symbolPickerDismissType(_:)``: Sets the dismissal behavior (e.g., dismiss on symbol change or manual view dismiss).
+- ``SymbolPicker/SymbolPicker/symbolPickerDismiss(type:action:)``: Sets the dismissal behavior (e.g., dismiss on symbol change or manual view dismiss) and an optional action to execute upon dismissal.
 
 ## Example
 
@@ -50,14 +50,13 @@ struct ContentView: View {
         }
         .symbolPicker(isPresented: $isPresented, symbolName: $symbolName)
         .symbolPickerSymbolsStyle(.outline)
-        .symbolPickerDismissType(.dismissOnSymbolChange)
+        .symbolPickerDismiss(type: .dismissOnSymbolChange, action: { print("Symbol picker dismissed") })
     }
 }
 ```
 
 ## Next Steps
 
-- Dive into detailed modifier documentation via the links above.
 - Explore the `SymbolPicker` setup guide in <doc:SetUp>.
 - Learn framework with <doc:SymbolPickerTutorial> tutorial.
 - Build a sample app with <doc:SymbolGallery>.

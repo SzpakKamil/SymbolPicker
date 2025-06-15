@@ -3832,7 +3832,7 @@ class SymbolLists{
                 ),
                 .init(
                     symbolName: "finder",
-                    description: "Symbol of a Siri",
+                    description: "Symbol of a Finder",
                     symbolMinimumVersion: 7.0
                 ),
                 .init(

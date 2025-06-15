@@ -19,7 +19,7 @@ A SwiftUI view that presents an interactive interface for selecting SF Symbols w
 
 ## Overview
 
-The `SymbolPicker` view allows users to select SF Symbols from a searchable list, integrated with the `SearchBar` package for filtering by name or description. It supports bindings for the presentation state (`isPresented`), selected symbol name (`symbolName`), and color (`colorValue` as `SymbolColor`). The view adapts to platform-specific layouts: a fixed-size window on macOS, a popover on iPad and visionOS, and a full-screen sheet on iPhone. On iOS 26.0+ and visionOS 26.0+, the selected symbol’s position and scale are animated based on scroll offset, calculated with thresholds to minimize updates. The search functionality uses a 500ms debounced asynchronous task to filter symbols efficiently. Customize the view with modifiers like `.symbolPickerSymbolsStyle(_:)` (e.g., `.filled` or `.outlined`) and `.symbolPickerDismissType(_:)` (e.g., `.manual` or `.onSymbolSelect`). The table below summarizes the view’s properties.
+The `SymbolPicker` view allows users to select SF Symbols from a searchable list, integrated with the `SearchBar` package for filtering by name or description. It supports bindings for the presentation state (`isPresented`), selected symbol name (`symbolName`), and color (`colorValue` as `SymbolColor`). The view adapts to platform-specific layouts: a fixed-size window on macOS, a popover on iPad and visionOS, and a full-screen sheet on iPhone. On iOS 26.0+ and visionOS 26.0+, the selected symbol’s position and scale are animated based on scroll offset, calculated with thresholds to minimize updates. The search functionality uses a 500ms debounced asynchronous task to filter symbols efficiently. Customize the view with modifiers like `.symbolPickerSymbolsStyle(_:)` (e.g., `.filled` or `.outlined`) and `.symbolPickerDismiss(type:action:)` (e.g., `.manual` or `.onSymbolSelect`). The table below summarizes the view’s properties.
 
 ### Properties Grid
 | Property Name | Type | Description |
@@ -48,7 +48,7 @@ struct ContentView: View {
         }
         .symbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $colorValue)
         .symbolPickerSymbolsStyle(.filled)
-        .symbolPickerDismissType(.onSymbolSelect)
+        .symbolPickerDismiss(type: .onSymbolSelect)
     }
 }
 ```
@@ -70,7 +70,7 @@ On iOS 26.0+ and visionOS 26.0+, the `SymbolPicker` calculates the selected symb
 
 ### Modifiers
 - ``SymbolPicker/SymbolPicker/symbolPickerSymbolsStyle(_:)``
-- ``SymbolPicker/SymbolPicker/symbolPickerDismissType(_:)``
+- ``SymbolPicker/SymbolPicker/symbolPickerDismiss(type:action:)``
 
 ### Related Types
 - ``SymbolPicker/SymbolColor``

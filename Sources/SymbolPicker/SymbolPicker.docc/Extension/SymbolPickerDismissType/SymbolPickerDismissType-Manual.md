@@ -15,7 +15,7 @@ A case of the `SymbolPickerDismissType` enum that requires explicit user action 
 
 ## Overview
 
-The `manual` case specifies that a `SymbolPicker` view remains presented until the user explicitly dismisses it, such as by tapping a cancel button or other UI element. It has a fixed `id` of `1` and is applied using the `.symbolPickerDismissType(.manual)` modifier. This dismiss type is ideal for scenarios where users may need to interact with the picker multiple times before finalizing their selection.
+The `manual` case specifies that a `SymbolPicker` view remains presented until the user explicitly dismisses it, such as by tapping a cancel button or other UI element. It has a fixed `id` of `1` and is applied using the `.symbolPickerDismiss(type: .manual)` modifier. This dismiss type is ideal for scenarios where users may need to interact with the picker multiple times before finalizing their selection.
 
 ### Example Usage
 ```swift
@@ -28,7 +28,7 @@ struct ContentView: View {
     
     var body: some View {
         SymbolPicker(isPresented: .constant(true), symbolName: $symbolName)
-            .symbolPickerDismissType(.manual)
+            .symbolPickerDismiss(type: .manual)
     }
 }
 ```

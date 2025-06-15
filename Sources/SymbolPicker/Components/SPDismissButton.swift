@@ -10,17 +10,18 @@ import SwiftUI
 #if !os(macOS)
 @_documentation(visibility: internal)
 struct SPDismissButton: View, @MainActor Equatable {
-    @Binding var isPresented: Bool
+    var action: () -> Void
+    
     var body: some View {
         if #available(iOS 15.0, macOS 12.0, visionOS 1.0, *){
-            SPDismissButtonNew()
+            SPDismissButtonNew(action)
         }else{
-            SPDismissButtonOld(isPresented: $isPresented)
+            SPDismissButtonOld(action)
         }
     }
     
-    init(isPresented: Binding<Bool>) {
-        self._isPresented = isPresented
+    init(action: @escaping () -> Void) {
+        self.action = action
     }
     
     @MainActor static func ==(lhs: SPDismissButton, rhs: SPDismissButton) -> Bool{
@@ -32,6 +33,7 @@ struct SPDismissButton: View, @MainActor Equatable {
 @available(iOS 15.0, macOS 12.0, visionOS 1.0, *)
 struct SPDismissButtonNew: View, @MainActor Equatable {
     @Environment(\.dismiss) var dismiss
+    var action: () -> Void
     var usePopover: Bool{
         if #available(iOS 17.0, *) {
             UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .vision
@@ -42,6 +44,7 @@ struct SPDismissButtonNew: View, @MainActor Equatable {
     
     var body: some View {
         Button{
+            action()
             dismiss()
         }label:{
             Image(systemName: "xmark.circle.fill")
@@ -53,7 +56,9 @@ struct SPDismissButtonNew: View, @MainActor Equatable {
         .opacity(usePopover ? 0 : 1)
         .allowsHitTesting(!usePopover)
     }
-    
+    init(_ action: @escaping () -> Void) {
+        self.action = action
+    }
     @MainActor static func ==(lhs: SPDismissButtonNew, rhs: SPDismissButtonNew) -> Bool{
         true
     }
@@ -61,8 +66,7 @@ struct SPDismissButtonNew: View, @MainActor Equatable {
 
 @_documentation(visibility: internal)
 struct SPDismissButtonOld: View, @MainActor Equatable {
-    @Binding var isPresented: Bool
-
+    var action: () -> Void
     var usePopover: Bool{
         if #available(iOS 17.0, *) {
             UIDevice.current.userInterfaceIdiom == .pad || UIDevice.current.userInterfaceIdiom == .vision
@@ -73,12 +77,14 @@ struct SPDismissButtonOld: View, @MainActor Equatable {
     
     var body: some View {
         Button("OK"){
-            isPresented = false
+            action()
         }
         .opacity(usePopover ? 0 : 1)
         .allowsHitTesting(!usePopover)
     }
-    
+    init(_ action: @escaping () -> Void) {
+        self.action = action
+    }
     @MainActor static func ==(lhs: SPDismissButtonOld, rhs: SPDismissButtonOld) -> Bool{
         true
     }
