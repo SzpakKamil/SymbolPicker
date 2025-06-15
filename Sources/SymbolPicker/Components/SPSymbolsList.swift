@@ -38,7 +38,7 @@ struct SPSymbolsList: View, @MainActor Equatable {
     }
     
     @MainActor static func ==(lhs: SPSymbolsList, rhs: SPSymbolsList) -> Bool{
-        lhs.loadedSymbols == rhs.loadedSymbols
+        lhs.loadedSymbols == rhs.loadedSymbols && lhs.symbolName == rhs.symbolName
     }
 }
 
