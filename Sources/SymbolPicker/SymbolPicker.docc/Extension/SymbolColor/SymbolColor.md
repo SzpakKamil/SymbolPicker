@@ -9,7 +9,7 @@ A type that defines a set of predefined colors and a custom color option for use
     @Available(macOS, introduced: "11.0")
     @Available(visionOS, introduced: "1.0")
     @Available(swift, introduced: "5.9")
-    @Available(Xcode, introduced: "14.0")
+    @Available(Xcode, introduced: "15.0")
     @DocumentationExtension(mergeBehavior: override)
 }
 @Options {

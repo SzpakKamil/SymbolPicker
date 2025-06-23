@@ -9,7 +9,7 @@ Initializes a `SymbolPicker` with a binding to the selected symbol name, without
     @Available(macOS, introduced: "12.0")
     @Available(visionOS, introduced: "1.0")
     @Available(swift, introduced: "5.9")
-    @Available(Xcode, introduced: "14.0")
+    @Available(Xcode, introduced: "15.0")
 }
 @Options {
     @AutomaticSeeAlso(disabled)
