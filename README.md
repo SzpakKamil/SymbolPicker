@@ -4,7 +4,8 @@
 ![Platforms](https://img.shields.io/badge/Platforms-iOS%2014.0+%20|%20iPadOS%2014.0+%20|%20macOS%2011.0+%20|%20visionOS%201.0+-15437D.svg)
 ![License](https://img.shields.io/badge/License-MIT-C8ECFE.svg)
 
-![Banner](./Resources/SymbolPickerBanner.png)
+![Banner](./Resources/SymbolPicker-Banner.png#gh-light-mode-only)
+![Banner](./Resources/SymbolPicker-BannerDark.png#gh-dark-mode-only)
 
 **SymbolPicker** is a SwiftUI package that provides a native, highly customizable symbol picker component for iOS, iPadOS, macOS, and visionOS. Built to integrate seamlessly with SwiftUI, it leverages Apple’s SF Symbols and offers a familiar interface for browsing and selecting symbols with flexible styling and color options. With support for dynamic type, accessibility, and platform-adaptive presentations, `SymbolPicker` is ideal for creating intuitive symbol selection experiences.
 
