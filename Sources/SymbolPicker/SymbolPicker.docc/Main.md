@@ -10,7 +10,7 @@ Native, Customizable Symbol Picker
     @Available(visionOS, introduced: "1.0")
     @Available(swift, introduced: "5.9")
     @Available(Xcode, introduced: "15.0")
-    @PageColor(orange)
+    @PageColor(blue)
     @DocumentationExtension(mergeBehavior: override)
 }
 
