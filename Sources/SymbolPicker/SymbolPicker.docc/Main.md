@@ -22,7 +22,7 @@ Native, Customizable Symbol Picker
 
 ## Overview
 
-The `SymbolPicker` package offers a SwiftUI-based SF Symbol picker for iOS, iPadOS, macOS, and visionOS, enabling developers to create intuitive, customizable symbol selection experiences. As Apple’s SF Symbol picker is not available to developers, `SymbolPicker` rebuilds it from the ground up using SwiftUI components, providing a native-like interface for selecting from thousands of SF Symbols. Available as a standalone `SymbolPicker` view or a `.symbolPicker` modifier that dynamically adjusts presentation (popover on macOS, sheet on iOS and visionOS), it includes unit tests for reliability and supports accessibility features like VoiceOver and Dynamic Type. The package filters SF Symbols by comparing each symbol’s defined SF Symbols version with the system’s version (e.g., iOS 26 supports SF Symbols 7), ensuring only compatible symbols are displayed to avoid empty grid cells. For accessibility, each symbol includes a descriptive VoiceOver label, such as "Symbol of a car" instead of "car.fill," enhancing inclusivity.
+SymbolPicker is a SwiftUI-based SF Symbol picker for iOS, iPadOS, macOS, and visionOS, offering customizable symbol selection. Built from scratch, it mimics Apple’s native interface, available as a SymbolPicker view or .symbolPicker modifier (popover on macOS, sheet on iOS/visionOS). It includes unit tests, supports VoiceOver and Dynamic Type, and filters symbols by system compatibility (e.g., iOS 26 supports SF Symbols 7). Descriptive VoiceOver labels (e.g., "Symbol of a car" instead of "car.fill") enhance accessibility.
 
 @Image(source: "SymbolPicker-Tutorial-Banner.png", alt: "SymbolPicker app on iPhone, Mac, and visionOS with a sleek SF Symbol picker.")
 
