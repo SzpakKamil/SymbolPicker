@@ -9,7 +9,7 @@ Initializes a `SymbolPicker` with bindings to control presentation, the selected
     @Available(macOS, introduced: "11.0")
     @Available(visionOS, introduced: "1.0")
     @Available(swift, introduced: "5.0")
-    @Available(Xcode, introduced: "14.0")
+    @Available(Xcode, introduced: "15.0")
 }
 @Options {
     @AutomaticSeeAlso(disabled)

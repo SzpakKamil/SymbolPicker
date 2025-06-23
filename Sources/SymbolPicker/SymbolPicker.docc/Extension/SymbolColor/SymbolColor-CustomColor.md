@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolColor/customColor(_:)``
+# ``SymbolPicker/SymbolColor/customColor(red:green:blue:alpha:)``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -7,7 +7,7 @@
     @Available(macOS, introduced: "11.0")
     @Available(visionOS, introduced: "1.0")
     @Available(swift, introduced: "5.9")
-    @Available(Xcode, introduced: "14.0")
+    @Available(Xcode, introduced: "15.0")
     @DocumentationExtension(mergeBehavior: override)
 }
 
@@ -15,21 +15,22 @@ A case of the `SymbolColor` enum representing a user-defined color with custom R
 
 ## Overview
 
-The `customColor(_:)` case allows developers to define a custom color for use in the `SymbolPicker` package by providing an array of four `Double` values representing red, green, blue, and alpha components (each in the range `[0, 1]`). This case is ideal for scenarios where the predefined colors (e.g., `red`, `blue`) do not meet the application’s design requirements. The `id` for a custom color is computed by multiplying the RGBA components (with a small offset to avoid zero), ensuring uniqueness unless the arrays are identical. If the provided array does not contain exactly four components, a default `id` of `15` is used.
+The `customColor(red:_:green:_:blue:_:alpha:)` case allows developers to define a custom color for use in the `SymbolPicker` package by providing individual `Double` values for red, green, blue, and alpha components, each in the range `[0, 1]`. This case is ideal for scenarios where predefined colors (e.g., `.red`, `.blue`) do not meet the application’s design requirements. The `id` for a custom color is computed by combining the RGBA components (with a small offset to avoid zero), ensuring uniqueness unless the values are identical. If any component is invalid (e.g., outside `[0, 1]`), a default `id` of `15` is used.
 
 ### RGBA Values
-- **Red**: Defined by `value[0]`.
-- **Green**: Defined by `value[1]`.
-- **Blue**: Defined by `value[2]`.
-- **Alpha**: Defined by `value[3]`.
+- **Red**: The red component, specified as a `Double` in `[0, 1]`.
+- **Green**: The green component, specified as a `Double` in `[0, 1]`.
+- **Blue**: The blue component, specified as a `Double` in `[0, 1]`.
+- **Alpha**: The alpha component, specified as a `Double` in `[0, 1]`.
 
 ### Example Usage
+
 ```swift
 import SwiftUI
 import SymbolPicker
 
 struct ContentView: View {
-    let customColor = SymbolColor.customColor([0.5, 0.2, 0.8, 1.0]) // Purple-like custom color
+    let customColor = SymbolColor.customColor(red: 0.5, green: 0.2, blue: 0.8, alpha: 1.0) // Purple-like custom color
     
     var body: some View {
         Image(systemName: "star.fill")

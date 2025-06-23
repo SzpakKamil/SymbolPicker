@@ -1,4 +1,4 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -13,7 +13,7 @@ let package = Package(
         .library(name: "SymbolPicker", targets: ["SymbolPicker"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SzpakKamil/SearchBar.git", branch: "2.1-beta")
+        .package(url: "https://github.com/SzpakKamil/SearchBar.git", from: "2.1.0")
     ],
     targets: [
         .target(
@@ -22,3 +22,4 @@ let package = Package(
     ]
 )
 
+ 
