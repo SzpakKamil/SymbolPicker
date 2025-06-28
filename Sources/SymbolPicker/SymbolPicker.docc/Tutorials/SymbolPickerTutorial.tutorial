@@ -1,15 +1,16 @@
 @Tutorials(name: "SymbolPicker") {
-    @Intro(title: "Meet SymbolPicker") {
-        <#text#>
-        
-        @Image(source: <#file#>, alt: "<#accessible description#>")
+    @Intro(title: "Meet Symbol Picker") {
+        SymbolPicker enables intuitive SF Symbol selection for apps. Learn to build a dynamic symbol picker app, from setup to multiplatform polish.
+        @Image(source: SymbolPicker-Tutorial-Banner.png, alt: "iPhone, iPad, and Mac showcasing a symbol picker.")
     }
     
-    @Chapter(name: "<#text#>") {
-        <#text#>
+    @Chapter(name: "Defining Data Models") {
+        This chapter guides you through creating a robust foundation for your SymbolPicker app by setting up a multiplatform Xcode project, integrating the SymbolPicker Framework, and designing SwiftData models .
+        @Image(source: DDM-Image, alt: "SwiftData file icon.")
         
-        @Image(source: <#file#>, alt: "<#accessible description#>")
-        
-        @TutorialReference(tutorial: "doc:<#tutorial name#>")
+        @TutorialReference(tutorial: "doc:DDM-Section0")
+        @TutorialReference(tutorial: "doc:DDM-Section1")
+        @TutorialReference(tutorial: "doc:DDM-Section2")
+        @TutorialReference(tutorial: "doc:DDM-Section3")
     }
 }
