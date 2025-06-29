@@ -27,7 +27,7 @@
             }
             
             @Step {
-                Create another file named `"Type.swift"` to complement `"Event.swift"`, organizing distinct data models into separate files for clarity.
+                Create another file named "Type.swift" to complement "Event.swift", organizing distinct data models into separate files for clarity.
                 @Image(source: DDM-Section2-Step3.png, alt: "Two Swift file icons labeled 'Type.swift' and 'Event.swift' side by side.")
             }
         }
@@ -46,7 +46,7 @@
                 @Code(name: "Type.swift", file: "DDM-Section3-Step1.swift")
             }
             @Step {
-                Import SwiftData and define the `Type` class using the `@Model` macro, ensuring it conforms to `Identifiable` for unique identification, `Equatable` for equality comparisons, `Comparable` for sorting.
+                Import SwiftData and define the `Type` class using the `@Model` macro, ensuring it conforms to `Identifiable` for unique identification, `Equatable` for equality comparisons, and `Comparable` for sorting.
                 @Code(name: "Type.swift", file: "DDM-Section3-Step2.swift")
             }
             @Step {
@@ -58,8 +58,12 @@
                 @Code(name: "Type.swift", file: "DDM-Section3-Step4.swift")
             }
             @Step {
-                Implement the `==`, `<` to satisfy the requirements for `Equatable``, and `Comparable` protocols.
+                Implement the `==` and `<` functions to satisfy the requirements for the `Equatable` and `Comparable` protocols.
                 @Code(name: "Type.swift", file: "DDM-Section3-Step5.swift")
+            }
+            @Step {
+                Add a computed property `isInvalid` that returns `title.isEmpty` to validate whether the `Type` instance has an empty title, ensuring data integrity for later use.
+                @Code(name: "Type.swift", file: "DDM-Section3-Step6.swift")
             }
         }
     } 
@@ -77,7 +81,7 @@
                 @Code(name: "Event.swift", file: "DDM-Section4-Step1.swift")
             }
             @Step {
-                Declare the `Event` class, import SwiftData, apply the `@Model` macro, and ensure it conforms to `Identifiable`, `Equatable`, `Comparable`.
+                Declare the `Event` class, import SwiftData, apply the `@Model` macro, and ensure it conforms to `Identifiable`, `Equatable`, and `Comparable` for robust data handling.
                 @Code(name: "Event.swift", file: "DDM-Section4-Step2.swift")
             }
             @Step {
@@ -85,7 +89,7 @@
                 @Code(name: "Event.swift", file: "DDM-Section4-Step3.swift")
             }
             @Step {
-                Establish a relationship with the `Type` model by adding an optional `type` property.
+                Establish a relationship with the `Type` model by adding an optional `type` property to link events with their categories.
                 @Code(name: "Event.swift", file: "DDM-Section4-Step4.swift")
             }
             @Step {
@@ -93,8 +97,12 @@
                 @Code(name: "Event.swift", file: "DDM-Section4-Step5.swift")
             }
             @Step {
-                Implement the `==`, `<` to meet the requirements for `Equatable`, and `Comparable` protocols.
+                Implement the `==` and `<` functions to meet the requirements for the `Equatable` and `Comparable` protocols.
                 @Code(name: "Event.swift", file: "DDM-Section4-Step6.swift")
+            }
+            @Step {
+                Add a computed property `isInvalid` that returns `title.isEmpty` to validate whether the `Event` instance has an empty title, ensuring data validity for form submissions.
+                @Code(name: "Event.swift", file: "DDM-Section4-Step7.swift")
             }
         }
     } 
