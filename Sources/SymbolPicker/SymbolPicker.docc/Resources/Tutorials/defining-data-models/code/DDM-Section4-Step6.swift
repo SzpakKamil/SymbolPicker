@@ -10,7 +10,7 @@ import SwiftData
 import SymbolPicker
 
 @Model
-class Event: Identifiable, Equatable, Hashable, Comparable, Hashable{
+class Event: Identifiable, Equatable, Hashable, Comparable{
     var id = UUID()
     var title: String
     var details: String
@@ -23,10 +23,6 @@ class Event: Identifiable, Equatable, Hashable, Comparable, Hashable{
         self.details = details
         self.symbolName = symbolName
         self.symbolColor = symbolColor
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
     }
     
     static func ==(lhs: Event, rhs: Event) -> Bool{

@@ -10,10 +10,10 @@ import SymbolPicker
 import SwiftData
 
 @Model
-class Type: Identifiable, Equatable, Hashable, Comparable, Hashable{
+class Type: Identifiable, Equatable, Hashable, Comparable{
     var id = UUID()
     var title: String
     var symbolName: String
-    var color: SymbolColor
+    var symbolColor: SymbolColor
     
 }

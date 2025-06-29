@@ -10,11 +10,11 @@ import SymbolPicker
 import SwiftData
 
 @Model
-class Type: Identifiable, Equatable, Hashable, Comparable, Hashable{
+class Type: Identifiable, Equatable, Hashable, Comparable{
     var id = UUID()
     var title: String
     var symbolName: String
-    var color: SymbolColor
+    var symbolColor: SymbolColor
     
     init(title: String = "", details: String = "", symbolName: String = "archivebox", symbolColor: SymbolColor = .purple) {
         self.title = title
@@ -22,14 +22,10 @@ class Type: Identifiable, Equatable, Hashable, Comparable, Hashable{
         self.symbolColor = symbolColor
     }
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-    static func ==(lhs: Event, rhs: Event) -> Bool{
+    static func ==(lhs: Type, rhs: Type) -> Bool{
         lhs.id == rhs.id
     }
-    static func <(lhs: Event, rhs: Event) -> Bool{
+    static func <(lhs: Type, rhs: Type) -> Bool{
         lhs.title < rhs.title
     }
 }

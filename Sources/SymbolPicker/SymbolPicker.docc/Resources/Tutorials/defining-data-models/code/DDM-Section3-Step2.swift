@@ -9,6 +9,6 @@ import Foundation
 import SwiftData
 
 @Model
-class Type: Identifiable, Equatable, Hashable, Comparable, Hashable{
+class Type: Identifiable, Equatable, Hashable, Comparable{
     
 }
