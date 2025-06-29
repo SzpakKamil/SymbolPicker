@@ -5,12 +5,20 @@
     }
     
     @Chapter(name: "Defining Data Models") {
-        This chapter guides you through creating a robust foundation for your SymbolPicker app by setting up a multiplatform Xcode project, integrating the SymbolPicker Framework, and designing SwiftData models .
+        Start your Checker app with SymbolPicker. Set up a multiplatform Xcode project, create robust `Type` and `Event` data models, and lay the foundation for dynamic SF Symbol management.
         @Image(source: DDM-Image, alt: "SwiftData file icon.")
         
         @TutorialReference(tutorial: "doc:DDM-Section0")
         @TutorialReference(tutorial: "doc:DDM-Section1")
         @TutorialReference(tutorial: "doc:DDM-Section2")
         @TutorialReference(tutorial: "doc:DDM-Section3")
+    }
+    
+    @Chapter(name: "Building App UI") {
+        Enhance your Checker app with SymbolPicker. Design intuitive screens for `Type` and `Event` creation, integrate SF Symbol selection, and prepare for a dynamic list UI for seamless user interaction.
+        @Image(source: BAU-Image, alt: "SwiftUI interface icon.")
+        
+        @TutorialReference(tutorial: "doc:BAU-Section0")
+        @TutorialReference(tutorial: "doc:BAU-Section1")
     }
 }

@@ -1,0 +1,15 @@
+@Article(time: 2) {
+    @Intro(title: "Introduction to UI Building") {
+        Dive into Chapter 2 of the SymbolPicker project, learning how to craft intuitive user interfaces to enhance SF Symbol selection and ensure seamless interaction.
+        @Image(source: BAU-Banner, alt: "ToDo")  
+    }
+    
+    ## Chapter Purpose
+    Chapter 2 focuses on building a dynamic user interface for the Checker app using the SymbolPicker Framework. You’ll create responsive screens to manage `Type` and `Event` data models, integrating SF Symbol selection for a polished, user-friendly experience.
+
+    ## What You Will Learn
+    In Chapter 2, you’ll learn to design SwiftUI screens for `Type` and `Event` creation, integrate the SymbolPicker Framework for seamless SF Symbol selection, and set up a dynamic list interface. By the end, you’ll have a functional UI ready for advanced features.
+
+    ## Expanding Your App in Future Chapters
+    In subsequent chapters, you’ll enhance your UI with search functionality, advanced SymbolPicker interactions, and optimizations for iOS, iPadOS, macOS, and visionOS.
+}
