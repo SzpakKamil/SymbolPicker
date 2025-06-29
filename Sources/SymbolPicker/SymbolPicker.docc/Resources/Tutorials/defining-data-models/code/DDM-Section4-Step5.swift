@@ -10,7 +10,7 @@ import SwiftData
 import SymbolPicker
 
 @Model
-class Event: Identifiable, Equatable, Hashable, Comparable, Hashable{
+class Event: Identifiable, Equatable, Hashable, Comparable{
     var id = UUID()
     var title: String
     var details: String

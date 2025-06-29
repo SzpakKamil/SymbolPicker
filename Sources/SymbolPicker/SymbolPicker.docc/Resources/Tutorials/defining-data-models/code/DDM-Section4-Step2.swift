@@ -10,6 +10,6 @@ import SwiftData
 import SymbolPicker
 
 @Model
-class Event: Identifiable, Equatable, Hashable, Comparable, Hashable{
+class Event: Identifiable, Equatable, Hashable, Comparable{
     
 }

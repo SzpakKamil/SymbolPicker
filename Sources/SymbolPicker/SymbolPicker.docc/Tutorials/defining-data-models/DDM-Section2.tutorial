@@ -46,11 +46,11 @@
                 @Code(name: "Type.swift", file: "DDM-Section3-Step1.swift")
             }
             @Step {
-                Import SwiftData and define the `Type` class using the `@Model` macro, ensuring it conforms to `Identifiable` for unique identification, `Equatable` for equality comparisons, `Comparable` for sorting, and `Hashable` for hashing.
+                Import SwiftData and define the `Type` class using the `@Model` macro, ensuring it conforms to `Identifiable` for unique identification, `Equatable` for equality comparisons, `Comparable` for sorting.
                 @Code(name: "Type.swift", file: "DDM-Section3-Step2.swift")
             }
             @Step {
-                Add `String` properties `title` and `symbolName`, a `UUID` property `id`, and import the `SymbolPicker` framework to include a `SymbolColor` property named `color`.
+                Add `String` properties `title` and `symbolName`, a `UUID` property `id`, and import the `SymbolPicker` framework to include a `SymbolColor` property named `symbolColor`.
                 @Code(name: "Type.swift", file: "DDM-Section3-Step3.swift")
             }
             @Step {
@@ -58,7 +58,7 @@
                 @Code(name: "Type.swift", file: "DDM-Section3-Step4.swift")
             }
             @Step {
-                Implement the `==`, `<`, and hash functions to satisfy the requirements for `Equatable`, `Hashable`, and `Comparable` protocols.
+                Implement the `==`, `<` to satisfy the requirements for `Equatable``, and `Comparable` protocols.
                 @Code(name: "Type.swift", file: "DDM-Section3-Step5.swift")
             }
         }
@@ -77,7 +77,7 @@
                 @Code(name: "Event.swift", file: "DDM-Section4-Step1.swift")
             }
             @Step {
-                Declare the `Event` class, import SwiftData, apply the `@Model` macro, and ensure it conforms to `Identifiable`, `Equatable`, `Comparable`, and `Hashable`.
+                Declare the `Event` class, import SwiftData, apply the `@Model` macro, and ensure it conforms to `Identifiable`, `Equatable`, `Comparable`.
                 @Code(name: "Event.swift", file: "DDM-Section4-Step2.swift")
             }
             @Step {
@@ -93,7 +93,7 @@
                 @Code(name: "Event.swift", file: "DDM-Section4-Step5.swift")
             }
             @Step {
-                Implement the `==`, `<`, and hash functions to meet the requirements for `Equatable`, `Hashable`, and `Comparable` protocols.
+                Implement the `==`, `<` to meet the requirements for `Equatable`, and `Comparable` protocols.
                 @Code(name: "Event.swift", file: "DDM-Section4-Step6.swift")
             }
         }

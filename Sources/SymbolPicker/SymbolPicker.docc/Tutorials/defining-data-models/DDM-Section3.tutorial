@@ -10,7 +10,7 @@
     Here’s a recap of the key achievements and skills you’ve acquired in Chapter 1:
 
     - **Project Setup and Integration**: Set up a new Xcode project for the Checker app and seamlessly integrated the SymbolPicker Framework via Swift Package Manager, configuring it for a multiplatform environment (Section: "Creating a Project").
-    - **Data Model Design**: Established a well-organized file structure and developed robust data models, including a `Type` class with support for `Identifiable`, `Equatable`, `Comparable`, and `Hashable` for categorization, and an `Event` class with properties for event management, conforming to `Identifiable`, `Codable`, `Comparable`, and `Equatable` (Section: "Defining Data Models").
+    - **Data Model Design**: Established a well-organized file structure and developed robust data models, including a `Type` class with support for `Identifiable`, `Equatable`, `Comparable` for categorization, and an `Event` class with properties for event management, conforming to `Identifiable`, `Codable`, `Comparable`, and `Equatable` (Section: "Defining Data Models").
     - **File Organization**: Created a clear file hierarchy with `Type.swift` and `Event.swift`, ensuring maintainability and scalability for future development (Section: "Establishing File Organization Structure").
     - **SwiftData Integration**: Leveraged SwiftData with the `@Model` macro to define persistent data models, enabling efficient data management and relationships between `Type` and `Event` models (Section: "Building the Type Data Model" and "Building the Event Data Model").
 
