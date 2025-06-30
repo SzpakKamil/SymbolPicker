@@ -1,4 +1,4 @@
-@Tutorial(time: 12) {
+@Tutorial(time: 8) {
     @XcodeRequirement(
            title: "Xcode 15 or later", 
            destination: "https://developer.apple.com/download/")

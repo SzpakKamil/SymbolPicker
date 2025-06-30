@@ -1,28 +1,28 @@
-@Tutorial(time: 5) {
+@Tutorial(time: 15) {
     @XcodeRequirement(
            title: "Xcode 15 or later", 
            destination: "https://developer.apple.com/download/")
 
     @Intro(title: "Crafting the Event Creation Screen") {
-        This section guides you through building a dynamic event creation screen for the Checker app, enabling seamless event input and SymbolPicker integration.
+        This section guides you through building an intuitive event creation screen for the Checker app, seamlessly integrating event input and SymbolPicker functionality.
         
-        @Image(source: BAU-Banner, alt: "Checker app event creation interface on a tablet.")
+        @Image(source: BAU-Banner, alt: "Checker app event creation interface displayed on a tablet.")
     }
     
     @Section(title: "Configuring the Model Container") {
         @ContentAndMedia {
-            Set up SwiftData persistence by defining a `ModelContainer` in the main app file to store `Event` and `Type` data models.
+            Enable SwiftData persistence by defining a `ModelContainer` in the main app file to store `Event` and `Type` data models efficiently.
             
-            @Image(source: BAU-Section1.png, alt: "SwiftData model container configuration in Xcode.")
+            @Image(source: BAU-Section1.png, alt: "SwiftData model container configuration in the Xcode editor.")
         }
         
         @Steps {
             @Step {
-                In the Xcode project navigator, open the "Checker.swift" file to configure the app’s main structure.
+                In the Xcode project navigator, open the "Checker.swift" file to set up the app’s main structure.
                 @Code(name: "Checker.swift", file: "BAU-Section1-Step1.swift")
             }
             @Step {
-                Import `SwiftData` and apply the `modelContainer()` modifier to the `WindowGroup` to enable data persistence.
+                Import `SwiftData` and apply the `modelContainer()` modifier to the `WindowGroup` to enable persistent storage.
                 @Code(name: "Checker.swift", file: "BAU-Section1-Step2.swift")
             }
             @Step {
@@ -34,9 +34,9 @@
     
     @Section(title: "Setting Up the View File Structure") {
         @ContentAndMedia {
-            Create a clear file structure for SwiftUI views to support the event creation and management interface.
+            Create an organized file structure for SwiftUI views to support the event creation and management interface.
             
-            @Image(source: BAU-Section2.png, alt: "Three blue SwiftUI bird icons stacked vertically, representing the SwiftUI view files.")
+            @Image(source: BAU-Section2.png, alt: "Three blue SwiftUI bird icons arranged vertically, representing the SwiftUI view files.")
         }
         
         @Steps {
@@ -49,34 +49,34 @@
                 @Image(source: BAU-Section2-Step2.png, alt: "Xcode file creation dialog with 'EventCreateView' entered, the Checker project selected, and the Create button highlighted.")
             }
             @Step {
-                Create additional SwiftUI view files named "TypeCreateView.swift" and "EventDetailsView.swift" to complement "EventCreateView.swift", organizing the view structure for future development.
-                @Image(source: BAU-Section2-Step3.png, alt: "Three SwiftUI file icons labeled 'EventCreateView.swift', 'TypeCreateView.swift', and 'EventDetailsView.swift' side by side.")
+                Create additional SwiftUI view files named "TypeCreateView.swift" and "EventDetailsView.swift" to complement "EventCreateView.swift", ensuring a clear structure for future view development.
+                @Image(source: BAU-Section2-Step3.png, alt: "Three SwiftUI file icons labeled 'EventCreateView.swift', 'TypeCreateView.swift', and 'EventDetailsView.swift' arranged side by side.")
             }
         }
     }
     
     @Section(title: "Designing the Event Creation View") {
         @ContentAndMedia {
-            Build an intuitive event creation form with SwiftUI to capture and save event details seamlessly.
+            Develop a user-friendly event creation form using SwiftUI to capture and save event details seamlessly.
             
-            @Image(source: BAU-Section3.png, alt: "Event creation form UI in the Checker app.")
+            @Image(source: BAU-Section3.png, alt: "Event creation form interface in the Checker app.")
         }
         
         @Steps {
             @Step {
-                In the Xcode project navigator, open the "EventCreateView.swift" file to start building the event creation interface.
+                In the Xcode project navigator, open the "EventCreateView.swift" file to begin constructing the event creation interface.
                 @Code(name: "EventCreateView.swift", file: "BAU-Section3-Step1.swift") {
-                    @Image(source: BAU-Section3-Step1.png, alt: "EventCreateView.swift file open in Xcode editor.")
+                    @Image(source: BAU-Section3-Step1.png, alt: "EventCreateView.swift file open in the Xcode editor.")
                 }
             }
             @Step {
-                Define an `@State` property named `event` to manage form input and wrap the view’s body in a `NavigationStack` for navigation.
+                Define an `@State` property named `event` to manage form inputs and wrap the view’s body in a `NavigationStack` for seamless navigation.
                 @Code(name: "EventCreateView.swift", file: "BAU-Section3-Step2.swift") {
                     @Image(source: BAU-Section3-Step2.png, alt: "NavigationStack setup in EventCreateView.swift.")
                 }
             }
             @Step {
-                Add a `Form` inside the `NavigationStack`, applying `navigationTitle("Create Event")` and `navigationBarTitleDisplayMode(.inline)` modifiers for a polished header.
+                Add a `Form` inside the `NavigationStack`, applying `navigationTitle("Create Event")` and `navigationBarTitleDisplayMode(.inline)` modifiers for a refined header.
                 @Code(name: "EventCreateView.swift", file: "BAU-Section3-Step3.swift") {
                     @Image(source: BAU-Section3-Step3.png, alt: "Form with navigation title in EventCreateView.swift.")
                 }
@@ -88,27 +88,27 @@
                 }
             }
             @Step {
-                Apply a `.toolbar` modifier to the `Form`, adding two `ToolbarItem` buttons with placements `.cancellationAction` and `.primaryAction` for user actions.
+                Apply a `.toolbar` modifier to the `Form`, adding two `ToolbarItem` buttons with `.cancellationAction` and `.primaryAction` placements for user interactions.
                 @Code(name: "EventCreateView.swift", file: "BAU-Section3-Step5.swift") {
                     @Image(source: BAU-Section3-Step5.png, alt: "Toolbar with buttons in the event creation form.")
                 }
             }
             @Step {
-                Add an `@Environment(\.dismiss)` property named `dismiss` and create a `Button` in the `.cancellationAction` toolbar item with the title "Close" and system image "xmark", triggering the `dismiss()` function.
+                Add an `@Environment(\.dismiss)` property named `dismiss` and create a `Button` in the `.cancellationAction` toolbar item, titled "Close" with the system image "xmark", triggering the `dismiss()` function.
                 @Code(name: "EventCreateView.swift", file: "BAU-Section3-Step6.swift") {
-                    @Image(source: BAU-Section3-Step6.png, alt: "Close button in the toolbar.")
+                    @Image(source: BAU-Section3-Step6.png, alt: "Close button in the event creation toolbar.")
                 }
             }
             @Step {
-                Import `SwiftData` and add an `@Environment(\.modelContext)` property named `modelContext` to insert the `event` into the `ModelContainer`.
+                Import `SwiftData` and add an `@Environment(\.modelContext)` property named `modelContext` to insert the `event` into the `ModelContainer` for persistence.
                 @Code(name: "EventCreateView.swift", file: "BAU-Section3-Step7.swift") {
                     @Image(source: BAU-Section3-Step7.png, alt: "SwiftData model context setup in EventCreateView.swift.")
                 }
             }
             @Step {
-                In the `.primaryAction` toolbar item, add a `Button` titled "Add Event" with the system image "plus", triggering `modelContext.insert(event)` and `dismiss()`, with a `.disabled(event.isInvalid)` modifier to prevent invalid submissions.
+                In the `.primaryAction` toolbar item, add a `Button` titled "Add Event" with the system image "plus", triggering `modelContext.insert(event)` and `dismiss()`, with a `.disabled(event.isInvalid)` modifier to ensure valid submissions.
                 @Code(name: "EventCreateView.swift", file: "BAU-Section3-Step8.swift") {
-                    @Image(source: BAU-Section3-Step8.png, alt: "Add Event button in the toolbar.")
+                    @Image(source: BAU-Section3-Step8.png, alt: "Add Event button in the event creation toolbar.")
                 }
             }
         }
@@ -116,7 +116,7 @@
     
     @Section(title: "Integrating SymbolPicker for SF Symbol Selection") {
         @ContentAndMedia {
-            Enhance the event creation form by adding SymbolPicker to enable intuitive SF Symbol selection.
+            Enhance the event creation form with SymbolPicker to enable intuitive SF Symbol selection for events.
             
             @Image(source: BAU-Section4.png, alt: "SymbolPicker interface integrated into the event creation form.")
         }
@@ -141,9 +141,15 @@
                 }
             }
             @Step {
-                Add a `.foregroundStyle(event.symbolColor.color)` modifier to the `Button` to reflect the current symbol color as the button’s tint.
+                Add a `.foregroundStyle(event.symbolColor.color)` modifier to the `Button` to display the current symbol color as the button’s tint.
                 @Code(name: "EventCreateView.swift", file: "BAU-Section4-Step4.swift") {
                     @Image(source: BAU-Section4-Step4.png, alt: "Select Symbol button with color tint applied.")
+                }
+            }
+            @Step {
+                Below the `.symbolPicker` modifier, add a `.symbolPickerStyle(.outlined)` modifier to apply an outlined style to the SymbolPicker’s symbols.
+                @Code(name: "EventCreateView.swift", file: "BAU-Section4-Step5.swift") {
+                    @Image(source: BAU-Section4-Step5.png, alt: "SymbolPicker with outlined style in the event creation form.")
                 }
             }
         }

@@ -20,5 +20,6 @@
         
         @TutorialReference(tutorial: "doc:BAU-Section0")
         @TutorialReference(tutorial: "doc:BAU-Section1")
+        @TutorialReference(tutorial: "doc:BAU-Section2")
     }
 }
