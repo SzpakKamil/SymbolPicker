@@ -1,0 +1,166 @@
+@Tutorial(time: 30) {
+    @XcodeRequirement(
+           title: "Xcode 15 or later", 
+           destination: "https://developer.apple.com/download/")
+
+    @Intro(title: "Building App List UI") {
+        Guides through making main app ui
+        
+        @Image(source: BAU-Banner, alt: "Type creation interface displayed on a tablet.")
+    }
+    
+    @Section(title: "Setting up view properties") {
+        @ContentAndMedia {
+            Add required imports and properties which we will later use for ui building
+            
+            @Image(source: BAU-Section9.png, alt: "Type creation form interface in the Checker app.")
+        }
+        
+        @Steps {
+            @Step {
+                In the Xcode project navigator, open the "ContentView.swift" file and import SwiftData for event fetching.
+                @Code(name: "ContentView.swift", file: "BAU-Section9-Step1-After.swift", previousFile: "BAU-Section9-Step1-Before.swift") {
+                    @Image(source: BAU-Section9-Step1.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Add @Query property events of type [Event] for fetching all added events and next to it @State property named isPresentingEventCreateScreen with default value of false for modal apperance
+                @Code(name: "ContentView.swift", file: "BAU-Section9-Step2.swift") {
+                    @Image(source: BAU-Section9-Step2.png, alt: "NavigationStack setup in TypeCreateView.swift.")
+                }
+            }
+            @Step {
+                Add @Enviorment(\.modelContext) property named modelContext for delating records later
+                @Code(name: "ContentView.swift", file: "BAU-Section9-Step3.swift") {
+                    @Image(source: BAU-Section9-Step3.png, alt: "NavigationStack setup in TypeCreateView.swift.")
+                }
+            }
+            @Step {
+                For tracking selected event add optional @State property named selectedEvent of type Event?
+                @Code(name: "ContentView.swift", file: "BAU-Section9-Step4.swift") {
+                    @Image(source: BAU-Section9-Step4.png, alt: "NavigationStack setup in TypeCreateView.swift.")
+                }
+            }
+            @Step {
+                Also add @Query property types with type of [Type] to fetch all available types for accessing symbols of types
+                @Code(name: "ContentView.swift", file: "BAU-Section9-Step5.swift") {
+                    @Image(source: BAU-Section9-Step5.png, alt: "NavigationStack setup in TypeCreateView.swift.")
+                }
+            }
+        }
+    }
+    
+    @Section(title: "Constructing app ui") {
+        @ContentAndMedia {
+            Building default app ui
+            
+            @Image(source: BAU-Section10.png, alt: "Type creation form interface in the Checker app.")
+        }
+        
+        @Steps {
+            @Step {
+                Inside body add `Group` wrapped inside `NavigationStack`
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step1.swift") {
+                    @Image(source: BAU-Section10-Step1.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Add .`navigationTitle("Checker")` to `Group` 
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step2.swift") {
+                    @Image(source: BAU-Section10-Step2.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Inside group add `if events.isEmpty` block and inside else block add `List`
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step3.swift") {
+                    @Image(source: BAU-Section10-Step3.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Inside if block add ContentUnavaiableView with title "No Events" systemImage "plus.circle" and description of `Text("Create events to display them here.")` and add for it modifer .ignoreSafeArea to make it perfectly centered
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step4.swift") {
+                    @Image(source: BAU-Section10-Step4.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Add groupedEvents constant to else block which value is Dictionary grouping events by even's type title with default value of Not Specified
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step5.swift") {
+                    @Image(source: BAU-Section10-Step5.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Inside List add ForEach over `groupedEvents.sorted{ $0.key < $1.key }` with id `\.key` and varuable for each instance is pair
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step6.swift") {
+                    @Image(source: BAU-Section10-Step6.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Now inside ForEach add Section inside which is ForEach over pair.value and header of it has declared systemImage constant which is `types.first{ $0.title == pair.key}?.symbolName` with default value of "archivebox". Header also contains Label which title is pair.key and systemImage is systemImage constant value
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step7.swift") {
+                    @Image(source: BAU-Section10-Step7.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                For displatying assosiated events to section inside Section body add ForEach over pair.value accessing event property
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step8.swift") {
+                    @Image(source: BAU-Section10-Step8.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            
+            @Step {
+                Now Create new @ViewBuilder function row which accepts parameter event and return some View which we will use for row view
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step9.swift") {
+                    @Image(source: BAU-Section10-Step9.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Import SymbolPicker and add HStack and inside it Image with systemName of event.systemName with .imageScale(.large) and foregroundStyle(event.symbolColor.color)
+                > Important : When accessing SymbolColor type properties you need to Import SymbolPicker 
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step10.swift") {
+                    @Image(source: BAU-Section10-Step10.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Below Image Add VStack alligned to .leading And inside Text(event.title) with font of headline and if !event.details.isEmpty and inside Text(event.details) with font of callout. Both text have .multilineTextAlignment(.leading)
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step11.swift") {
+                    @Image(source: BAU-Section10-Step11.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Now inside pair.value ForEach add row(for: event) function call for row access
+                @Code(name: "ContentView.swift", file: "BAU-Section10-Step12.swift") {
+                    @Image(source: BAU-Section10-Step12.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+        }
+    }
+    
+    @Section(title: "Adding Toolbar Actions") {
+        @ContentAndMedia {
+            Adding toolbar action for adding new Events
+            
+            @Image(source: BAU-Section11.png, alt: "Type creation form interface in the Checker app.")
+        }
+        
+        @Steps {
+            @Step {
+                For Group add .toolbar with single ToolBarItem with placement .primaryAction inside it
+                @Code(name: "ContentView.swift", file: "BAU-Section11-Step1.swift") {
+                    @Image(source: BAU-Section11-Step1.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Inside ToolbarItem add Button with title "Add Event" and systemImage "plus" which action is isPresentingEventCreateScreen.toggle()
+                @Code(name: "ContentView.swift", file: "BAU-Section11-Step2.swift") {
+                    @Image(source: BAU-Section11-Step2.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Also bellow Toolbar add .sheet which isPresented binding is $isPresentingEventCreateScreen and content is EventCreateView()
+                @Code(name: "ContentView.swift", file: "BAU-Section11-Step3.swift") {
+                    @Image(source: BAU-Section11-Step3.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+        }
+    }
+}

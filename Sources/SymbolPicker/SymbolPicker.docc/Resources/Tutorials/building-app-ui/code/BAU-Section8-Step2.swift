@@ -44,6 +44,9 @@ struct EventCreateView: View {
                 .foregroundStyle(event.symbolColor.color)
                 .symbolPicker(isPresented: $isPresentingSymbolPicker, symbolName: $event.symbolName, color: $event.symbolColor)
             }
+            .sheet(isPresented: $isPresentingTypeSheet){
+                TypeCreateView(parentType: $event.type)
+            }
             .navigationTitle("Create Event")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
