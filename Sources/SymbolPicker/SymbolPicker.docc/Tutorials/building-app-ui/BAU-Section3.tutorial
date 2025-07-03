@@ -119,7 +119,7 @@
                 }
             }
             @Step {
-                Below the `Image`, add a `VStack` aligned to `.leading`, containing a `Text(event.title)` with `.headline` font, and, if `!event.description.isEmpty`, a `Text(event.description)` with `.callout` font, both using `.multilineTextAlignment(.leading)`.
+                Below the `Image`, add a `VStack` aligned to `.leading`, containing a `Text(event.title)` with `.headline` font, and, if `!event.details.isEmpty`, a `Text(event.details)` with `.callout` font, both using `.multilineTextAlignment(.leading)`.
                 @Code(name: "ContentView.swift", file: "BAU-Section10-Step11.swift") {
                     @Image(source: BAU-Section10-Step11.png, alt: "Text components in row view in ContentView.swift.")
                 }

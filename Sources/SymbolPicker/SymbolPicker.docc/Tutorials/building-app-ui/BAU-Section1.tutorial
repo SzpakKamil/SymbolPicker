@@ -82,7 +82,7 @@
                 }
             }
             @Step {
-                Add a `TextField` for the event title, bound to `$event.title`, and another for details, bound to `$event.description` with the `.vertical` axis for multi-line input.
+                Add a `TextField` for the event title, bound to `$event.title`, and another for details, bound to `$event.details` with the `.vertical` axis for multi-line input.
                 @Code(name: "EventCreateView.swift", file: "BAU-Section3-Step4.swift") {
                     @Image(source: BAU-Section3-Step4.png, alt: "TextField components in the event creation form.")
                 }
