@@ -59,7 +59,7 @@
                 }
             }
             @Step {
-                Inside the `List`, add a `Section` titled "Details" containing a `Text` view that displays `selectedEvent.description` or "No Details Provided" if `selectedEvent.description.isEmpty`.
+                Inside the `List`, add a `Section` titled "Details" containing a `Text` view that displays `selectedEvent.details` or "No Details Provided" if `selectedEvent.details.isEmpty`.
                 @Code(name: "EventDetailsView.swift", file: "BAU-Section13-Step2.swift") {
                     @Image(source: BAU-Section13-Step2.png, alt: "Details section in EventDetailsView.swift.")
                 }

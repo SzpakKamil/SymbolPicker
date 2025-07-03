@@ -21,21 +21,23 @@ struct ContentView: View {
     
     @ViewBuilder
     func row(for event: Event) -> some View{
-        HStack(){
-            Image(systemName: event.symbolName)
-                .imageScale(.large)
-                .foregroundStyle(event.symbolColor.color)
-            VStack(alignment: .leading){
-                Text(event.title)
-                    .font(.headline)
-                    .multilineTextAlignment(.leading)
-                if !event.details.isEmpty{
-                    Text(event.details)
-                        .font(.callout)
+
+            HStack(){
+                Image(systemName: event.symbolName)
+                    .imageScale(.large)
+                    .foregroundStyle(event.symbolColor.color)
+                VStack(alignment: .leading){
+                    Text(event.title)
+                        .font(.headline)
                         .multilineTextAlignment(.leading)
+                    if !event.details.isEmpty{
+                        Text(event.details)
+                            .font(.callout)
+                            .multilineTextAlignment(.leading)
+                    }
                 }
             }
-        }
+
     }
 }
 
