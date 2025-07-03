@@ -14,5 +14,5 @@
     - **Main List Interface**: Constructed a responsive main UI with a `NavigationStack` and `List`, grouping events by type and displaying them with custom symbols and details, enhanced by a `ContentUnavailableView` for empty states (Section: "Building the Main App List UI").
     - **Event Details View**: Built a detailed event view with sections for event details and actions, enabling deletion and modal dismissal, seamlessly connected to the main UI for smooth navigation (Section: "Creating the Event Details Screen").
 
-    With these accomplishments, you’ve established a feature-rich user interface for the Checker app. In upcoming chapters, you’ll enhance your app with advanced search capabilities, refined SymbolPicker interactions, and platform-specific optimizations for iOS, iPadOS, macOS, and visionOS, creating a more engaging and versatile user experience.
+    With these accomplishments, you’ve established a feature-rich user interface for the Checker app. In upcoming chapters, you’ll enhance your app with platform-specific optimizations for iOS, iPadOS, macOS, and visionOS, creating a more engaging and versatile user experience.
 }
