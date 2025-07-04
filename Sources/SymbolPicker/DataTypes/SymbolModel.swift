@@ -16,6 +16,7 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
     public let notFilledSymbolName: String
     public let description: String
     public let lowercasedDescription: String
+    public let searchableSymbolName: String // Precomputed for search
     public let symbolMinimumVersion: Double
     
     public init(symbolName: String, description: String, symbolMinimumVersion: Double = 1.0) {
@@ -25,27 +26,30 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
         if components.last == "fill" {
             components.removeLast()
         }
-        notFilledSymbolName = components.joined(separator: ".")
+        self.notFilledSymbolName = components.joined(separator: ".")
         self.description = description
         self.lowercasedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        self.searchableSymbolName = self.notFilledSymbolName.lowercased().replacingOccurrences(of: ".", with: " ")
         self.symbolMinimumVersion = symbolMinimumVersion
     }
     
     public init(symbolNameFilled: String, symbolNameNotFilled: String, description: String, symbolMinimumVersion: Double = 1.0) {
         self.id = symbolNameFilled
         self.filledSymbolName = symbolNameFilled
-        notFilledSymbolName = symbolNameNotFilled
+        self.notFilledSymbolName = symbolNameNotFilled
         self.description = description
         self.lowercasedDescription = description.lowercased()
+        self.searchableSymbolName = notFilledSymbolName.lowercased().replacingOccurrences(of: ".", with: " ")
         self.symbolMinimumVersion = symbolMinimumVersion
     }
     
     public init(symbolNameFilledNotFilled: String, description: String, symbolMinimumVersion: Double = 1.0) {
         self.id = symbolNameFilledNotFilled
         self.filledSymbolName = symbolNameFilledNotFilled
-        notFilledSymbolName = symbolNameFilledNotFilled
+        self.notFilledSymbolName = symbolNameFilledNotFilled
         self.description = description
         self.lowercasedDescription = description.lowercased()
+        self.searchableSymbolName = notFilledSymbolName.lowercased().replacingOccurrences(of: ".", with: " ")
         self.symbolMinimumVersion = symbolMinimumVersion
     }
     
@@ -62,27 +66,38 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
     }
     
     public func isInsideSearchText(_ searchText: String) -> Bool {
-        return lowercasedDescription.localizedStandardContains(searchText) || notFilledSymbolName.lowercased().replacingOccurrences(of: ".", with: " ").localizedStandardContains(searchText)
+        // Early return for empty or whitespace-only search text
+        let trimmedSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        guard !trimmedSearchText.isEmpty else { return true }
+        
+        // Split search text into individual terms
+        let searchTerms = trimmedSearchText.components(separatedBy: .whitespaces)
+        
+        // Check if any search term matches the description or symbol name
+        return searchTerms.allSatisfy { term in
+            lowercasedDescription.localizedStandardContains(term) ||
+            searchableSymbolName.localizedStandardContains(term)
+        }
     }
     
     @MainActor
     public var isAvailable: Bool {
         let currentSFSymbolsVersion: Double
         
-        #if os(iOS) || os(tvOS) || os(visionOS) || os(macOS) || os(watchOS)
+#if os(iOS) || os(tvOS) || os(visionOS) || os(macOS) || os(watchOS)
         let osVersion = ProcessInfo.processInfo.operatingSystemVersion
-        #endif
+#endif
         
-        #if canImport(UIKit)
+#if canImport(UIKit)
         let systemVersion = UIDevice.current.systemVersion
-        #endif
+#endif
         
-        #if os(iOS) || os(tvOS)
-        #if canImport(UIKit)
+#if os(iOS) || os(tvOS)
+#if canImport(UIKit)
         let majorVersion = Double(systemVersion.split(separator: ".").prefix(2).joined(separator: ".")) ?? 1.0
-        #else
+#else
         let majorVersion = Double(osVersion.majorVersion)
-        #endif
+#endif
         if majorVersion >= 26 {
             let adjustingValue = 26 - 7
             currentSFSymbolsVersion = Double(majorVersion - Double(adjustingValue))
@@ -90,7 +105,7 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
             let adjustingValue = 18 - 6
             currentSFSymbolsVersion = Double(majorVersion - Double(adjustingValue))
         }
-        #elseif os(visionOS)
+#elseif os(visionOS)
         let majorVersion = Double(osVersion.majorVersion)
         if majorVersion >= 26 {
             let adjustingValue = 26 - 7
@@ -99,7 +114,7 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
             let adjustingValue = 6 - 2
             currentSFSymbolsVersion = Double(adjustingValue + 4)
         }
-        #elseif os(macOS)
+#elseif os(macOS)
         let majorVersion = Double(osVersion.majorVersion)
         if majorVersion >= 26 {
             let adjustingValue = 26 - 7
@@ -108,7 +123,7 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
             let adjustingValue = 15 - 6
             currentSFSymbolsVersion = Double(majorVersion - Double(adjustingValue))
         }
-        #elseif os(watchOS)
+#elseif os(watchOS)
         let majorVersion = Double(osVersion.majorVersion)
         if majorVersion >= 26 {
             let adjustingValue = 26 - 7
@@ -117,9 +132,9 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
             let adjustingValue = 11 - 6
             currentSFSymbolsVersion = Double(majorVersion - Double(adjustingValue))
         }
-        #else
+#else
         currentSFSymbolsVersion = 1.0
-        #endif
+#endif
         return currentSFSymbolsVersion >= symbolMinimumVersion
     }
 }
