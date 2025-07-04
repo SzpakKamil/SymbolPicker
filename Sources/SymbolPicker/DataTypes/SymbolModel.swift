@@ -62,7 +62,7 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
     }
     
     public func isInsideSearchText(_ searchText: String) -> Bool {
-        return lowercasedDescription.localizedStandardContains(searchText) || notFilledSymbolName.replacingOccurrences(of: ".", with: " ").localizedStandardContains(searchText)
+        return lowercasedDescription.localizedStandardContains(searchText) || notFilledSymbolName.lowercased().replacingOccurrences(of: ".", with: " ").localizedStandardContains(searchText)
     }
     
     @MainActor
