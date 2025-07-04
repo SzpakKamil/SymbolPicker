@@ -101,8 +101,9 @@ struct SPSymbolsListContent: View, @MainActor Equatable {
             LazyVStack{
                 ForEach(loadedSymbols) { section in
                     let symbols = section.symbols.filter{$0.isAvailable}
-                    if symbols.count > 7{
+                    if symbols.count > 7 || !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty{
                         Section {
+                        
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: sizeWidth, maximum: sizeHeight))]) {
                                 ForEach(symbols) { symbol in
                                     SPSymbolButton(symbolModel: symbol, symbolName: $symbolName, isUsingFilledSymbols: isUsingFilledSymbols, dismissType: dismissType, dismissalAction: dismissalAction, size: size2)
