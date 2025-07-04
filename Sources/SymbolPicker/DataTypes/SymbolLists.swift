@@ -725,11 +725,6 @@ class SymbolLists{
                     symbolMinimumVersion: 4.0
                 ),
                 .init(
-                    symbolName: "ivfluid.bag",
-                    description: "Symbol of an IV fluid bag",
-                    symbolMinimumVersion: 3.0
-                ),
-                .init(
                     symbolName: "cross.vial.fill",
                     description: "Symbol of a vial with a cross",
                     symbolMinimumVersion: 3.0
