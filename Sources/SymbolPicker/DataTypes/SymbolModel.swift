@@ -16,7 +16,7 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
     public let notFilledSymbolName: String
     public let description: String
     public let lowercasedDescription: String
-    public let searchableSymbolName: String // Precomputed for search
+    public let searchableSymbolName: String 
     public let symbolMinimumVersion: Double
     
     public init(symbolName: String, description: String, symbolMinimumVersion: Double = 1.0) {
