@@ -3,9 +3,66 @@
            title: "Xcode 15 or later", 
            destination: "https://developer.apple.com/download/")
 
-    @Intro(title: "Adjusting for macos") {
-        This section guides through making app compile on macOS
-        @Image(source: MS-Banner, alt: "Checker app event creation interface displayed on a tablet.")
+    @Intro(title: "Optimizing for macOS Compatibility") {
+        This section guides you through adapting the Checker app to compile and run seamlessly on macOS, ensuring a consistent experience across platforms.
+        @Image(source: MS-Banner, alt: "Checker app interface displayed on a Mac desktop.")
     }
     
+    @Section(title: "Switching the App Target to macOS") {
+        @ContentAndMedia {
+            Learn how to configure your Xcode project to target macOS, setting the foundation for multiplatform compatibility.
+            
+            @Image(source: MS-Section1.png, alt: "Side-by-side view of the Checker app on an iPhone and a Mac, showcasing a consistent interface with a list of events, SF Symbols, and navigation elements.")
+        }
+
+        @Steps {
+            @Step {
+                In the Xcode top bar, select the current target device, such as "iPhone 16", from the device menu.
+                @Image(source: MS-Section1-Step1.png, alt: "Xcode interface with the target device selection menu highlighted in the top bar, showing the current device as 'iPhone 16'.")
+            }
+            @Step {
+                From the target devices menu, choose "My Mac" to switch the build target to macOS.
+                @Image(source: MS-Section1-Step2.png, alt: "Xcode interface with the target device menu open, highlighting the 'My Mac' option for macOS compilation.")
+            }
+            @Step {
+                Attempt to compile the app; it may fail due to unsupported modifiers, which will be resolved in the next section.
+                @Image(source: MS-Section1-Step3.png, alt: "Xcode error output indicating compilation issues due to unsupported modifiers on macOS.")
+            }
+        }
+    }
+    
+    @Section(title: "Restricting Unsupported Modifiers for macOS") {
+        @ContentAndMedia {
+            Modify the app’s SwiftUI code to conditionally apply platform-specific modifiers, ensuring compatibility with macOS.
+            
+            @Image(source: MS-Section2.png, alt: "Checker app interface on an iPhone and a Mac, highlighting consistent event list and navigation elements across platforms.")
+        }
+
+        @Steps {
+            @Step {
+                In the Xcode project navigator, open the "EventCreateView.swift" file to address unsupported modifiers.
+                @Code(name: "EventCreateView.swift", file: "MS-Section2-Step1.swift") {
+                    @Image(source: MS-Section2-Step1.png, alt: "EventCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Wrap the `.navigationBarTitleDisplayMode(.inline)` modifier in an `#if !os(macOS)` `#endif` block to exclude it on macOS.
+                @Code(name: "EventCreateView.swift", file: "MS-Section2-Step2.swift") {
+                    @Image(source: MS-Section2-Step2.png, alt: "EventCreateView.swift with conditional compilation for navigationBarTitleDisplayMode.")
+                }
+            }
+            @Step {
+                Open the "TypeCreateView.swift" file to apply similar modifications.
+                @Code(name: "TypeCreateView.swift", file: "MS-Section2-Step3.swift") {
+                    @Image(source: MS-Section2-Step3.png, alt: "TypeCreateView.swift file open in the Xcode editor.")
+                }
+            }
+            @Step {
+                Wrap the `.navigationBarTitleDisplayMode(.inline)` modifier in an `#if !os(macOS)` `#endif` block to ensure macOS compatibility.
+                @Code(name: "TypeCreateView.swift", file: "MS-Section2-Step4.swift") {
+                    @Image(source: MS-Section2-Step4.png, alt: "TypeCreateView.swift with conditional compilation for navigationBarTitleDisplayMode.")
+                }
+            }
+        }
+    }
 }

@@ -60,7 +60,6 @@ Whether you’re adding symbol selection for user customization, annotations, or
 
 ### Structures
 - ``SymbolPicker/SymbolPicker``
-- ``SymbolPicker/SymbolPickerData``
 
 ### Enums and Extensions
 - ``SymbolPicker/SymbolPickerDismissType``

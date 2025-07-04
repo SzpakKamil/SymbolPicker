@@ -86,7 +86,7 @@ The following table lists all predefined colors available in `SymbolColor`, incl
 - ``SymbolColor/grey``
 - ``SymbolColor/moro``
 - ``SymbolColor/brown``
-- ``SymbolColor/customColor(_:)``
+- ``SymbolColor/customColor(red:green:blue:alpha:)``
 
 ### Properties
 - ``SymbolColor/id``
