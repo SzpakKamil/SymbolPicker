@@ -334,15 +334,16 @@ public struct SymbolPicker: View {
     
     func handleSearchText(for searchText: String, loadedSymbols: Binding<[SymbolSection]>) {
         // If search text is empty, load all symbols asynchronously
-        if searchText.isEmpty {
+        let trimmedSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        if trimmedSearchText.isEmpty {
             loadAllSymbols(for: loadedSymbols)
             return
         }
 
         // Perform search asynchronously
         Task.detached(priority: .userInitiated) {
-            let trimmedSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-            let filteredSymbols = SymbolLists.allSymbols.filter { $0.lowercasedDescription.localizedStandardContains(trimmedSearchText) }
+            
+            let filteredSymbols = SymbolLists.allSymbols.filter { $0.isInsideSearchText(trimmedSearchText) }
             // Sort results in the background
             let sortedSymbols = filteredSymbols.sorted()
 

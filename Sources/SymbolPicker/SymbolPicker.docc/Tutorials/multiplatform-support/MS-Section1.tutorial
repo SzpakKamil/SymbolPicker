@@ -1,0 +1,11 @@
+@Tutorial(time: 15) {
+    @XcodeRequirement(
+           title: "Xcode 15 or later", 
+           destination: "https://developer.apple.com/download/")
+
+    @Intro(title: "Adjusting for macos") {
+        This section guides through making app compile on macOS
+        @Image(source: MS-Banner, alt: "Checker app event creation interface displayed on a tablet.")
+    }
+    
+}
