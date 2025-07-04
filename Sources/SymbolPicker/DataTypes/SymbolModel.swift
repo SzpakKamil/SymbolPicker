@@ -27,7 +27,7 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
         }
         notFilledSymbolName = components.joined(separator: ".")
         self.description = description
-        self.lowercasedDescription = description.lowercased()
+        self.lowercasedDescription = description.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         self.symbolMinimumVersion = symbolMinimumVersion
     }
     
@@ -59,6 +59,10 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine("\(id)-\(notFilledSymbolName)")
+    }
+    
+    public func isInsideSearchText(_ searchText: String) -> Bool {
+        return lowercasedDescription.localizedStandardContains(searchText) || notFilledSymbolName.replacingOccurrences(of: ".", with: " ").localizedStandardContains(searchText)
     }
     
     @MainActor
@@ -119,4 +123,3 @@ public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparab
         return currentSFSymbolsVersion >= symbolMinimumVersion
     }
 }
-

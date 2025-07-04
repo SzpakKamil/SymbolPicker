@@ -25,4 +25,12 @@
         @TutorialReference(tutorial: "doc:BAU-Section4")
         @TutorialReference(tutorial: "doc:BAU-Section5")
     }
+    
+    @Chapter(name: "Multiplatform Support") {
+        Ensure that your app works on iOS, iPadOS, macOS and visionOS
+        @Image(source: MS-Image, alt: "SwiftUI interface icon.")
+        
+        @TutorialReference(tutorial: "doc:MS-Section0")
+        @TutorialReference(tutorial: "doc:MS-Section1")
+    }
 }

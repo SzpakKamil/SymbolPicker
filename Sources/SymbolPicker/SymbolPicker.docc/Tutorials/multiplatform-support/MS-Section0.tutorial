@@ -1,0 +1,15 @@
+@Article(time: 2) {
+    @Intro(title: "Mastering Multiplatform Support") {
+        Conclude the Checker project by optimizing your app for seamless performance across visionOS and macOS, ensuring a cohesive experience on all platforms.
+        @Image(source: MS-Banner, alt: "Checker app interface displayed on visionOS and macOS devices.")
+    }
+    
+    ## Chapter Purpose
+    This final chapter focuses on adapting your Checker app for multiplatform compatibility, specifically targeting visionOS and macOS. You’ll learn to refine your SwiftUI interface by adjusting modifiers and configurations to ensure a polished and consistent user experience across diverse Apple platforms.
+
+    ## What You Will Learn
+    In this chapter, you’ll discover which SwiftUI modifiers to exclude or modify to achieve compatibility with visionOS and macOS. You’ll implement targeted changes to your list-based app, optimizing layouts and interactions for each platform while maintaining the app’s core functionality and design.
+
+    ## Completing Your Multiplatform Journey
+    As the final chapter, this section equips you to finalize your Checker app with robust multiplatform support. You’ll apply platform-specific adjustments to enhance usability, ensuring your app delivers a seamless and engaging experience on iOS, iPadOS, macOS, and visionOS, ready for real-world deployment.
+}
