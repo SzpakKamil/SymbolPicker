@@ -47,7 +47,6 @@ struct ContentView: View {
 ## Topics
 
 ### Related Types
-- ``SymbolPicker/SymbolPickerData``
 - ``SymbolPicker/SymbolPickerSymbolsStyle``
 - ``SymbolPicker/SymbolPickerDismissType``
 - ``SymbolPicker/SymbolColor``
