@@ -7,6 +7,7 @@
 
 import Foundation
 
+@_documentation(visibility: internal)
 public struct SymbolSection: Identifiable, Equatable, Sendable, Comparable, Hashable {
     public var id: String { title }
     let title: String

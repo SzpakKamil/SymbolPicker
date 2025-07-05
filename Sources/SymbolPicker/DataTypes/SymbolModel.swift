@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 #endif
 
+@_documentation(visibility: internal)
 public struct SymbolModel: Identifiable, Equatable, Sendable, Hashable, Comparable {
     public let id: String
     public let filledSymbolName: String
