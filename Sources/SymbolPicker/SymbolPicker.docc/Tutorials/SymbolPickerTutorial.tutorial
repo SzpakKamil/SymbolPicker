@@ -32,5 +32,6 @@
         
         @TutorialReference(tutorial: "doc:MS-Section0")
         @TutorialReference(tutorial: "doc:MS-Section1")
+        @TutorialReference(tutorial: "doc:MS-Section2")
     }
 }
