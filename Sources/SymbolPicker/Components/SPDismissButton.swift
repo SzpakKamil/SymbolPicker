@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-#if swift(>=6.2)
+#if compiler(>=6.2)
 #if !os(macOS)
 @_documentation(visibility: internal)
 struct SPDismissButton: View, @MainActor Equatable {

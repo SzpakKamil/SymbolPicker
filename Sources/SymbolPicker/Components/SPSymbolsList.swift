@@ -8,7 +8,7 @@
 import SwiftUI
 import SearchBar
 
-#if swift(>=6.2)
+#if compiler(>=6.2)
 @_documentation(visibility: internal)
 struct SPSymbolsList: View, @MainActor Equatable {
     @Binding var searchText: String

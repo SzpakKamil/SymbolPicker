@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-#if swift(>=6.2)
+#if compiler(>=6.2)
 @_documentation(visibility: internal)
 struct SPSelectedSymbol: View, @MainActor Equatable {
     var symbolName: String
