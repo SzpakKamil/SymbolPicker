@@ -145,6 +145,7 @@ public struct SymbolPicker: View {
                                 .safeAreaInset(edge: .top, content: {
                                     SPSelectedSymbol(symbolName: symbolName, colorValue: colorValue, geo: geo, calculatedScale: scaleCalculated, calculatedOffset: offsetCalculated)
                                 })
+                                #if swift(>=6.2)
                                 .onScrollGeometryChange(for: CGFloat.self, of: { geometry in
                                     geometry.bounds.minY
                                 }, action: { oldValue, newValue in
@@ -164,6 +165,7 @@ public struct SymbolPicker: View {
                                         scaleCalculated = newScaleCalculated
                                     }
                                 })
+                                #endif
                                 .presentationDragIndicator(.visible)
                         }else{
                             content
@@ -378,3 +380,8 @@ public extension SymbolPicker{
     }
 }
 
+
+#Preview{
+    Text("")
+        .symbolPicker(isPresented: .constant(true), symbolName: .constant("car"))
+}
