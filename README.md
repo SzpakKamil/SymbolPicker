@@ -72,7 +72,7 @@ struct ContentView: View {
         }
         .symbolPicker(isPresented: $isPresented, symbolName: $symbolName)
         .symbolPickerSymbolsStyle(.filled)
-        .symbolPickerDismiss(type: .dismissOnSymbolChange)
+        .symbolPickerDismiss(type: .onSymbolSelect)
     }
 }
 ```
@@ -110,7 +110,7 @@ struct ContentView: View {
             color: $colorValues
         )
         .symbolPickerSymbolsStyle(.filled)
-        .symbolPickerDismiss(type: .dismissOnSymbolChange)
+        .symbolPickerDismiss(type: .onSymbolSelect)
     }
 }
 ```
@@ -130,7 +130,7 @@ The `SymbolPicker` package offers modifiers to customize its appearance, behavio
 
 - **`symbolPickerSymbolsStyle(_:)`**: Toggles between `.filled` (e.g., `star.fill`) and `.outline` (e.g., `star`) symbol variants.  
   *Available on iOS (14.0+), iPadOS (14.0+), macOS (11.0+), visionOS (1.0+).*
-- **`symbolPickerDismiss(type:)`**: Configures dismissal behavior, with `.dismissOnSymbolChange` to close the picker upon symbol selection.  
+- **`symbolPickerDismiss(type:)`**: Configures dismissal behavior, with `.onSymbolSelect` to close the picker upon symbol selection.  
   *Available on iOS (14.0+), iPadOS (14.0+), macOS (11.0+), visionOS (1.0+).*
 
 ### Color Options
