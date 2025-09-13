@@ -129,7 +129,7 @@ struct SPCustomColorPicker: View{
         }
         #if os(macOS)
         ZStack {
-            ColorPicker("Color Picker", selection: binding, supportsOpacity: false)
+            ColorPicker(SymbolPickerTranslation.colorPicker.value, selection: binding, supportsOpacity: false)
                 .labelsHidden()
                 .frame(width: size, height: size)
                 .clipped()
@@ -179,11 +179,11 @@ struct SPCustomColorPickerNew: View {
     
     var body: some View {
         if #available(iOS 17.0, *) {
-            ColorPicker("Color Picker", selection: $color, supportsOpacity: false)
+            ColorPicker(SymbolPickerTranslation.colorPicker.value, selection: $color, supportsOpacity: false)
                 .labelsHidden()
                 .scaleEffect(scale * 1.15)
         } else {
-            ColorPicker("Color Picker", selection: $color, supportsOpacity: false)
+            ColorPicker(SymbolPickerTranslation.colorPicker.value, selection: $color, supportsOpacity: false)
                 .labelsHidden()
                 .scaleEffect(scale)
         }
@@ -216,7 +216,7 @@ struct SPCustomColorPickerOld: View {
     }
     
     var body: some View {
-        ColorPicker("Color Picker", selection: $color, supportsOpacity: false)
+        ColorPicker(SymbolPickerTranslation.colorPicker.value, selection: $color, supportsOpacity: false)
             .labelsHidden()
             .scaleEffect(scale)
     }

@@ -72,7 +72,7 @@ struct SPSymbolsListContent: View, @MainActor Equatable {
 #endif
             
 #if !os(macOS)
-            SearchBar(text: $searchText, prompt: "Search Symbols")
+            SearchBar(text: $searchText, prompt: SymbolPickerTranslation.searchPrompt.value)
                 .if{ content in
                     if #available(iOS 26.0, visionOS 26.0, *) {
                         content
@@ -496,7 +496,7 @@ struct SPSymbolsListContent: View, Equatable {
 #endif
             
 #if !os(macOS)
-            SearchBar(text: $searchText, prompt: "Search Symbols")
+            SearchBar(text: $searchText, prompt: SymbolPickerTranslation.searchPrompt.value)
                 .if{ content in
                     if #available(iOS 26.0, visionOS 26.0, *) {
                         content

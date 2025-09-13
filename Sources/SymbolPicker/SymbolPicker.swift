@@ -94,7 +94,7 @@ public struct SymbolPicker: View {
                 if isShowingColorPicker{
                     SPColorPicker(colorValue: $colorValue, geo: geo)
                 }
-                SearchBar(text: $searchText, prompt: "Search Symbols")
+                SearchBar(text: $searchText, prompt: SymbolPickerTranslation.searchPrompt.value)
                     .searchBarStyle(.rounded)
                     .if{ content in
                         if #available(macOS 26.0, *){
@@ -169,7 +169,7 @@ public struct SymbolPicker: View {
                                 .presentationDragIndicator(.visible)
                         }else{
                             content
-                                .navigationTitle("Icon")
+                                .navigationTitle(SymbolPickerTranslation.title.value)
                                 .toolbar{
                                     ToolbarItem(placement: .topBarTrailing){
                                         SPDismissButton{
@@ -200,7 +200,7 @@ public struct SymbolPicker: View {
                             content.listRowSpacing(15)
                         }
                     }
-                    .navigationTitle("Icon")
+                    .navigationTitle(SymbolPickerTranslation.title.value)
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar{
                         ToolbarItem(placement: .topBarTrailing){
