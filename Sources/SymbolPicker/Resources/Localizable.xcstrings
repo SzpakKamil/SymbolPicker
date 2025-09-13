@@ -1,0 +1,54 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "SymbolPickerTranslation.Close" : {
+      "comment" : "Text for Close Button",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "SymbolPickerTranslation.ColorPicker" : {
+      "comment" : "Custom Color Picker for Symbols",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Color Picker"
+          }
+        }
+      }
+    },
+    "SymbolPickerTranslation.SearchPrompt" : {
+      "comment" : "Default Prompt for SearchBar",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Search Symbols"
+          }
+        }
+      }
+    },
+    "SymbolPickerTranslation.Title" : {
+      "comment" : "Title for Symbol Picker",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Icons"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.1"
+}

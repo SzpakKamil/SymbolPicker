@@ -17,8 +17,12 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SymbolPicker", dependencies: [.product(name: "SearchBar", package: "SearchBar")]),
-
+            name: "SymbolPicker",
+            dependencies: [.product(name: "SearchBar", package: "SearchBar")],
+            resources: [
+                .process("Resources/Localizable.xcstrings")
+            ]
+        ),
     ]
 )
 

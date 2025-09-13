@@ -77,11 +77,14 @@ struct SPDismissButtonOld: View, @MainActor Equatable{
     }
     
     var body: some View {
-        Button("OK"){
+        Button(SymbolPickerTranslation.close.value){
             action()
         }
         .opacity(usePopover ? 0 : 1)
         .allowsHitTesting(!usePopover)
+        .accessibilityElement()
+        .accessibilityLabel(SymbolPickerTranslation.close.value)
+        .accessibilityAddTraits(.isButton)
     }
     init(_ action: @escaping () -> Void) {
         self.action = action
@@ -140,6 +143,9 @@ struct SPDismissButtonNew: View, Equatable {
         }
         .opacity(usePopover ? 0 : 1)
         .allowsHitTesting(!usePopover)
+        .accessibilityElement()
+        .accessibilityLabel(SymbolPickerTranslation.close.value)
+        .accessibilityAddTraits(.isButton)
     }
     init(_ action: @escaping () -> Void) {
         self.action = action
@@ -161,11 +167,14 @@ struct SPDismissButtonOld: View, Equatable{
     }
     
     var body: some View {
-        Button("OK"){
+        Button(SymbolPickerTranslation.close.value){
             action()
         }
         .opacity(usePopover ? 0 : 1)
         .allowsHitTesting(!usePopover)
+        .accessibilityElement()
+        .accessibilityLabel(SymbolPickerTranslation.close.value)
+        .accessibilityAddTraits(.isButton)
     }
     init(_ action: @escaping () -> Void) {
         self.action = action
