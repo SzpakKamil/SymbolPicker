@@ -18,6 +18,7 @@ public struct SymbolPicker: View {
     @State private var searchText = ""
     @State private var loadedSymbols: [SymbolSection] = []
     @State private var searchDebounceTask: Task<Void, Never>? = nil
+    let isUsingColorPicker: Bool
     private var dismissType: SymbolPickerDismissType = .manual
     private var symbolsStyle: SymbolPickerSymbolsStyle = .filled
     private var action: (() -> Void)? = nil
@@ -81,7 +82,6 @@ public struct SymbolPicker: View {
     #if os(macOS)
     @_documentation(visibility: internal)
     @ViewBuilder public var contentMacOS: some View{
-        let isShowingColorPicker = colorValue != .customColor(red: 0, green: 0, blue: 0, alpha: 1)
         var color: Color{
             if colorScheme == .dark{
                 return .black.opacity(0.05)
@@ -91,7 +91,7 @@ public struct SymbolPicker: View {
         }
         GeometryReader{ geo in
             VStack{
-                if isShowingColorPicker{
+                if isUsingColorPicker{
                     SPColorPicker(colorValue: $colorValue, geo: geo)
                 }
                 SearchBar(text: $searchText, prompt: SymbolPickerTranslation.searchPrompt.value)
@@ -104,7 +104,7 @@ public struct SymbolPicker: View {
                         }
                     }
                     .padding(.horizontal, 12)
-                    .padding(.top, isShowingColorPicker ? 4 : 8)
+                    .padding(.top, isUsingColorPicker ? 4 : 12)
                     .padding(.bottom, 10)
                 SPSymbolsList(searchText: $searchText, symbolName: $symbolName, isUsingFilledSymbols: isUsingFilledSymbols, dismissType: dismissType, loadedSymbols: loadedSymbols, geo: geo, isPresented: $isPresented, action: action)
                 Spacer()
@@ -125,7 +125,7 @@ public struct SymbolPicker: View {
                             
                             SPSelectedSymbol(symbolName: symbolName, colorValue: colorValue, geo: geo, calculatedScale: scaleCalculated, calculatedOffset: offsetCalculated)
                         }
-                        if colorValue != .customColor(red: 0, green: 0, blue: 0, alpha: 1){
+                        if isUsingColorPicker{
                             SPColorPicker(colorValue: $colorValue, geo: geo)
                                 .listRowInsets(EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12))
                         }
@@ -231,6 +231,7 @@ public struct SymbolPicker: View {
         } set: { value in
             color?.wrappedValue = value.color
         }
+        self.isUsingColorPicker = true
     }
     
     @available(macOS 12.0, iOS 15.0, visionOS 1.0, *)
@@ -250,6 +251,7 @@ public struct SymbolPicker: View {
         } set: { value in
             color?.wrappedValue = value.value
         }
+        self.isUsingColorPicker = true
     }
     
     @available(macOS 12.0, iOS 15.0, visionOS 1.0, *)
@@ -261,6 +263,7 @@ public struct SymbolPicker: View {
         } set: { value in
             color?.wrappedValue = value
         }
+        self.isUsingColorPicker = true
     }
     
     @available(macOS 12.0, iOS 15.0, visionOS 1.0, *)
@@ -268,6 +271,7 @@ public struct SymbolPicker: View {
         self._isPresented = .constant(false)
         self._symbolName = symbolName
         self._colorValue = .constant(SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1))
+        self.isUsingColorPicker = false
     }
     
     @available(macOS 11.0, iOS 14.0, visionOS 1.0, *)
@@ -286,6 +290,7 @@ public struct SymbolPicker: View {
         } set: { value in
             color?.wrappedValue = value.color
         }
+        self.isUsingColorPicker = true
     }
     
     @available(macOS 11.0, iOS 14.0, visionOS 1.0, *)
@@ -308,6 +313,7 @@ public struct SymbolPicker: View {
         } set: { value in
             color?.wrappedValue = value.value
         }
+        self.isUsingColorPicker = true
     }
     
     @available(macOS 11.0, iOS 14.0, visionOS 1.0, *)
@@ -322,6 +328,7 @@ public struct SymbolPicker: View {
         } set: { value in
             color?.wrappedValue = value
         }
+        self.isUsingColorPicker = true
     }
     
     @available(macOS 11.0, iOS 14.0, visionOS 1.0, *)
@@ -332,6 +339,7 @@ public struct SymbolPicker: View {
         self._isPresented = isPresented
         self._symbolName = symbolName
         self._colorValue = .constant(SymbolColor.customColor(red: 0, green: 0, blue: 0, alpha: 1))
+        self.isUsingColorPicker = false
     }
     
     func handleSearchText(for searchText: String, loadedSymbols: Binding<[SymbolSection]>) {
@@ -383,5 +391,6 @@ public extension SymbolPicker{
 
 #Preview{
     Text("")
+        .frame(width: 100, height: 100)
         .symbolPicker(isPresented: .constant(true), symbolName: .constant("car"))
 }
