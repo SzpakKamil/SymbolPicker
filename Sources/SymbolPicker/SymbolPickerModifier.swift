@@ -16,6 +16,7 @@ public struct SymbolPickerModifier<Content: View>: View {
     private var dismissType: SymbolPickerDismissType = .manual
     private var symbolsStyle: SymbolPickerSymbolsStyle = .filled
     private var action: (() -> Void)? = nil
+    let isUsingColorPicker: Bool
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     #if !os(macOS)
@@ -32,24 +33,42 @@ public struct SymbolPickerModifier<Content: View>: View {
         #if os(macOS)
         content()
             .popover(isPresented: $isPresented){
-                SymbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $colorValue)
-                    .symbolPickerDismiss(type: dismissType, action: action)
-                    .symbolPickerSymbolsStyle(symbolsStyle)
+                if isUsingColorPicker{
+                    SymbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $colorValue)
+                        .symbolPickerDismiss(type: dismissType, action: action)
+                        .symbolPickerSymbolsStyle(symbolsStyle)
+                }else{
+                    SymbolPicker(isPresented: $isPresented, symbolName: $symbolName)
+                        .symbolPickerDismiss(type: dismissType, action: action)
+                        .symbolPickerSymbolsStyle(symbolsStyle)
+                }
             }
         #else
         if usePopover{
             content()
                 .popover(isPresented: $isPresented){
-                    SymbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $colorValue)
-                        .symbolPickerDismiss(type: dismissType, action: action)
-                        .symbolPickerSymbolsStyle(symbolsStyle)
+                    if isUsingColorPicker{
+                        SymbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $colorValue)
+                            .symbolPickerDismiss(type: dismissType, action: action)
+                            .symbolPickerSymbolsStyle(symbolsStyle)
+                    }else{
+                        SymbolPicker(isPresented: $isPresented, symbolName: $symbolName)
+                            .symbolPickerDismiss(type: dismissType, action: action)
+                            .symbolPickerSymbolsStyle(symbolsStyle)
+                    }
                 }
         }else{
             content()
                 .sheet(isPresented: $isPresented){
-                    SymbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $colorValue)
-                        .symbolPickerDismiss(type: dismissType, action: action)
-                        .symbolPickerSymbolsStyle(symbolsStyle)
+                    if isUsingColorPicker{
+                        SymbolPicker(isPresented: $isPresented, symbolName: $symbolName, color: $colorValue)
+                            .symbolPickerDismiss(type: dismissType, action: action)
+                            .symbolPickerSymbolsStyle(symbolsStyle)
+                    }else{
+                        SymbolPicker(isPresented: $isPresented, symbolName: $symbolName)
+                            .symbolPickerDismiss(type: dismissType, action: action)
+                            .symbolPickerSymbolsStyle(symbolsStyle)
+                    }
                 }
         }
         #endif
@@ -72,6 +91,7 @@ public struct SymbolPickerModifier<Content: View>: View {
         } set: { value in
             color?.wrappedValue = value.value
         }
+        self.isUsingColorPicker = true
     }
     init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<Color>?, @ViewBuilder content: @escaping () -> Content) {
         self.content = content
@@ -86,6 +106,7 @@ public struct SymbolPickerModifier<Content: View>: View {
         } set: { value in
             color?.wrappedValue = value.color
         }
+        self.isUsingColorPicker = true
     }
     init(isPresented: Binding<Bool>, symbolName: Binding<String>, color: Binding<SymbolColor>?, @ViewBuilder content: @escaping () -> Content) {
         self.content = content
@@ -96,6 +117,7 @@ public struct SymbolPickerModifier<Content: View>: View {
         } set: { value in
             color?.wrappedValue = value
         }
+        self.isUsingColorPicker = true
     }
     
     init(isPresented: Binding<Bool>, symbolName: Binding<String>, @ViewBuilder content: @escaping () -> Content) {
@@ -103,6 +125,7 @@ public struct SymbolPickerModifier<Content: View>: View {
         self._isPresented = isPresented
         self._symbolName = symbolName
         self._colorValue = .constant(SymbolColor.customColor(red: 0,green: 0,blue: 0,alpha: 0))
+        self.isUsingColorPicker = false
     }
 }
 
