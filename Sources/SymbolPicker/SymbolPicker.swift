@@ -388,9 +388,3 @@ public extension SymbolPicker{
     }
 }
 
-
-#Preview{
-    Text("")
-        .frame(width: 100, height: 100)
-        .symbolPicker(isPresented: .constant(true), symbolName: .constant("car"))
-}
