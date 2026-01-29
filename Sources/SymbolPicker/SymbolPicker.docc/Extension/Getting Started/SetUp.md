@@ -75,4 +75,3 @@ This creates a button that, when tapped, presents the SF Symbol picker, updating
 ## Next Steps
 
 - Build a sample app with <doc:SymbolGallery>.
-- Learn framework with <doc:SymbolPickerTutorial> tutorial.

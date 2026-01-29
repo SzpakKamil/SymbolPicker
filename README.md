@@ -14,7 +14,6 @@ For detailed documentation, visit the [SymbolPicker Documentation](https://kamil
 ## Table of Contents
 
 - [Features](#features)
-- [Tutorial](#tutorial)
 - [Resources](#resources)
 - [Usage](#usage)
   - [Basic Usage](#basic-usage)
@@ -34,10 +33,6 @@ For detailed documentation, visit the [SymbolPicker Documentation](https://kamil
 - **Accessibility**: Full support for VoiceOver, Dynamic Type, and adaptive layouts for inclusive experiences.
 - **Platform Consistency**: Unified SwiftUI API with adaptive presentations (sheets on iPhone, popovers on iPad/visionOS, windows on macOS).
 - **Built-in Unit Tests**: Includes comprehensive unit and UI tests to ensure reliability across all supported platforms.
-
-## Tutorial
-
-Explore the comprehensive tutorial at [SymbolPicker Tutorial](https://kamilszpak.com/tutorials/symbolpickertutorial). The tutorial guides you through building a dynamic **Checker app**, focusing on integrating and customizing the symbol picker.
 
 ## Resources
 

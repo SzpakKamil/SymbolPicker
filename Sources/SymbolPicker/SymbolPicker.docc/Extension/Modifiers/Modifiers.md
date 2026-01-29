@@ -58,5 +58,4 @@ struct ContentView: View {
 ## Next Steps
 
 - Explore the `SymbolPicker` setup guide in <doc:SetUp>.
-- Learn framework with <doc:SymbolPickerTutorial> tutorial.
 - Build a sample app with <doc:SymbolGallery>.
