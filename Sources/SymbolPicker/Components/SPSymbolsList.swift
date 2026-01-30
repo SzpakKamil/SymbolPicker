@@ -82,7 +82,7 @@ struct SPSymbolsListContent: View, @MainActor Equatable {
                             .padding(.bottom, -8)
                             .padding(.horizontal, -8)
 #else
-                            .searchBarStyle(.rectangle, backgroundColor: color)
+                            .searchBarStyle(.rounded, backgroundColor: color)
 #endif
                     } else {
                         content

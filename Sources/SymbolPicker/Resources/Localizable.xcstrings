@@ -3,7 +3,6 @@
   "strings" : {
     "SymbolPickerTranslation.Close" : {
       "comment" : "Text for Close Button",
-      "extractionState" : "extracted_with_value",
       "localizations" : {
         "af" : {
           "stringUnit" : {
@@ -765,7 +764,6 @@
     },
     "SymbolPickerTranslation.ColorPicker" : {
       "comment" : "Custom Color Picker for Symbols",
-      "extractionState" : "extracted_with_value",
       "localizations" : {
         "af" : {
           "stringUnit" : {
@@ -1527,7 +1525,6 @@
     },
     "SymbolPickerTranslation.SearchPrompt" : {
       "comment" : "Default Prompt for SearchBar",
-      "extractionState" : "extracted_with_value",
       "localizations" : {
         "af" : {
           "stringUnit" : {
@@ -2289,7 +2286,6 @@
     },
     "SymbolPickerTranslation.Title" : {
       "comment" : "Title for Symbol Picker",
-      "extractionState" : "extracted_with_value",
       "localizations" : {
         "af" : {
           "stringUnit" : {
