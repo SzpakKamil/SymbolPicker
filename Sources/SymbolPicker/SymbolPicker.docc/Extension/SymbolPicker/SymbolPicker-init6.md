@@ -15,7 +15,6 @@ Initializes a `SymbolPicker` with bindings to control presentation, the selected
     @AutomaticSeeAlso(disabled)
     @AutomaticArticleSubheading(disabled)
 }
-```
 
 ## Overview
 
@@ -27,6 +26,61 @@ This initializer creates a `SymbolPicker` view that binds the presentation state
 | `isPresented` | `Binding<Bool>` | A binding controlling whether the picker is presented. |
 | `symbolName` | `Binding<String>` | A binding to the selected SF Symbol name. |
 | `color` | `Binding<Color>?` | An optional binding to the symbol’s SwiftUI `Color`. |
+
+## Example
+
+```swift
+import SwiftUI
+import SymbolPicker
+
+struct ExampleView: View {
+    @State private var isPresented = false
+    @State private var symbol = "star.fill"
+    @State private var color: Color = .red
+
+    var body: some View {
+        Button("Pick Symbol") {
+            isPresented = true
+        }
+        .sheet(isPresented: $isPresented) {
+            SymbolPicker(isPresented: $isPresented, symbolName: $symbol, color: $color)
+        }
+    }
+}
+```
+
+## Design Images
+
+@TabNavigator {
+    @Tab("iOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-iOS", alt: "Color") {}
+            }
+        }
+    }
+    @Tab("iPadOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-iPadOS", alt: "Color") {}
+            }
+        }
+    }
+    @Tab("macOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-macOSTahoe", alt: "Color") {}
+            }
+        }
+    }
+    @Tab("visionOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-visionOS", alt: "Color") {}
+            }
+        }
+    }
+}
 
 ## Related Initializers
 - ``SymbolPicker/SymbolPicker/init(isPresented:symbolName:)``

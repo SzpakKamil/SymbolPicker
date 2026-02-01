@@ -26,6 +26,55 @@ This initializer creates a `SymbolPicker` view that binds the selected SF Symbol
 | `symbolName` | `Binding<String>` | A binding to the selected SF Symbol name. |
 | `color` | `color: Binding<[Double]?` | An optional binding to an RGBA color array (`[R, G, A]`). |
 
+## Example
+
+```swift
+import SwiftUI
+import SymbolPicker
+
+struct ExampleView: View {
+    @State private var symbol: String = "star.fill"
+    @State private var color: [Double] = [1.0, 0.0, 0.0, 1.0] // Red
+
+    var body: some View {
+        SymbolPicker(symbolName: $symbol, color: $color)
+    }
+}
+```
+
+## Design Images
+
+@TabNavigator {
+    @Tab("iOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-iOS", alt: "Color") {}
+            }
+        }
+    }
+    @Tab("iPadOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-iPadOS", alt: "Color") {}
+            }
+        }
+    }
+    @Tab("macOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-macOSTahoe", alt: "Color") {}
+            }
+        }
+    }
+    @Tab("visionOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-visionOS", alt: "Color") {}
+            }
+        }
+    }
+}
+
 ## Related Initializers
 - ``SymbolPicker/SymbolPicker/init(symbolName:)``
 - ``SymbolPicker/SymbolPicker/init(symbolName:color:)-(_,Binding<Color>?)``

@@ -53,6 +53,7 @@ Whether you’re adding symbol selection for user customization, annotations, or
 - <doc:AboutSymbolPicker>
 - <doc:SetUp>
 - <doc:Modifiers>
+- <doc:SymbolPickerDynamicTypeSize>
 
 ### Sample Projects
 - <doc:SymbolGallery>

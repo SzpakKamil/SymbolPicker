@@ -35,3 +35,36 @@ struct ContentView: View {
     }
 }
 ```
+
+## Design Images
+
+@TabNavigator {
+    @Tab("iOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-iOS", alt: "Filled") { Filled }
+            }
+        }
+    }
+    @Tab("iPadOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-iPadOS", alt: "Filled") { Filled }
+            }
+        }
+    }
+    @Tab("macOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-macOSTahoe", alt: "Filled") { Filled }
+            }
+        }
+    }
+    @Tab("visionOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-visionOS", alt: "Filled") { Filled }
+            }
+        }
+    }
+}

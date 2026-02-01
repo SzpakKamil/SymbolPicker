@@ -47,3 +47,48 @@ struct ContentView: View {
     }
 }
 ```
+
+## Design Images
+
+@TabNavigator {
+    @Tab("iOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-iOS", alt: "Filled") { Filled }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Outlined-iOS", alt: "Outlined") { Outlined }
+            }
+        }
+    }
+    @Tab("iPadOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-iPadOS", alt: "Filled") { Filled }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Outlined-iPadOS", alt: "Outlined") { Outlined }
+            }
+        }
+    }
+    @Tab("macOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-macOSTahoe", alt: "Filled") { Filled }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Outlined-macOSTahoe", alt: "Outlined") { Outlined }
+            }
+        }
+    }
+    @Tab("visionOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-visionOS", alt: "Filled") { Filled }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Outlined-visionOS", alt: "Outlined") { Outlined }
+            }
+        }
+    }
+}

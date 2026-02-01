@@ -53,8 +53,50 @@ struct ContentView: View {
 }
 ```
 
-### Scroll and Animation Optimization
-On iOS 26.0+ and visionOS 26.0+, the `SymbolPicker` calculates the selected symbol’s Y-offset (`offsetCalculated`) and scale (`scaleCalculated`) based on the scroll position (`geometry.bounds.minY`). Updates are throttled with thresholds (0.5 for offset, 0.01 for scale) to reduce recomputations, ensuring smooth animations in the `SPSelectedSymbol` view.
+## Design Images
+
+@TabNavigator {
+    @Tab("iOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-iOS", alt: "Default") { Default }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-iOS", alt: "Color") { Color }
+            }
+        }
+    }
+    @Tab("iPadOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-iPadOS", alt: "Default") { Default }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-iPadOS", alt: "Color") {Color }
+            }
+        }
+    }
+    @Tab("macOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-macOSTahoe", alt: "Default") { Default }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-macOSTahoe", alt: "Color") { Color }
+            }
+        }
+    }
+    @Tab("visionOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-visionOS", alt: "Default") { Default }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Color-visionOS", alt: "Color") { Color }
+            }
+        }
+    }
+}
 
 ## Topics
 

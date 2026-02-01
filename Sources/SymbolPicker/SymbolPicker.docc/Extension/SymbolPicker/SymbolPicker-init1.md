@@ -25,6 +25,54 @@ This initializer creates a `SymbolPicker` view that allows selection of an SF Sy
 |----------------|------|-------------|
 | `symbolName` | `Binding<String>` | A binding to the selected SF Symbol name. |
 
+## Example
+
+```swift
+import SwiftUI
+import SymbolPicker
+
+struct ExampleView: View {
+    @State private var symbol: String = "star.fill"
+
+    var body: some View {
+        SymbolPicker(symbolName: $symbol)
+    }
+}
+```
+
+## Design Images
+
+@TabNavigator {
+    @Tab("iOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-iOS", alt: "Default") {}
+            }
+        }
+    }
+    @Tab("iPadOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-iPadOS", alt: "Default") {}
+            }
+        }
+    }
+    @Tab("macOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-macOSTahoe", alt: "Default") {}
+            }
+        }
+    }
+    @Tab("visionOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-visionOS", alt: "Default") {}
+            }
+        }
+    }
+}
+
 ## Related Initializers
 - ``SymbolPicker/SymbolPicker/init(symbolName:color:)-(_,Binding<Color>?)``
 - ``SymbolPicker/SymbolPicker/init(symbolName:color:)-(_,Binding<[Double]>?)``

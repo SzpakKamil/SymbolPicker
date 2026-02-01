@@ -43,6 +43,39 @@ struct ContentView: View {
 }
 ```
 
+### Design Images
+
+@TabNavigator {
+    @Tab("iOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-iOS", alt: "Default") {}
+            }
+        }
+    }
+    @Tab("iPadOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-iPadOS", alt: "Default") {}
+            }
+        }
+    }
+    @Tab("macOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-macOSTahoe", alt: "Default") {}
+            }
+        }
+    }
+    @Tab("visionOS") {
+        @Row(numberOfColumns: 1) {
+            @Column {
+                @Image(source: "Documentation-SymbolPickerInits-Default-visionOS", alt: "Default") {}
+            }
+        }
+    }
+}
+
 ## Topics
 
 ### Related Types

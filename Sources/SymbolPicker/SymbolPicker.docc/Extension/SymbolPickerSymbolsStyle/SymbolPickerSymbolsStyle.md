@@ -23,6 +23,77 @@ The `SymbolPickerSymbolsStyle` enum specifies the rendering style for symbols in
 | Filled     | 0  | Renders the symbol with a solid fill, suitable for bold and prominent visuals. |
 | Outlined   | 1  | Renders the symbol with a stroked outline, ideal for a lighter, minimalistic appearance. |
 
+## Example
+
+The following example demonstrates how to apply the ``SymbolPicker/SymbolPickerSymbolsStyle`` to configure the `SymbolPicker`:
+
+```swift
+import SwiftUI
+import SymbolPicker
+
+struct ContentView: View {
+    @State private var isPresented = false
+    @State private var symbolName = "star.fill"
+
+    var body: some View {
+        Button(action: { isPresented = true }) {
+            Image(systemName: symbolName)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 50, height: 50)
+        }
+        .symbolPicker(isPresented: $isPresented, symbolName: $symbolName)
+        .symbolPickerSymbolsStyle(.outline)
+    }
+}
+```
+
+## Design Images
+
+@TabNavigator {
+    @Tab("iOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-iOS", alt: "Filled") { Filled }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Outlined-iOS", alt: "Outlined") { Outlined }
+            }
+        }
+    }
+    @Tab("iPadOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-iPadOS", alt: "Filled") { Filled }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Outlined-iPadOS", alt: "Outlined") { Outlined }
+            }
+        }
+    }
+    @Tab("macOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-macOSTahoe", alt: "Filled") { Filled }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Outlined-macOSTahoe", alt: "Outlined") { Outlined }
+            }
+        }
+    }
+    @Tab("visionOS") {
+        @Row(numberOfColumns: 2) {
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Filled-visionOS", alt: "Filled") { Filled }
+            }
+            @Column {
+                @Image(source: "Documentation-SymbolStyle-Outlined-visionOS", alt: "Outlined") { Outlined }
+            }
+        }
+    }
+}
+
+
 ## Topics
 
 ### Cases

@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SzpakKamil/SearchBar.git",
       "state" : {
-        "revision" : "e45bb2c2849c3cbe3c648f11a4db17bf1ff7580f",
-        "version" : "2.1.3"
+        "revision" : "458d8bab23c589555a9a300e43e0113cea45a5ff",
+        "version" : "2.1.4"
       }
     }
   ],
