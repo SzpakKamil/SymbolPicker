@@ -153,6 +153,19 @@ dependencies: [
 2. Enter the URL: `https://github.com/SzpakKamil/SymbolPicker.git`.
 3. Select version **1.0.0** or later.
 
+### Agent Skill
+You can install the SymbolPicker skill for your CLI agent to get expert guidance on SymbolPicker directly in your terminal.
+
+#### Using skills.sh:
+```bash
+npx skills add https://github.com/SzpakKamil/AgentSkills --skill SymbolPicker
+```
+
+#### Using ClawdHub:
+```bash
+npx dlx clawdhub@latest install symbolpicker
+```
+
 ## Requirements
 
 - **iOS**: 14.0+

@@ -23,6 +23,19 @@ Learn how to integrate the `SymbolPicker` package into your SwiftUI project.
 
 The `SymbolPicker` package provides a customizable SwiftUI SF Symbol picker for iOS, iPadOS, visionOS and macOS. This guide explains how to add the package using Swift Package Manager (SPM).
 
+## Installing Agent Skill
+You can install the SymbolPicker skill for your CLI agent to get expert guidance on SymbolPicker directly in your terminal.
+
+### Using skills.sh:
+```bash
+npx skills add https://github.com/SzpakKamil/AgentSkills --skill SymbolPicker
+```
+
+### Using ClawdHub:
+```bash
+npx dlx clawdhub@latest install symbolpicker
+```
+
 ## Adding SymbolPicker to Your Project
 
 Add the `SymbolPicker` package to your project via Swift Package Manager:
