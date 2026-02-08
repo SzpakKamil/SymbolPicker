@@ -6,47 +6,31 @@
 //
 
 import SwiftUI
+import SPColor
 
-struct SwiftUIView: View {
+public struct SwiftUIView: View {
     @State private var symbols: [SPSymbol] = []
     @State private var emojis: [SPEmoji] = []
-    @State private var type: String = "Emojis"
-    
-    @State private var selectedSymbol: SPSelection?
+    @State private var type: String = "Symbols"
+    @State private var searchText: String = ""
     let dataManager = SPDataManager()
-    var body: some View {
-        if #available(iOS 26.0, *) {
+    public var body: some View {
+        if #available(iOS 26.0, macOS 26.0, *) {
             NavigationStack{
                 List{
+                    Text("\(String(data: try! JSONEncoder().encode(SPColor(id: "red", colorSpace: .displayP3)), encoding: .utf8))")
+                        .foregroundStyle(SPColor.red)
                     if type == "Symbols"{
                         ForEach(symbols) { symbol in
                             symbol
-                                .onTapGesture {
-                                    if selectedSymbol != nil{
-                                        selectedSymbol?.setSymbol(symbol)
-                                    }else{
-                                        selectedSymbol = .symbol(value: symbol)
-                                    }
-                                    
-                                }
                         }
                     }else{
                         ForEach(emojis) { emoji in
                             emoji
-                                .onTapGesture {
-                                    if selectedSymbol != nil{
-                                        selectedSymbol!.setEmoji(emoji)
-                                    }else{
-                                        selectedSymbol = .emoji(value: emoji)
-                                    }
-                                }
                         }
                     }
                 }
                 .navigationTitle("Tester")
-                .safeAreaBar(edge: .top){
-                    selectedSymbol
-                }
                 .safeAreaBar(edge: .bottom) {
                     Picker("Type", selection: $type){
                         Text("Symbols")
@@ -57,23 +41,19 @@ struct SwiftUIView: View {
                     .pickerStyle(.segmented)
                     .padding(.horizontal)
                 }
+                .searchable(text: $searchText)
+                .task(id: searchText){
+                    async let symbols =  dataManager.search(SPSymbol.self, for: searchText)
+                    async let emojis = dataManager.search(SPEmoji.self, for: searchText)
+                    self.symbols = (try? await symbols) ?? []
+                    self.emojis = (try? await emojis) ?? []
+                }
                 .task(priority: .high){
                     do{
-                        async let symbols = dataManager.fetchSymbols()
-                        async let emojis = dataManager.fetchEmojis()
+                        async let symbols = dataManager.fetch(type: SPSymbol.self)
+                        async let emojis = dataManager.fetch(type: SPEmoji.self)
                         self.symbols = try await symbols
                         self.emojis = try await emojis
-                    }catch let error as SPDataManager.Error {
-                        switch error{
-                        case .bundleURLNotCreated(fileName: let filename):
-                            print("No file with name: \(filename)")
-                        case .decodingFailed(type: let type, error: let errorDecoded):
-                            print("Decoding failed for \(type) with error \(errorDecoded.localizedDescription)")
-                        case .fileNotFound(fileName: let filename):
-                            print("No file with name: \(filename)")
-                        case .otherError(error: let otherError):
-                            print("Failed with an error: \(otherError.localizedDescription)")
-                        }
                     }catch{
                         print(error.localizedDescription)
                     }
@@ -82,6 +62,10 @@ struct SwiftUIView: View {
         }else {
             // Fallback on earlier versions
         }
+    }
+    
+    public init(){
+        
     }
 }
 

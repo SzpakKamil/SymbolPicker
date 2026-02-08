@@ -7,18 +7,25 @@ let package = Package(
     name: "SymbolPicker",
     defaultLocalization: "en",
     platforms: [
-        .macOS(.v11), .iOS(.v14), .visionOS(.v1)
+        .macOS(.v12), .iOS(.v15), .visionOS(.v1)
     ],
     products: [
-        .library(name: "SymbolPicker", targets: ["SymbolPicker"])
+        .library(name: "SymbolPicker", targets: ["SymbolPicker"]),
+        .library(name: "SPColor", targets: ["SPColor"])
     ],
     dependencies: [
         .package(url: "https://github.com/SzpakKamil/SearchBar.git", from: "2.1.4")
     ],
     targets: [
         .target(
+            name: "SPColor"
+        ),
+        .target(
             name: "SymbolPicker",
-            dependencies: [.product(name: "SearchBar", package: "SearchBar")],
+            dependencies: [
+                "SPColor",
+                .product(name: "SearchBar", package: "SearchBar")
+            ],
             resources: [
                 .process("Resources/emojis_bn.json"),
                 .process("Resources/emojis_da.json"),

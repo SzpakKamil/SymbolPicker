@@ -8,11 +8,11 @@
 import SwiftUI
 
 private struct SPSymbolVariantEnvironmentKey: EnvironmentKey {
-    static let defaultValue = SPSymbolVariant.filled
+    static let defaultValue = SPSymbol.Variant.filled
 }
 
 extension EnvironmentValues {
-  var symbolVariant: SPSymbolVariant {
+  var symbolVariant: SPSymbol.Variant {
     get { self[SPSymbolVariantEnvironmentKey.self] }
     set { self[SPSymbolVariantEnvironmentKey.self] = newValue }
   }
