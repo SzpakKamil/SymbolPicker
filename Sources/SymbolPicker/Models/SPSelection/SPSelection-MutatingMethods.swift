@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SPColor
+
 
 extension SPSelection{
     public mutating func setColor(_ color: SPColor?) {

@@ -10,20 +10,15 @@ let package = Package(
         .macOS(.v12), .iOS(.v15), .visionOS(.v1)
     ],
     products: [
-        .library(name: "SymbolPicker", targets: ["SymbolPicker"]),
-        .library(name: "SPColor", targets: ["SPColor"])
+        .library(name: "SymbolPicker", targets: ["SymbolPicker"])
     ],
     dependencies: [
         .package(url: "https://github.com/SzpakKamil/SearchBar.git", from: "2.1.4")
     ],
     targets: [
         .target(
-            name: "SPColor"
-        ),
-        .target(
             name: "SymbolPicker",
             dependencies: [
-                "SPColor",
                 .product(name: "SearchBar", package: "SearchBar")
             ],
             resources: [

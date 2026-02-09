@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SPColor
+
 
 public struct SwiftUIView: View {
     @State private var symbols: [SPSymbol] = []
@@ -18,8 +18,13 @@ public struct SwiftUIView: View {
         if #available(iOS 26.0, macOS 26.0, *) {
             NavigationStack{
                 List{
-                    Text("\(String(data: try! JSONEncoder().encode(SPColor(id: "red", colorSpace: .displayP3)), encoding: .utf8))")
-                        .foregroundStyle(SPColor.red)
+                    Text("\(String(data: try! JSONEncoder().encode(SPColor(id: "red", colorSpace: .rommRGB)!) , encoding: .utf8))")
+                    Rectangle()
+                        .fill(SPColor(red: 1.5, green: 0, blue: 0, opacity: 1, colorSpace: .sRGBLinear))
+                        .frame(width: 200, height: 200)
+                    Rectangle()
+                        .fill(SPColor(red: 1.0, green: 0, blue: 0, opacity: 1, colorSpace: .displayP3))
+                        .frame(width: 200, height: 200)
                     if type == "Symbols"{
                         ForEach(symbols) { symbol in
                             symbol

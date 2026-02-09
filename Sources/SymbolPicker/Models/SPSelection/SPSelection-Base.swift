@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SPColor
+
 
 public nonisolated enum SPSelection: Identifiable, Sendable {
     case symbol(value: SPSymbol, color: SPColor? = nil)

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SPColor
+
 
 extension SPSelection: Codable{
     enum CodingKeys: CodingKey {
