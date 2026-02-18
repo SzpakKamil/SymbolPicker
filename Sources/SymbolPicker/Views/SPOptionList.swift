@@ -59,33 +59,55 @@ public struct SPOptionList: View {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                switch pageType.wrappedValue {
-                case .symbol:
-                    SectionedGridView(
-                        data: symbols,
-                        columns: columns,
-                        spacing: currentSize * 0.3
-                    ) { symbol in
-                        SymbolCell(symbol: symbol, size: currentSize)
-                    }
-                    .if { content in
-                        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-                            content.scrollTargetLayout()
-                        } else {
-                            content
+                if pageType.wrappedValue == .symbol{
+                    ScrollView{
+                        SectionedGridView(
+                            data: symbols,
+                            columns: columns,
+                            spacing: currentSize * 0.3
+                        ) { symbol in
+                            SymbolCell(symbol: symbol, size: currentSize)
                         }
+                        .if { content in
+                            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+                                content.scrollTargetLayout()
+                            } else {
+                                content
+                            }
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical)
                     }
-                case .emoji:
-                    SectionedGridView(
-                        data: emojis,
-                        columns: columns,
-                        spacing: currentSize * 0.3
-                    ) { emoji in
-                        EmojiCell(emoji: emoji, size: currentSize, columns: columns)
+                }else if pageType.wrappedValue == .emoji{
+                    ScrollView{
+                        SectionedGridView(
+                            data: emojis,
+                            columns: columns,
+                            spacing: currentSize * 0.3
+                        ) { emoji in
+                            EmojiCell(emoji: emoji, size: currentSize, columns: columns)
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical)
                     }
-                case .image:
-                    Text("Image Picker Placeholder")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }else{
+                    #if os(iOS) || os(macOS) || os(visionOS)
+                    if #available(iOS 16.0, macOS 14.0, *) {
+                        List{
+                            PhotosPicker("Select Image", selection: selection.asImage)
+                        }
+                        .safeAreaInset(edge: .bottom){
+                            ImageSelectButton(photoImage: selection.asImage)
+                        }
+                        #if os(macOS)
+                        .listStyle(.sidebar)
+                        #endif
+                    }else{
+                        EmptyView()
+                    }
+                    #else
+                    EmptyView()
+                    #endif
                 }
             }
         }
@@ -110,6 +132,7 @@ public struct SPOptionList: View {
     }
     
     private func loadData() async {
+        searchText.wrappedValue = ""
         guard symbols.isEmpty && emojis.isEmpty else { return }
         isLoading = true
         do {
@@ -127,6 +150,41 @@ public struct SPOptionList: View {
     public init() {}
 }
 
+#if !os(watchOS) && !os(tvOS)
+@available(iOS 16.0, macOS 14.0, *)
+fileprivate struct ImageSelectButton: View {
+    @Binding var photoImage: PhotosPickerItem?
+    var body: some View{
+        PhotosPicker(selection: $photoImage){
+            HStack{
+                Spacer()
+                Text("Select Image")
+                    .foregroundStyle(.white)
+                Spacer()
+            }
+            .padding(.vertical, 8)
+        }
+        #if os(visionOS)
+        .buttonStyle(.borderedProminent)
+        .foregroundStyle(Color.accentColor)
+        #else
+        .if{ content in
+            if #available(iOS 26.0, macOS 26.0, visionOS 26.0, *){
+                content
+                    .buttonStyle(.glassProminent)
+                    .foregroundStyle(Color.accentColor)
+            }else{
+                content
+                    .buttonStyle(.borderedProminent)
+                    .foregroundStyle(Color.accentColor)
+            }
+        }
+        #endif
+        .padding(.horizontal)
+
+    }
+}
+#endif
 // MARK: - Cells
 
 fileprivate struct SymbolCell: View {
@@ -173,8 +231,8 @@ fileprivate struct EmojiCell: View {
         }
         .buttonStyle(CellButtonStyle(isSelected: isSelected, size: size))
         #if !os(watchOS) && !os(tvOS)
-        .popover(isPresented: $showSkinPicker) {
-            SkinSelectionView(emoji: emoji, size: size, columns: columns)
+        .spPopover(isPresented: $showSkinPicker, arrowEdge: .bottom) {
+            SkinSelectionView(selection: selection, emoji: emoji, size: size, columns: columns)
         }
         #endif
     }
@@ -183,13 +241,13 @@ fileprivate struct EmojiCell: View {
 // MARK: - Skin Selection
 
 fileprivate struct SkinSelectionView: View {
-    @Environment(\.spSelection) private var selection
+    @Binding var selection: SPSelection
     let emoji: SPEmoji
     let size: CGFloat
     let columns: [GridItem]
     
     private var selectedEmoji: SPEmoji? {
-        selection.wrappedValue.getEmoji()
+        selection.getEmoji()
     }
     
     private var isThisEmojiSelected: Bool {
@@ -203,7 +261,7 @@ fileprivate struct SkinSelectionView: View {
                 Button {
                     var baseEmoji = emoji
                     baseEmoji.tone = 0
-                    selection.wrappedValue.setEmoji(baseEmoji)
+                    selection.setEmoji(baseEmoji)
                 } label: {
                     SPEmojiView(emoji: emojiWithTone(0))
                 }
@@ -216,7 +274,7 @@ fileprivate struct SkinSelectionView: View {
                 if let skins = emoji.skins {
                     ForEach(skins.indices, id: \.self) { index in
                         Button {
-                            selection.wrappedValue.setEmoji(emojiWithTone(index + 1))
+                            selection.setEmoji(emojiWithTone(index + 1))
                         } label: {
                             SPEmojiSkinView(skin: skins[index])
                         }
@@ -229,15 +287,9 @@ fileprivate struct SkinSelectionView: View {
             }
             .padding()
         }
-        .frame(width: size * 11)
-        #if os(iOS)
-        .if { content in
-            if #available(iOS 16.4, *) {
-                content.presentationCompactAdaptation(.popover)
-            } else {
-                content
-            }
-        }
+        .frame(idealWidth: size * 11)
+        #if os(macOS) || os(visionOS)
+        .frame(width: size * 12)
         #endif
     }
     

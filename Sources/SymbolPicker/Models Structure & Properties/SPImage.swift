@@ -82,10 +82,13 @@ struct SPImageView: View {
                 Color.gray.opacity(0.1)
                     .overlay(ProgressView().controlSize(.small))
             case .success(let img):
-                img.resizable()
-                    .aspectRatio(contentMode: .fill)
+                img
+                    .resizable()
+                    .scaledToFit()
             case .failure:
                 Image(systemName: "photo.badge.exclamationmark")
+                    .resizable()
+                    .scaledToFit()
                     .foregroundStyle(.secondary)
             @unknown default:
                 EmptyView()

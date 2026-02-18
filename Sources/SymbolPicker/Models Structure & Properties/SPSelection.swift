@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 import ColorKit
 
 public nonisolated enum SPSelection: Identifiable, Sendable {
@@ -258,4 +259,31 @@ public extension Binding where Value == SPSelection {
             }
         )
     }
+    
+    #if !os(tvOS) && !os(watchOS)
+    var asImage: Binding<PhotosPickerItem?> {
+        Binding<PhotosPickerItem?>(
+            get: { nil },
+            set: { newItem in
+                guard let newItem else { return }
+                
+                Task(priority: .userInitiated) {
+                    guard let data = try? await newItem.loadTransferable(type: Data.self) else { return }
+                    
+                    let timestamp = Int(Date().timeIntervalSince1970)
+                    let generatedName = "IMG_\(timestamp)"
+                    
+                    let newImage = SPImage(
+                        fileName: generatedName,
+                        rawData: data
+                    )
+                    
+                    await MainActor.run {
+                        self.wrappedValue.setImage(newImage)
+                    }
+                }
+            }
+        )
+    }
+    #endif
 }

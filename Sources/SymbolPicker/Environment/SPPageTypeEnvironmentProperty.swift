@@ -8,7 +8,7 @@
 import SwiftUI
 
 private struct SPPageTypeEnvironmentKey: EnvironmentKey {
-    static let defaultValue: Binding<SPPageType> = .constant(.image)
+    static let defaultValue: Binding<SPPageType> = .constant(.symbol)
 }
 
 public extension EnvironmentValues {
