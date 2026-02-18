@@ -22,10 +22,11 @@ public nonisolated enum SPSelection: Identifiable, Sendable {
             }
             return "symbol:\(symbol.id)"
         case .emoji(let emoji, let color):
+            let baseId = "emoji:\(emoji.id):tone\(emoji.tone)"
             if let color {
-                return "emoji:\(emoji.id):\(color.id)"
+                return "\(baseId):\(color.id)"
             }
-            return "emoji:\(emoji.id)"
+            return baseId
         case .image(let image, let color):
             if let color{
                 return "image:\(image.id):\(color.id)"

@@ -86,7 +86,7 @@ extension SPEmoji: Codable {
 extension SPEmoji: Equatable {
     @_documentation(visibility: internal)
     public static func ==(lhs: SPEmoji, rhs: SPEmoji) -> Bool {
-        lhs.id == rhs.id
+        lhs.id == rhs.id && lhs.tone == rhs.tone
     }
 }
 
@@ -95,6 +95,7 @@ extension SPEmoji: Hashable {
     @_documentation(visibility: internal)
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+        hasher.combine(tone)
     }
 }
 

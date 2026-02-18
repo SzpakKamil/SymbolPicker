@@ -54,14 +54,25 @@ actor SPDataManager {
         return self.groupItems(items)
     }
     
-    /// Internal helper to group flat data into sections
+    /// Internal helper to group flat data into sections while preserving original JSON order
     private func groupItems<T: SPDataAsset>(_ items: [T]) -> [SPCategory<T>] {
-        var groupedDictionary = Dictionary(grouping: items) { $0.category ?? "Result" }
-        groupedDictionary.removeValue(forKey: "Result")
-        // Return grouped data sorted by category name for consistency
-        return groupedDictionary
-            .map { SPCategory(category: $0, elements: $1) }
-            .sorted()
+        var orderedCategories: [String] = []
+        var groupedDictionary: [String: [T]] = [:]
+        
+        for item in items {
+            guard let categoryName = item.category else { continue }
+            
+            if groupedDictionary[categoryName] == nil {
+                orderedCategories.append(categoryName)
+                groupedDictionary[categoryName] = [item]
+            } else {
+                groupedDictionary[categoryName]?.append(item)
+            }
+        }
+        
+        return orderedCategories.map { categoryName in
+            SPCategory(category: categoryName, elements: groupedDictionary[categoryName] ?? [])
+        }
     }
     
     /// Private fetch method that handles caching and raw data loading
