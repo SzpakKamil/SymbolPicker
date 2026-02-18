@@ -1,14 +1,24 @@
 {
+  "originHash" : "9f148a38c32f4d0447574c62b81c16d520e6d76a4134560d257e2e144df662ab",
   "pins" : [
+    {
+      "identity" : "colorkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SzpakKamil/ColorKit.git",
+      "state" : {
+        "revision" : "16bb31e2c67fc050b11ef4fa61cf6fedb6c019de",
+        "version" : "1.0.0"
+      }
+    },
     {
       "identity" : "searchbar",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SzpakKamil/SearchBar.git",
       "state" : {
-        "revision" : "458d8bab23c589555a9a300e43e0113cea45a5ff",
-        "version" : "2.1.4"
+        "branch" : "2.1",
+        "revision" : "958e495833ea9396528702b88055d84306ca4021"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

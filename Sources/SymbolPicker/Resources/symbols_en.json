@@ -15,8 +15,8 @@
     },
     {
         "annotation": "Service Dog",
-        "filledName": "service.dog",
-        "notFilled": "service.dog.fill",
+        "filledName": "service.dog.fill",
+        "notFilled": "service.dog",
         "version": 7.0,
         "category": "Accessibility",
         "subcategory": "Accessibility",
@@ -12883,8 +12883,8 @@
         "filledName": "fleuron.fill",
         "notFilled": "fleuron",
         "version": 4.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "decoration",
             "design",
@@ -12892,7 +12892,7 @@
             "floral",
             "ornament",
             "text",
-            "text_formatting"
+            "text"
         ]
     },
     {
@@ -12900,15 +12900,15 @@
         "filledName": "signature",
         "notFilled": "signature",
         "version": 1.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "contract",
             "handwriting",
             "legal",
             "sign",
             "signature",
-            "text_formatting"
+            "text"
         ]
     },
     {
@@ -12916,15 +12916,15 @@
         "filledName": "list.bullet",
         "notFilled": "list.bullet",
         "version": 1.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "bullet",
             "format",
             "items",
             "list",
             "points",
-            "text_formatting"
+            "text"
         ]
     },
     {
@@ -12932,15 +12932,15 @@
         "filledName": "numbers",
         "notFilled": "numbers",
         "version": 6.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "count",
             "digits",
             "math",
             "numbers",
             "order",
-            "text_formatting"
+            "text"
         ]
     },
     {
@@ -12948,15 +12948,15 @@
         "filledName": "textformat.size",
         "notFilled": "textformat.size",
         "version": 1.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "font",
             "format",
             "scale",
             "size",
             "text",
-            "text_formatting",
+            "text",
             "typography"
         ]
     },
@@ -12965,14 +12965,14 @@
         "filledName": "textformat",
         "notFilled": "textformat",
         "version": 1.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "format",
             "options",
             "style",
             "text",
-            "text_formatting",
+            "text",
             "typography"
         ]
     },
@@ -12981,15 +12981,15 @@
         "filledName": "textformat.superscript",
         "notFilled": "textformat.superscript",
         "version": 1.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "exponent",
             "format",
             "math",
             "superscript",
             "text",
-            "text_formatting"
+            "text"
         ]
     },
     {
@@ -12997,15 +12997,15 @@
         "filledName": "textformat.subscript",
         "notFilled": "textformat.subscript",
         "version": 1.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "chemistry",
             "format",
             "formula",
             "subscript",
             "text",
-            "text_formatting"
+            "text"
         ]
     },
     {
@@ -13013,15 +13013,15 @@
         "filledName": "characters.lowercase",
         "notFilled": "characters.lowercase",
         "version": 6.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "alphabet",
             "characters",
             "letters",
             "lowercase",
             "text",
-            "text_formatting"
+            "text"
         ]
     },
     {
@@ -13029,14 +13029,14 @@
         "filledName": "characters.uppercase",
         "notFilled": "characters.uppercase",
         "version": 160.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "alphabet",
             "characters",
             "letters",
             "text",
-            "text_formatting",
+            "text",
             "uppercase"
         ]
     },
@@ -13045,15 +13045,15 @@
         "filledName": "bold.italic.underline",
         "notFilled": "bold.italic.underline",
         "version": 1.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "bold",
             "edit",
             "italic",
             "style",
             "text",
-            "text_formatting",
+            "text",
             "underline"
         ]
     },
@@ -13062,15 +13062,15 @@
         "filledName": "paragraphsign",
         "notFilled": "paragraphsign",
         "version": 2.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "break",
             "formatting",
             "paragraph",
             "section",
             "sign",
-            "text_formatting"
+            "text"
         ]
     },
     {
@@ -13078,15 +13078,15 @@
         "filledName": "character.magnify",
         "notFilled": "character.magnify",
         "version": 5.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "character",
             "find",
             "lookup",
             "magnify",
             "search",
-            "text_formatting",
+            "text",
             "zoom"
         ]
     },
@@ -13095,15 +13095,15 @@
         "filledName": "character.phonetic",
         "notFilled": "character.phonetic",
         "version": 4.0,
-        "category": "Text_Formatting",
-        "subcategory": "Text_Formatting",
+        "category": "Text Formatting",
+        "subcategory": "Text Formatting",
         "tags": [
             "alphabet",
             "character",
             "guide",
             "phonetic",
             "pronunciation",
-            "text_formatting"
+            "text"
         ]
     },
     {

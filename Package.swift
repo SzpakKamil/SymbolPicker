@@ -7,19 +7,21 @@ let package = Package(
     name: "SymbolPicker",
     defaultLocalization: "en",
     platforms: [
-        .macOS(.v12), .iOS(.v15), .visionOS(.v1)
+        .macOS(.v12), .iOS(.v15), .visionOS(.v1), .watchOS(.v10), .tvOS(.v15)
     ],
     products: [
         .library(name: "SymbolPicker", targets: ["SymbolPicker"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SzpakKamil/SearchBar.git", from: "2.1.4")
+        .package(url: "https://github.com/SzpakKamil/SearchBar.git", branch: "2.1"),
+        .package(url: "https://github.com/SzpakKamil/ColorKit.git", from: "1.0.0")
     ],
     targets: [
         .target(
             name: "SymbolPicker",
             dependencies: [
-                .product(name: "SearchBar", package: "SearchBar")
+                .product(name: "SearchBar", package: "SearchBar"),
+                .product(name: "ColorKit", package: "ColorKit")
             ],
             resources: [
                 .process("Resources/emojis_bn.json"),
@@ -49,6 +51,8 @@ let package = Package(
                 .process("Resources/emojis_zh.json"),
                 .process("Resources/emojis_zh-hant.json"),
                 .process("Resources/symbols_en.json"),
+                .process("Resources/Localizable.xcstrings"),
+                .process("Resources/Media.xcassets"),
             ]
         ),
     ]
