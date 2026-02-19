@@ -107,12 +107,7 @@ extension SPSymbol: Codable {
 }
 
 // MARK: - Equatable
-extension SPSymbol: Equatable {
-    @_documentation(visibility: internal)
-    public static func == (lhs: SPSymbol, rhs: SPSymbol) -> Bool {
-        lhs.id == rhs.id
-    }
-}
+extension SPSymbol: Equatable {}
 
 // MARK: - Hashable
 extension SPSymbol: Hashable {

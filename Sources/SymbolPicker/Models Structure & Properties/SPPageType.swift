@@ -18,6 +18,35 @@ public enum SPPageType: String, Codable, Sendable, Equatable, CaseIterable, Iden
     public var id: String{
         rawValue
     }
+    
+    var systemName: String{
+        #if os(iOS) || os(macOS) || os(visionOS)
+        if #available(iOS 16.0, macOS 14.0, *){
+            switch self {
+            case .image:
+                return "photo"
+            case .emoji:
+                return "hand.thumbsup.fill"
+            case .symbol:
+                return "star.fill"
+            }
+        }else{
+            switch self {
+            case .emoji:
+                return "hand.thumbsup.fill"
+            case .symbol:
+                return "star.fill"
+            }
+        }
+        #else
+        switch self {
+        case .emoji:
+            return "hand.thumbsup.fill"
+        case .symbol:
+            return "star.fill"
+        }
+        #endif
+    }
 
 
     public static var allCases: [SPPageType] {

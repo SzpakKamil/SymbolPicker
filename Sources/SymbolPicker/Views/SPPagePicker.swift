@@ -12,7 +12,18 @@ public struct SPPagePicker: SPComponent {
     @Environment(\.spPageType) var spPageType
     var pageTypes: [SPPageType] = SPPageType.allCases
     public var body: some View{
-        Picker("Page Type", selection: spPageType) {
+        #if os(watchOS)
+        if spPageType.wrappedValue == .emoji{
+            Button(SPPageType.symbol.localizedDescription, systemImage: SPPageType.symbol.systemName){
+                spPageType.wrappedValue = .symbol
+            }
+        }else{
+            Button(SPPageType.emoji.localizedDescription, systemImage: SPPageType.emoji.systemName){
+                spPageType.wrappedValue = .emoji
+            }
+        }
+        #else
+        Picker(SPTranslation.PageType.localizedDescription, selection: spPageType) {
             ForEach(pageTypes){
                 #if !os(macOS)
                 Text($0.localizedDescription)
@@ -23,10 +34,10 @@ public struct SPPagePicker: SPComponent {
                 #endif
             }
         }
-    
         .labelsHidden()
         #if !os(watchOS)
         .pickerStyle(.segmented)
+        #endif
         #endif
     }
     

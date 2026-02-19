@@ -39,7 +39,7 @@ actor SPDataManager {
         }
         
         let filteredItems = await performSearch(items, for: text)
-        return [SPCategory(category: "Search Results", elements: filteredItems)]
+        return [SPCategory(category: SPTranslation.SearchResults.localizedDescription, elements: filteredItems)]
     }
     
     private nonisolated func performSearch<T: SPDataAsset>(_ items: [T], for text: String) async -> [T] {

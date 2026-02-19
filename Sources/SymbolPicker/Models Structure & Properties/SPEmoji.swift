@@ -83,12 +83,7 @@ extension SPEmoji: Codable {
 }
 
 // MARK: - Equatable
-extension SPEmoji: Equatable {
-    @_documentation(visibility: internal)
-    public static func ==(lhs: SPEmoji, rhs: SPEmoji) -> Bool {
-        lhs.id == rhs.id && lhs.tone == rhs.tone
-    }
-}
+extension SPEmoji: Equatable {}
 
 // MARK: - Hashable
 extension SPEmoji: Hashable {

@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 import SearchBar
+import SearchBar
 import ColorKit
 
 // MARK: - Main View
@@ -44,9 +45,19 @@ public struct SPOptionList: View {
         return baseSize * 2.5
         #elseif os(visionOS)
         return baseSize * 1.25
+        #elseif os(watchOS)
+        return baseSize * 1.25
         #else
         return baseSize * 1.40
         #endif
+    }
+    
+    var selectedColorBinding: Binding<CKColor>{
+        return Binding {
+            selection.wrappedValue.getColor() ?? CKColor(red: 0, green: 0, blue: 0, opacity: 1)
+        } set: { newValue in
+            selection.wrappedValue.setColor(newValue)
+        }
     }
     
     private var columns: [GridItem] {
@@ -59,45 +70,91 @@ public struct SPOptionList: View {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                if pageType.wrappedValue == .symbol{
-                    ScrollView{
-                        SectionedGridView(
-                            data: symbols,
-                            columns: columns,
-                            spacing: currentSize * 0.3
-                        ) { symbol in
-                            SymbolCell(symbol: symbol, size: currentSize)
-                        }
-                        .if { content in
-                            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-                                content.scrollTargetLayout()
-                            } else {
-                                content
+                if pageType.wrappedValue == .symbol {
+                    if symbols.first?.elements.isEmpty == true && !searchText.wrappedValue.isEmpty {
+                        EmptyStateView(searchText: searchText, prompt: SPTranslation.SearchSymbols.localizedDescription)
+                    } else {
+                        ScrollView {
+                            #if os(watchOS)
+                            SearchBar(text: searchText, prompt: SPTranslation.SearchSymbols.localizedDescription)
+                                .searchBarStyle(.capsule)
+                                .searchBarMaterial(.glass)
+                                .padding(.horizontal)
+                            #endif
+                            SectionedGridView(
+                                data: symbols,
+                                columns: columns,
+                                spacing: currentSize * 0.3
+                            ) { symbol in
+                                SymbolCell(symbol: symbol, size: currentSize)
                             }
+                            .if { content in
+                                if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+                                    content.scrollTargetLayout()
+                                } else {
+                                    content
+                                }
+                            }
+                            .padding(.horizontal, 20)
+                            .padding(.vertical)
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical)
                     }
-                }else if pageType.wrappedValue == .emoji{
-                    ScrollView{
-                        SectionedGridView(
-                            data: emojis,
-                            columns: columns,
-                            spacing: currentSize * 0.3
-                        ) { emoji in
-                            EmojiCell(emoji: emoji, size: currentSize, columns: columns)
+                } else if pageType.wrappedValue == .emoji {
+                    if emojis.first?.elements.isEmpty == true && !searchText.wrappedValue.isEmpty {
+                        EmptyStateView(searchText: searchText, prompt: SPTranslation.SearchEmojis.localizedDescription)
+                    } else {
+                        ScrollView {
+                            #if os(watchOS)
+                            SearchBar(text: searchText, prompt: SPTranslation.SearchEmojis.localizedDescription)
+                                .searchBarStyle(.capsule)
+                                .searchBarMaterial(.glass)
+                                .padding(.horizontal)
+                            #endif
+                            SectionedGridView(
+                                data: emojis,
+                                columns: columns,
+                                spacing: currentSize * 0.3
+                            ) { emoji in
+                                EmojiCell(emoji: emoji, size: currentSize, columns: columns)
+                            }
+                            .padding(.horizontal, 20)
+                            .padding(.vertical)
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical)
                     }
-                }else{
+                } else {
                     #if os(iOS) || os(macOS) || os(visionOS)
                     if #available(iOS 16.0, macOS 14.0, *) {
-                        List{
-                            PhotosPicker("Select Image", selection: selection.asImage)
-                        }
-                        .safeAreaInset(edge: .bottom){
-                            ImageSelectButton(photoImage: selection.asImage)
+                        List {
+                            ColorPicker(SPTranslation.DetectedColor.localizedDescription, selection: selectedColorBinding.asColor)
+                            
+                            Section(SPTranslation.Source.localizedDescription) {
+                                PhotosPicker(SPTranslation.SelectImage.localizedDescription, selection: selection.asImage)
+                            }
+                            
+                            if let image = selection.wrappedValue.getImage() {
+                                Section(SPTranslation.Manipulation.localizedDescription) {
+                                    VStack(alignment: .leading) {
+                                        Text(SPTranslation.Zoom.localizedDescription)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                        Slider(value: imageZoomBinding(), in: 1.0...5.0)
+                                    }
+                                    
+                                    VStack(alignment: .leading) {
+                                        Text(SPTranslation.HorizontalOffset.localizedDescription)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                        Slider(value: imageOffsetXBinding(), in: -1.0...1.0)
+                                    }
+                                    
+                                    VStack(alignment: .leading) {
+                                        Text(SPTranslation.VerticalOffset.localizedDescription)
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                        Slider(value: imageOffsetYBinding(), in: -1.0...1.0)
+                                    }
+                                }
+                            }
                         }
                         #if os(macOS)
                         .listStyle(.sidebar)
@@ -115,24 +172,56 @@ public struct SPOptionList: View {
         .task(id: pageType.wrappedValue) { await loadData() }
     }
     
+    // MARK: - Image Manipulation Helpers
+    
+    private func imageZoomBinding() -> Binding<Double> {
+        Binding {
+            selection.wrappedValue.getImage()?.zoom ?? 1.0
+        } set: { newValue in
+            if var updatedImage = selection.wrappedValue.getImage() {
+                updatedImage.zoom = newValue
+                selection.wrappedValue.setImage(updatedImage)
+            }
+        }
+    }
+    
+    private func imageOffsetXBinding() -> Binding<Double> {
+        Binding {
+            selection.wrappedValue.getImage()?.offsetX ?? 0.0
+        } set: { newValue in
+            if var updatedImage = selection.wrappedValue.getImage() {
+                updatedImage.offsetX = newValue
+                selection.wrappedValue.setImage(updatedImage)
+            }
+        }
+    }
+    
+    private func imageOffsetYBinding() -> Binding<Double> {
+        Binding {
+            selection.wrappedValue.getImage()?.offsetY ?? 0.0
+        } set: { newValue in
+            if var updatedImage = selection.wrappedValue.getImage() {
+                updatedImage.offsetY = newValue
+                selection.wrappedValue.setImage(updatedImage)
+            }
+        }
+    }
+    
     // MARK: - Logic
     
     private func performSearch() async {
         do {
-            switch pageType.wrappedValue {
-            case .symbol:
-                self.symbols = try await dataManager.search(SPSymbol.self, for: searchText.wrappedValue)
-            case .emoji:
-                self.emojis = try await dataManager.search(SPEmoji.self, for: searchText.wrappedValue)
-            default: break
-            }
+            async let searchedSymbolsData = dataManager.search(SPSymbol.self, for: searchText.wrappedValue)
+            async let searchedEmojisData = dataManager.search(SPEmoji.self, for: searchText.wrappedValue)
+            let (searchedSymbols, searchedEmojis) = try await (searchedSymbolsData, searchedEmojisData)
+            self.symbols = searchedSymbols
+            self.emojis = searchedEmojis
         } catch {
             print("Search failed: \(error)")
         }
     }
     
     private func loadData() async {
-        searchText.wrappedValue = ""
         guard symbols.isEmpty && emojis.isEmpty else { return }
         isLoading = true
         do {
@@ -150,41 +239,40 @@ public struct SPOptionList: View {
     public init() {}
 }
 
-#if !os(watchOS) && !os(tvOS)
-@available(iOS 16.0, macOS 14.0, *)
-fileprivate struct ImageSelectButton: View {
-    @Binding var photoImage: PhotosPickerItem?
-    var body: some View{
-        PhotosPicker(selection: $photoImage){
-            HStack{
-                Spacer()
-                Text("Select Image")
-                    .foregroundStyle(.white)
-                Spacer()
+fileprivate struct EmptyStateView: View {
+    @Binding var searchText: String
+    let prompt: String
+    var body: some View {
+        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
+            ScrollView{
+#if os(watchOS)
+                SearchBar(text: $searchText, prompt: prompt)
+                    .searchBarStyle(.capsule)
+                    .searchBarMaterial(.glass)
+                    .padding(.horizontal)
+#endif
+                ContentUnavailableView.search
             }
-            .padding(.vertical, 8)
-        }
-        #if os(visionOS)
-        .buttonStyle(.borderedProminent)
-        .foregroundStyle(Color.accentColor)
-        #else
-        .if{ content in
-            if #available(iOS 26.0, macOS 26.0, visionOS 26.0, *){
-                content
-                    .buttonStyle(.glassProminent)
-                    .foregroundStyle(Color.accentColor)
-            }else{
-                content
-                    .buttonStyle(.borderedProminent)
-                    .foregroundStyle(Color.accentColor)
+        } else {
+            ScrollView {
+#if os(watchOS)
+                SearchBar(text: $searchText, prompt: prompt)
+                    .searchBarStyle(.capsule)
+                    .searchBarMaterial(.glass)
+                    .padding(.horizontal)
+#endif
+                Image(systemName: "magnifyingglass")
+                    .font(.largeTitle)
+                    .foregroundStyle(.secondary)
+                Text(SPTranslation.NoResultsFound.localizedDescription)
+                    .font(.headline)
+                    .foregroundStyle(.secondary)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        #endif
-        .padding(.horizontal)
-
     }
 }
-#endif
+
 // MARK: - Cells
 
 fileprivate struct SymbolCell: View {

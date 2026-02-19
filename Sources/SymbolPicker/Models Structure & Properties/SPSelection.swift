@@ -8,6 +8,15 @@
 import SwiftUI
 import PhotosUI
 import ColorKit
+#if canImport(CoreImage)
+import CoreImage
+#endif
+
+#if os(iOS) || os(visionOS) || os(tvOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 public nonisolated enum SPSelection: Identifiable, Sendable {
     case symbol(value: SPSymbol, color: CKColor? = nil)
@@ -17,23 +26,12 @@ public nonisolated enum SPSelection: Identifiable, Sendable {
     
     public var id: String {
         switch self {
-        case .symbol(let symbol, let color):
-            if let color {
-                return "symbol:\(symbol.id):\(color.id)"
-            }
+        case .symbol(let symbol, _):
             return "symbol:\(symbol.id)"
-        case .emoji(let emoji, let color):
-            let baseId = "emoji:\(emoji.id):tone\(emoji.tone)"
-            if let color {
-                return "\(baseId):\(color.id)"
-            }
-            return baseId
-        case .image(let image, let color):
-            if let color{
-                return "image:\(image.id):\(color.id)"
-            }else{
-                return "image:\(image.id)"
-            }
+        case .emoji(let emoji, _):
+            return "emoji:\(emoji.id):tone\(emoji.tone)"
+        case .image(let image, _):
+            return "image:\(image.id)"
         case .color(let color):
             return "color:\(color.id)"
         }
@@ -121,11 +119,7 @@ extension SPSelection: Codable {
 }
 
 // MARK: - Equatable
-extension SPSelection: Equatable {
-    public static func == (lhs: SPSelection, rhs: SPSelection) -> Bool {
-        lhs.id == rhs.id
-    }
-}
+extension SPSelection: Equatable {}
 
 // MARK: - Hashable
 extension SPSelection: Hashable {
@@ -228,16 +222,19 @@ public struct SPSelectionView: View {
     private var selection: SPSelection
     
     public var body: some View {
-        switch selection {
-        case .symbol(let symbol, _):
-            SPSymbolView(symbol: symbol)
-        case .emoji(let emoji, _):
-            SPEmojiView(emoji: emoji)
-        case .image(let image, _):
-            SPImageView(image: image)
-        case .color(let color):
-            Circle().fill(color)
+        Group {
+            switch selection {
+            case .symbol(let symbol, _):
+                SPSymbolView(symbol: symbol)
+            case .emoji(let emoji, _):
+                SPEmojiView(emoji: emoji)
+            case .image(let image, _):
+                SPImageView(image: image)
+            case .color(let color):
+                Circle().fill(color)
+            }
         }
+        .id(selection.id)
     }
     
     public init(selection: SPSelection) {
@@ -273,13 +270,36 @@ public extension Binding where Value == SPSelection {
                     let timestamp = Int(Date().timeIntervalSince1970)
                     let generatedName = "IMG_\(timestamp)"
                     
+                    var width: Double = 0
+                    var height: Double = 0
+                    var detectedColor: CKColor? = nil
+                    
+                    #if os(iOS) || os(visionOS)
+                    if let image = UIImage(data: data) {
+                        width = Double(image.size.width)
+                        height = Double(image.size.height)
+                        detectedColor = CKColor(nativeColor: image.averageColor() ?? .black)
+                    }
+                    #elseif os(macOS)
+                    if let image = NSImage(data: data) {
+                        width = Double(image.size.width)
+                        height = Double(image.size.height)
+                        detectedColor = CKColor(nativeColor: image.averageColor() ?? .black)
+                    }
+                    #endif
+                    
                     let newImage = SPImage(
                         fileName: generatedName,
-                        rawData: data
+                        rawData: data,
+                        width: width,
+                        height: height
                     )
                     
                     await MainActor.run {
                         self.wrappedValue.setImage(newImage)
+                        if let detectedColor {
+                            self.wrappedValue.setColor(detectedColor)
+                        }
                     }
                 }
             }
@@ -287,3 +307,41 @@ public extension Binding where Value == SPSelection {
     }
     #endif
 }
+
+#if canImport(CoreImage)
+#if os(iOS) || os(visionOS)
+extension UIImage {
+    func averageColor() -> UIColor? {
+        guard let inputImage = CIImage(image: self) else { return nil }
+        let extentVector = CIVector(x: inputImage.extent.origin.x, y: inputImage.extent.origin.y, z: inputImage.extent.size.width, w: inputImage.extent.size.height)
+
+        guard let filter = CIFilter(name: "CIAreaAverage", parameters: [kCIInputImageKey: inputImage, kCIInputExtentKey: extentVector]) else { return nil }
+        guard let outputImage = filter.outputImage else { return nil }
+
+        var bitmap = [UInt8](repeating: 0, count: 4)
+        let context = CIContext(options: [.workingColorSpace: kCFNull as Any])
+        context.render(outputImage, toBitmap: &bitmap, rowBytes: 4, bounds: CGRect(x: 0, y: 0, width: 1, height: 1), format: .RGBA8, colorSpace: nil)
+
+        return UIColor(red: CGFloat(bitmap[0]) / 255.0, green: CGFloat(bitmap[1]) / 255.0, blue: CGFloat(bitmap[2]) / 255.0, alpha: CGFloat(bitmap[3]) / 255.0)
+    }
+}
+#elseif os(macOS)
+extension NSImage {
+    func averageColor() -> NSColor? {
+        guard let tiffData = self.tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffData) else { return nil }
+        let ciImage = CIImage(bitmapImageRep: bitmapImage)
+        guard let inputImage = ciImage else { return nil }
+        let extentVector = CIVector(x: inputImage.extent.origin.x, y: inputImage.extent.origin.y, z: inputImage.extent.size.width, w: inputImage.extent.size.height)
+
+        guard let filter = CIFilter(name: "CIAreaAverage", parameters: [kCIInputImageKey: inputImage, kCIInputExtentKey: extentVector]) else { return nil }
+        guard let outputImage = filter.outputImage else { return nil }
+
+        var bitmap = [UInt8](repeating: 0, count: 4)
+        let context = CIContext(options: [.workingColorSpace: kCFNull as Any])
+        context.render(outputImage, toBitmap: &bitmap, rowBytes: 4, bounds: CGRect(x: 0, y: 0, width: 1, height: 1), format: .RGBA8, colorSpace: nil)
+
+        return NSColor(red: CGFloat(bitmap[0]) / 255.0, green: CGFloat(bitmap[1]) / 255.0, blue: CGFloat(bitmap[2]) / 255.0, alpha: CGFloat(bitmap[3]) / 255.0)
+    }
+}
+#endif
+#endif
