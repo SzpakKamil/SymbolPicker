@@ -35,7 +35,7 @@ extension SPEmoji {
             case version
         }
         
-        public func isAvaiable() -> Bool{
+        public func isAvailable() -> Bool{
             SPEmoji.isAvailable(version: version, id: id)
         }
         

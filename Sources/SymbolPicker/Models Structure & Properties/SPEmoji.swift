@@ -276,7 +276,7 @@ public struct SPEmojiSkinView: View {
     private let skin: SPEmoji.Skin
     
     public var body: some View {
-        if skin.isAvaiable() {
+        if skin.isAvailable() {
             Text(skin.emojiString())
                 .font(.system(size: 300))
                 .minimumScaleFactor(0.01)

@@ -45,6 +45,15 @@ struct SPPopoverWrapper<Content: View>: UIViewControllerRepresentable {
             // If already presenting this specific controller, update its content but don't re-present
             if let hc = hostingController as? UIHostingController<V>, parent.presentedViewController == hc {
                 hc.rootView = content
+                
+                // Update size if content changes
+                let windowSize = parent.view.window?.bounds.size ?? UIScreen.main.bounds.size
+                let maxWidth = windowSize.width * 0.9
+                let maxHeight = windowSize.height * 0.9
+                let idealSize = hc.sizeThatFits(in: .zero)
+                let finalWidth = min(max(idealSize.width, 100), maxWidth)
+                let finalHeight = min(max(idealSize.height, 100), maxHeight)
+                hc.preferredContentSize = CGSize(width: finalWidth, height: finalHeight)
                 return
             }
 
@@ -54,6 +63,7 @@ struct SPPopoverWrapper<Content: View>: UIViewControllerRepresentable {
             }
 
             let hc = UIHostingController(rootView: content)
+            hc.view.backgroundColor = .clear
             hc.modalPresentationStyle = .popover
             
             // Determine sizing constraints
@@ -61,12 +71,12 @@ struct SPPopoverWrapper<Content: View>: UIViewControllerRepresentable {
             let maxWidth = windowSize.width * 0.9
             let maxHeight = windowSize.height * 0.9
             
-            // Use window-bounded size for calculation to prevent crashes
-            let fitSize = hc.sizeThatFits(in: CGSize(width: maxWidth, height: maxHeight))
+            // Get the ideal size of the content
+            let idealSize = hc.sizeThatFits(in: .zero)
             
             // Apply logic: Minimum size (100x100), capped by window size
-            let finalWidth = min(max(fitSize.width, 100), maxWidth)
-            let finalHeight = min(max(fitSize.height, 100), maxHeight)
+            let finalWidth = min(max(idealSize.width, 100), maxWidth)
+            let finalHeight = min(max(idealSize.height, 100), maxHeight)
             
             hc.preferredContentSize = CGSize(width: finalWidth, height: finalHeight)
             
@@ -106,6 +116,10 @@ struct SPPopoverWrapper<Content: View>: UIViewControllerRepresentable {
         }
 
         func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+            return .none
+        }
+
+        func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
             return .none
         }
     }

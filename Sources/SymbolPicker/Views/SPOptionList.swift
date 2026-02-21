@@ -8,7 +8,6 @@
 import SwiftUI
 import PhotosUI
 import SearchBar
-import SearchBar
 import ColorKit
 
 // MARK: - Main View
@@ -22,6 +21,7 @@ public struct SPOptionList: View {
     @State private var symbols: [SPCategory<SPSymbol>] = []
     @State private var emojis: [SPCategory<SPEmoji>] = []
     @State private var isLoading = false
+    @State private var emojiForSkinPicker: SPEmoji?
     
     private let dataManager = SPDataManager()
     
@@ -34,7 +34,12 @@ public struct SPOptionList: View {
         case .xLarge: return 26
         case .xxLarge: return 28
         case .xxxLarge: return 30
-        default: return 32
+        case .accessibility1: return 32
+        case .accessibility2: return 34
+        case .accessibility3: return 36
+        case .accessibility4: return 38
+        case .accessibility5: return 40
+        default: return 24
         }
     }
     
@@ -42,11 +47,15 @@ public struct SPOptionList: View {
         #if os(macOS)
         return baseSize
         #elseif os(tvOS)
-        return baseSize * 2.5
+        if #available(tvOS 26.0, *){
+            return baseSize * 3.5
+        }else{
+            return baseSize * 4.0
+        }
         #elseif os(visionOS)
         return baseSize * 1.25
         #elseif os(watchOS)
-        return baseSize * 1.25
+        return baseSize * 0.85
         #else
         return baseSize * 1.40
         #endif
@@ -60,68 +69,35 @@ public struct SPOptionList: View {
         }
     }
     
-    private var columns: [GridItem] {
-        [GridItem(.adaptive(minimum: currentSize, maximum: currentSize * 1.2), spacing: currentSize * 0.8)]
+    private var topView: AnyView? = nil
+    private var columns: [GridItem] {[GridItem(.adaptive(minimum: currentSize, maximum: currentSize * 1.2), spacing: currentSize * 0.8)]}
+    private var horizontalPadding: CGFloat {
+        #if os(tvOS)
+        if #available(tvOS 26.0, *) { return 30 } else { return 80 }
+        #else
+        return 20
+        #endif
     }
     
+    private var verticalPadding: CGFloat? {
+        #if os(tvOS)
+        if #available(tvOS 26.0, *) { return 30 } else { return 80 }
+        #else
+        return nil
+        #endif
+    }
+    
+    private var isSearching: Bool { !searchText.wrappedValue.isEmpty }
+    private var hasSymbols: Bool { symbols.contains { !$0.elements.isEmpty } }
+    private var hasEmojis: Bool { emojis.contains { !$0.elements.isEmpty } }
+
     public var body: some View {
         Group {
             if isLoading && symbols.isEmpty && emojis.isEmpty {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                if pageType.wrappedValue == .symbol {
-                    if symbols.first?.elements.isEmpty == true && !searchText.wrappedValue.isEmpty {
-                        EmptyStateView(searchText: searchText, prompt: SPTranslation.SearchSymbols.localizedDescription)
-                    } else {
-                        ScrollView {
-                            #if os(watchOS)
-                            SearchBar(text: searchText, prompt: SPTranslation.SearchSymbols.localizedDescription)
-                                .searchBarStyle(.capsule)
-                                .searchBarMaterial(.glass)
-                                .padding(.horizontal)
-                            #endif
-                            SectionedGridView(
-                                data: symbols,
-                                columns: columns,
-                                spacing: currentSize * 0.3
-                            ) { symbol in
-                                SymbolCell(symbol: symbol, size: currentSize)
-                            }
-                            .if { content in
-                                if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-                                    content.scrollTargetLayout()
-                                } else {
-                                    content
-                                }
-                            }
-                            .padding(.horizontal, 20)
-                            .padding(.vertical)
-                        }
-                    }
-                } else if pageType.wrappedValue == .emoji {
-                    if emojis.first?.elements.isEmpty == true && !searchText.wrappedValue.isEmpty {
-                        EmptyStateView(searchText: searchText, prompt: SPTranslation.SearchEmojis.localizedDescription)
-                    } else {
-                        ScrollView {
-                            #if os(watchOS)
-                            SearchBar(text: searchText, prompt: SPTranslation.SearchEmojis.localizedDescription)
-                                .searchBarStyle(.capsule)
-                                .searchBarMaterial(.glass)
-                                .padding(.horizontal)
-                            #endif
-                            SectionedGridView(
-                                data: emojis,
-                                columns: columns,
-                                spacing: currentSize * 0.3
-                            ) { emoji in
-                                EmojiCell(emoji: emoji, size: currentSize, columns: columns)
-                            }
-                            .padding(.horizontal, 20)
-                            .padding(.vertical)
-                        }
-                    }
-                } else {
+                if ![SPPageType.emoji, .symbol].contains(pageType.wrappedValue) {
                     #if os(iOS) || os(macOS) || os(visionOS)
                     if #available(iOS 16.0, macOS 14.0, *) {
                         List {
@@ -159,17 +135,104 @@ public struct SPOptionList: View {
                         #if os(macOS)
                         .listStyle(.sidebar)
                         #endif
-                    }else{
+                    } else {
                         EmptyView()
                     }
                     #else
                     EmptyView()
                     #endif
+                } else {
+                    let isSymbolPage = pageType.wrappedValue == .symbol
+                    ScrollViewReader { proxy in
+                        ScrollView {
+                            VStack {
+                                topView
+#if os(watchOS) ||  os(tvOS)
+                                SearchBar(text: searchText, prompt: isSymbolPage ? SPTranslation.SearchSymbols.localizedDescription : SPTranslation.SearchEmojis.localizedDescription)
+                                    .searchBarStyle(.capsule)
+                                    .searchBarScale(.medium)
+                                    .if{ content in if #available(tvOS 26.0, watchOS 26.0, *){ content.searchBarMaterial(.glass) }else{ content } }
+#endif
+                                if (isSymbolPage && !hasSymbols) || (!isSymbolPage && !hasEmojis) && isSearching {
+                                    EmptyStateView()
+                                }else if isSymbolPage && hasSymbols{
+                                    SectionedGridView(
+                                        data: symbols,
+                                        columns: columns,
+                                        spacing: currentSize * 0.3
+                                    ) { symbol in
+                                        SymbolCell(symbol: symbol, size: currentSize)
+                                    }
+                                    .if { content in
+                                        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+                                            content.scrollTargetLayout()
+                                        } else {
+                                            content
+                                        }
+                                    }
+                                }else if pageType.wrappedValue == .emoji && hasEmojis{
+                                    SectionedGridView(
+                                        data: emojis,
+                                        columns: columns,
+                                        spacing: currentSize * 0.3
+                                    ) { emoji in
+#if os(watchOS) || os(tvOS)
+                                        EmojiCell(emoji: emoji, size: currentSize, columns: columns, onShowSkins: { emojiForSkinPicker = $0 })
+#else
+                                        EmojiCell(emoji: emoji, size: currentSize, columns: columns)
+#endif
+                                    }
+                                }
+                                
+                            }
+                            .padding(.horizontal, horizontalPadding)
+                            .padding(.vertical, verticalPadding)
+                        #if os(tvOS)
+                            .if { content in
+                                if #available(tvOS 17.0, *) {
+                                    content.scrollClipDisabled()
+                                } else {
+                                    content
+                                }
+                            }
+                            #endif
+                        }
+                        
+                        .onChange(of: pageType.wrappedValue) { newValue in
+                            withAnimation {
+                                proxy.scrollTo(newValue, anchor: .top)
+                            }
+                        }
+                        .onAppear {
+                            proxy.scrollTo(pageType.wrappedValue, anchor: .top)
+                        }
+                    }
                 }
             }
         }
         .task(id: searchText.wrappedValue) { await performSearch() }
         .task(id: pageType.wrappedValue) { await loadData() }
+        #if os(watchOS) || os(tvOS)
+        .sheet(item: $emojiForSkinPicker) { emoji in
+            SkinSelectionView(selection: selection, emoji: emoji, size: currentSize, columns: columns)
+        }
+        #endif
+        #if os(tvOS)
+        .if { content in
+            if #available(tvOS 26.0, *) {
+                content.frame(width: 800, height: 900)
+            } else {
+                content
+            }
+        }
+        #endif
+    }
+    
+    
+    public func updateTopView(@ViewBuilder view: () -> some View) -> Self{
+        var copy = self
+        copy.topView = AnyView(view())
+        return copy
     }
     
     // MARK: - Image Manipulation Helpers
@@ -240,27 +303,13 @@ public struct SPOptionList: View {
 }
 
 fileprivate struct EmptyStateView: View {
-    @Binding var searchText: String
-    let prompt: String
     var body: some View {
         if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
             ScrollView{
-#if os(watchOS)
-                SearchBar(text: $searchText, prompt: prompt)
-                    .searchBarStyle(.capsule)
-                    .searchBarMaterial(.glass)
-                    .padding(.horizontal)
-#endif
                 ContentUnavailableView.search
             }
         } else {
             ScrollView {
-#if os(watchOS)
-                SearchBar(text: $searchText, prompt: prompt)
-                    .searchBarStyle(.capsule)
-                    .searchBarMaterial(.glass)
-                    .padding(.horizontal)
-#endif
                 Image(systemName: "magnifyingglass")
                     .font(.largeTitle)
                     .foregroundStyle(.secondary)
@@ -277,24 +326,35 @@ fileprivate struct EmptyStateView: View {
 
 fileprivate struct SymbolCell: View {
     @Environment(\.spSelection) private var selection
+    @FocusState private var isFocused: Bool
     let symbol: SPSymbol
     let size: CGFloat
     
     var body: some View {
         Button {
-            selection.wrappedValue.setSymbol(symbol)
+            var updatedSelection = selection.wrappedValue
+            updatedSelection.setSymbol(symbol)
+            selection.wrappedValue = updatedSelection
         } label: {
             SPSymbolView(symbol: symbol)
         }
-        .buttonStyle(CellButtonStyle(isSelected: selection.wrappedValue.getSymbol() == symbol, size: size))
+        .focused($isFocused)
+        .buttonStyle(CellButtonStyle(isSelected: selection.wrappedValue.getSymbol() == symbol, isFocused: isFocused, size: size))
+        .accessibilityElement()
+        .accessibilityLabel(symbol.annotation ?? SPPageType.symbol.localizedDescription)
+        .accessibilityAddTraits(.isButton)
     }
 }
 
 fileprivate struct EmojiCell: View {
     @Environment(\.spSelection) private var selection
+    @FocusState private var isFocused: Bool
     let emoji: SPEmoji
     let size: CGFloat
     let columns: [GridItem]
+    #if os(watchOS) || os(tvOS)
+    let onShowSkins: (SPEmoji) -> Void
+    #endif
     
     @State private var showSkinPicker = false
     
@@ -305,10 +365,17 @@ fileprivate struct EmojiCell: View {
     
     var body: some View {
         Button {
-            if let skins = emoji.skins, !skins.isEmpty {
+            let availableSkins = emoji.skins?.filter { $0.isAvailable() } ?? []
+            if !availableSkins.isEmpty {
+                #if os(watchOS) || os(tvOS)
+                onShowSkins(emoji)
+                #else
                 showSkinPicker = true
+                #endif
             } else {
-                selection.wrappedValue.setEmoji(emoji)
+                var updatedSelection = selection.wrappedValue
+                updatedSelection.setEmoji(emoji)
+                selection.wrappedValue = updatedSelection
             }
         } label: {
             if isSelected, let selectedEmoji = selection.wrappedValue.getEmoji() {
@@ -317,7 +384,11 @@ fileprivate struct EmojiCell: View {
                 SPEmojiView(emoji: emoji)
             }
         }
-        .buttonStyle(CellButtonStyle(isSelected: isSelected, size: size))
+        .focused($isFocused)
+        .buttonStyle(CellButtonStyle(isSelected: isSelected, isFocused: isFocused, size: size))
+        .accessibilityElement()
+        .accessibilityLabel(emoji.annotation ?? SPPageType.emoji.localizedDescription)
+        .accessibilityAddTraits(.isButton)
         #if !os(watchOS) && !os(tvOS)
         .spPopover(isPresented: $showSkinPicker, arrowEdge: .bottom) {
             SkinSelectionView(selection: selection, emoji: emoji, size: size, columns: columns)
@@ -329,7 +400,11 @@ fileprivate struct EmojiCell: View {
 // MARK: - Skin Selection
 
 fileprivate struct SkinSelectionView: View {
+    @Environment(\.dismiss) private var dismiss
     @Binding var selection: SPSelection
+    #if os(tvOS)
+    @FocusState private var focusedIndex: Int?
+    #endif
     let emoji: SPEmoji
     let size: CGFloat
     let columns: [GridItem]
@@ -342,43 +417,139 @@ fileprivate struct SkinSelectionView: View {
         selectedEmoji?.id == emoji.id
     }
     
+    private var availableSkins: [SPEmoji.Skin] {
+        emoji.skins?.filter { $0.isAvailable() } ?? []
+    }
+    
     var body: some View {
-        VStack(spacing: 0) {
-            LazyVGrid(columns: columns, alignment: .center, spacing: size * 0.3) {
-                // Default variant (tone 0)
-                Button {
-                    var baseEmoji = emoji
-                    baseEmoji.tone = 0
-                    selection.setEmoji(baseEmoji)
-                } label: {
-                    SPEmojiView(emoji: emojiWithTone(0))
-                }
-                .buttonStyle(CellButtonStyle(
-                    isSelected: isThisEmojiSelected && (selectedEmoji?.tone ?? 0) == 0,
-                    size: size
-                ))
-                
-                // Skin variants
-                if let skins = emoji.skins {
-                    ForEach(skins.indices, id: \.self) { index in
-                        Button {
-                            selection.setEmoji(emojiWithTone(index + 1))
-                        } label: {
-                            SPEmojiSkinView(skin: skins[index])
-                        }
-                        .buttonStyle(CellButtonStyle(
-                            isSelected: isThisEmojiSelected && selectedEmoji?.tone == index + 1,
-                            size: size
-                        ))
-                    }
-                }
+        #if os(watchOS) || os(tvOS)
+        ScrollView {
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), alignment: .center, spacing: size * 0.3) {
+                #if os(watchOS)
+                content(watchSize: size * 1.2)
+                #else
+                content()
+                #endif
             }
-            .padding()
+            .padding(.horizontal, {
+                #if os(tvOS)
+                if #available(tvOS 26.0, *) {
+                    return 20
+                } else {
+                    return 80
+                }
+                #else
+                return 20
+                #endif
+            }())
+            .padding(.vertical, {
+                #if os(tvOS)
+                if #available(tvOS 26.0, *) {
+                    return 20
+                } else {
+                    return 80
+                }
+                #else
+                return 20
+                #endif
+            }())
         }
-        .frame(idealWidth: size * 11)
-        #if os(macOS) || os(visionOS)
-        .frame(width: size * 12)
+        #if os(tvOS)
+        .if { content in
+            if #available(tvOS 26.0, *) {
+                content.frame(minWidth: 600, maxHeight: 500)
+            } else {
+                content
+            }
+        }
         #endif
+        #else
+        Group {
+            #if os(iOS)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: size * 0.3) {
+                    content()
+                }
+                .padding()
+            }
+            .frame(width: min(size * 10, UIScreen.main.bounds.width * 0.8))
+            #else
+            VStack(spacing: 0) {
+                LazyVGrid(columns: columns, alignment: .center, spacing: size * 0.3) {
+                    content()
+                }
+                .padding()
+            }
+            .frame(idealWidth: size * 11)
+            #if os(macOS) || os(visionOS)
+            .frame(width: size * 12)
+            #endif
+            #endif
+        }
+        #endif
+    }
+
+    @ViewBuilder
+    private func content(watchSize: CGFloat? = nil) -> some View {
+        let displaySize = watchSize ?? size
+        // Default variant (tone 0)
+        Button {
+            var baseEmoji = emoji
+            baseEmoji.tone = 0
+            var updatedSelection = selection
+            updatedSelection.setEmoji(baseEmoji)
+            selection = updatedSelection
+            #if os(watchOS) || os(tvOS)
+            dismiss()
+            #endif
+        } label: {
+            SPEmojiView(emoji: emojiWithTone(0))
+        }
+        #if os(tvOS)
+        .focused($focusedIndex, equals: 0)
+        #endif
+        .buttonStyle(CellButtonStyle(
+            isSelected: isThisEmojiSelected && (selectedEmoji?.tone ?? 0) == 0,
+            isFocused: {
+                #if os(tvOS)
+                return focusedIndex == 0
+                #else
+                return false
+                #endif
+            }(),
+            size: displaySize
+        ))
+
+        // Skin variants
+        let skins = availableSkins
+        if !skins.isEmpty {
+            ForEach(skins.indices, id: \.self) { index in
+                Button {
+                    var updatedSelection = selection
+                    updatedSelection.setEmoji(emojiWithTone(index + 1))
+                    selection = updatedSelection
+                    #if os(watchOS) || os(tvOS)
+                    dismiss()
+                    #endif
+                } label: {
+                    SPEmojiSkinView(skin: skins[index])
+                }
+                #if os(tvOS)
+                .focused($focusedIndex, equals: index + 1)
+                #endif
+                .buttonStyle(CellButtonStyle(
+                    isSelected: isThisEmojiSelected && selectedEmoji?.tone == index + 1,
+                    isFocused: {
+                        #if os(tvOS)
+                        return focusedIndex == index + 1
+                        #else
+                        return false
+                        #endif
+                    }(),
+                    size: displaySize
+                ))
+            }
+        }
     }
     
     private func emojiWithTone(_ tone: Int) -> SPEmoji {
@@ -410,23 +581,57 @@ fileprivate struct SectionedGridView<T: SPDataAsset, Content: View>: View {
 }
 
 fileprivate struct CellButtonStyle: ButtonStyle {
-    @Environment(\.isFocused) private var isFocused
+    #if !os(watchOS) && !os(visionOS)
+    @Environment(\.colorScheme) var colorScheme
+    #endif
     let isSelected: Bool
+    let isFocused: Bool
     let size: CGFloat
+    
+    var backgroundColor: Color{
+        #if os(tvOS)
+        if #available(tvOS 26.0, *){
+            if colorScheme == .light{
+                return Color.white
+            }else{
+                return Color.white.opacity(0.15)
+            }
+        }else{
+            if colorScheme == .light{
+                return Color.black.opacity(0.15)
+            }else{
+                return Color.white.opacity(0.15)
+            }
+        }
+
+        #else
+        return Color.primary
+        #endif
+    }
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(width: size, height: size * 1.25, alignment: .center)
             .padding(size * 0.25)
             .foregroundStyle(Color.primary)
+            #if os(tvOS)
+            .background(isFocused ? backgroundColor : .clear)
+                
+            #endif
             .background {
                 if configuration.isPressed {
-                    Color.primary.opacity(0.10)
-                } else if isSelected {
-                    #if os(iOS)
-                    Color.primary.opacity(0.15)
+                    #if os(tvOS)
+                    Color.clear
                     #else
-                    Color.primary.opacity(0.20)
+                    backgroundColor.opacity(0.10)
+                    #endif
+                } else if isSelected {
+                    #if os(tvOS)
+                    backgroundColor.opacity(0.6)
+                    #elseif os(iOS)
+                    backgroundColor.opacity(0.15)
+                    #else
+                    backgroundColor.opacity(0.20)
                     #endif
                 } else {
                     Color.clear
@@ -443,18 +648,16 @@ fileprivate struct CellButtonStyle: ButtonStyle {
                     content.hoverEffect(.highlight)
                 } else {
                     content
-                        .scaleEffect(isFocused ? 1.1 : 1.0)
-                        .background {
-                            RoundedRectangle(cornerRadius: size * 0.25, style: .continuous)
-                                .fill(!isSelected && isFocused ? Color.primary.opacity(0.15) : Color.clear)
-                        }
-                        .animation(.smooth, value: isFocused)
+                        .scaleEffect(isFocused ? 1.15 : 1.0)
+                        .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+                        .animation(.smooth(duration: 0.2), value: isFocused)
                 }
             }
             #elseif os(visionOS)
             .hoverEffect(.lift)
             .clipShape(RoundedRectangle(cornerRadius: size * 0.45, style: .continuous))
             #endif
+            .transition(.opacity)
             .animation(.smooth(duration: 0.2), value: isSelected)
             .animation(.smooth(duration: 0.2), value: configuration.isPressed)
     }
