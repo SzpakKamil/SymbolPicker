@@ -9,6 +9,7 @@ import SwiftUI
 import ColorKit
 
 public struct SPColorPicker: SPComponent {
+    @Environment(\.spSpacing) var spSpacing
     public enum Direction: Int{
         case grid, row
     }
@@ -19,20 +20,6 @@ public struct SPColorPicker: SPComponent {
             .red, .orange, .yellow, .green,
             .mint, .teal, .blue, .indigo,
             .purple, .pink, .brown
-        ]
-        var sizes: [DynamicTypeSize: CGFloat] = [
-            .xSmall : 45,
-            .small  : 45,
-            .medium : 45,
-            .large  : 50,
-            .xLarge : 55,
-            .xxLarge: 60,
-            .xxxLarge: 65,
-            .accessibility1: 70,
-            .accessibility2: 75,
-            .accessibility3: 80,
-            .accessibility4: 85,
-            .accessibility5: 90,
         ]
         var type: SPColorPicker.Direction
         var allowCustomColor: Bool = true
@@ -55,17 +42,7 @@ public struct SPColorPicker: SPComponent {
 
     var style = Configuration()
     var currentSize: CGFloat{
-        #if os(iOS)
-        style.sizes[dynamicTypeSize] ?? 0
-        #elseif os(macOS)
-        (style.sizes[dynamicTypeSize] ?? 0) * 0.4
-        #elseif os(tvOS)
-        (style.sizes[dynamicTypeSize] ?? 0) * 1.4
-        #elseif os(visionOS)
-        (style.sizes[dynamicTypeSize] ?? 0)
-        #else
-        (style.sizes[dynamicTypeSize] ?? 0)
-        #endif
+        return SPSpacing.getSize(in: dynamicTypeSize, for: spSpacing.colorPicker)
     }
     
     var selectedColor: CKColor{
@@ -295,45 +272,6 @@ public struct SPColorPicker: SPComponent {
     // MARK: - Init
     public init() {}
 }
-
-public extension SPColorPicker{
-    func spColorPickerColors(_ colors: [CKColor]) -> Self{
-        var view = self
-        view.style.colors = colors
-        return view
-    }
-    func spColorPickerColors(_ colors: CKColor...) -> Self{
-        var view = self
-        view.style.colors = colors
-        return view
-    }
-    func spColorPickerSupportOpacity(_ condition: Bool = false) -> Self{
-        var view = self
-        view.style.allowCustomColor = condition
-        return view
-    }
-    func spColorPickerAllowCustomColor(_ condition: Bool = true) -> Self{
-        var view = self
-        view.style.allowCustomColor = condition
-        return view
-    }
-    func spColorPickerLayoutSize(_ size: CGFloat, dynamicTypeSize: DynamicTypeSize) -> Self{
-        var view = self
-        view.style.sizes[dynamicTypeSize] = size
-        return view
-    }
-    func spColorPickerDirection(_ layout: Direction? = nil, spacing: CGFloat? = nil) -> Self{
-        var view = self
-        #if os(tvOS) || os(macOS)
-        view.style.type = layout ?? .row
-        #else
-        view.style.type = layout ?? .grid
-        #endif
-        view.style.spacing = spacing
-        return view
-    }
-}
-
 // MARK: - tvOS Specific Components
 
 fileprivate struct ColorCell: View {
@@ -353,7 +291,7 @@ fileprivate struct ColorCell: View {
                 .fill(gradientFill(for: color))
         }
         .focused($isFocused)
-        .buttonStyle(ColorCellButtonStyle(isSelected: isSelected, isFocused: isFocused, size: size))
+        .buttonStyle(SPColorPickerButtonStyle(isSelected: isSelected, isFocused: isFocused, size: size))
         .accessibilityLabel(color.localizedDescription)
         .accessibilityAddTraits([.isButton])
     }
@@ -362,72 +300,6 @@ fileprivate struct ColorCell: View {
         let startPoint: UnitPoint = colorScheme == .dark ? .bottom : .top
         let endPoint: UnitPoint = colorScheme == .dark ? .top : .bottom
         return LinearGradient(colors: [color.color.opacity(0.8), color.color], startPoint: startPoint, endPoint: endPoint)
-    }
-}
-
-fileprivate struct ColorCellButtonStyle: ButtonStyle {
-    #if !os(watchOS) && !os(visionOS)
-    @Environment(\.colorScheme) var colorScheme
-    #endif
-    let isSelected: Bool
-    let isFocused: Bool
-    let size: CGFloat
-    
-    var backgroundColor: Color{
-        #if os(tvOS)
-        if #available(tvOS 26.0, *){
-            if colorScheme == .light{
-                return Color.white
-            }else{
-                return Color.white.opacity(0.15)
-            }
-        }else{
-            if colorScheme == .light{
-                return Color.black.opacity(0.15)
-            }else{
-                return Color.white.opacity(0.15)
-            }
-        }
-
-        #else
-        return Color.primary
-        #endif
-    }
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .frame(width: size, height: size, alignment: .center)
-            .padding(size * 0.15)
-            .foregroundStyle(Color.primary)
-            .background {
-                if configuration.isPressed {
-                    backgroundColor.opacity(0.10)
-                } else if isSelected {
-                    #if os(tvOS)
-                    backgroundColor.opacity(0.6)
-                    #elseif os(iOS)
-                    backgroundColor.opacity(0.15)
-                    #else
-                    backgroundColor.opacity(0.20)
-                    #endif
-                } else {
-                    Color.clear
-                }
-            }
-            .clipShape(Circle())
-            #if os(tvOS)
-            .background {
-                Circle()
-                    .fill(!isSelected && isFocused ? backgroundColor.opacity(0.6) : Color.clear)
-            }
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-            .scaleEffect(isFocused ? 1.2 : 1.0)
-            .animation(.smooth(duration: 0.2), value: isFocused)
-            #elseif os(visionOS)
-            .hoverEffect(.lift)
-            .clipShape(Circle())
-            #endif
-            .animation(.smooth(duration: 0.2), value: isSelected)
-            .animation(.smooth(duration: 0.2), value: configuration.isPressed)
     }
 }
 

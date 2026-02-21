@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public extension View {
+extension View {
     @ViewBuilder func `if`<Transform: View>(@ViewBuilder transform: (Self) -> Transform) -> some View {
         transform(self)
     }

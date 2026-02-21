@@ -97,8 +97,6 @@ struct SPPopoverWrapper<Content: View>: UIViewControllerRepresentable {
         }
 
         func dismiss(from parent: UIViewController) {
-            // CRITICAL: Only dismiss if the parent is actually presenting the controller we are tracking.
-            // Calling dismiss on a view controller that isn't presenting anything will dismiss ITS presenter (the sheet).
             guard let hc = hostingController, parent.presentedViewController == hc else {
                 return
             }
