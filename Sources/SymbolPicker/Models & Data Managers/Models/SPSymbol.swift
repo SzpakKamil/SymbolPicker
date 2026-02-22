@@ -54,8 +54,8 @@ public extension SPSymbol {
     }
 }
 
-// MARK: - Codable
-extension SPSymbol: Codable {
+// MARK: - Codable, Equatable, Hashable
+extension SPSymbol: Codable, Hashable, Equatable {
     @_documentation(visibility: internal)
     enum CodingKeys: CodingKey {
         case annotation
@@ -104,13 +104,7 @@ extension SPSymbol: Codable {
         try container.encodeIfPresent(subcategory, forKey: .subcategory)
         try container.encodeIfPresent(tags, forKey: .tags)
     }
-}
-
-// MARK: - Equatable
-extension SPSymbol: Equatable {}
-
-// MARK: - Hashable
-extension SPSymbol: Hashable {
+    
     @_documentation(visibility: internal)
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -136,39 +130,3 @@ extension SPSymbol {
 }
 
 
-public struct SPSymbolView: View {
-    @Environment(\.spSymbolVariant) var symbolVariant
-    private let filledName: String
-    private let notFilledName: String
-    private let isAvailable: Bool
-    private let variant: SPSymbol.Variant?
-    
-    public var body: some View {
-        if isAvailable{
-            switch variant {
-            case .none:
-                viewForVariant(symbolVariant)
-            default:
-                viewForVariant(variant!)
-            }
-        }else{
-            Image(systemName: "questionmark")
-        }
-    }
-    
-    private func viewForVariant(_ variant: SPSymbol.Variant) -> some View {
-        Image(systemName: variant == .filled ? filledName : notFilledName)
-            .resizable()
-            .scaledToFit()
-            // Force the view to occupy a square space
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .aspectRatio(1, contentMode: .fit)
-    }
-    
-    public init(symbol: SPSymbol) {
-        self.filledName = symbol.filledName
-        self.notFilledName = symbol.notFilled
-        self.isAvailable = symbol.isAvailable()
-        self.variant = symbol.variant
-    }
-}

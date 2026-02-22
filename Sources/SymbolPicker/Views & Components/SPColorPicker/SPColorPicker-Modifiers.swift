@@ -29,11 +29,6 @@ public extension SPColorPicker{
         view.style.allowCustomColor = condition
         return view
     }
-    func spColorPickerLayoutSize(_ size: CGFloat, dynamicTypeSize: DynamicTypeSize) -> Self{
-        var view = self
-        view.style.sizes[dynamicTypeSize] = size
-        return view
-    }
     func spColorPickerDirection(_ layout: Direction? = nil, spacing: CGFloat? = nil) -> Self{
         var view = self
         #if os(tvOS) || os(macOS)
