@@ -10,7 +10,8 @@ import ColorKit
 
 public struct SPPagePicker: View {
     @Environment(\.spPageType) var spPageType
-    var style = Configuration()
+    @Environment(\.spHorizontalPadding) var spHorizontalPadding
+    @Environment(\.symbolPickerStyle) var style
     public var body: some View{
         let supportedTypesCount = style.supportedTypes.count
         if supportedTypesCount > 1{
@@ -43,6 +44,7 @@ public struct SPPagePicker: View {
             }
             .labelsHidden()
             .pickerStyle(.segmented)
+            .padding(.horizontal, spHorizontalPadding)
             #endif
         }
     }

@@ -8,25 +8,29 @@
 import SwiftUI
 
 public struct SPSelectionView: View {
-    private var selection: SPSelection
+    private var selection: SPSelection?
     
     public var body: some View {
         Group {
-            switch selection {
-            case .symbol(let symbol, _):
-                SPSymbolView(symbol: symbol)
-            case .emoji(let emoji, _):
-                SPEmojiView(emoji: emoji)
-            case .image(let image, _):
-                SPImageView(image: image)
-            case .color(let color):
-                Circle().fill(color)
+            if let selection{
+                switch selection {
+                case .symbol(let symbol, _):
+                    SPSymbolView(symbol: symbol)
+                case .emoji(let emoji, _):
+                    SPEmojiView(emoji: emoji)
+                case .image(let image, _):
+                    SPImageView(image: image)
+                case .color(let color):
+                    Circle().fill(color)
+                }
+            }else{
+                EmptyView()
             }
         }
-        .id(selection.id)
+        .id(selection?.id)
     }
     
-    public init(selection: SPSelection) {
+    public init(selection: SPSelection?) {
         self.selection = selection
     }
 }

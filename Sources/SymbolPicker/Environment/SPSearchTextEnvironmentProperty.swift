@@ -11,7 +11,7 @@ private struct SPSearchTextEnviromentKey: EnvironmentKey {
     static let defaultValue: Binding<String> = .constant("")
 }
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
   public var spSearchText: Binding<String> {
     get { self[SPSearchTextEnviromentKey.self] }
     set { self[SPSearchTextEnviromentKey.self] = newValue }

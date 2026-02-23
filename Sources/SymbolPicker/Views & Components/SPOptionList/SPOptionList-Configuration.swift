@@ -7,14 +7,4 @@
 
 import SwiftUI
 
-extension SPOptionList{
-    struct InsetedView{
-        let view: AnyView
-        let inset: SPViewPlacementType
-    }
-    struct Configuration{
-        var topView: InsetedView?
-        var bottomView: InsetedView?
-        init(){}
-    }
-}
+

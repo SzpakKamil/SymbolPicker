@@ -10,9 +10,10 @@ import SwiftUI
 struct SPOptionListContainerView<PhotoView: View, SymbolView: View, EmojiView: View>: View {
     @Environment(\.spSearchText) var searchText
     @Environment(\.spPageType) var pageType
+    @Environment(\.symbolPickerStyle) var style
     @State private var symbols: [SPCategory<SPSymbol>] = []
     @State private var emojis: [SPCategory<SPEmoji>] = []
-    let style: SPOptionList.Configuration
+    
     let photoView: () -> PhotoView
     let symbolView: ([SPCategory<SPSymbol>]) -> SymbolView
     let emojiView: ([SPCategory<SPEmoji>]) -> EmojiView
@@ -25,7 +26,7 @@ struct SPOptionListContainerView<PhotoView: View, SymbolView: View, EmojiView: V
         #else
         let hasResults = pageType.wrappedValue == .emoji ? emojis.first?.elements.isEmpty == false : symbols.first?.elements.isEmpty == false
         #endif
-        SPOptionListScrollView(style: style, useScrollView: shouldScroll && hasResults){ proxy in
+        SPOptionListScrollView(useScrollView: shouldScroll && hasResults){ proxy in
             if searchText.wrappedValue.isEmpty && symbols.isEmpty && emojis.isEmpty{
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -48,26 +49,27 @@ struct SPOptionListContainerView<PhotoView: View, SymbolView: View, EmojiView: V
                 }
             }
         }
-        .task(id: searchText.wrappedValue) { await performSearch() }
-        .task(id: pageType.wrappedValue) { await loadData() }
-        #if os(tvOS)
-        .if { content in
-            if #available(tvOS 26.0, *) {
-                content.frame(width: 800, height: 900)
-            } else {
-                content
-            }
-        }
-        #endif
+        .task(id: searchText.wrappedValue, priority: .high) { await performSearch() }
+        .task(id: pageType.wrappedValue, priority: .high) { await loadData() }
     }
     
     private func performSearch() async {
+        let types = style.supportedTypes
+        let defaultType = style.defaultType
+        
         do {
-            async let searchedSymbolsData = dataManager.search(SPSymbol.self, for: searchText.wrappedValue)
-            async let searchedEmojisData = dataManager.search(SPEmoji.self, for: searchText.wrappedValue)
-            let (searchedSymbols, searchedEmojis) = try await (searchedSymbolsData, searchedEmojisData)
-            self.symbols = searchedSymbols
-            self.emojis = searchedEmojis
+            async let searchedSymbols = types.contains(.symbol) || defaultType == .symbol
+                ? try await dataManager.search(SPSymbol.self, for: searchText.wrappedValue)
+                : []
+                
+            async let searchedEmojis = types.contains(.emoji) || defaultType == .emoji
+                ? try await dataManager.search(SPEmoji.self, for: searchText.wrappedValue)
+                : []
+
+            let (finalSymbols, finalEmojis) = try await (searchedSymbols, searchedEmojis)
+            
+            self.symbols = finalSymbols
+            self.emojis = finalEmojis
         } catch {
             print("Search failed: \(error)")
         }
@@ -75,20 +77,28 @@ struct SPOptionListContainerView<PhotoView: View, SymbolView: View, EmojiView: V
     
     private func loadData() async {
         guard symbols.isEmpty && emojis.isEmpty else { return }
+        let types = style.supportedTypes
+        let defaultType = style.defaultType
+        
         do {
-            async let symbolsData = dataManager.fetch(type: SPSymbol.self)
-            async let emojisData = dataManager.fetch(type: SPEmoji.self)
-            let (fetchedSymbols, fetchedEmojis) = try await (symbolsData, emojisData)
-            self.symbols = fetchedSymbols
-            self.emojis = fetchedEmojis
+            async let fetchedSymbols = types.contains(.symbol) || defaultType == .symbol
+                ? try await dataManager.fetch(type: SPSymbol.self)
+                : []
+                
+            async let fetchedEmojis = types.contains(.emoji) || defaultType == .emoji
+                ? try await dataManager.fetch(type: SPEmoji.self)
+                : []
+
+            let (finalSymbols, finalEmojis) = try await (fetchedSymbols, fetchedEmojis)
+            
+            self.symbols = finalSymbols
+            self.emojis = finalEmojis
         } catch {
-            print("Data failed to load: \(error)")
+            print("Data failed to load: \(error) ")
         }
     }
     
-    
-    init(style: SPOptionList.Configuration, @ViewBuilder photoView: @escaping () -> PhotoView, @ViewBuilder symbolView: @escaping ([SPCategory<SPSymbol>]) -> SymbolView, @ViewBuilder emojiView: @escaping ([SPCategory<SPEmoji>]) -> EmojiView) {
-        self.style = style
+    init(@ViewBuilder photoView: @escaping () -> PhotoView, @ViewBuilder symbolView: @escaping ([SPCategory<SPSymbol>]) -> SymbolView, @ViewBuilder emojiView: @escaping ([SPCategory<SPEmoji>]) -> EmojiView) {
         self.photoView = photoView
         self.symbolView = symbolView
         self.emojiView = emojiView

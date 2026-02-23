@@ -15,8 +15,8 @@ import ColorKit
 #if os(iOS) || os(macOS) || os(visionOS)
 @available(iOS 16.0, macOS 14.0, *)
 struct SPOptionListImage: View {
+    @Environment(\.symbolPickerStyle) var style
     @Environment(\.spSelection) var spSelection
-    let style: SPOptionList.Configuration
     var body: some View{
         List {
             if style.topView?.inset == .scrollContent{

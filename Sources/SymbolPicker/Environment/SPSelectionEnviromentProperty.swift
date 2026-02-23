@@ -12,7 +12,7 @@ private struct SPSelectionEnviromentKey: EnvironmentKey {
     static let defaultValue: Binding<SPSelection> = .constant(.color(value: CKColor.init(hexString: "#0000")))
 }
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
   public var spSelection: Binding<SPSelection> {
     get { self[SPSelectionEnviromentKey.self] }
     set { self[SPSelectionEnviromentKey.self] = newValue }

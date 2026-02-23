@@ -14,21 +14,20 @@ import ColorKit
 public struct SPOptionList: View {
     @Environment(\.spSearchText) private var searchText
     @Environment(\.spSelection) private var spSelection
-    @Environment(\.spSpacing) private var spSpacing
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.spPageType) private var pageType
+    @Environment(\.symbolPickerStyle) private var style
     @State private var emojiForSkinPicker: SPEmoji?
-    var style = Configuration()
     private let dataManager = SPDataManager()
-    private var currentSize: CGFloat{ SPSpacing.getSize(in: dynamicTypeSize, for: spSpacing.optionList) }
+    private var currentSize: CGFloat{ SPSpacing.getSize(in: dynamicTypeSize, for: style.spacing.optionList) }
 
     private var columns: [GridItem] {[GridItem(.adaptive(minimum: currentSize, maximum: currentSize * 1.2), spacing: currentSize * 0.8)]}
 
     public var body: some View {
-        SPOptionListContainerView(style: style){
+        SPOptionListContainerView{
             #if os(iOS) || os(macOS) || os(visionOS)
             if #available(iOS 16.0, macOS 14.0, *) {
-                SPOptionListImage(style: style)
+                SPOptionListImage()
             }
             #endif
         } symbolView: { symbols in

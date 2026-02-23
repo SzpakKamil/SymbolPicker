@@ -9,8 +9,7 @@ import SwiftUI
 
 struct SPOptionListScrollView<V: View>: View {
     @Environment(\.spPageType) var spPageType
-    @Environment(\.spSpacing) var spSpacing
-    let style: SPOptionList.Configuration
+    @Environment(\.symbolPickerStyle) var style
     let useScrollView: Bool // New Parameter
     let content: (ScrollViewProxy?) -> V // Made proxy optional since it won't exist if not scrolling
 
@@ -26,9 +25,16 @@ struct SPOptionListScrollView<V: View>: View {
     var body: some View {
         VStack(spacing: 0) {
             // Safe Area Fallback Top
+            #if os(visionOS)
+            if style.topView?.inset == .safeArea{
+                renderInsetView(style.topView?.view, isTopEdge: true)
+                    .padding(.top, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
+            }
+            #else
             if #unavailable(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, visionOS 26.0), style.topView?.inset == .safeArea {
                 renderInsetView(style.topView?.view, isTopEdge: true)
             }
+            #endif
 
             if useScrollView {
                 ScrollViewReader { proxy in
@@ -42,6 +48,7 @@ struct SPOptionListScrollView<V: View>: View {
                         withAnimation { proxy.scrollTo(newValue, anchor: .top) }
                     }
                     .onAppear { proxy.scrollTo(spPageType.wrappedValue, anchor: .top) }
+                
                 }
             } else {
                 // Non-scrolling layout
@@ -50,31 +57,40 @@ struct SPOptionListScrollView<V: View>: View {
             }
 
             // Safe Area Fallback Bottom
+            #if os(visionOS)
+            if style.topView?.inset == .safeArea{
+                renderInsetView(style.bottomView?.view, isTopEdge: false)
+                    .padding(.bottom, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
+            }
+            #else
             if #unavailable(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, visionOS 26.0), style.bottomView?.inset == .safeArea {
                 renderInsetView(style.bottomView?.view, isTopEdge: false)
             }
+            #endif
         }
+        #if !os(visionOS)
         .if{ content in
             if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, visionOS 26.0, *){
                 content
                     .safeAreaBar(edge: .top) {
                         if style.topView?.inset == .safeArea {
                             style.topView?.view
-                                .safeAreaPadding(.vertical, SPSpacing.getVerticalPadding(for: spSpacing.optionList))
-                                .safeAreaPadding(.horizontal, SPSpacing.getHorizonalPadding(for: spSpacing.optionList))
+                                .safeAreaPadding(.vertical, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
+                                .safeAreaPadding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList))
                         }
                     }
                     .safeAreaBar(edge: .bottom) {
                         if style.bottomView?.inset == .safeArea {
                             style.bottomView?.view
-                                .safeAreaPadding(.vertical, SPSpacing.getVerticalPadding(for: spSpacing.optionList))
-                                .safeAreaPadding(.horizontal, SPSpacing.getHorizonalPadding(for: spSpacing.optionList))
+                                .safeAreaPadding(.vertical, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
+                                .safeAreaPadding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList))
                         }
                     }
             }else{
                 content
             }
         }
+        #endif
     }
 
     @ViewBuilder
@@ -91,8 +107,8 @@ struct SPOptionListScrollView<V: View>: View {
                     style.bottomView?.view
                 }
             }
-            .padding(verticalEdges, SPSpacing.getVerticalPadding(for: spSpacing.optionList))
-            .padding(.horizontal, SPSpacing.getHorizonalPadding(for: spSpacing.optionList))
+            .padding(verticalEdges, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
+            .padding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList))
         }else{
             
             content(proxy)
@@ -103,12 +119,12 @@ struct SPOptionListScrollView<V: View>: View {
     @ViewBuilder
     private func renderInsetView(_ view: AnyView?, isTopEdge: Bool) -> some View {
         view?
-            .padding(isTopEdge ? .bottom : .top, SPSpacing.getVerticalPadding(for: spSpacing.optionList))
-            .padding(.horizontal, SPSpacing.getHorizonalPadding(for: spSpacing.optionList))
+            .padding(isTopEdge ? .top : .bottom, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
+            .padding(isTopEdge ? .bottom : .top, (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5) 
+            .environment(\.spHorizontalPadding, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
     }
 
-    init(style: SPOptionList.Configuration, useScrollView: Bool, @ViewBuilder content: @escaping (ScrollViewProxy?) -> V) {
-        self.style = style
+    init(useScrollView: Bool, @ViewBuilder content: @escaping (ScrollViewProxy?) -> V) {
         self.useScrollView = useScrollView
         self.content = content
     }

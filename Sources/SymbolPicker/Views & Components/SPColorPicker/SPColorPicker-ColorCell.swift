@@ -88,9 +88,12 @@ struct SPColorPickerColorCell: View {
                     Circle()
                         .fill(spColorPickerGradientFill(for: color, in: colorScheme))
                         .padding(size * 0.12)
-                    if isSelected{
+                    if isSelected || rainbowOutline{
                         Circle()
-                            .stroke(rainbowOutline ?  AnyShapeStyle(rainbowGradient) : AnyShapeStyle(.tint), style: StrokeStyle(lineWidth: size * 0.07))
+                            .stroke(
+                                rainbowOutline ?  AnyShapeStyle(rainbowGradient) : AnyShapeStyle(.tint),
+                                style: rainbowOutline ? StrokeStyle(lineWidth: size * 0.13) :  StrokeStyle(lineWidth: size * 0.07)
+                            )
                     }
                 }
             }
