@@ -8,7 +8,7 @@
 import SwiftUI
 import ColorKit
 
-public struct SPPagePicker: SPComponent {
+public struct SPPagePicker: View {
     @Environment(\.spPageType) var spPageType
     var style = Configuration()
     public var body: some View{

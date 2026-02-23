@@ -8,7 +8,7 @@
 import SwiftUI
 import ColorKit
 
-public struct SPColorPicker: SPComponent {
+public struct SPColorPicker: View {
     @Environment(\.spSpacing) var spSpacing
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.spSelection) var spSelection

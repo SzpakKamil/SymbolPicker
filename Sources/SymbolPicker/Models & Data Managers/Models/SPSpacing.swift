@@ -8,11 +8,11 @@
 import SwiftUI
 
 
-public struct ComponentSpacing: Sendable{
-    let spacings: [DynamicTypeSize: CGFloat]
-    let osScaleFactors: [SPSupportedPlatforms: CGFloat]
-    let horizontalPadding: [SPSupportedPlatforms: CGFloat]
-    let verticalPadding: [SPSupportedPlatforms: CGFloat?]
+public struct SPComponentSpacing: Sendable{
+    public let spacings: [DynamicTypeSize: CGFloat]
+    public let osScaleFactors: [SPSupportedPlatforms: CGFloat]
+    public let horizontalPadding: [SPSupportedPlatforms: CGFloat]
+    public let verticalPadding: [SPSupportedPlatforms: CGFloat?]
     
     public init(spacings: [DynamicTypeSize : CGFloat], osScaleFactors: [SPSupportedPlatforms : CGFloat], horizontalPadding: [SPSupportedPlatforms : CGFloat], verticalPadding: [SPSupportedPlatforms : CGFloat]) {
         self.spacings = spacings
@@ -22,10 +22,10 @@ public struct ComponentSpacing: Sendable{
     }
 }
 public struct SPSpacing: Sendable{
-    let colorPicker: ComponentSpacing
-    let optionList: ComponentSpacing
+    public let colorPicker: SPComponentSpacing
+    public let optionList: SPComponentSpacing
     
-    public init(colorPicker: ComponentSpacing, optionList: ComponentSpacing) {
+    public init(colorPicker: SPComponentSpacing, optionList: SPComponentSpacing) {
         self.colorPicker = colorPicker
         self.optionList = optionList
     }
@@ -97,7 +97,7 @@ public struct SPSpacing: Sendable{
         
     }
     
-    static func getSize(in typeSize: DynamicTypeSize, for componentSpacing: ComponentSpacing, adjustedForPlatform: Bool = true) -> CGFloat {
+    static func getSize(in typeSize: DynamicTypeSize, for componentSpacing: SPComponentSpacing, adjustedForPlatform: Bool = true) -> CGFloat {
         let baseSize = componentSpacing.spacings[typeSize] ?? 0
         guard adjustedForPlatform else { return baseSize }
 
@@ -114,7 +114,7 @@ public struct SPSpacing: Sendable{
         return baseSize * (bestMatchFactor ?? 1.0)
     }
     
-    static func getHorizonalPadding(for componentSpacing: ComponentSpacing) -> CGFloat? {
+    static func getHorizonalPadding(for componentSpacing: SPComponentSpacing) -> CGFloat? {
         let current = SPSupportedPlatforms.currentPlatform
         let currentVersion = current.majorVersion ?? 0
 
@@ -127,7 +127,7 @@ public struct SPSpacing: Sendable{
         return horizontalPadding ?? 0
     }
     
-    static func getVerticalPadding(for componentSpacing: ComponentSpacing) -> CGFloat? {
+    static func getVerticalPadding(for componentSpacing: SPComponentSpacing) -> CGFloat? {
         let current = SPSupportedPlatforms.currentPlatform
         let currentVersion = current.majorVersion ?? 0
 
