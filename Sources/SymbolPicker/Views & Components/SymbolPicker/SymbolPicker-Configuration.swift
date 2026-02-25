@@ -13,8 +13,9 @@ public protocol SPSymbolPickerConfiguration: Sendable {
     var symbolVariant: SPSymbol.Variant { get }
     var supportedTypes: [SPPageType] { get }
     var defaultType: SPPageType { get }
-    var displayType: SPDisplayType { get }
+    var presentationType: SPPresentationType { get }
     var displaySize: Set<SPDisplaySize> { get }
+    var displayType: SPDisplayType { get }
     
     @SPInsetedViewBuilder
     func insetViews() -> [SPInsetedView]
@@ -28,8 +29,21 @@ public extension SPSymbolPickerConfiguration {
     var spacing: SPSpacing { SPSpacing() }
     var supportedTypes: [SPPageType] { SPPageType.allCases }
     var defaultType: SPPageType { .symbol }
-    var displayType: SPDisplayType { .default }
-    var displaySize: Set<SPDisplaySize> { [.large] }
+    var presentationType: SPPresentationType { .default }
+    var displaySize: Set<SPDisplaySize> {
+        if #available(iOS 26.0, visionOS 26.0, tvOS 26.0, watchOS 26.0, *){
+            return [.medium, .large]
+        }else{
+            return [.large]
+        }
+    }
+    var displayType: SPDisplayType {
+        if #available(iOS 26.0, visionOS 26.0, tvOS 26.0, watchOS 26.0, *){
+            return .compact
+        }else{
+            return .detail
+        }
+    }
     
     func getCellButtonStyle(isSelected: Bool, isFocused: Bool, size: CGFloat) -> SPAnyCellButtonStyle{
         return .init(SPOptionListButtonStyle(isSelected: isSelected, isFocused: isFocused, size: size))
@@ -60,12 +74,15 @@ public extension SPSymbolPickerConfiguration {
         #else
         SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
             SPColorPicker()
-                .spColorPickerDirection(displayType == .default || displayType == .popover ? .row : .grid)
+                .spColorPickerDirection(displayType == .detail ? .grid : .row)
             #if !os(iOS)
-            SPSearchBar()
+            if displayType == .detail{
+                SPSearchBar()
+            }
             #endif
             SPPagePicker()
         }
+        
         #if os(iOS)
         SPInsetedView(placement: .safeAreaBottom) {
             SPSearchBar()
@@ -95,15 +112,24 @@ public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
     public var symbolVariant: SPSymbol.Variant = .filled
     public var supportedTypes: [SPPageType] = SPPageType.allCases
     public var defaultType: SPPageType = .symbol
-    public var displayType: SPDisplayType = .default
+    public var presentationType: SPPresentationType = .default
     public var displaySize: Set<SPDisplaySize> = [.large]
     public var customInsetedViews: [SPInsetedView] = []
+    public var displayType: SPDisplayType
 
     public var insetedViews: [SPInsetedView]? {
         customInsetedViews.isEmpty ? nil : customInsetedViews
     }
 
-    public init() {}
+    public init() {
+        if #available(iOS 26.0, visionOS 26.0, tvOS 26.0, watchOS 26.0, *){
+            self.displayType = .compact
+            self.displaySize = [.medium, .large]
+        }else{
+            self.displayType = .detail
+            self.displaySize = [.large]
+        }
+    }
     
     @SPInsetedViewBuilder
     public func insetViews() -> [SPInsetedView] {
@@ -130,7 +156,7 @@ public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
             #else
             return [SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
                 SPColorPicker()
-                    .spColorPickerDirection(displayType == .default || displayType == .popover ? .row : .grid)
+                    .spColorPickerDirection(presentationType == .default || presentationType == .popover ? .row : .grid)
                 SPPagePicker()
             }]
             #endif

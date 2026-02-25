@@ -26,28 +26,26 @@ struct SPOptionListContainerView<PhotoView: View, SymbolView: View, EmojiView: V
         #else
         let hasResults = pageType.wrappedValue == .emoji ? emojis.first?.elements.isEmpty == false : symbols.first?.elements.isEmpty == false
         #endif
-        SPOptionListScrollView(useScrollView: shouldScroll && hasResults){ proxy in
-            if searchText.wrappedValue.isEmpty && symbols.isEmpty && emojis.isEmpty{
-                ProgressView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }else{
-                switch pageType.wrappedValue{
-                case .emoji:
-                    if emojis.first?.elements.isEmpty == true{
-                        SPOptionListEmptyState()
-                    }else{
-                        emojiView(emojis)
-                    }
-                case .symbol:
-                    if symbols.first?.elements.isEmpty == true{
-                        SPOptionListEmptyState()
-                    }else{
-                        symbolView(symbols)
-                    }
-                default:
-                    photoView()
+        SPOptionListScrollView(showProgress: searchText.wrappedValue.isEmpty && symbols.isEmpty && emojis.isEmpty, useScrollView: shouldScroll && hasResults){ proxy in
+            switch pageType.wrappedValue{
+            case .emoji:
+                if emojis.first?.elements.isEmpty == true{
+                    SPOptionListEmptyState()
+                }else{
+                    emojiView(emojis)
                 }
+            case .symbol:
+                if symbols.first?.elements.isEmpty == true{
+                    SPOptionListEmptyState()
+                }else{
+                    symbolView(symbols)
+                }
+            default:
+                photoView()
             }
+        }progressView: {
+            ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .task(id: searchText.wrappedValue, priority: .high) { await performSearch() }
         .task(id: pageType.wrappedValue, priority: .high) { await loadData() }

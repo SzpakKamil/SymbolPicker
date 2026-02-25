@@ -83,6 +83,13 @@ public extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration{
         copy.style.defaultType = defaultType ?? types.first ?? .symbol
         return copy
     }
+    
+    func spDisplayType(_ type: SPDisplayType) -> Self{
+        var copy = self
+        copy.style.displayType = type
+        return copy
+    }
+    
     func spInsetedViews(overwriteDefault: Bool = false, @SPInsetedViewBuilder views: () -> [SPInsetedView]) -> Self{
         var copy = self
         if overwriteDefault{
@@ -137,9 +144,15 @@ public extension SymbolPickerConfigurationWrapper where C == SPSymbolPickerDefau
         return copy
     }
 
-    func spDisplayType(_ mode: SPDisplayType ) -> Self{
+    func spPresentationType(_ mode: SPPresentationType ) -> Self{
         var copy = self
-        copy.style.displayType = mode
+        copy.style.presentationType = mode
+        return copy
+    }
+    
+    func spDisplayType(_ type: SPDisplayType ) -> Self{
+        var copy = self
+        copy.style.displayType = type
         return copy
     }
 

@@ -8,7 +8,6 @@
 import SwiftUI
 
 public enum SPDisplayType: Sendable{
-    case `default`
-    case popover
-    case sheet
+    case compact
+    case detail
 }

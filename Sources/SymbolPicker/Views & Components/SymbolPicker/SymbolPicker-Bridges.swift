@@ -37,9 +37,9 @@ struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
     
     var isDisplayedAsPopover: Bool{
         #if os(iOS)
-        UIDevice.current.userInterfaceIdiom == .pad && [SPDisplayType.popover, .default].contains(style.displayType)
+        UIDevice.current.userInterfaceIdiom == .pad && [SPPresentationType.popover, .default].contains(style.presentationType)
         #else
-        [SPDisplayType.popover, .default].contains(style.displayType)
+        [SPPresentationType.popover, .default].contains(style.presentationType)
         #endif
     }
     
@@ -85,7 +85,7 @@ struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
                 presentationDentedView{ SymbolPicker(selection: $selection, configuration: style) }
             }
         #else
-        switch style.displayType{
+        switch style.presentationType{
         case .default, .popover:
             content
                 .popover(isPresented: $isPresented) {
@@ -95,6 +95,11 @@ struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
         case .sheet:
             content
                 .sheet(isPresented: $isPresented) {
+                    presentationDentedView{ SymbolPicker(selection: $selection, configuration: style) }
+                }
+        case .fullScreenCover:
+            content
+                .fullScreenCover(isPresented: $isPresented) {
                     presentationDentedView{ SymbolPicker(selection: $selection, configuration: style) }
                 }
         }
