@@ -10,7 +10,6 @@ import SearchBar
 
 struct SPSearchBar: View {
     @Environment(\.spSearchText) var spSearchText
-    @Environment(\.spDisplaySize) var spDisplaySize
     var body: some View {
         SearchBar(text: spSearchText)
             #if os(macOS)

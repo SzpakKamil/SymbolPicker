@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct SPInsetedView: @unchecked Sendable{
     var view: AnyView
-    var paddings: [Edge.Set: CGFloat]
+    var paddings: [Edge.Set: CGFloat?]
     let placement: SPViewPlacementType
     
     public init(placement: SPViewPlacementType, spacing: CGFloat? = nil, @ViewBuilder view: () -> some View) {
@@ -22,7 +22,7 @@ public struct SPInsetedView: @unchecked Sendable{
         self.placement = placement
     }
     
-    public func spPadding(_ edges: Edge.Set, value: CGFloat) -> Self{
+    public func spPadding(_ edges: Edge.Set, value: CGFloat?) -> Self{
         var copy = self
         copy.paddings[edges] = value
         return copy

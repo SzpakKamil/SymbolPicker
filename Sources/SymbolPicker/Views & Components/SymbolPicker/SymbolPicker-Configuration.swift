@@ -69,10 +69,10 @@ public extension SPSymbolPickerConfiguration {
         #if os(iOS)
         SPInsetedView(placement: .safeAreaBottom) {
             SPSearchBar()
-                .ignoresSafeArea()
-                .padding(.bottom, -10)
-                .padding(.horizontal, 5)
+                .padding(.horizontal, -3)
         }
+        .spPadding(.bottom, value: -8)
+        .spPadding(.horizontal, value: nil)
         #endif
         #endif
     }

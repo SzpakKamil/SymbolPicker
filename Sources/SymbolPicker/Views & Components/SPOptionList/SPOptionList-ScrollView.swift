@@ -29,15 +29,20 @@ struct SPOptionListScrollView<V: View>: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            if #unavailable(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, visionOS 26.0){
-                renderInsetView(style.getViews(for: .safeAreaTop), isTopEdge: true)
-            }
-
+        VStack{
             if useScrollView {
                 ScrollViewReader { proxy in
                     ScrollView {
                         scrollBody(proxy: proxy)
+                    }
+                    .if { view in
+                        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
+                            view
+                                .smartSafeAreaPadding(verticalEdges, SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0)
+                                .smartSafeAreaPadding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
+                        } else {
+                            view
+                        }
                     }
                     .onChange(of: spPageType.wrappedValue) { newValue in
                         withAnimation { proxy.scrollTo(newValue, anchor: .top) }
@@ -50,30 +55,47 @@ struct SPOptionListScrollView<V: View>: View {
                 scrollBody(proxy: nil)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-
-            if #unavailable(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, visionOS 26.0){
-                renderInsetView(style.getViews(for: .safeAreaBottom), isTopEdge: true)
-            }
         }
         .if{ content in
             if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, visionOS 26.0, *){
                 content
                     .safeAreaBar(edge: .top) {
                         ForEach(style.getViews(for: .safeAreaTop).indices, id: \.self){ index in
-                            style.getViews(for: .safeAreaTop)[index].view
+                            let insetedView = style.getViews(for: .safeAreaTop)[index]
+                            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *){
+                                insetedView.view
+                                    .safeAreaPaddingForDictionary(
+                                        insetedView.paddings,
+                                        verticalDefault: SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0,
+                                        horizontalDefault: SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0
+                                    )
+                            }
+
                         }
-                        .safeAreaPadding(.vertical, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
-                        .safeAreaPadding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList))
+         
                     }
                     .safeAreaBar(edge: .bottom) {
                         ForEach(style.getViews(for: .safeAreaBottom).indices, id: \.self){ index in
-                            style.getViews(for: .safeAreaBottom)[index].view
+                            let insetedView = style.getViews(for: .safeAreaBottom)[index]
+                            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *){
+                                insetedView.view
+                                    .safeAreaPaddingForDictionary(
+                                        insetedView.paddings,
+                                        verticalDefault: SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0,
+                                        horizontalDefault: SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0
+                                    )
+                            }
+                            
                         }
-                        .safeAreaPadding(.vertical, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
-                        .safeAreaPadding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList))
                     }
             }else{
                 content
+                    .safeAreaInset(edge: .top) {
+                        renderInsetView(isTopEdge: true)
+                    }
+                    .safeAreaInset(edge: .bottom) {
+                        renderInsetView(isTopEdge: false)
+                    }
             }
         }
     }
@@ -88,14 +110,21 @@ struct SPOptionListScrollView<V: View>: View {
                 content(proxy)
                 
                 ForEach(style.getViews(for: .scrollContentBottom).indices, id: \.self){ index in
-                    style.getViews(for: .scrollContentTop)[index].view
+                    style.getViews(for: .scrollContentBottom)[index].view
                 }
             }
-            .padding(verticalEdges, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
-            .padding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList))
+            .if { content in
+                if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
+                    content // Handled by smartSafeAreaPadding on ScrollView
+                } else {
+                    content
+                        .padding(verticalEdges, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
+                        .padding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList))
+                }
+            }
         }else{
-            
             content(proxy)
+                .padding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList))
         }
 
     }
@@ -103,10 +132,21 @@ struct SPOptionListScrollView<V: View>: View {
     @ViewBuilder
     private func renderInsetView(_ insetedViews: [SPInsetedView] = [], isTopEdge: Bool) -> some View {
         ForEach(insetedViews.indices, id: \.self){ index in
-            insetedViews[index].view
+            let insetedView = insetedViews[index]
+            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *){
+                insetedView.view
+                    .paddingForDictionary(
+                        insetedView.paddings,
+                        verticalDefault: SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0,
+                        horizontalDefault: SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0
+                    )
+            } else {
+                insetedView.view
+                    .padding(isTopEdge ? .top : .bottom, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
+                    .padding(isTopEdge ? .bottom : .top, (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
+                    .padding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList))
+            }
         }
-        .padding(isTopEdge ? .top : .bottom, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
-        .padding(isTopEdge ? .bottom : .top, (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
         .environment(\.spHorizontalPadding, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
     }
 

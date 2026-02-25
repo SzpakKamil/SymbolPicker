@@ -5,7 +5,7 @@
 //  Created by KamilSzpak on 12/04/2025.
 //
 
-#if !os(macOS)
+#if os(visionOS)
 import SwiftUI
 import UIKit
 import CoreImage.CIFilterBuiltins

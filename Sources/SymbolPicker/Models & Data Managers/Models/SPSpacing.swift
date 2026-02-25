@@ -87,8 +87,8 @@ public struct SPSpacing: Sendable{
                 .watchOS()  : 10,
             ],
             verticalPadding: [
-                .iOS()      : 0,
-                .macOS()    : 0,
+                .iOS()      : 20,
+                .macOS()    : 15,
                 .watchOS()  : 0,
                 .tvOS(26)   : 30,
                 .tvOS()     : 80,
@@ -131,13 +131,13 @@ public struct SPSpacing: Sendable{
         let current = SPSupportedPlatforms.currentPlatform
         let currentVersion = current.majorVersion ?? 0
 
-        let horizontalPadding = componentSpacing.horizontalPadding
+        let verticalPadding = componentSpacing.verticalPadding
             .filter { $0.key.isSamePlatform(as: current) }
             .filter { ($0.key.majorVersion ?? 0) <= currentVersion }
             .sorted { ($0.key.majorVersion ?? 0) > ($1.key.majorVersion ?? 0) }
             .first?.value
 
-        return horizontalPadding ?? 0
+        return verticalPadding ?? 0
     }
 }
 
