@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SPOptionListCell: View {
+    @Environment(\.symbolPickerStyle) private var symbolPickerStyle
     @Environment(\.spSelection) private var selection
     @FocusState private var isFocused: Bool
     let symbol: SPSymbol?
@@ -64,7 +65,7 @@ struct SPOptionListCell: View {
 
         }
         .focused($isFocused)
-        .buttonStyle(SPOptionListButtonStyle(isSelected: isSelected, isFocused: isFocused, size: size))
+        .buttonStyle(symbolPickerStyle.getCellButtonStyle(isSelected: isSelected, isFocused: isFocused, size: size))
         .accessibilityElement()
         .accessibilityLabel(symbol != nil ? symbol?.annotation ?? SPPageType.symbol.localizedDescription : emoji?.annotation ?? SPPageType.emoji.localizedDescription)
         .accessibilityAddTraits(.isButton)

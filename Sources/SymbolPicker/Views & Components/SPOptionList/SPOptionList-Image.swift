@@ -19,8 +19,8 @@ struct SPOptionListImage: View {
     @Environment(\.spSelection) var spSelection
     var body: some View{
         List {
-            if style.topView?.inset == .scrollContent{
-                style.topView?.view
+            ForEach(style.getViews(for: .scrollContentTop).indices, id: \.self){ index in
+                style.getViews(for: .scrollContentTop)[index].view
             }
             ColorPicker(SPTranslation.DetectedColor.localizedDescription, selection: spSelection.asCKColor.asColor)
             
@@ -52,8 +52,8 @@ struct SPOptionListImage: View {
                     }
                 }
             }
-            if style.bottomView?.inset == .scrollContent{
-                style.bottomView?.view
+            ForEach(style.getViews(for: .scrollContentBottom).indices, id: \.self){ index in
+                style.getViews(for: .scrollContentBottom)[index].view
             }
         }
 #if os(macOS)

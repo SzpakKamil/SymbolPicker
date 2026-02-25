@@ -1,0 +1,25 @@
+//
+//  SPViewPlacementType.swift
+//  SymbolPicker
+//
+//  Created by Kamil Szpak on 23/02/2026.
+//
+
+import SwiftUI
+
+public enum SPViewPlacementType: Int, Identifiable, Sendable, Hashable{
+    case safeAreaTop
+    case safeAreaBottom
+    case scrollContentTop
+    case scrollContentBottom
+    #if os(watchOS)
+    case toolbarTopTralling
+    case toolbarBottomLeading
+    case toolbarBottom
+    case toolbarBottomTralling
+    #endif
+    
+    public var id: Int{
+        rawValue
+    }
+}

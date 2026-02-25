@@ -8,11 +8,11 @@
 import SwiftUI
 
 private struct SymbolPickerStyleEnvironmentKey: EnvironmentKey {
-    static let defaultValue = SymbolPicker.Configuration()
+    static let defaultValue: SPSymbolPickerConfiguration = SPSymbolPickerDefaultConfiguration()
 }
 
 public extension EnvironmentValues {
-    var symbolPickerStyle: SymbolPicker.Configuration {
+    var symbolPickerStyle: SPSymbolPickerConfiguration {
         get { self[SymbolPickerStyleEnvironmentKey.self] }
         set { self[SymbolPickerStyleEnvironmentKey.self] = newValue }
     }

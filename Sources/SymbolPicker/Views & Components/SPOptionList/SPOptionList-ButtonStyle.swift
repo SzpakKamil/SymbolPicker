@@ -38,6 +38,7 @@ struct SPOptionListButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+        
             .frame(width: size, height: size * 1.25, alignment: .center)
             .padding(size * 0.25)
             .foregroundStyle(Color.primary)
