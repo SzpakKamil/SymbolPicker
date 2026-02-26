@@ -107,13 +107,22 @@ struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
     }
     
     @ViewBuilder
-    func presentationDentedView(@ViewBuilder content: () -> some View) -> some View{
+    func presentationDentedView(@ViewBuilder content: @escaping () -> some View) -> some View{
         #if os(iOS)
-        if #available(iOS 16.0, *){
+        if #available(iOS 16, *){
             content()
-                .presentationDragIndicator(.visible)
-                .presentationDetents(Set(style.displaySize.map{$0.asPresentationSize()}))
-                .frame(width: width, height: height)
+            #if os(iOS)
+            .if{ content in
+                if #available(iOS 16.4, *){
+                    content
+                        .presentationBackgroundInteraction(style.presentationBackgroundInteraction.asPresentationBackgroundInteraction())
+                }else{ content }
+                
+            }
+            #endif
+            .presentationDragIndicator(.visible)
+            .presentationDetents(Set(style.displaySize.map{$0.asPresentationSize()}))
+            .frame(width: width, height: height)
         }else{
             content()
                 .frame(width: width, height: height)

@@ -14,6 +14,7 @@ public protocol SPSymbolPickerConfiguration: Sendable {
     var supportedTypes: [SPPageType] { get }
     var defaultType: SPPageType { get }
     var presentationType: SPPresentationType { get }
+    var presentationBackgroundInteraction: SPPresentationBackgroundInteraction { get }
     var displaySize: Set<SPDisplaySize> { get }
     var displayType: SPDisplayType { get }
     
@@ -30,6 +31,7 @@ public extension SPSymbolPickerConfiguration {
     var supportedTypes: [SPPageType] { SPPageType.allCases }
     var defaultType: SPPageType { .symbol }
     var presentationType: SPPresentationType { .default }
+    var presentationBackgroundInteraction: SPPresentationBackgroundInteraction { .disabled }
     var displaySize: Set<SPDisplaySize> {
         if #available(iOS 26.0, visionOS 26.0, tvOS 26.0, watchOS 26.0, *){
             return [.medium, .large]
@@ -114,6 +116,7 @@ public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
     public var defaultType: SPPageType = .symbol
     public var presentationType: SPPresentationType = .default
     public var displaySize: Set<SPDisplaySize> = [.large]
+    public var presentationBackgroundInteraction: SPPresentationBackgroundInteraction  = .disabled
     public var customInsetedViews: [SPInsetedView] = []
     public var displayType: SPDisplayType
 

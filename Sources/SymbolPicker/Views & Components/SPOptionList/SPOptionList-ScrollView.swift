@@ -53,19 +53,20 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                 ScrollViewReader { proxy in
                     ScrollView {
                         scrollBody(proxy: proxy)
-                    }
-                    .if { view in
-                        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
-                            view
-                                .smartSafeAreaPadding(verticalEdges, SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0)
-                                .smartSafeAreaPadding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
-                        } else {
-                            view
-                        }
+                            .if { view in
+                                if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
+                                    view
+                                        .smartSafeAreaPadding(verticalEdges, SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0)
+                                        .smartSafeAreaPadding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
+                                } else {
+                                    view
+                                }
+                            }
                     }
                     .onChange(of: spPageType.wrappedValue) { newValue in
                         withAnimation { proxy.scrollTo(newValue, anchor: .top) }
                     }
+
                     .onAppear { proxy.scrollTo(spPageType.wrappedValue, anchor: .top) }
                 
                 }

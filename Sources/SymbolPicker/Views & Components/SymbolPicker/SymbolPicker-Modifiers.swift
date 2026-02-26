@@ -163,6 +163,13 @@ public extension SymbolPickerConfigurationWrapper where C == SPSymbolPickerDefau
         copy.style.displaySize = size
         return copy
     }
+    
+    @available(iOS 16.4, *)
+    func spPresentationBackgroundInteraction(_ interaction: SPPresentationBackgroundInteraction) -> Self{
+        var copy = self
+        copy.style.presentationBackgroundInteraction = interaction
+        return copy
+    }
     #endif
 }
 
