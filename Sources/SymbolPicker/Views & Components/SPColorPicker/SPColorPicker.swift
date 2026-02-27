@@ -15,40 +15,39 @@ public struct SPColorPicker: View {
     @Environment(\.spSelection) var spSelection
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State private var isPresentingColorPicker = false
-    var style = Configuration()
     var currentSize: CGFloat{ SPSpacing.getSize(in: dynamicTypeSize, for: symbolPickerStyle.spacing.colorPicker) }
     var selectedColor: CKColor{ spSelection.wrappedValue.getColor()  ?? CKColor(red: 0, green: 0, blue: 0, opacity: 0) }
     
     public var body: some View {
-        if symbolPickerStyle.allowColorSelection {
+        if let config = symbolPickerStyle.colorPicker {
             #if os(watchOS)
             Button("Color Picker", systemImage: "paintbrush.pointed.fill"){
                 isPresentingColorPicker.toggle()
             }
             .sheet(isPresented: $isPresentingColorPicker) {
-                colorContainer{
-                    ForEach(style.colors){ color in
+                colorContainer(config: config){
+                    ForEach(config.colors){ color in
                         SPColorPickerColorCell(color: color, size: currentSize, isSelected: selectedColor == color) {
                             spSelection.asCKColor.wrappedValue = color
                         }
                     }
                     #if !os(tvOS) && !os(watchOS)
-                    if style.allowCustomColor{
-                        SPColorPickerCustomColorCell(color: selectedColor, size: currentSize, style: style)
+                    if config.supportCustomColor{
+                        SPColorPickerCustomColorCell(color: selectedColor, size: currentSize, config: config)
                     }
                     #endif
                 }
             }
             #else
-            colorContainer{
-                ForEach(style.colors){ color in
+            colorContainer(config: config){
+                ForEach(config.colors){ color in
                     SPColorPickerColorCell(color: color, size: currentSize, isSelected: selectedColor == color) {
                         spSelection.asCKColor.wrappedValue = color
                     }
                 }
                 #if !os(tvOS) && !os(watchOS)
-                if style.allowCustomColor{
-                    SPColorPickerCustomColorCell(color: selectedColor, size: currentSize, style: style)
+                if config.supportCustomColor{
+                    SPColorPickerCustomColorCell(color: selectedColor, size: currentSize, config: config)
                 }
                 #endif
             }
@@ -57,26 +56,26 @@ public struct SPColorPicker: View {
     }
     
     @ViewBuilder
-    private func colorContainer<V: View>(@ViewBuilder content: @escaping () -> V) -> some View {
+    private func colorContainer<V: View>(config: SPColorPickerConfiguration, @ViewBuilder content: @escaping () -> V) -> some View {
         let baseLayout = Group {
-            switch style.type {
+            switch config.type {
             case .grid:
                 #if os(watchOS)
                 ScrollView{
-                    LazyVGrid(columns: [.init(.adaptive(minimum: currentSize, maximum: currentSize * 1.1))], spacing: style.spacing ?? currentSize * 0.3) {
+                    LazyVGrid(columns: [.init(.adaptive(minimum: currentSize, maximum: currentSize * 1.1))], spacing: config.spacing ?? currentSize * 0.3) {
                         content()
                     }
                     .padding(.horizontal, spHorizontalPadding)
                 }
                 #else
-                LazyVGrid(columns: [.init(.adaptive(minimum: currentSize, maximum: currentSize * 1.1))], spacing: style.spacing ?? currentSize * 0.3) {
+                LazyVGrid(columns: [.init(.adaptive(minimum: currentSize, maximum: currentSize * 1.1))], spacing: config.spacing ?? currentSize * 0.3) {
                     content()
                 }
                 .padding(.horizontal, spHorizontalPadding)
                 #endif
             case .row:
                 ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: style.spacing ?? currentSize * 0.3) {
+                    LazyHStack(spacing: config.spacing ?? currentSize * 0.3) {
                         #if os(tvOS)
                         content()
                         #else

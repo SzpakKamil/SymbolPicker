@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-protocol SPDataAsset: Sendable, Equatable, Identifiable, Codable{
+public protocol SPDataAsset: Sendable, Equatable, Identifiable, Codable{
+    associatedtype Body: View
     var annotation: String? { get }
     var category: String? { get }
     var subcategory: String? { get }
@@ -15,6 +16,7 @@ protocol SPDataAsset: Sendable, Equatable, Identifiable, Codable{
     func matches(_ text: String) -> Bool
     static var filePrefix: String { get }
     func isAvailable() -> Bool
+    @ViewBuilder func asView() -> Body
 }
 
 extension SPDataAsset{
@@ -24,7 +26,7 @@ extension SPDataAsset{
     static var resolvedLocalePrefix: String {
         return "\(Self.filePrefix)_resolvedLocale"
     }
-    func matches(_ text: String) -> Bool {
+    public func matches(_ text: String) -> Bool {
         return  tags?.filter{ $0.contains(text)}.isEmpty == false ||
                 annotation?.localizedStandardContains(text) == true ||
                 category?.localizedStandardContains(text) == true ||

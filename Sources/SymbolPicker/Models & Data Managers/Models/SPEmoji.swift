@@ -131,7 +131,7 @@ extension SPEmoji {
         return Self.emojiString(fromHexcode: id)
     }
     
-    static let filePrefix: String = "emojis"
+    public static let filePrefix: String = "emojis"
     
     static func emojiString(fromHexcode hexcode: String) -> String {
         let scalars = hexcode
@@ -245,5 +245,14 @@ extension SPEmoji {
         // 4. Cache the result
         availabilityCache.set(NSNumber(value: result), for: key)
         return result
+    }
+    
+    @ViewBuilder
+    public func asView() -> some View  {
+        if let skins, tone != 0{
+            SPEmojiSkinView(skin: skins[tone])
+        }else{
+            SPEmojiView(emoji: self)
+        }
     }
 }

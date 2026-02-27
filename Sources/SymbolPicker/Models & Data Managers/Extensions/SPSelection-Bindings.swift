@@ -16,7 +16,7 @@ public extension Binding where Value == SPSelection {
             self.wrappedValue.getImage()?.offsetY ?? 1.0
         } set: { newValue in
             if var updatedImage = self.wrappedValue.getImage() {
-                updatedImage.zoom = newValue
+                updatedImage.offsetY = newValue
                 self.wrappedValue.setImage(updatedImage)
             }
         }

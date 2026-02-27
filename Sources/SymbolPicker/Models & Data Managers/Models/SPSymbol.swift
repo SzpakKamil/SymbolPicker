@@ -35,6 +35,7 @@ public nonisolated struct SPSymbol: Identifiable, Sendable, SPDataAsset {
         self.subcategory = subcategory
         self.tags = tags
     }
+    
 }
 
 // MARK: - Variant
@@ -113,7 +114,7 @@ extension SPSymbol: Codable, Hashable, Equatable {
 
 // MARK: - Methods
 extension SPSymbol {
-    static let filePrefix: String = "symbols"
+    public static let filePrefix: String = "symbols"
     
     public func isAvailable() -> Bool {
         #if canImport(UIKit)
@@ -126,6 +127,11 @@ extension SPSymbol {
         #else
         return false
         #endif
+    }
+    
+    @ViewBuilder
+    public func asView() -> some View {
+        AnyView(SPSymbolView(symbol: self))
     }
 }
 

@@ -9,59 +9,85 @@ import SwiftUI
 import ColorKit
 
 public struct SymbolPicker<C: SPSymbolPickerConfiguration>: View {
-    @State private var displaySize: SPDisplaySize
     @Binding private var selection: SPSelection
     @State var pageType = SPPageType.emoji
     @State var searchText: String = ""
     var style: C
+    
+    var isDisplayedAsPopover: Bool{
+        #if os(iOS)
+        UIDevice.current.userInterfaceIdiom == .pad && [SPPresentationConfiguration.DisplayType.popover, .default].contains(style.presentation.presentationType)
+        #else
+        [SPPresentationConfiguration.DisplayType.popover, .default].contains(style.presentation.presentationType)
+        #endif
+    }
     public var body: some View {
-        SPOptionList()
-            #if os(watchOS)
-            .toolbar{
-                ToolbarItemGroup(placement: .topBarTrailing) {
-                    style.getForEachViews(for: .toolbarTopTralling)
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    let bottomBarLeadingItems = style.getViews(for: .toolbarBottomLeading).count
-                    if bottomBarLeadingItems == 0{
-                        Button(""){}.buttonStyle(.plain)
-                    }else{
-                        style.getForEachViews(for: .toolbarBottomLeading)
-                    }
-                }
-                
-                ToolbarItem(placement: .bottomBar) {
-                    let bottomBarItems = style.getViews(for: .toolbarBottom).count
-                    if bottomBarItems == 0{
-                        Button(""){}.buttonStyle(.plain)
-                    }else{
-                        style.getForEachViews(for: .toolbarBottom)
-                    }
-                }
-                ToolbarItem(placement: .bottomBar) {
-                    let bottomBarTrailingItems = style.getViews(for: .toolbarBottomTralling).count
-                    if bottomBarTrailingItems == 0{
-                        Button(""){}.buttonStyle(.plain)
-                    }else{
-                        style.getForEachViews(for: .toolbarBottomTralling)
-                    }
+        viewContainer{
+            SPOptionList()
+        }
+        #if os(watchOS)
+        .toolbar{
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                style.getForEachViews(for: .toolbarTopTralling)
+            }
+            ToolbarItem(placement: .bottomBar) {
+                let bottomBarLeadingItems = style.getViews(for: .toolbarBottomLeading).count
+                if bottomBarLeadingItems == 0{
+                    Button(""){}.buttonStyle(.plain)
+                }else{
+                    style.getForEachViews(for: .toolbarBottomLeading)
                 }
             }
-            #endif
-            .onAppear{
-                pageType = style.defaultType
+            
+            ToolbarItem(placement: .bottomBar) {
+                let bottomBarItems = style.getViews(for: .toolbarBottom).count
+                if bottomBarItems == 0{
+                    Button(""){}.buttonStyle(.plain)
+                }else{
+                    style.getForEachViews(for: .toolbarBottom)
+                }
             }
-            .environment(\.spSearchText, $searchText)
-            .environment(\.spSymbolVariant, style.symbolVariant)
-            .environment(\.spPageType, $pageType)
-            .environment(\.spSelection, $selection)
-            .environment(\.symbolPickerStyle, style)
+            ToolbarItem(placement: .bottomBar) {
+                let bottomBarTrailingItems = style.getViews(for: .toolbarBottomTralling).count
+                if bottomBarTrailingItems == 0{
+                    Button(""){}.buttonStyle(.plain)
+                }else{
+                    style.getForEachViews(for: .toolbarBottomTralling)
+                }
+            }
+        }
+        #endif
+        .onAppear{
+            pageType = style.defaultType
+        }
+        .environment(\.spSearchText, $searchText)
+        .environment(\.spSymbolVariant, style.symbolVariant)
+        .environment(\.spPageType, $pageType)
+        .environment(\.spSelection, $selection)
+        .environment(\.symbolPickerStyle, style)
+    }
+    
+    
+    @ViewBuilder
+    func viewContainer(@ViewBuilder view: () -> some View) -> some View{
+        #if os(iOS)
+        if #available(iOS 26.0, *), style.displayStyle == .compact, !isDisplayedAsPopover{
+            NavigationStack{
+                view()
+                    .searchable(text: $searchText, placement: .toolbarPrincipal)
+                    .ignoresSafeArea(edges: .top)
+            }
+        }else{
+            view()
+        }
+        #else
+        view()
+        #endif
     }
     
     public init(selection: Binding<SPSelection>, configuration: C) {
         self._selection = selection
         self.style = configuration
-        self.displaySize = style.displaySize.first ?? .large
     }
 }
 
@@ -69,7 +95,6 @@ extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration {
     public init(selection: Binding<SPSelection>) {
         self._selection = selection
         self.style = SPSymbolPickerDefaultConfiguration()
-        self.displaySize = style.displaySize.first ?? .large
     }
     
     public init(selection: Binding<SPSelection?>) {
@@ -79,7 +104,6 @@ extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration {
             selection.wrappedValue = newValue
         }
         self.style = SPSymbolPickerDefaultConfiguration()
-        self.displaySize = style.displaySize.first ?? .large
     }
 }
 

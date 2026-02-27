@@ -18,47 +18,78 @@ struct SPOptionListImage: View {
     @Environment(\.symbolPickerStyle) var style
     @Environment(\.spSelection) var spSelection
     var body: some View{
-        List {
-            ForEach(style.getViews(for: .scrollContentTop).indices, id: \.self){ index in
-                style.getViews(for: .scrollContentTop)[index].view
-            }
-            ColorPicker(SPTranslation.DetectedColor.localizedDescription, selection: spSelection.asCKColor.asColor)
-            
-            Section(SPTranslation.Source.localizedDescription) {
-                PhotosPicker(SPTranslation.SelectImage.localizedDescription, selection: spSelection.asImage)
+        VStack{
+            Section {
+                VStack{
+                    ColorPicker(selection: spSelection.asCKColor.asColor) {
+                        HStack{
+                            Text(SPTranslation.DetectedColor.localizedDescription)
+                            Spacer()
+                        }
+                    }
+                    #if !os(macOS)
+                        .padding(.top, 10)
+                        .padding(.bottom, 5)
+                    #endif
+                    #if !os(macOS)
+                    Divider()
+                    #endif
+                    HStack{
+                        PhotosPicker(SPTranslation.SelectImage.localizedDescription, selection: spSelection.asImage)
+                        Spacer()
+                    }
+                    #if !os(macOS)
+                    .padding(.bottom, 10)
+                    .padding(.top, 5)
+                    #endif
+                }
+                #if os(iOS)
+                .spListStyleRow(forceListStyle: true)
+                #endif
+            } header: {
+                SPHeaderView(title: SPTranslation.Source.localizedDescription)
+                #if os(iOS)
+                    .padding(.horizontal, 5)
+                #endif
             }
             
             if let image = spSelection.wrappedValue.getImage() {
-                Section(SPTranslation.Manipulation.localizedDescription) {
-                    VStack(alignment: .leading) {
-                        Text(SPTranslation.Zoom.localizedDescription)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        Slider(value: spSelection.asZoom, in: 1.0...5.0)
+                Section {
+                    VStack{
+                        VStack(alignment: .leading) {
+                            Text(SPTranslation.Zoom.localizedDescription)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Slider(value: spSelection.asZoom, in: 1.0...5.0)
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text(SPTranslation.HorizontalOffset.localizedDescription)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Slider(value: spSelection.asImageOffsetX, in: -1.0...1.0)
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text(SPTranslation.VerticalOffset.localizedDescription)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Slider(value: spSelection.asImageOffsetY, in: -1.0...1.0)
+                        }
                     }
-                    
-                    VStack(alignment: .leading) {
-                        Text(SPTranslation.HorizontalOffset.localizedDescription)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        Slider(value: spSelection.asImageOffsetX, in: -1.0...1.0)
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text(SPTranslation.VerticalOffset.localizedDescription)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                        Slider(value: spSelection.asImageOffsetY, in: -1.0...1.0)
-                    }
+                    #if os(iOS)
+                    .padding(.vertical, 10)
+                    .spListStyleRow(forceListStyle: true)
+                    #endif
+                } header: {
+                    SPHeaderView(title: SPTranslation.Manipulation.localizedDescription)
+                    #if os(iOS)
+                        .padding(.horizontal, 5)
+                    #endif
                 }
             }
-            ForEach(style.getViews(for: .scrollContentBottom).indices, id: \.self){ index in
-                style.getViews(for: .scrollContentBottom)[index].view
-            }
         }
-#if os(macOS)
-        .listStyle(.sidebar)
-#endif
+
     }
 }
 #endif

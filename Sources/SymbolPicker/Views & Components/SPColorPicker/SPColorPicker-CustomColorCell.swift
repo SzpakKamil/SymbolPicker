@@ -15,7 +15,7 @@ struct SPColorPickerCustomColorCell: View {
     @FocusState private var isFocused: Bool
     
     var color: CKColor
-    let style: SPColorPicker.Configuration
+    let config: SPColorPickerConfiguration
     var size: CGFloat
     
     let rainbowGradient = AngularGradient(
@@ -26,10 +26,10 @@ struct SPColorPickerCustomColorCell: View {
     )
     
     var body: some View {
-        let isSelected = !style.colors.contains(color)
+        let isSelected = !config.colors.contains(color)
         SPColorPickerColorCell(color: color, size: size, isSelected: isSelected, rainbowOutline: true) {}
             .overlay {
-                ColorPicker(selection: spSelection.asCKColor.asColor, supportsOpacity: style.supportOpacity) {}
+                ColorPicker(selection: spSelection.asCKColor.asColor, supportsOpacity: config.supportOpacity) {}
                     .scaleEffect(size * 0.1)
                     .offset(x: size * -1.0)
                     .opacity(0.05)
@@ -39,10 +39,10 @@ struct SPColorPickerCustomColorCell: View {
             .contentShape(Circle())
     }
     
-    init(color: CKColor, size: CGFloat, style: SPColorPicker.Configuration) {
+    init(color: CKColor, size: CGFloat, config: SPColorPickerConfiguration) {
         self.color = color
         self.size = size
-        self.style = style
+        self.config = config
     }
 }
 #endif

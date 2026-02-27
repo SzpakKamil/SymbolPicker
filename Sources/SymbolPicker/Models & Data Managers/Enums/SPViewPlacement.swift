@@ -11,6 +11,8 @@ public enum SPViewPlacementType: Int, Identifiable, Sendable, Hashable{
     case safeAreaTop
     case safeAreaBottom
     case scrollContentTop
+    case scrollSectionTop
+    case scrollSectionBottom
     case scrollContentBottom
     #if os(watchOS)
     case toolbarTopTralling

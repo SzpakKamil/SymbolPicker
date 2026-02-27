@@ -20,13 +20,7 @@ struct SPOptionListContainerView<PhotoView: View, SymbolView: View, EmojiView: V
     private let dataManager = SPDataManager()
     
     var body: some View {
-        let shouldScroll = pageType.wrappedValue == .emoji || pageType.wrappedValue == .symbol
-        #if os(watchOS)
-        let hasResults = true
-        #else
-        let hasResults = pageType.wrappedValue == .emoji ? emojis.first?.elements.isEmpty == false : symbols.first?.elements.isEmpty == false
-        #endif
-        SPOptionListScrollView(showProgress: searchText.wrappedValue.isEmpty && symbols.isEmpty && emojis.isEmpty, useScrollView: shouldScroll && hasResults){ proxy in
+        SPOptionListScrollView(showProgress: searchText.wrappedValue.isEmpty && symbols.isEmpty && emojis.isEmpty){ proxy in
             switch pageType.wrappedValue{
             case .emoji:
                 if emojis.first?.elements.isEmpty == true{
@@ -45,6 +39,9 @@ struct SPOptionListContainerView<PhotoView: View, SymbolView: View, EmojiView: V
             }
         }progressView: {
             ProgressView()
+                #if os(iOS)
+                .padding(.vertical, 30)
+                #endif
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .task(id: searchText.wrappedValue, priority: .high) { await performSearch() }

@@ -37,9 +37,9 @@ struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
     
     var isDisplayedAsPopover: Bool{
         #if os(iOS)
-        UIDevice.current.userInterfaceIdiom == .pad && [SPPresentationType.popover, .default].contains(style.presentationType)
+        UIDevice.current.userInterfaceIdiom == .pad && [SPPresentationConfiguration.DisplayType.popover, .default].contains(style.presentation.presentationType)
         #else
-        [SPPresentationType.popover, .default].contains(style.presentationType)
+        [SPPresentationConfiguration.DisplayType.popover, .default].contains(style.presentation.presentationType)
         #endif
     }
     
@@ -85,7 +85,7 @@ struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
                 presentationDentedView{ SymbolPicker(selection: $selection, configuration: style) }
             }
         #else
-        switch style.presentationType{
+        switch style.presentation.presentationType{
         case .default, .popover:
             content
                 .popover(isPresented: $isPresented) {
@@ -99,9 +99,15 @@ struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
                 }
         case .fullScreenCover:
             content
+            #if os(iOS)
                 .fullScreenCover(isPresented: $isPresented) {
                     presentationDentedView{ SymbolPicker(selection: $selection, configuration: style) }
                 }
+            #else
+                .sheet(isPresented: $isPresented) {
+                    presentationDentedView{ SymbolPicker(selection: $selection, configuration: style) }
+                }
+            #endif
         }
         #endif
     }
@@ -115,13 +121,17 @@ struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
             .if{ content in
                 if #available(iOS 16.4, *){
                     content
-                        .presentationBackgroundInteraction(style.presentationBackgroundInteraction.asPresentationBackgroundInteraction())
+                        .presentationContentInteraction(style.presentation.presentationContentInteraction.asPresentationContentInteraction())
+                        .presentationBackground(style.presentation.presentationBackgroundColor)
+                        .presentationBackgroundInteraction(style.presentation.presentationBackgroundInteraction.asPresentationBackgroundInteraction())
+                        .presentationCornerRadius(style.presentation.presentationCornerRadius)
+                        .presentationContentInteraction(.scrolls)
                 }else{ content }
                 
             }
             #endif
-            .presentationDragIndicator(.visible)
-            .presentationDetents(Set(style.displaySize.map{$0.asPresentationSize()}))
+            .presentationDragIndicator(style.presentation.presentationDragIndicator)
+            .presentationDetents(Set(style.presentation.presentationDents.map{$0.asPresentationSize()}))
             .frame(width: width, height: height)
         }else{
             content()

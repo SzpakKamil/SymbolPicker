@@ -16,7 +16,7 @@ struct SPOptionListSectionGrid<T: SPDataAsset, Content: View>: View {
     var body: some View {
         LazyVGrid(columns: columns, alignment: .center, spacing: spacing) {
             ForEach(data, id: \.category) { section in
-                Section(header: HeaderView(title: section.category)) {
+                Section(header: SPHeaderView(title: section.category)) {
                     ForEach(section.elements) { item in
                         content(item)
                     }
@@ -24,18 +24,18 @@ struct SPOptionListSectionGrid<T: SPDataAsset, Content: View>: View {
             }
         }
     }
+}
+
+struct SPHeaderView: View {
+    let title: String
     
-    struct HeaderView: View {
-        let title: String
-        
-        var body: some View {
-            Text(title.capitalized)
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundStyle(.secondary)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 8)
-        }
+    var body: some View {
+        Text(title.capitalized)
+            .font(.headline)
+            .fontWeight(.semibold)
+            .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 8)
     }
 }
 

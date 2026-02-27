@@ -96,6 +96,7 @@ struct SPColorPickerColorCell: View {
                             )
                     }
                 }
+                .frame(width: size, height: size)
             }
             #endif
         }

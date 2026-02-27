@@ -8,28 +8,63 @@
 import Foundation
 import ColorKit
 
-extension SPColorPicker{
-    public enum Direction: Int{
+
+
+public struct SPColorPickerConfiguration: Sendable{
+    public enum Direction: Int, Sendable{
         case grid, row
     }
+    var colors: [CKColor] = [
+        .red, .orange, .yellow, .green,
+        .mint, .teal, .blue, .indigo,
+        .purple, .pink, .brown
+    ]
+    var type: Self.Direction
+    var supportCustomColor: Bool = true
+    var supportOpacity: Bool = false
+    var spacing: CGFloat? = nil
     
-    struct Configuration{
-        var colors: [CKColor] = [
-            .red, .orange, .yellow, .green,
-            .mint, .teal, .blue, .indigo,
-            .purple, .pink, .brown
-        ]
-        var type: SPColorPicker.Direction
-        var allowCustomColor: Bool = true
-        var supportOpacity: Bool = false
-        var spacing: CGFloat? = nil
-        
-        init(){
-            #if os(tvOS) || os(macOS)
-            self.type = .row
-            #else
+    public init(){
+        self.type = .row
+    }
+    init(style: SPDisplayStyle) {
+        self.type = .row
+        if style == .compact{
+            self.type == .row
+        }else{
             self.type = .grid
-            #endif
         }
+    }
+    
+    
+    public func spColorPickerEnabled(_ value: Bool) -> Self?{
+        return value ? self : nil
+    }
+    
+    public func spColorPickerColors(_ colors: CKColor...) -> Self{
+        var results = self
+        results.colors = colors
+        return results
+    }
+    public func spColorPickerColors(_ colors: [CKColor]) -> Self{
+        var results = self
+        results.colors = colors
+        return results
+    }
+    public func spColorPickerLayout(_ type: Self.Direction, spacing: CGFloat? = nil) -> Self{
+        var results = self
+        results.type = type
+        results.spacing = spacing
+        return results
+    }
+    public func spColorPickerSupportsOpacity(_ value: Bool) -> Self{
+        var results = self
+        results.supportOpacity = supportOpacity
+        return results
+    }
+    public func spColorPickerSupportsCustomColor(_ value: Bool) -> Self{
+        var results = self
+        results.supportCustomColor = value;
+        return results
     }
 }

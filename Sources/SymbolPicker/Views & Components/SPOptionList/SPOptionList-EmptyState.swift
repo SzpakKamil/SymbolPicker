@@ -23,6 +23,9 @@ struct SPOptionListEmptyState: View {
                     .font(.headline)
                     .foregroundStyle(.secondary)
             }
+            #if os(iOS)
+            .padding(.vertical, 30)
+            #endif
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
