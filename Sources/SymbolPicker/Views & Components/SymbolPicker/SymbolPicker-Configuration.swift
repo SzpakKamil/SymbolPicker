@@ -29,7 +29,8 @@ public extension SPSymbolPickerConfiguration {
     func presentationConfiguration() -> SPPresentationConfiguration{
         return .init(style: displayStyle)
     }
-    @SPInsetedViewBuilder func insetViewsConfiguration() -> [SPInsetedView]{
+    
+    @SPInsetedViewBuilder static func defaultInsetViews(for displayStyle: SPDisplayStyle) -> [SPInsetedView]{
         #if os(tvOS)
         let spacing: CGFloat = 25
         #elseif os(macOS)
@@ -75,6 +76,10 @@ public extension SPSymbolPickerConfiguration {
         #endif
     }
     
+    @SPInsetedViewBuilder func insetViewsConfiguration() -> [SPInsetedView]{
+        return Self.defaultInsetViews(for: displayStyle)
+    }
+    
     var spacing: SPSpacing { SPSpacing() }
     var symbolVariant: SPSymbol.Variant { .filled }
     var supportedTypes: [SPPageType] { SPPageType.allCases }
@@ -110,12 +115,12 @@ public extension SPSymbolPickerConfiguration {
 }
 
 public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
-    public var currentPresentationConfiguration: @Sendable () -> SPPresentationConfiguration
-    public func presentationConfiguration() -> SPPresentationConfiguration { self.currentPresentationConfiguration() }
-    public var currentColorPickerConfiguration: @Sendable () -> SPColorPickerConfiguration?
-    public func colorPickerConfiguration() -> SPColorPickerConfiguration? { self.currentColorPickerConfiguration() }
-    public var currentInsetViewConfiguration: @Sendable () -> [SPInsetedView]
-    public func insetViewsConfiguration() -> [SPInsetedView] { return self.currentInsetViewConfiguration() }
+    public var currentPresentationConfiguration: @Sendable (SPDisplayStyle) -> SPPresentationConfiguration
+    public func presentationConfiguration() -> SPPresentationConfiguration { self.currentPresentationConfiguration(displayStyle) }
+    public var currentColorPickerConfiguration: @Sendable (SPDisplayStyle) -> SPColorPickerConfiguration?
+    public func colorPickerConfiguration() -> SPColorPickerConfiguration? { self.currentColorPickerConfiguration(displayStyle) }
+    public var currentInsetViewConfiguration: @Sendable (SPDisplayStyle) -> [SPInsetedView]
+    public func insetViewsConfiguration() -> [SPInsetedView] { return self.currentInsetViewConfiguration(displayStyle) }
     
     public var symbolVariant: SPSymbol.Variant = .filled
     public var supportedTypes: [SPPageType] = SPPageType.allCases
@@ -130,53 +135,8 @@ public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
         }else{
             self.displayStyle = .detail
         }
-        let displayStyle = self.displayStyle
-        self.currentPresentationConfiguration = { SPPresentationConfiguration(style: displayStyle) }
-        self.currentColorPickerConfiguration = { SPColorPickerConfiguration(style: displayStyle) }
-        self.currentInsetViewConfiguration = {
-            #if os(tvOS)
-            let spacing: CGFloat = 25
-            #elseif os(macOS)
-            let spacing: CGFloat = 10
-            #else
-            let spacing: CGFloat = 5
-            #endif
-            #if os(watchOS)
-            return [SPInsetedView(placement: .toolbarBottomLeading, spacing: spacing) {
-                SPPagePicker()
-            },
-            SPInsetedView(placement: .scrollContentTop, spacing: spacing) {
-                SPSearchBar()
-            },
-                    SPInsetedView(placement: .toolbarTopTralling) {
-                SPColorPicker()
-            }]
-            #elseif os(iOS)
-            if displayStyle == .detail {
-                return [
-                    SPInsetedView(placement: .scrollContentTop){
-                        SPColorPicker()
-                            .padding(.vertical, 10)
-                    },
-                    SPInsetedView(placement: .scrollSectionTop){
-                        SPPagePicker()
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, -5)
-                        SPSearchBar()
-                    }
-                ]
-            }else{
-                return [SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
-                    SPColorPicker()
-                    SPPagePicker()
-                }]
-            }
-            #else
-            return [SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
-                SPColorPicker()
-                SPPagePicker()
-            }]
-            #endif
-        }
+        self.currentPresentationConfiguration = { SPPresentationConfiguration(style: $0) }
+        self.currentColorPickerConfiguration = { SPColorPickerConfiguration(style: $0) }
+        self.currentInsetViewConfiguration = { Self.defaultInsetViews(for: $0) }
     }
 }

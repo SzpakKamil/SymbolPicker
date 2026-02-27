@@ -30,7 +30,7 @@ public struct SPColorPickerConfiguration: Sendable{
     init(style: SPDisplayStyle) {
         self.type = .row
         if style == .compact{
-            self.type == .row
+            self.type = .row
         }else{
             self.type = .grid
         }
