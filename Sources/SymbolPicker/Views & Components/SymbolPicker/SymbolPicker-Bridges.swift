@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-public struct SymbolPickerConfigurationWrapper<T: SPDataAsset, C:SPSymbolPickerConfiguration, V: View>: View {
+public struct SymbolPickerModifier<T: SPDataAsset, C:SPSymbolPickerConfiguration, V: View>: View {
     let content: V
     let isPresented: Binding<Bool>
     let selection: Binding<SPSelection<T>>
     var style: C
     
     public var body: some View {
-        content.modifier(SymbolPickerModifier(
+        content.modifier(SymbolPickerViewModifier(
             isPresented: isPresented,
             selection: selection,
             configuration: style
@@ -30,7 +30,7 @@ public struct SymbolPickerConfigurationWrapper<T: SPDataAsset, C:SPSymbolPickerC
 
 
 
-struct SymbolPickerModifier<T: SPDataAsset, C: SPSymbolPickerConfiguration>: ViewModifier {
+struct SymbolPickerViewModifier<T: SPDataAsset, C: SPSymbolPickerConfiguration>: ViewModifier {
     @Binding private var isPresented: Bool
     @Binding private var selection: SPSelection<T>
     var style: C

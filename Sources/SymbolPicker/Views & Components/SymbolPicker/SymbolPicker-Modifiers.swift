@@ -13,8 +13,8 @@ public extension View {
         isPresented: Binding<Bool>,
         selection: Binding<SPSelection<T>>,
         configuration: C
-    ) -> SymbolPickerConfigurationWrapper<T, C, Self> {
-        return SymbolPickerConfigurationWrapper(isPresented: isPresented, selection: selection, configuration: configuration) {
+    ) -> SymbolPickerModifier<T, C, Self> {
+        return SymbolPickerModifier(isPresented: isPresented, selection: selection, configuration: configuration) {
             self
         }
     }
@@ -22,8 +22,8 @@ public extension View {
     func symbolPicker<T: SPDataAsset>(
         isPresented: Binding<Bool>,
         selection: Binding<SPSelection<T>>
-    ) -> SymbolPickerConfigurationWrapper<T, SPSymbolPickerDefaultConfiguration, Self> {
-        return SymbolPickerConfigurationWrapper(isPresented: isPresented, selection: selection, configuration: SPSymbolPickerDefaultConfiguration()) {
+    ) -> SymbolPickerModifier<T, SPSymbolPickerDefaultConfiguration, Self> {
+        return SymbolPickerModifier(isPresented: isPresented, selection: selection, configuration: SPSymbolPickerDefaultConfiguration()) {
             self
         }
     }
@@ -32,13 +32,13 @@ public extension View {
         isPresented: Binding<Bool>,
         selection: Binding<SPSelection<T>?>,
         configuration: C
-    ) -> SymbolPickerConfigurationWrapper<T, C, Self> {
+    ) -> SymbolPickerModifier<T, C, Self> {
         let binding = Binding {
             selection.wrappedValue ?? .color(value: CKColor(hexString: "#0000"))
         } set: { newValue in
             selection.wrappedValue = newValue
         }
-        return SymbolPickerConfigurationWrapper(isPresented: isPresented, selection: binding, configuration: configuration) {
+        return SymbolPickerModifier(isPresented: isPresented, selection: binding, configuration: configuration) {
             self
         }
     }
@@ -46,13 +46,13 @@ public extension View {
     func symbolPicker<T: SPDataAsset>(
         isPresented: Binding<Bool>,
         selection: Binding<SPSelection<T>?>
-    ) -> SymbolPickerConfigurationWrapper<T, SPSymbolPickerDefaultConfiguration, Self> {
+    ) -> SymbolPickerModifier<T, SPSymbolPickerDefaultConfiguration, Self> {
         let binding = Binding {
             selection.wrappedValue ?? .color(value: CKColor(hexString: "#0000"))
         } set: { newValue in
             selection.wrappedValue = newValue
         }
-        return SymbolPickerConfigurationWrapper(isPresented: isPresented, selection: binding, configuration: SPSymbolPickerDefaultConfiguration()) {
+        return SymbolPickerModifier(isPresented: isPresented, selection: binding, configuration: SPSymbolPickerDefaultConfiguration()) {
             self
         }
     }
@@ -132,7 +132,7 @@ public extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration{
     }
 }
 
-public extension SymbolPickerConfigurationWrapper where C == SPSymbolPickerDefaultConfiguration{
+public extension SymbolPickerModifier where C == SPSymbolPickerDefaultConfiguration{
     func spDisplayStyle(_ style: SPDisplayStyle) -> Self{
         var copy = self
         copy.style.displayStyle = style
