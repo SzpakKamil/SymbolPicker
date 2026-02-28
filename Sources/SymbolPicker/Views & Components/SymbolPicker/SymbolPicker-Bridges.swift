@@ -114,10 +114,9 @@ struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
     
     @ViewBuilder
     func presentationDentedView(@ViewBuilder content: @escaping () -> some View) -> some View{
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         if #available(iOS 16, *){
             content()
-            #if os(iOS)
             .if{ content in
                 if #available(iOS 16.4, *){
                     content
@@ -126,15 +125,15 @@ struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
                         .presentationBackgroundInteraction(style.presentation.presentationBackgroundInteraction.asPresentationBackgroundInteraction())
                         .presentationCornerRadius(style.presentation.presentationCornerRadius)
                         .presentationContentInteraction(.scrolls)
-                }else{ content }
+                }else{ content.background(style.presentation.presentationBackgroundColor) }
                 
             }
-            #endif
             .presentationDragIndicator(style.presentation.presentationDragIndicator)
             .presentationDetents(Set(style.presentation.presentationDents.map{$0.asPresentationSize()}))
             .frame(width: width, height: height)
         }else{
             content()
+                .background(style.presentation.presentationBackgroundColor)
                 .frame(width: width, height: height)
         }
         #else

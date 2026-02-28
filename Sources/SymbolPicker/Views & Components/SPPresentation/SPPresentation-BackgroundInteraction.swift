@@ -14,7 +14,7 @@ extension SPPresentationConfiguration{
         case enabled
         case disabled
         
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         @available(iOS 16.4, *)
         func asPresentationBackgroundInteraction() -> PresentationBackgroundInteraction{
             switch self {

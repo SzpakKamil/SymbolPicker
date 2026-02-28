@@ -26,12 +26,11 @@ public struct SPPagePicker: View {
                 }
             }
             #else
+            
+            // Needs to be this dirty because of SwiftUI Limitations
             Picker(SPTranslation.PageType.localizedDescription, selection: spPageType) {
                 ForEach(style.supportedTypes){
-                    #if !os(macOS)
-                    Text($0.localizedDescription)
-                        .tag($0)
-                    #else
+                    #if os(macOS)
                     if supportedTypesCount == 2{
                         Text("           \($0.localizedDescription)           ")
                             .tag($0)
@@ -39,6 +38,22 @@ public struct SPPagePicker: View {
                         Text("     \($0.localizedDescription)    ")
                             .tag($0)
                     }
+                    #elseif os(tvOS)
+                    if #available(tvOS 26.0, *){
+                        Text($0.localizedDescription)
+                            .tag($0)
+                    }else{
+                        if style.displayStyle == .compact{
+                            Text("‎‎‎‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ \($0.localizedDescription) ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ")
+                                .tag($0)
+                        }else{
+                            Text("‎‎‎‎ ‎ ‎ ‎ ‎ ‎ \($0.localizedDescription) ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ")
+                                .tag($0)
+                        }
+                    }
+                    #else
+                    Text($0.localizedDescription)
+                        .tag($0)
                     #endif
                 }
             }

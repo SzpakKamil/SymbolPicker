@@ -9,7 +9,7 @@ import SwiftUI
 
 public enum SPPageType: String, Codable, Sendable, Equatable, CaseIterable, Identifiable, Hashable {
     #if os(iOS) || os(macOS) || os(visionOS)
-    @available(iOS 16.0, macOS 14.0, *)
+    @available(iOS 16.0, macOS 14.0, visionOS 26.0, *)
     case image = "Image"
     #endif
     case emoji = "Emoji"
@@ -33,7 +33,7 @@ public enum SPPageType: String, Codable, Sendable, Equatable, CaseIterable, Iden
 
     public static var allCases: [SPPageType] {
         #if os(iOS) || os(macOS) || os(visionOS)
-        if #available(iOS 16.0, macOS 14.0, *){
+        if #available(iOS 16.0, macOS 14.0, visionOS 26.0, *){
             [.image, .emoji, .symbol]
         }else{
             [.emoji, .symbol]

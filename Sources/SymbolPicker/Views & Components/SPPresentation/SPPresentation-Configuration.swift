@@ -34,11 +34,15 @@ public struct SPPresentationConfiguration: Sendable{
     init(style: SPDisplayStyle){
         self.presentationType = .default
         self.presentationBackgroundInteraction = .disabled
-        self.presentationDents = [.large]
+        self.presentationDents = style == .compact ? [.medium, .large] : [.large]
         self.presentationDragIndicator = .visible
         self.presentationContentInteraction = .automatic
         #if os(iOS)
-        self.presentationBackgroundColor = style == .compact ? Color.clear : Color(.systemGroupedBackground)
+        if #available(iOS 26.0, *){
+            self.presentationBackgroundColor = style == .compact ? Color.clear : Color(.systemGroupedBackground)
+        }else{
+            self.presentationBackgroundColor = Color(.systemGroupedBackground)
+        }
         #else
         self.presentationBackgroundColor = .clear
         #endif

@@ -13,7 +13,7 @@ extension SPPresentationConfiguration{
         case resizes
         case scrolls
         
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         @available(iOS 16.4, *)
         func asPresentationContentInteraction() -> PresentationContentInteraction{
             switch self {

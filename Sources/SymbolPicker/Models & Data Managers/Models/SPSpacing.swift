@@ -24,10 +24,12 @@ public struct SPComponentSpacing: Sendable{
 public struct SPSpacing: Sendable{
     public let colorPicker: SPComponentSpacing
     public let optionList: SPComponentSpacing
+    public let selectedSymbol: SPComponentSpacing
     
-    public init(colorPicker: SPComponentSpacing, optionList: SPComponentSpacing) {
+    public init(colorPicker: SPComponentSpacing, optionList: SPComponentSpacing, selectedSymbol: SPComponentSpacing) {
         self.colorPicker = colorPicker
         self.optionList = optionList
+        self.selectedSymbol = selectedSymbol
     }
     public init(){
         self.colorPicker = .init(
@@ -92,9 +94,35 @@ public struct SPSpacing: Sendable{
                 .watchOS()  : 0,
                 .tvOS(26)   : 30,
                 .tvOS()     : 80,
+                .visionOS() : 15
             ]
         )
-        
+        self.selectedSymbol = .init(
+            spacings: [
+                DynamicTypeSize.xSmall          : 45,
+                DynamicTypeSize.small           : 45,
+                DynamicTypeSize.medium          : 45,
+                DynamicTypeSize.large           : 50,
+                DynamicTypeSize.xLarge          : 55,
+                DynamicTypeSize.xxLarge         : 60,
+                DynamicTypeSize.xxxLarge        : 65,
+                DynamicTypeSize.accessibility1  : 70,
+                DynamicTypeSize.accessibility2  : 75,
+                DynamicTypeSize.accessibility3  : 80,
+                DynamicTypeSize.accessibility4  : 85,
+                DynamicTypeSize.accessibility5  : 90,
+            ],
+            osScaleFactors: [
+                .iOS(): 1,
+                .macOS(): 0.5,
+                .tvOS(26): 1.75,
+                .tvOS(15): 3,
+                .visionOS(): 1,
+                .watchOS(): 0.4
+            ],
+            horizontalPadding: [:],
+            verticalPadding: [:]
+        )
     }
     
     static func getSize(in typeSize: DynamicTypeSize, for componentSpacing: SPComponentSpacing, adjustedForPlatform: Bool = true) -> CGFloat {

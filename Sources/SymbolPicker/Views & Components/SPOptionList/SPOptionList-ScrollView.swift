@@ -12,16 +12,16 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
     @Environment(\.spPageType) var spPageType
     @Environment(\.spSearchText) var spSearchText
     @Environment(\.symbolPickerStyle) var style
+    @State private var offsetCalculated: CGFloat = 10
+    @State private var scaleCalculated: CGFloat = 1.0
     let content: (ScrollViewProxy?) -> V
     let showProgressView: Bool
     let progressView: () -> ProgressView
 
     var verticalEdges: Edge.Set {
-        let topIsClear = style.getViews(for: .safeAreaTop).isEmpty &&
-                         style.getViews(for: .scrollContentTop).isEmpty
+        let topIsClear = style.getViews(for: .safeAreaTop).isEmpty
         
-        let bottomIsClear = style.getViews(for: .safeAreaBottom).isEmpty &&
-                            style.getViews(for: .scrollContentBottom).isEmpty
+        let bottomIsClear = style.getViews(for: .safeAreaBottom).isEmpty
 
         switch (topIsClear, bottomIsClear) {
         case (true, true):   return .vertical
@@ -32,73 +32,123 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
     }
 
     var body: some View {
-        ScrollViewReader { proxy in
-            ScrollView {
-                scrollTrigger()
-                scrollBody(proxy: proxy)
-                    .if { view in
-                        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
-                            view
-                                .smartSafeAreaPadding(verticalEdges, SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0)
-                                .smartSafeAreaPadding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
-                        } else {
-                            view
+        Group{
+            ScrollViewReader { proxy in
+                ScrollView {
+                    scrollTrigger()
+                    scrollBody(proxy: proxy)
+                        .if { view in
+                            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
+                                view
+                                    .smartSafeAreaPadding(verticalEdges, SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0)
+                                    .smartSafeAreaPadding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
+                            } else {
+                                view
+                            }
                         }
+                }
+                .onChange(of: spPageType.wrappedValue) { newValue in
+                    #if os(visonOS)
+                    proxy.scrollTo(newValue, anchor: .top)
+                    #else
+                    if style.displayStyle == .compact && newValue != .emoji && newValue != .symbol{
+                        proxy.scrollTo(newValue, anchor: .top)
                     }
+                    #endif
+                }
+                .onAppear { proxy.scrollTo(spPageType.wrappedValue, anchor: .top) }
+                #if os(iOS) || os(visionOS) || os(macOS) || os(tvOS)
+                .if{ content in
+                    if #available(iOS 26.0, visionOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *){
+                        content.onScrollGeometryChange(for: [CGFloat].self, of: { geometry in
+                            [geometry.bounds.minY, geometry.contentInsets.top]
+                        }, action: { oldValue, newValue in
+                            let minY = newValue[0]
+                            let topInset = newValue[1]
+                            
+                            let start = -topInset
+                            let end = start + 61
+                            
+                            let progress = min(max((start - minY) / (start - end), 0), 1)
+                            let newOffsetCalculated = 10 - (30 * progress)
+                            
+                            if abs(offsetCalculated - newOffsetCalculated) > 0.5 {
+                                offsetCalculated = newOffsetCalculated
+                            }
+                            
+                            let newScaleCalculated =  1.0 - 0.5 * progress // Scales from 1.0 to 0.5
+                            
+                            if abs(scaleCalculated - newScaleCalculated) > 0.01 {
+                                scaleCalculated = newScaleCalculated
+                            }
+                        })
+                    }else{ content }
+                }
+                #endif
             }
-            .onChange(of: spPageType.wrappedValue) { newValue in
-                proxy.scrollTo(newValue, anchor: .top)
+            .if{ content in
+                if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, visionOS 26.0, *){
+                    content
+                        .safeAreaBar(edge: .top) {
+                            ForEach(style.getViews(for: .safeAreaTop).indices, id: \.self){ index in
+                                let insetedView = style.getViews(for: .safeAreaTop)[index]
+                                insetedView.view
+                                    .safeAreaPaddingForDictionary(
+                                        insetedView.paddings,
+                                        verticalDefault: SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0,
+                                        horizontalDefault: SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0
+                                    )
+                                    .if{ content in
+                                        if let background = insetedView.background{
+                                            content.background{ background}
+                                        }else{ content }
+                                    }
+                            }
+                            
+                        }
+                        .safeAreaBar(edge: .bottom) {
+                            ForEach(style.getViews(for: .safeAreaBottom).indices, id: \.self){ index in
+                                let insetedView = style.getViews(for: .safeAreaBottom)[index]
+                                insetedView.view
+                                    .safeAreaPaddingForDictionary(
+                                        insetedView.paddings,
+                                        verticalDefault: SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0,
+                                        horizontalDefault: SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0
+                                    )
+                                    .if{ content in
+                                        if let background = insetedView.background{
+                                            content.background{ background}
+                                        }else{ content }
+                                    }
+                            }
+                        }
+                }else{
+                    content
+                        .safeAreaInset(edge: .top) {
+                            ForEach(style.getViews(for: .safeAreaTop).indices, id: \.self){ index in
+                                let insetedView = style.getViews(for: .safeAreaTop)[index]
+                                insetedView.view
+                                    .padding(.top, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
+                                    .padding(.bottom, (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
+                                    .environment(\.spHorizontalPadding, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
+                                    .background { insetedView.background }
+                            }
+                        }
+                        .safeAreaInset(edge: .bottom) {
+                            ForEach(style.getViews(for: .safeAreaBottom).indices, id: \.self){ index in
+                                let insetedView = style.getViews(for: .safeAreaBottom)[index]
+                                insetedView.view
+                                    .padding(.bottom, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
+                                    .padding(.top, (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
+                                    .environment(\.spHorizontalPadding, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
+                                    .background { insetedView.background }
+                            }
+                        }
+                }
             }
-            .onAppear { proxy.scrollTo(spPageType.wrappedValue, anchor: .top) }
         }
-        .if{ content in
-            if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, visionOS 26.0, *){
-                content
-                    .safeAreaBar(edge: .top) {
-                        ForEach(style.getViews(for: .safeAreaTop).indices, id: \.self){ index in
-                            let insetedView = style.getViews(for: .safeAreaTop)[index]
-                            insetedView.view
-                                .safeAreaPaddingForDictionary(
-                                    insetedView.paddings,
-                                    verticalDefault: SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0,
-                                    horizontalDefault: SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0
-                                )
-                        }
-                        
-                    }
-                    .safeAreaBar(edge: .bottom) {
-                        ForEach(style.getViews(for: .safeAreaBottom).indices, id: \.self){ index in
-                            let insetedView = style.getViews(for: .safeAreaBottom)[index]
-                            insetedView.view
-                                .safeAreaPaddingForDictionary(
-                                    insetedView.paddings,
-                                    verticalDefault: SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0,
-                                    horizontalDefault: SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0
-                                )
-                        }
-                    }
-            }else{
-                content
-                    .safeAreaInset(edge: .top) {
-                        ForEach(style.getViews(for: .safeAreaTop).indices, id: \.self){ index in
-                            let insetedView = style.getViews(for: .safeAreaTop)[index]
-                            insetedView.view
-                                .padding(.top, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
-                                .padding(.bottom, (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
-                                .environment(\.spHorizontalPadding, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
-                        }
-                    }
-                    .safeAreaInset(edge: .bottom) {
-                        ForEach(style.getViews(for: .safeAreaBottom).indices, id: \.self){ index in
-                            let insetedView = style.getViews(for: .safeAreaBottom)[index]
-                            insetedView.view
-                                .padding(.bottom, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
-                                .padding(.top, (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
-                                .environment(\.spHorizontalPadding, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
-                        }
-                    }
-            }
-        }
+        .environment(\.spCalculateOffset, offsetCalculated)
+        .environment(\.spCalculateScale, scaleCalculated)
     }
     
 
@@ -106,13 +156,17 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
     private func scrollBody(proxy: ScrollViewProxy) -> some View {
         LazyVStack {
             ForEach(style.getViews(for: .scrollContentTop).indices, id: \.self){ index in
-                style.getViews(for: .scrollContentTop)[index].view
+                let insetedView = style.getViews(for: .scrollContentTop)[index]
+                insetedView.view
+                    .background { insetedView.background }
             }
             .spListStyleRow(forceListStyle: style.displayStyle == .detail)
             
             LazyVStack{
                 ForEach(style.getViews(for: .scrollSectionTop).indices, id: \.self){ index in
-                    style.getViews(for: .scrollSectionTop)[index].view
+                    let insetedView = style.getViews(for: .scrollSectionTop)[index]
+                    insetedView.view
+                        .background { insetedView.background }
                 }
                 .spListStyleRow(forceListStyle: style.displayStyle != .detail || ![SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
                 
@@ -122,24 +176,28 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                     content(proxy)
                 }
                 ForEach(style.getViews(for: .scrollSectionBottom).indices, id: \.self){ index in
-                    style.getViews(for: .scrollSectionBottom)[index].view
+                    let insetedView = style.getViews(for: .scrollSectionBottom)[index]
+                    insetedView.view
+                        .background { insetedView.background }
                 }
                 .spListStyleRow(forceListStyle: style.displayStyle != .detail || ![SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
             }
             .spListStyleRow(forceListStyle: style.displayStyle == .detail && [SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
             
             ForEach(style.getViews(for: .scrollContentBottom).indices, id: \.self){ index in
-                style.getViews(for: .scrollContentBottom)[index].view
+                let insetedView = style.getViews(for: .scrollContentBottom)[index]
+                insetedView.view
+                    .background { insetedView.background }
             }
             .spListStyleRow(forceListStyle: style.displayStyle == .detail)
         }
-        .if { content in if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) { content} else {
+        .if { content in if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, visionOS 1.0, *) { content} else {
             content
                 .padding(verticalEdges, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
                 .padding(.horizontal, SPSpacing.getHorizonalPadding(for: style.spacing.optionList))
         }}
         #if os(macOS)
-        .padding(.top, -(SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0))
+        .padding(.top, style.displayStyle == .compact ? (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * -1.5 : 0)
         #endif
     }
     

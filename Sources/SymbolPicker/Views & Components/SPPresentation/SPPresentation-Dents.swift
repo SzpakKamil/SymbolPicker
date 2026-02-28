@@ -14,7 +14,7 @@ extension SPPresentationConfiguration{
         case height(CGFloat)
         case fraction(CGFloat)
         
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         @available(iOS 16.0, *)
         func asPresentationSize() -> PresentationDetent{
             switch self {

@@ -29,11 +29,25 @@ public struct SPColorPickerConfiguration: Sendable{
     }
     init(style: SPDisplayStyle) {
         self.type = .row
+        #if os(iOS) || os(visionOS)
         if style == .compact{
             self.type = .row
         }else{
             self.type = .grid
         }
+        #elseif os(watchOS)
+        self.type = .grid
+        #elseif os(tvOS)
+        if #available(tvOS 26.0, *){
+            if style == .compact{
+                self.type = .row
+            }else{
+                self.type = .grid
+            }
+        }else{
+            self.type = .grid
+        }
+        #endif
     }
     
     

@@ -43,7 +43,7 @@ struct SPOptionListImage: View {
                     .padding(.top, 5)
                     #endif
                 }
-                #if os(iOS)
+                #if os(iOS) || os(visionOS)
                 .spListStyleRow(forceListStyle: true)
                 #endif
             } header: {
@@ -77,13 +77,13 @@ struct SPOptionListImage: View {
                             Slider(value: spSelection.asImageOffsetY, in: -1.0...1.0)
                         }
                     }
-                    #if os(iOS)
+                    #if os(iOS) || os(visionOS)
                     .padding(.vertical, 10)
                     .spListStyleRow(forceListStyle: true)
                     #endif
                 } header: {
                     SPHeaderView(title: SPTranslation.Manipulation.localizedDescription)
-                    #if os(iOS)
+                    #if os(iOS) || os(visionOS)
                         .padding(.horizontal, 5)
                     #endif
                 }

@@ -39,40 +39,234 @@ public extension SPSymbolPickerConfiguration {
         let spacing: CGFloat = 5
         #endif
         #if os(watchOS)
-        return [SPInsetedView(placement: .toolbarBottomLeading, spacing: spacing) {
-            SPPagePicker()
-        },
-        SPInsetedView(placement: .scrollContentTop, spacing: spacing) {
-            SPSearchBar()
-        },
-                SPInsetedView(placement: .toolbarTopTralling) {
-            SPColorPicker()
-        }]
-        #elseif os(iOS)
-        if displayStyle == .detail {
+        if displayStyle == .detail{
             return [
-                SPInsetedView(placement: .scrollContentTop){
-                    SPColorPicker()
-                        .padding(.vertical, 10)
-                },
-                SPInsetedView(placement: .scrollSectionTop){
+                SPInsetedView(placement: .toolbarBottomLeading, spacing: spacing) {
                     SPPagePicker()
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, -5)
+                },
+                SPInsetedView(placement: .toolbarBottomTralling, spacing: spacing) {
+                    SPSelectedSymbol()
+                },
+                SPInsetedView(placement: .scrollContentTop, spacing: spacing) {
                     SPSearchBar()
+                },
+                SPInsetedView(placement: .toolbarTopTralling) {
+                    SPColorPicker()
                 }
             ]
         }else{
-            return [SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
-                SPColorPicker()
-                SPPagePicker()
-            }]
+            return [
+                SPInsetedView(placement: .toolbarBottomLeading, spacing: spacing) {
+                    SPPagePicker()
+                },
+                SPInsetedView(placement: .scrollContentTop, spacing: spacing) {
+                    SPSearchBar()
+                },
+                SPInsetedView(placement: .toolbarTopTralling) {
+                    SPColorPicker()
+                }
+            ]
+        }
+        #elseif os(iOS)
+        if displayStyle == .detail {
+            if #available(iOS 26.0, *){
+                return [
+                    SPInsetedView(placement: .safeAreaTop){
+                        SPSelectedSymbol()
+                    },
+                    SPInsetedView(placement: .scrollContentTop){
+                        SPColorPicker()
+                            .padding(.vertical, 10)
+                    },
+                    SPInsetedView(placement: .scrollSectionTop){
+                        SPPagePicker()
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, -5)
+                        SPSearchBar()
+                    }
+                ]
+            }else{
+                return [
+                    SPInsetedView(placement: .scrollContentTop){
+                        SPSelectedSymbol()
+                    },
+                    SPInsetedView(placement: .scrollContentTop){
+                        SPColorPicker()
+                            .padding(.vertical, 10)
+                    },
+                    SPInsetedView(placement: .scrollSectionTop){
+                        SPPagePicker()
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, -5)
+                        SPSearchBar()
+                    }
+                ]
+            }
+        }else if #available(iOS 26.0, *){
+            return [
+                SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
+                    SPColorPicker()
+                    SPPagePicker()
+                }
+            ]
+        }else{
+            return [
+                SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
+                    SPColorPicker()
+                    SPPagePicker()
+                }
+                .spPadding(.bottom, value: 3)
+                .spBackground{ Rectangle().fill(.bar).ignoresSafeArea() },
+                SPInsetedView(placement: .safeAreaBottom){
+                    SPSearchBar()
+                }
+                .spPadding(.top, value: 3)
+                .spBackground{ Rectangle().fill(.bar).ignoresSafeArea() }
+            ]
+        }
+        #elseif os(visionOS)
+        if displayStyle == .detail{
+            if #available(visionOS 26.0, *){
+                return [
+                    SPInsetedView(placement: .safeAreaTop){
+                        SPSelectedSymbol()
+                    },
+                    SPInsetedView(placement: .scrollContentTop){
+                        SPColorPicker()
+                            .padding(.vertical, 10)
+                    },
+                    SPInsetedView(placement: .scrollSectionTop){
+                        SPPagePicker()
+                            .padding(.vertical, 8)
+                        SPSearchBar()
+                    }
+                ]
+            }else{
+                return [
+                    SPInsetedView(placement: .scrollContentTop){
+                        SPSelectedSymbol()
+                    },
+                    SPInsetedView(placement: .scrollContentTop){
+                        SPColorPicker()
+                            .padding(.vertical, 10)
+                    },
+                    SPInsetedView(placement: .scrollSectionTop){
+                        SPPagePicker()
+                            .padding(.vertical, 8)
+                        SPSearchBar()
+                    }
+                ]
+            }
+        }else{
+            return [
+                SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
+                    SPColorPicker()
+                    SPSearchBar()
+                    SPPagePicker()
+                }
+                    .spBackground{
+                        Rectangle()
+                            .fill(.bar)
+                            .blur(radius: 5)
+                            .offset(y: -7)
+                            .scaleEffect(1.01)
+                    }
+                
+            ]
+        }
+        #elseif os(tvOS)
+        if displayStyle == .detail{
+            if #available(tvOS 26.0, *){
+                return [
+                    SPInsetedView(placement: .safeAreaTop){
+                        SPSelectedSymbol()
+                    },
+                    SPInsetedView(placement: .scrollContentTop){
+                        SPColorPicker()
+                            .padding(.vertical, 10)
+                    },
+                    SPInsetedView(placement: .scrollSectionTop){
+                        SPPagePicker()
+                            .padding(.vertical, 25)
+                        SPSearchBar()
+                    }
+                ]
+            }else{
+                return [
+                    SPInsetedView(placement: .scrollContentTop){
+                        SPSelectedSymbol()
+                    },
+                    SPInsetedView(placement: .scrollContentTop){
+                        SPColorPicker()
+                            .padding(.vertical, 10)
+                    },
+                    SPInsetedView(placement: .scrollSectionTop){
+                        SPPagePicker()
+                            .padding(.vertical, 8)
+                        SPSearchBar()
+                    }
+                ]
+            }
+        }else{
+            if #available(tvOS 26.0, *){
+                return [
+                    SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
+                        SPColorPicker()
+                        SPSearchBar()
+                        SPPagePicker()
+                    }
+                    .spBackground{
+                        #if os(visionOS)
+                        Rectangle()
+                            .fill(.bar)
+                            .blur(radius: 5)
+                            .offset(y: -7)
+                            .scaleEffect(1.01)
+                        #else
+                        Rectangle()
+                            .fill(.ultraThinMaterial)
+                            .blur(radius: 5)
+                            .offset(y: -7)
+                            .scaleEffect(1.01)
+                        #endif
+                    }
+                    
+                ]
+            }else{
+                return [
+                    SPInsetedView(placement: .scrollContentTop){
+                        SPColorPicker()
+                            .padding(.top, 5)
+                    },
+                    SPInsetedView(placement: .scrollContentTop){
+                        SPSearchBar()
+                        SPPagePicker()
+                    }
+                ]
+            }
         }
         #else
-        return [SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
-            SPColorPicker()
-            SPPagePicker()
-        }]
+        if displayStyle == .detail{
+            return [
+                SPInsetedView(placement: .safeAreaTop){
+                    SPSelectedSymbol()
+                },
+                SPInsetedView(placement: .scrollSectionTop, spacing: spacing) {
+                    SPColorPicker()
+                    SPSearchBar()
+                    SPPagePicker()
+                }
+            ]
+        }else{
+            return [
+                SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
+                    SPColorPicker()
+                    SPSearchBar()
+                    SPPagePicker()
+                }
+                
+            ]
+        }
         #endif
     }
     
@@ -109,7 +303,9 @@ public extension SPSymbolPickerConfiguration {
     func getForEachViews(for type: SPViewPlacementType) -> some View{
         let items = getViews(for: type)
         ForEach(items.indices, id: \.self){ index in
-            items[index].view
+            let item = items[index]
+            item.view
+                .background { item.background }
         }
     }
 }
