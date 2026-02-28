@@ -11,12 +11,12 @@ import SearchBar
 import ColorKit
 
 // MARK: - Main View
-public struct SPOptionList: View {
+public struct SPOptionList<T: SPDataAsset>: View {
     @Environment(\.spSearchText) private var searchText
-    @Environment(\.spSelection) private var spSelection
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.spPageType) private var pageType
     @Environment(\.symbolPickerStyle) private var style
+    @Binding var selection: SPSelection<T>
     @State private var emojiForSkinPicker: SPEmoji?
     private let dataManager = SPDataManager()
     private var currentSize: CGFloat{ SPSpacing.getSize(in: dynamicTypeSize, for: style.spacing.optionList) }
@@ -27,7 +27,7 @@ public struct SPOptionList: View {
         SPOptionListContainerView{
             #if os(iOS) || os(macOS) || os(visionOS)
             if #available(iOS 16.0, macOS 14.0, *) {
-                SPOptionListImage()
+                SPOptionListImage(selection: $selection)
             }
             #endif
         } symbolView: { symbols in
@@ -36,7 +36,7 @@ public struct SPOptionList: View {
                 columns: columns,
                 spacing: currentSize * 0.3
             ) { symbol in
-                SPOptionListCell(symbol: symbol, size: currentSize)
+                SPOptionListCell(selection: $selection, symbol: symbol, size: currentSize)
             }
         } emojiView: { emojis in
             SPOptionListSectionGrid(
@@ -44,15 +44,17 @@ public struct SPOptionList: View {
                 columns: columns,
                 spacing: currentSize * 0.3
             ) { emoji in
-                SPOptionListCell(emoji: emoji, size: currentSize, columns: columns, onShowSkins: { emojiForSkinPicker = $0 })
+                SPOptionListCell(selection: $selection, emoji: emoji, size: currentSize, columns: columns, onShowSkins: { emojiForSkinPicker = $0 })
             }
         }
         #if os(watchOS) || os(tvOS)
         .sheet(item: $emojiForSkinPicker) { emoji in
-            SPOptionListSkinView(selection: spSelection, emoji: emoji, size: currentSize, columns: columns)
+            SPOptionListSkinView(selection: $selection, emoji: emoji, size: currentSize, columns: columns)
         }
         #endif
 
     }
-    public init() {}
+    public init(selection: Binding<SPSelection<T>>) {
+        self._selection = selection
+    }
 }

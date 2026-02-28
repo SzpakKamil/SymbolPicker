@@ -9,12 +9,25 @@ import SwiftUI
 import ColorKit
 
 private struct SPSelectionEnviromentKey: EnvironmentKey {
-    static let defaultValue: Binding<SPSelection> = .constant(.color(value: CKColor.init(hexString: "#0000")))
+    static let defaultValue: Binding<any SPSelectionProtocol> = Binding.constant(SPSelection<SPSymbol>.color(value: CKColor(hexString: "#0000"))).eraseToAnySPSelectionProtocol()
 }
 
 public extension EnvironmentValues {
-  public var spSelection: Binding<SPSelection> {
-    get { self[SPSelectionEnviromentKey.self] }
-    set { self[SPSelectionEnviromentKey.self] = newValue }
-  }
+    var spSelection: Binding<any SPSelectionProtocol> {
+        get { self[SPSelectionEnviromentKey.self] }
+        set { self[SPSelectionEnviromentKey.self] = newValue }
+    }
+}
+
+extension Binding where Value: SPSelectionProtocol {
+    func eraseToAnySPSelectionProtocol() -> Binding<any SPSelectionProtocol> {
+        Binding<any SPSelectionProtocol>(
+            get: { self.wrappedValue },
+            set: {
+                if let newValue = $0 as? Value {
+                    self.wrappedValue = newValue
+                }
+            }
+        )
+    }
 }

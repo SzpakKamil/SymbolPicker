@@ -26,7 +26,7 @@ struct SPSelectedSymbol: View {
     }
     
     var isImage: Bool {
-        if case .image = spSelection.wrappedValue {
+        if spSelection.wrappedValue.getImage() != nil {
             return true
         }
         return false
@@ -37,7 +37,7 @@ struct SPSelectedSymbol: View {
         Button{
             
         }label:{
-            SPSelectionView(selection: spSelection.wrappedValue)
+            spSelection.wrappedValue.asView()
                 .if{ content in
                     let size = size
                     let padding = isImage ? 0 : size * 0.3
@@ -63,7 +63,7 @@ struct SPSelectedSymbol: View {
         #else
         HStack {
             Spacer()
-            SPSelectionView(selection: spSelection.wrappedValue)
+            spSelection.wrappedValue.asView()
                 .if { content in
                     if #available(iOS 26.0, visionOS 26.0, macOS 26.0, tvOS 26.0, *) {
                         let size = size
@@ -104,7 +104,15 @@ struct SPSelectedSymbol: View {
                 }
             Spacer()
         }
-        .focusable()
+        #if os(tvOS)
+        .if{ content in
+            if #available(tvOS 17.0, *){
+                content.focusable()
+            }else{
+                content
+            }
+        }
+        #endif
         #if os(iOS) || os(visionOS)
         .if {content in
             if #available(iOS 26.0, visionOS 26.0, *) {

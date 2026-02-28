@@ -14,14 +14,15 @@ import ColorKit
 
 #if os(iOS) || os(macOS) || os(visionOS)
 @available(iOS 16.0, macOS 14.0, *)
-struct SPOptionListImage: View {
+struct SPOptionListImage<T: SPDataAsset>: View {
     @Environment(\.symbolPickerStyle) var style
-    @Environment(\.spSelection) var spSelection
+    @Binding var selection: SPSelection<T>
+    
     var body: some View{
         VStack{
             Section {
                 VStack{
-                    ColorPicker(selection: spSelection.asCKColor.asColor) {
+                    ColorPicker(selection: $selection.asCKColor.asColor) {
                         HStack{
                             Text(SPTranslation.DetectedColor.localizedDescription)
                             Spacer()
@@ -35,7 +36,7 @@ struct SPOptionListImage: View {
                     Divider()
                     #endif
                     HStack{
-                        PhotosPicker(SPTranslation.SelectImage.localizedDescription, selection: spSelection.asImage)
+                        PhotosPicker(SPTranslation.SelectImage.localizedDescription, selection: $selection.asImage)
                         Spacer()
                     }
                     #if !os(macOS)
@@ -53,28 +54,28 @@ struct SPOptionListImage: View {
                 #endif
             }
             
-            if let image = spSelection.wrappedValue.getImage() {
+            if let image = selection.getImage() {
                 Section {
                     VStack{
                         VStack(alignment: .leading) {
                             Text(SPTranslation.Zoom.localizedDescription)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
-                            Slider(value: spSelection.asZoom, in: 1.0...5.0)
+                            Slider(value: $selection.asZoom, in: 1.0...5.0)
                         }
                         
                         VStack(alignment: .leading) {
                             Text(SPTranslation.HorizontalOffset.localizedDescription)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
-                            Slider(value: spSelection.asImageOffsetX, in: -1.0...1.0)
+                            Slider(value: $selection.asImageOffsetX, in: -1.0...1.0)
                         }
                         
                         VStack(alignment: .leading) {
                             Text(SPTranslation.VerticalOffset.localizedDescription)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
-                            Slider(value: spSelection.asImageOffsetY, in: -1.0...1.0)
+                            Slider(value: $selection.asImageOffsetY, in: -1.0...1.0)
                         }
                     }
                     #if os(iOS) || os(visionOS)

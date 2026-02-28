@@ -18,11 +18,32 @@ import UIKit
 import AppKit
 #endif
 
-public nonisolated enum SPSelection: Identifiable, Sendable {
-    case symbol(value: SPSymbol, color: CKColor? = nil)
+public protocol SPSelectionProtocol: Sendable {
+    func getColor() -> CKColor?
+    mutating func setColor(_ color: CKColor)
+    func getImage() -> SPImage?
+    mutating func setImage(_ image: SPImage)
+    func asView() -> AnyView
+}
+
+public nonisolated enum SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionProtocol {
+    case symbol(value: T, color: CKColor? = nil)
     case emoji(value: SPEmoji, color: CKColor? = nil)
     case image(value: SPImage, color: CKColor? = nil)
     case color(value: CKColor)
+    
+    public func asView() -> AnyView {
+        switch self {
+        case .symbol(let symbol, _):
+            return AnyView(symbol.asView())
+        case .emoji(let emoji, _):
+            return AnyView(SPEmojiView(emoji: emoji))
+        case .image(let image, _):
+            return AnyView(SPImageView(image: image))
+        case .color(let color):
+            return AnyView(Circle().fill(color))
+        }
+    }
     
     public var id: String {
         switch self {
@@ -37,7 +58,7 @@ public nonisolated enum SPSelection: Identifiable, Sendable {
         }
     }
     
-    public init(value: SPSymbol, color: CKColor? = nil){
+    public init(value: T, color: CKColor? = nil){
         self = .symbol(value: value, color: color)
     }
     public init(value: SPEmoji, color: CKColor? = nil){
@@ -78,7 +99,7 @@ extension SPSelection: Codable {
         
         switch type {
         case .symbol:
-            let symbol = try container.decode(SPSymbol.self, forKey: .symbol)
+            let symbol = try container.decode(T.self, forKey: .symbol)
             let tint = try container.decodeIfPresent(CKColor.self, forKey: .tint)
             self = .symbol(value: symbol, color: tint)
         case .emoji:
@@ -143,7 +164,7 @@ extension SPSelection {
         }
     }
 
-    public mutating func setSymbol(_ symbol: SPSymbol) {
+    public mutating func setSymbol(_ symbol: T) {
         switch self {
         case .symbol(_, let color):
             self = .symbol(value: symbol, color: color)
@@ -182,7 +203,7 @@ extension SPSelection {
         }
     }
     
-    public func getSymbol() -> SPSymbol? {
+    public func getSymbol() -> T? {
         if case .symbol(let symbol, _) = self {
             return symbol
         }
@@ -216,7 +237,3 @@ extension SPSelection {
         return nil
     }
 }
-
-// MARK: - View
-
-

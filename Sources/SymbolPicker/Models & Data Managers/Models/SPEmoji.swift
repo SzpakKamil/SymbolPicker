@@ -133,6 +133,27 @@ extension SPEmoji {
     
     public static let filePrefix: String = "emojis"
     
+    public static func fetchAssets(locale: String) async throws -> [SPEmoji] {
+        let bundle = Bundle.module
+        let fallbackLocale = "en"
+        let names = ["\(filePrefix)_\(locale).json", "\(filePrefix)_\(fallbackLocale).json"]
+        
+        for name in names {
+            try Task.checkCancellation()
+            guard let url = bundle.url(forResource: name, withExtension: nil) else { continue }
+            do {
+                let data = try Data(contentsOf: url)
+                let decoded = try JSONDecoder().decode([SPEmoji].self, from: data)
+                return decoded.filter { $0.isAvailable() }
+            } catch let error as DecodingError {
+                 throw SPDataManager.Error.decodingFailed(type: "\(SPEmoji.self)", error: error)
+            } catch {
+                 throw SPDataManager.Error.otherError(error: error)
+            }
+        }
+        throw SPDataManager.Error.fileNotFound(fileName: "\(filePrefix)_\(locale).json")
+    }
+    
     static func emojiString(fromHexcode hexcode: String) -> String {
         let scalars = hexcode
             .split(separator: "-")

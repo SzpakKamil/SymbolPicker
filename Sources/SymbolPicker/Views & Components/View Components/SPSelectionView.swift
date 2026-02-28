@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import ColorKit
 
-public struct SPSelectionView: View {
-    private var selection: SPSelection?
+public struct SPSelectionView<T: SPDataAsset>: View {
+    private var selection: SPSelection<T>?
     
     public var body: some View {
         Group {
             if let selection{
                 switch selection {
                 case .symbol(let symbol, _):
-                    SPSymbolView(symbol: symbol)
+                    symbol.asView()
                 case .emoji(let emoji, _):
                     SPEmojiView(emoji: emoji)
                 case .image(let image, _):
@@ -30,7 +31,7 @@ public struct SPSelectionView: View {
         .id(selection?.id)
     }
     
-    public init(selection: SPSelection?) {
+    public init(selection: SPSelection<T>?) {
         self.selection = selection
     }
 }

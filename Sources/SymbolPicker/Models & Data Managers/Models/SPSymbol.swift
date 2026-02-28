@@ -116,6 +116,27 @@ extension SPSymbol: Codable, Hashable, Equatable {
 extension SPSymbol {
     public static let filePrefix: String = "symbols"
     
+    public static func fetchAssets(locale: String) async throws -> [SPSymbol] {
+        let bundle = Bundle.module
+        let fallbackLocale = "en"
+        let names = ["\(filePrefix)_\(locale).json", "\(filePrefix)_\(fallbackLocale).json"]
+        
+        for name in names {
+            try Task.checkCancellation()
+            guard let url = bundle.url(forResource: name, withExtension: nil) else { continue }
+            do {
+                let data = try Data(contentsOf: url)
+                let decoded = try JSONDecoder().decode([SPSymbol].self, from: data)
+                return decoded.filter { $0.isAvailable() }
+            } catch let error as DecodingError {
+                 throw SPDataManager.Error.decodingFailed(type: "\(SPSymbol.self)", error: error)
+            } catch {
+                 throw SPDataManager.Error.otherError(error: error)
+            }
+        }
+        throw SPDataManager.Error.fileNotFound(fileName: "\(filePrefix)_\(locale).json")
+    }
+    
     public func isAvailable() -> Bool {
         #if canImport(UIKit)
         // Check if UIImage can be initialized with the system names

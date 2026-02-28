@@ -88,7 +88,7 @@ actor SPDataManager {
         let locale = self.resolveLocaleIdentifier(for: type)
         
         let task = Task<[T], Swift.Error> {
-            return try await self.loadData(type: type, locale: locale)
+            return try await T.fetchAssets(locale: locale)
         }
         
         cache.taskForType[key] = task
@@ -101,25 +101,6 @@ actor SPDataManager {
         } catch {
             cache.taskForType.removeValue(forKey: key)
             throw error
-        }
-    }
-    
-    nonisolated func loadData<T: SPDataAsset>(type: T.Type, locale: String) async throws -> [T] {
-        do {
-            let bundle = Bundle.module
-            let names = ["\(type.filePrefix)_\(locale).json", "\(type.filePrefix)_\(Self.fallbackLocale).json"]
-            for name in names {
-                try Task.checkCancellation()
-                guard let url = bundle.url(forResource: name, withExtension: nil) else { continue }
-                let data = try Data(contentsOf: url)
-                let decoded = try JSONDecoder().decode([T].self, from: data)
-                return decoded.filter { $0.isAvailable() }
-            }
-            throw Error.fileNotFound(fileName: "\(type.filePrefix)_\(locale).json")
-        } catch let error as DecodingError {
-            throw SPDataManager.Error.decodingFailed(type: "\(T.self)", error: error)
-        } catch {
-            throw SPDataManager.Error.otherError(error: error)
         }
     }
     

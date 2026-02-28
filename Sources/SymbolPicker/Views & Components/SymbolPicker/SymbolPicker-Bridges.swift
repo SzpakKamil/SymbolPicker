@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-public struct SymbolPickerConfigurationWrapper<C:SPSymbolPickerConfiguration, V: View>: View {
+public struct SymbolPickerConfigurationWrapper<T: SPDataAsset, C:SPSymbolPickerConfiguration, V: View>: View {
     let content: V
     let isPresented: Binding<Bool>
-    let selection: Binding<SPSelection>
+    let selection: Binding<SPSelection<T>>
     var style: C
     
     public var body: some View {
@@ -20,7 +20,7 @@ public struct SymbolPickerConfigurationWrapper<C:SPSymbolPickerConfiguration, V:
             configuration: style
         ))
     }
-    init(isPresented: Binding<Bool>, selection: Binding<SPSelection>, configuration: C, @ViewBuilder content: () -> V) {
+    init(isPresented: Binding<Bool>, selection: Binding<SPSelection<T>>, configuration: C, @ViewBuilder content: () -> V) {
         self.content = content()
         self.isPresented = isPresented
         self.selection = selection
@@ -30,9 +30,9 @@ public struct SymbolPickerConfigurationWrapper<C:SPSymbolPickerConfiguration, V:
 
 
 
-struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
+struct SymbolPickerModifier<T: SPDataAsset, C: SPSymbolPickerConfiguration>: ViewModifier {
     @Binding private var isPresented: Bool
-    @Binding private var selection: SPSelection
+    @Binding private var selection: SPSelection<T>
     var style: C
     
     var isDisplayedAsPopover: Bool{
@@ -142,7 +142,7 @@ struct SymbolPickerModifier<C: SPSymbolPickerConfiguration>: ViewModifier {
         #endif
     }
     
-    init(isPresented: Binding<Bool>, selection: Binding<SPSelection>, configuration: C) {
+    init(isPresented: Binding<Bool>, selection: Binding<SPSelection<T>>, configuration: C) {
         self._isPresented = isPresented
         self._selection = selection
         self.style = configuration

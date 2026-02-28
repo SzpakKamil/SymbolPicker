@@ -8,8 +8,8 @@
 import SwiftUI
 import ColorKit
 
-public struct SymbolPicker<C: SPSymbolPickerConfiguration>: View {
-    @Binding private var selection: SPSelection
+public struct SymbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>: View {
+    @Binding private var selection: SPSelection<T>
     @State var pageType = SPPageType.emoji
     @State var searchText: String = ""
     var style: C
@@ -23,7 +23,7 @@ public struct SymbolPicker<C: SPSymbolPickerConfiguration>: View {
     }
     public var body: some View {
         viewContainer{
-            SPOptionList()
+            SPOptionList(selection: $selection)
         }
         #if os(watchOS)
         .toolbar{
@@ -63,7 +63,7 @@ public struct SymbolPicker<C: SPSymbolPickerConfiguration>: View {
         .environment(\.spSearchText, $searchText)
         .environment(\.spSymbolVariant, style.symbolVariant)
         .environment(\.spPageType, $pageType)
-        .environment(\.spSelection, $selection)
+        .environment(\.spSelection, $selection.eraseToAnySPSelectionProtocol())
         .environment(\.symbolPickerStyle, style)
     }
     
@@ -85,19 +85,19 @@ public struct SymbolPicker<C: SPSymbolPickerConfiguration>: View {
         #endif
     }
     
-    public init(selection: Binding<SPSelection>, configuration: C) {
+    public init(selection: Binding<SPSelection<T>>, configuration: C) {
         self._selection = selection
         self.style = configuration
     }
 }
 
 extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration {
-    public init(selection: Binding<SPSelection>) {
+    public init(selection: Binding<SPSelection<T>>) {
         self._selection = selection
         self.style = SPSymbolPickerDefaultConfiguration()
     }
     
-    public init(selection: Binding<SPSelection?>) {
+    public init(selection: Binding<SPSelection<T>?>) {
         self._selection = Binding {
             selection.wrappedValue ?? .color(value: CKColor(hexString: "#0000"))
         } set: { newValue in
@@ -106,4 +106,3 @@ extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration {
         self.style = SPSymbolPickerDefaultConfiguration()
     }
 }
-

@@ -9,30 +9,30 @@ import SwiftUI
 import ColorKit
 
 public extension View {
-    func symbolPicker<C: SPSymbolPickerConfiguration>(
+    func symbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>(
         isPresented: Binding<Bool>,
-        selection: Binding<SPSelection>,
+        selection: Binding<SPSelection<T>>,
         configuration: C
-    ) -> SymbolPickerConfigurationWrapper<C, Self> {
+    ) -> SymbolPickerConfigurationWrapper<T, C, Self> {
         return SymbolPickerConfigurationWrapper(isPresented: isPresented, selection: selection, configuration: configuration) {
             self
         }
     }
     
-    func symbolPicker(
+    func symbolPicker<T: SPDataAsset>(
         isPresented: Binding<Bool>,
-        selection: Binding<SPSelection>
-    ) -> SymbolPickerConfigurationWrapper<SPSymbolPickerDefaultConfiguration, Self> {
+        selection: Binding<SPSelection<T>>
+    ) -> SymbolPickerConfigurationWrapper<T, SPSymbolPickerDefaultConfiguration, Self> {
         return SymbolPickerConfigurationWrapper(isPresented: isPresented, selection: selection, configuration: SPSymbolPickerDefaultConfiguration()) {
             self
         }
     }
 
-    func symbolPicker<C: SPSymbolPickerConfiguration>(
+    func symbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>(
         isPresented: Binding<Bool>,
-        selection: Binding<SPSelection?>,
+        selection: Binding<SPSelection<T>?>,
         configuration: C
-    ) -> SymbolPickerConfigurationWrapper<C, Self> {
+    ) -> SymbolPickerConfigurationWrapper<T, C, Self> {
         let binding = Binding {
             selection.wrappedValue ?? .color(value: CKColor(hexString: "#0000"))
         } set: { newValue in
@@ -43,10 +43,10 @@ public extension View {
         }
     }
     
-    func symbolPicker(
+    func symbolPicker<T: SPDataAsset>(
         isPresented: Binding<Bool>,
-        selection: Binding<SPSelection?>
-    ) -> SymbolPickerConfigurationWrapper<SPSymbolPickerDefaultConfiguration, Self> {
+        selection: Binding<SPSelection<T>?>
+    ) -> SymbolPickerConfigurationWrapper<T, SPSymbolPickerDefaultConfiguration, Self> {
         let binding = Binding {
             selection.wrappedValue ?? .color(value: CKColor(hexString: "#0000"))
         } set: { newValue in
@@ -252,6 +252,3 @@ public extension SymbolPickerConfigurationWrapper where C == SPSymbolPickerDefau
 
 
 }
-
-
-
