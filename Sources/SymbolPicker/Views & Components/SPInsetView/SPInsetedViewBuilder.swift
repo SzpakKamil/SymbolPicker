@@ -12,14 +12,28 @@ public struct SPInsetedViewBuilder {
     public static func buildBlock() -> [SPInsetedView] {
         []
     }
+    
+    public static func buildPartialBlock(accumulated: [SPInsetedView], next: [SPInsetedView]) -> [SPInsetedView] {
+        return accumulated + next
+    }
+    
+    public static func buildArray(_ components: [[SPInsetedView]]) -> [SPInsetedView] {
+        return components.flatMap{ $0 }
+    }
+    public static func buildFinalResult(_ component: [SPInsetedView]) -> [SPInsetedView] {
+        return component
+    }
     public static func buildBlock(_ components: SPInsetedView...) -> [SPInsetedView] {
-        components
+        return components
     }
     
     public static func buildBlock(_ components: [SPInsetedView]) -> [SPInsetedView]{
         components
     }
     public static func buildBlock(_ components: [SPInsetedView]...) -> [SPInsetedView] {
+        components.flatMap{ $0 }
+    }
+    public static func buildBlock(_ components: [[SPInsetedView]]) -> [SPInsetedView] {
         components.flatMap{ $0 }
     }
     public static func buildOptional(_ component: [SPInsetedView]?) -> [SPInsetedView] {
@@ -35,6 +49,9 @@ public struct SPInsetedViewBuilder {
         component
     }
     public static func buildExpression(_ components: SPInsetedView...) -> [SPInsetedView] {
+        return components
+    }
+    public static func buildExpression(_ components: [SPInsetedView]) -> [SPInsetedView] {
         return components
     }
 }

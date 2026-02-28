@@ -150,6 +150,7 @@ extension SPSymbol {
         #endif
     }
     
+    @MainActor
     @ViewBuilder
     public func asView() -> some View {
         AnyView(SPSymbolView(symbol: self))

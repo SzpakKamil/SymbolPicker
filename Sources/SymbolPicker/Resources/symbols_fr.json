@@ -2728,7 +2728,7 @@
         ]
     },
     {
-        "annotation": "Apple TV",
+        "annotation": "Apple TV",
         "filledName": "appletv.fill",
         "notFilled": "appletv",
         "version": 2.0,
@@ -2762,7 +2762,7 @@
         ]
     },
     {
-        "annotation": "HomePod mini",
+        "annotation": "HomePod mini",
         "filledName": "homepod.mini.fill",
         "notFilled": "homepod.mini",
         "version": 6.0,
@@ -2780,7 +2780,7 @@
         ]
     },
     {
-        "annotation": "Apple Watch avec ondes radio",
+        "annotation": "Apple Watch avec ondes radio",
         "filledName": "applewatch.radiowaves.left.and.right",
         "notFilled": "applewatch.radiowaves.left.and.right",
         "version": 2.0,
@@ -2815,7 +2815,7 @@
         ]
     },
     {
-        "annotation": "iPhone (1re génération)",
+        "annotation": "iPhone (1re génération)",
         "filledName": "iphone.gen1",
         "notFilled": "iphone.gen1",
         "version": 4.1,
@@ -2832,7 +2832,7 @@
         ]
     },
     {
-        "annotation": "iPhone (3e génération)",
+        "annotation": "iPhone (3e génération)",
         "filledName": "iphone.gen3",
         "notFilled": "iphone.gen3",
         "version": 4.1,
@@ -2848,7 +2848,7 @@
         ]
     },
     {
-        "annotation": "iPhone (1re génération) avec ondes radio",
+        "annotation": "iPhone (1re génération) avec ondes radio",
         "filledName": "iphone.gen1.radiowaves.left.and.right",
         "notFilled": "iphone.gen1.radiowaves.left.and.right",
         "version": 4.1,
@@ -2865,7 +2865,7 @@
         ]
     },
     {
-        "annotation": "iPhone (3e génération) avec ondes radio",
+        "annotation": "iPhone (3e génération) avec ondes radio",
         "filledName": "iphone.gen3.radiowaves.left.and.right",
         "notFilled": "iphone.gen3.radiowaves.left.and.right",
         "version": 4.1,

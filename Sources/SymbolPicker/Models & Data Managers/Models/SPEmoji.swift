@@ -268,6 +268,7 @@ extension SPEmoji {
         return result
     }
     
+    @MainActor
     @ViewBuilder
     public func asView() -> some View  {
         if let skins, tone != 0{

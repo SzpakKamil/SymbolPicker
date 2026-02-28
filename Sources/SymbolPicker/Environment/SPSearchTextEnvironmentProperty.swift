@@ -12,8 +12,8 @@ private struct SPSearchTextEnviromentKey: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
-  public var spSearchText: Binding<String> {
-    get { self[SPSearchTextEnviromentKey.self] }
-    set { self[SPSearchTextEnviromentKey.self] = newValue }
-  }
+    var spSearchText: Binding<String> {
+        get { self[SPSearchTextEnviromentKey.self] }
+        set { self[SPSearchTextEnviromentKey.self] = newValue }
+    }
 }

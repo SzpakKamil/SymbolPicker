@@ -47,6 +47,17 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                             }
                         }
                 }
+                #if os(visionOS) || os(watchOS)
+                .onChange(of: spPageType.wrappedValue) { _, newValue in
+                    #if os(visonOS)
+                    proxy.scrollTo(newValue, anchor: .top)
+                    #else
+                    if style.displayStyle == .compact && newValue != .emoji && newValue != .symbol{
+                        proxy.scrollTo(newValue, anchor: .top)
+                    }
+                    #endif
+                }
+                #else
                 .onChange(of: spPageType.wrappedValue) { newValue in
                     #if os(visonOS)
                     proxy.scrollTo(newValue, anchor: .top)
@@ -56,6 +67,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                     }
                     #endif
                 }
+                #endif
                 .onAppear { proxy.scrollTo(spPageType.wrappedValue, anchor: .top) }
                 #if os(iOS) || os(visionOS) || os(macOS) || os(tvOS)
                 .if{ content in

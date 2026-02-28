@@ -8,24 +8,24 @@
 import SwiftUI
 
 public struct SymbolPickerConfigurationWrapper<T: SPDataAsset, C:SPSymbolPickerConfiguration, V: View>: View {
-    let content: V
-    let isPresented: Binding<Bool>
-    let selection: Binding<SPSelection<T>>
-    var style: C
-    
-    public var body: some View {
-        content.modifier(SymbolPickerModifier(
-            isPresented: isPresented,
-            selection: selection,
-            configuration: style
-        ))
-    }
-    init(isPresented: Binding<Bool>, selection: Binding<SPSelection<T>>, configuration: C, @ViewBuilder content: () -> V) {
-        self.content = content()
-        self.isPresented = isPresented
-        self.selection = selection
-        self.style = configuration
-    }
+    let content: V
+    let isPresented: Binding<Bool>
+    let selection: Binding<SPSelection<T>>
+    var style: C
+    
+    public var body: some View {
+        content.modifier(SymbolPickerModifier(
+            isPresented: isPresented,
+            selection: selection,
+            configuration: style
+        ))
+    }
+    init(isPresented: Binding<Bool>, selection: Binding<SPSelection<T>>, configuration: C, @ViewBuilder content: () -> V) {
+        self.content = content()
+        self.isPresented = isPresented
+        self.selection = selection
+        self.style = configuration
+    }
 }
 
 

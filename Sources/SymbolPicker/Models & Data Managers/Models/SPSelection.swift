@@ -23,6 +23,7 @@ public protocol SPSelectionProtocol: Sendable {
     mutating func setColor(_ color: CKColor)
     func getImage() -> SPImage?
     mutating func setImage(_ image: SPImage)
+    @MainActor
     func asView() -> AnyView
 }
 
@@ -32,6 +33,7 @@ public nonisolated enum SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPS
     case image(value: SPImage, color: CKColor? = nil)
     case color(value: CKColor)
     
+    @MainActor
     public func asView() -> AnyView {
         switch self {
         case .symbol(let symbol, _):

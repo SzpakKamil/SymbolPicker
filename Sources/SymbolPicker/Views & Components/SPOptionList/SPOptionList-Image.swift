@@ -54,7 +54,7 @@ struct SPOptionListImage<T: SPDataAsset>: View {
                 #endif
             }
             
-            if let image = selection.getImage() {
+            if selection.getImage() != nil {
                 Section {
                     VStack{
                         VStack(alignment: .leading) {

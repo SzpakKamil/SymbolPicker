@@ -8,20 +8,29 @@
 import SwiftUI
 
 public protocol SPSymbolPickerConfiguration: Sendable {
+    @MainActor
     func presentationConfiguration() -> SPPresentationConfiguration
+    @MainActor
     func colorPickerConfiguration() -> SPColorPickerConfiguration?
+    @MainActor
     @SPInsetedViewBuilder func insetViewsConfiguration() -> [SPInsetedView]
+    @MainActor
     var spacing: SPSpacing { get }
+    @MainActor
     var symbolVariant: SPSymbol.Variant { get }
+    @MainActor
     var supportedTypes: [SPPageType] { get }
+    @MainActor
     var defaultType: SPPageType { get }
+    @MainActor
     var displayStyle: SPDisplayStyle { get }
     
     
-
+    @MainActor
     func getCellButtonStyle(isSelected: Bool, isFocused: Bool, size: CGFloat) -> SPAnyCellButtonStyle
 }
 
+@MainActor
 public extension SPSymbolPickerConfiguration {
     func colorPickerConfiguration() -> SPColorPickerConfiguration?{
         return .init(style: displayStyle)
@@ -30,7 +39,7 @@ public extension SPSymbolPickerConfiguration {
         return .init(style: displayStyle)
     }
     
-    @SPInsetedViewBuilder static func defaultInsetViews(for displayStyle: SPDisplayStyle) -> [SPInsetedView]{
+    internal static func defaultInsetViews(for displayStyle: SPDisplayStyle) -> [SPInsetedView]{
         #if os(tvOS)
         let spacing: CGFloat = 25
         #elseif os(macOS)
@@ -271,7 +280,7 @@ public extension SPSymbolPickerConfiguration {
     }
     
     @SPInsetedViewBuilder func insetViewsConfiguration() -> [SPInsetedView]{
-        return Self.defaultInsetViews(for: displayStyle)
+        Self.defaultInsetViews(for: displayStyle)
     }
     
     var spacing: SPSpacing { SPSpacing() }
@@ -311,17 +320,17 @@ public extension SPSymbolPickerConfiguration {
 }
 
 public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
-    public var currentPresentationConfiguration: @Sendable (SPDisplayStyle) -> SPPresentationConfiguration
-    public func presentationConfiguration() -> SPPresentationConfiguration { self.currentPresentationConfiguration(displayStyle) }
-    public var currentColorPickerConfiguration: @Sendable (SPDisplayStyle) -> SPColorPickerConfiguration?
-    public func colorPickerConfiguration() -> SPColorPickerConfiguration? { self.currentColorPickerConfiguration(displayStyle) }
-    public var currentInsetViewConfiguration: @Sendable (SPDisplayStyle) -> [SPInsetedView]
-    public func insetViewsConfiguration() -> [SPInsetedView] { return self.currentInsetViewConfiguration(displayStyle) }
+    @MainActor public var currentPresentationConfiguration: @MainActor (SPDisplayStyle) -> SPPresentationConfiguration
+    @MainActor public func presentationConfiguration() -> SPPresentationConfiguration { self.currentPresentationConfiguration(displayStyle) }
+    @MainActor public var currentColorPickerConfiguration: @MainActor (SPDisplayStyle) -> SPColorPickerConfiguration?
+    @MainActor public func colorPickerConfiguration() ->  SPColorPickerConfiguration? { self.currentColorPickerConfiguration(displayStyle) }
+    @MainActor public var currentInsetViewConfiguration: @MainActor (SPDisplayStyle) -> [SPInsetedView]
+    @MainActor public func insetViewsConfiguration() -> [SPInsetedView] { return self.currentInsetViewConfiguration(displayStyle) }
     
-    public var symbolVariant: SPSymbol.Variant = .filled
-    public var supportedTypes: [SPPageType] = SPPageType.allCases
-    public var defaultType: SPPageType = .symbol
-    public var displayStyle: SPDisplayStyle
+    @MainActor public var symbolVariant: SPSymbol.Variant = .filled
+    @MainActor public var supportedTypes: [SPPageType] = SPPageType.allCases
+    @MainActor public var defaultType: SPPageType = .symbol
+    @MainActor public var displayStyle: SPDisplayStyle
  
 
 

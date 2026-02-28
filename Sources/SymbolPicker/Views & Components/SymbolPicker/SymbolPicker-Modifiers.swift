@@ -94,37 +94,37 @@ public extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration{
     }
     
     // MARK: SPColorPicker Modifiers
-    public func spColorPickerEnabled(_ value: Bool) -> Self{
+    func spColorPickerEnabled(_ value: Bool) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerEnabled(value) }
         return results
     }
-    public func spColorPickerColors(_ colors: CKColor...) -> Self{
+    func spColorPickerColors(_ colors: CKColor...) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerColors(colors) }
         return results
     }
-    public func spColorPickerColors(_ colors: [CKColor]) -> Self{
+    func spColorPickerColors(_ colors: [CKColor]) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerColors(colors) }
         return results
     }
-    public func spColorPickerLayout(_ type: SPColorPickerConfiguration.Direction, spacing: CGFloat? = nil) -> Self{
+    func spColorPickerLayout(_ type: SPColorPickerConfiguration.Direction, spacing: CGFloat? = nil) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerLayout(type, spacing: spacing) }
         return results
     }
-    public func spColorPickerSupportsOpacity(_ value: Bool) -> Self{
+    func spColorPickerSupportsOpacity(_ value: Bool) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerSupportsOpacity(value) }
         return results
     }
-    public func spColorPickerSupportsCustomColor(_ value: Bool) -> Self{
+    func spColorPickerSupportsCustomColor(_ value: Bool) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerSupportsCustomColor(value) }
@@ -168,37 +168,37 @@ public extension SymbolPickerConfigurationWrapper where C == SPSymbolPickerDefau
     }
     
     // MARK: SPColorPicker Modifiers
-    public func spColorPickerEnabled(_ value: Bool) -> Self{
+    func spColorPickerEnabled(_ value: Bool) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerEnabled(value) }
         return results
     }
-    public func spColorPickerColors(_ colors: CKColor...) -> Self{
+    func spColorPickerColors(_ colors: CKColor...) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerColors(colors) }
         return results
     }
-    public func spColorPickerColors(_ colors: [CKColor]) -> Self{
+    func spColorPickerColors(_ colors: [CKColor]) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerColors(colors) }
         return results
     }
-    public func spColorPickerLayout(_ type: SPColorPickerConfiguration.Direction, spacing: CGFloat? = nil) -> Self{
+    func spColorPickerLayout(_ type: SPColorPickerConfiguration.Direction, spacing: CGFloat? = nil) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerLayout(type, spacing: spacing) }
         return results
     }
-    public func spColorPickerSupportsOpacity(_ value: Bool) -> Self{
+    func spColorPickerSupportsOpacity(_ value: Bool) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerSupportsOpacity(value) }
         return results
     }
-    public func spColorPickerSupportsCustomColor(_ value: Bool) -> Self{
+    func spColorPickerSupportsCustomColor(_ value: Bool) -> Self{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerSupportsCustomColor(value) }
@@ -207,43 +207,43 @@ public extension SymbolPickerConfigurationWrapper where C == SPSymbolPickerDefau
     
     // MARK: SPPresentation Modifiers
     
-    public func spPresentationCornerRadius(_ value: CGFloat) -> Self{
+    func spPresentationCornerRadius(_ value: CGFloat) -> Self{
         var result = self
         let current = result.style.currentPresentationConfiguration
         result.style.currentPresentationConfiguration = { (style: SPDisplayStyle) in current(style).spPresentationCornerRadius(value) }
         return result
     }
-    public func spPresentationType(_ value: SPPresentationConfiguration.DisplayType) -> Self{
+    func spPresentationType(_ value: SPPresentationConfiguration.DisplayType) -> Self{
         var result = self
         let current = result.style.currentPresentationConfiguration
         result.style.currentPresentationConfiguration = { (style: SPDisplayStyle) in current(style).spPresentationType(value) }
         return result
     }
-    public func spPresentationDragIndicator(_ value: Visibility) -> Self{
+    func spPresentationDragIndicator(_ value: Visibility) -> Self{
         var result = self
         let current = result.style.currentPresentationConfiguration
         result.style.currentPresentationConfiguration = { (style: SPDisplayStyle) in current(style).spPresentationDragIndicator(value) }
         return result
     }
-    public func spPresentationBackgroundColor(_ value: Color) -> Self{
+    func spPresentationBackgroundColor(_ value: Color) -> Self{
         var result = self
         let current = result.style.currentPresentationConfiguration
         result.style.currentPresentationConfiguration = { (style: SPDisplayStyle) in current(style).spPresentationBackgroundColor(value) }
         return result
     }
-    public func spPresentationContentInteraction(_ value: SPPresentationConfiguration.ContentInteraction) -> Self{
+    func spPresentationContentInteraction(_ value: SPPresentationConfiguration.ContentInteraction) -> Self{
         var result = self
         let current = result.style.currentPresentationConfiguration
         result.style.currentPresentationConfiguration = { (style: SPDisplayStyle) in current(style).spPresentationContentInteraction(value) }
         return result
     }
-    public func spPresentationBackgroundInteraction(_ value: SPPresentationConfiguration.BackgroundInteraction) -> Self{
+    func spPresentationBackgroundInteraction(_ value: SPPresentationConfiguration.BackgroundInteraction) -> Self{
         var result = self
         let current = result.style.currentPresentationConfiguration
         result.style.currentPresentationConfiguration = { (style: SPDisplayStyle) in current(style).spPresentationBackgroundInteraction(value) }
         return result
     }
-    public func spPresentationDents(_ dents: Set<SPPresentationConfiguration.PresentationDents>) -> Self{
+    func spPresentationDents(_ dents: Set<SPPresentationConfiguration.PresentationDents>) -> Self{
         var result = self
         let current = result.style.currentPresentationConfiguration
         result.style.currentPresentationConfiguration = { (style: SPDisplayStyle) in current(style).spPresentationDents(dents) }
