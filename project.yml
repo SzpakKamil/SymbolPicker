@@ -1,0 +1,53 @@
+name: SymbolPicker
+options:
+    bundleIdPrefix: com.sun
+    createIntermediateGroups: true
+    deploymentTarget:
+    iOS: 17.0
+configs:
+    Debug: debug
+    Release: release
+settings:
+    base:
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+    CODE_SIGN_IDENTITY: ""
+    CODE_SIGNING_REQUIRED: "NO"
+    CODE_SIGNING_ALLOWED: "NO"
+
+packages:
+    SymbolPickerPackage:
+    path: .
+    productName: SymbolPicker
+
+targets:
+    iOSDemo:
+    type: application
+    platform: iOS
+    sources:
+        - path: iOSDemo
+        excludes:
+            - "*.xcodeproj"
+    settings:
+        base:
+        INFOPLIST_FILE: iOSDemo/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.sun.SymbolPickerDemo
+    dependencies:
+        - package: SymbolPickerPackage
+        product: SymbolPicker
+
+schemes:
+    iOSDemo:
+    build:
+        targets:
+        iOSDemo: all
+    run:
+        config: Debug
+    test:
+        config: Debug
+    profile:
+        config: Release
+    analyze:
+        config: Debug
+    archive:
+        config: Release
