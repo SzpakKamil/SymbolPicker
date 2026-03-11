@@ -16,11 +16,13 @@ struct SPEmojiView: View {
                 .font(.system(size: 300))
                 .minimumScaleFactor(0.01)
                 .lineLimit(1)
+                .drawingGroup()
         } else {
             Text(Image(systemName: "questionmark"))
                 .font(.system(size: 300))
                 .minimumScaleFactor(0.01)
                 .lineLimit(1)
+                .drawingGroup()
         }
     }
     
@@ -38,11 +40,13 @@ struct SPEmojiSkinView: View {
                 .font(.system(size: 300))
                 .minimumScaleFactor(0.01)
                 .lineLimit(1)
+                .drawingGroup()
         } else {
             Text(Image(systemName: "questionmark"))
                 .font(.system(size: 300))
                 .minimumScaleFactor(0.01)
                 .lineLimit(1)
+                .drawingGroup()
         }
     }
 

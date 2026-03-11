@@ -16,7 +16,6 @@ struct SPImageView: View {
                 switch phase {
                 case .empty:
                     Color.gray.opacity(0.1)
-                        .overlay(ProgressView().controlSize(.small))
                 case .success(let img):
                     let containerSize = geometry.size
                     let imageRatio = image.width > 0 && image.height > 0 ? image.width / image.height : 1.0
@@ -47,6 +46,7 @@ struct SPImageView: View {
                 }
             }
         }
+        .drawingGroup()
         .id(image.id)
     }
 }

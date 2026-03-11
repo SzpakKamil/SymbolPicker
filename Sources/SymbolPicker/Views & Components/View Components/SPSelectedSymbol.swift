@@ -63,45 +63,53 @@ struct SPSelectedSymbol: View {
         #else
         HStack {
             Spacer()
-            spSelection.wrappedValue.asView()
-                .if { content in
-                    if #available(iOS 26.0, visionOS 26.0, macOS 26.0, tvOS 26.0, *) {
-                        let size = size
-                        let padding = isImage ? 0 : size * 0.35
-                        let targetSize = isImage ? size * 1.7 : size
-                        content
-                            .frame(width: targetSize, height: targetSize)
-                            .padding(padding)
-                            .foregroundStyle((colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
-                            .background(Group {
-                                if !isImage {
-                                    LinearGradient(
-                                        colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
-                                        startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
-                                        endPoint: colorScheme == .dark ? .bottomTrailing : .topLeading)
-                                }
-                            })
-                            .background(Color.white)
-                            .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.5, style: .continuous))
-                            .shadow(color: (colorValue?.color ?? .black).opacity(0.5), radius: 20)
-                            .scaleEffect(spCalculateScale)
-                            #if os(watchOS)
-                            .offset(y: spCalculateOffset)
-                            #else
-                            .offset(y: spCalculateOffset)
-                            #endif
-                    } else {
-                        let size = size
-                        let padding = isImage ? 0 : size * 0.2
-                        let targetSize = (isImage ? size * 1.7 : size) * 0.8
-                        content
-                            .frame(width: targetSize, height: targetSize)
-                            .padding(padding)
-                            .foregroundStyle((colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
-                            .background(isImage ? Color.clear : (colorValue?.color ?? .clear))
-                            .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.3, style: .continuous))
-                    }
+            Group{
+                if isImage{
+                    Rectangle().fill(.clear)
+                }else{
+                    spSelection.wrappedValue.asView()
                 }
+            }
+            .if { content in
+                if #available(iOS 26.0, visionOS 26.0, macOS 26.0, tvOS 26.0, *) {
+                    let size = size
+                    let padding = size * 0.35
+                    let targetSize = size
+                    content
+                        .frame(width: targetSize, height: targetSize)
+                        .padding(padding)
+                        .foregroundStyle((colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
+                        .background(Group {
+                            if !isImage {
+                                LinearGradient(
+                                    colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
+                                    startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
+                                    endPoint: colorScheme == .dark ? .bottomTrailing : .topLeading)
+                            }else{
+                                spSelection.wrappedValue.asView()
+                            }
+                        })
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.5, style: .continuous))
+                        .shadow(color: (colorValue?.color ?? .black).opacity(0.5), radius: 20)
+                        .scaleEffect(spCalculateScale)
+#if os(watchOS)
+                        .offset(y: spCalculateOffset)
+#else
+                        .offset(y: spCalculateOffset)
+#endif
+                } else {
+                    let size = size
+                    let padding = isImage ? 0 : size * 0.2
+                    let targetSize = (isImage ? size * 1.7 : size) * 0.8
+                    content
+                        .frame(width: targetSize, height: targetSize)
+                        .padding(padding)
+                        .foregroundStyle((colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
+                        .background(isImage ? Color.clear : (colorValue?.color ?? .clear))
+                        .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.3, style: .continuous))
+                }
+            }
             Spacer()
         }
         #if os(tvOS)

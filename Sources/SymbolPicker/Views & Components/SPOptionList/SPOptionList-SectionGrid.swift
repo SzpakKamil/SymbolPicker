@@ -21,6 +21,7 @@ struct SPOptionListSectionGrid<T: SPDataAsset, Content: View>: View {
                         content(item)
                     }
                 }
+                .id(section.category)
             }
         }
     }

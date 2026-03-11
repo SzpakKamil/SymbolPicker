@@ -24,6 +24,7 @@ struct SPSymbolView: View {
             }
         }else{
             Image(systemName: "questionmark")
+                .drawingGroup()
         }
     }
     
@@ -34,6 +35,7 @@ struct SPSymbolView: View {
             // Force the view to occupy a square space
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .aspectRatio(1, contentMode: .fit)
+            .drawingGroup()
     }
     
     public init(symbol: SPSymbol) {

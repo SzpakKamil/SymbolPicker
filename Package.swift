@@ -13,7 +13,7 @@ let package = Package(
         .library(name: "SymbolPicker", targets: ["SymbolPicker"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SzpakKamil/SearchBar.git", branch: "2.1"),
+        .package(url: "https://github.com/SzpakKamil/SearchBar.git", from: "2.1.5"),
         .package(url: "https://github.com/SzpakKamil/ColorKit.git", from: "1.0.0")
     ],
     targets: [

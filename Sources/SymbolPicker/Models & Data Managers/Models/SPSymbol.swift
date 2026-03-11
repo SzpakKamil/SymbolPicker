@@ -25,7 +25,7 @@ public nonisolated struct SPSymbol: Identifiable, Sendable, SPDataAsset {
     public let tags: [String]?
     
     init(filledName: String, notFilled: String, version: Double, variant: SPSymbol.Variant? = nil, annotation: String? = nil, category: String? = nil, subcategory: String? = nil, tags: [String]? = nil) {
-        self.id = "\(filledName)\(category ?? "")"
+        self.id = "\(filledName)\(notFilled)\(category ?? "")"
         self.filledName = filledName
         self.notFilled = notFilled
         self.annotation = annotation
@@ -127,7 +127,14 @@ extension SPSymbol {
             do {
                 let data = try Data(contentsOf: url)
                 let decoded = try JSONDecoder().decode([SPSymbol].self, from: data)
-                return decoded.filter { $0.isAvailable() }
+                let decodedElements = decoded.filter{ $0.isAvailable() }
+                var finalElements: [SPSymbol] = []
+                for element in decodedElements{
+                    if !finalElements.contains{ $0.id == element.id}{
+                        finalElements.append(element)
+                    }
+                }
+                return finalElements
             } catch let error as DecodingError {
                  throw SPDataManager.Error.decodingFailed(type: "\(SPSymbol.self)", error: error)
             } catch {
