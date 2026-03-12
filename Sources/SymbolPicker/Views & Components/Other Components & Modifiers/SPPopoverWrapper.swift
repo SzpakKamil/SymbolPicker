@@ -126,7 +126,9 @@ struct SPPopoverWrapper<Content: View>: UIViewControllerRepresentable {
 public extension View {
     @ViewBuilder
     func spPopover<Content: View>(isPresented: Binding<Bool>, arrowEdge: Edge = .bottom, @ViewBuilder content: @escaping () -> Content) -> some View {
-        #if os(iOS)
+        #if os(visionOS)
+        self.sheet(isPresented: isPresented, content: content)
+        #elseif os(iOS)
         self.background(
             SPPopoverWrapper(isPresented: isPresented, arrowEdge: arrowEdge, content: content)
         )
@@ -139,7 +141,11 @@ public extension View {
 public extension View {
     @ViewBuilder
     func spPopover<Content: View>(isPresented: Binding<Bool>, arrowEdge: Edge = .bottom, @ViewBuilder content: @escaping () -> Content) -> some View {
+        #if os(visionOS)
+        self.sheet(isPresented: isPresented, content: content)
+        #else
         self.popover(isPresented: isPresented, attachmentAnchor: .rect(.bounds), arrowEdge: arrowEdge, content: content)
+        #endif
     }
 }
 #endif
