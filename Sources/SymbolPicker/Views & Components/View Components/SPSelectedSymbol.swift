@@ -154,6 +154,7 @@ struct SPSelectedSymbol: View {
         .padding(.bottom, 5)
         .animation(.smooth, value: spCalculateScale)
         #endif
+        .allowsHitTesting(false)
         #endif
 
     }

@@ -43,6 +43,14 @@ struct SPOptionListCell<T: SPDataAsset>: View {
                 if !availableSkins.isEmpty {
                     #if os(watchOS) || os(tvOS)
                     onShowSkins(emoji)
+                    #elseif os(visionOS)
+                    if #available(visionOS 26.0, *){
+                        showSkinPicker = true
+                    }else{
+                        var updatedSelection = selection
+                        updatedSelection.setEmoji(emoji)
+                        selection = updatedSelection
+                    }
                     #else
                     showSkinPicker = true
                     #endif

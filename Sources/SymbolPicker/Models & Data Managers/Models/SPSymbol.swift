@@ -127,7 +127,7 @@ extension SPSymbol {
             do {
                 let data = try Data(contentsOf: url)
                 let decoded = try JSONDecoder().decode([SPSymbol].self, from: data)
-                return decoded.filter{ $0.isAvailable() }.removeDuplicates()
+                return decoded.filter{ $0.isAvailable() }.removeDuplicates{ $0.id == $1.id }
 
             } catch let error as DecodingError {
                  throw SPDataManager.Error.decodingFailed(type: "\(SPSymbol.self)", error: error)

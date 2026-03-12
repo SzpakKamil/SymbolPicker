@@ -169,6 +169,8 @@ extension SPEmoji {
         
         #if os(iOS) || os(tvOS)
         switch unicodeVersion {
+        case 17.0...: return OperatingSystemVersion(majorVersion: 26, minorVersion: 4, patchVersion: 0)
+        case 16.0...: return OperatingSystemVersion(majorVersion: 18, minorVersion: 4, patchVersion: 0)
         case 15.1...: return OperatingSystemVersion(majorVersion: 17, minorVersion: 4, patchVersion: 0)
         case 15.0...: return OperatingSystemVersion(majorVersion: 16, minorVersion: 4, patchVersion: 0)
         case 14.0...: return OperatingSystemVersion(majorVersion: 15, minorVersion: 4, patchVersion: 0)
@@ -180,6 +182,8 @@ extension SPEmoji {
         
         #elseif os(macOS)
         switch unicodeVersion {
+        case 17.0...: return OperatingSystemVersion(majorVersion: 26, minorVersion: 4, patchVersion: 0)
+        case 16.0...: return OperatingSystemVersion(majorVersion: 15, minorVersion: 4, patchVersion: 0)
         case 15.1...: return OperatingSystemVersion(majorVersion: 14, minorVersion: 4, patchVersion: 0)
         case 15.0...: return OperatingSystemVersion(majorVersion: 13, minorVersion: 3, patchVersion: 0)
         case 14.0...: return OperatingSystemVersion(majorVersion: 12, minorVersion: 3, patchVersion: 0)
@@ -191,6 +195,8 @@ extension SPEmoji {
         
         #elseif os(watchOS)
         switch unicodeVersion {
+        case 17.0...: return OperatingSystemVersion(majorVersion: 26, minorVersion: 4, patchVersion: 0)
+        case 16.0...: return OperatingSystemVersion(majorVersion: 11, minorVersion: 4, patchVersion: 0)
         case 15.1...: return OperatingSystemVersion(majorVersion: 10, minorVersion: 4, patchVersion: 0)
         case 15.0...: return OperatingSystemVersion(majorVersion: 9, minorVersion: 4, patchVersion: 0)
         case 14.0...: return OperatingSystemVersion(majorVersion: 8, minorVersion: 5, patchVersion: 0)
@@ -203,6 +209,11 @@ extension SPEmoji {
         // visionOS 1.0 launched with support for Emoji 15.0.
         // It presumably supports 15.1 in updates, but 1.0 is the safe baseline.
         return OperatingSystemVersion(majorVersion: 1, minorVersion: 0, patchVersion: 0)
+        switch unicodeVersion{
+        case 17.0...:   return OperatingSystemVersion(majorVersion: 26, minorVersion: 4, patchVersion: 0)
+        case 16.0...:   return OperatingSystemVersion(majorVersion: 2, minorVersion: 4, patchVersion: 0)
+        default:        return OperatingSystemVersion(majorVersion: 1, minorVersion: 4, patchVersion: 0)
+        }
         #else
         return ancient
         #endif
