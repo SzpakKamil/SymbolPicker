@@ -10,6 +10,7 @@ import SwiftUI
 struct SPOptionListScrollView<V: View, ProgressView: View>: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.spPageType) var spPageType
+    @Environment(\.spSelection) var spSelection
     @Environment(\.spSearchText) var spSearchText
     @Environment(\.symbolPickerStyle) var style
     @State private var offsetCalculated: CGFloat = 10
@@ -116,6 +117,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                             let insetedView = style.getViews(for: .safeAreaTop)[index]
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
+                                .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 .safeAreaPaddingForDictionary(
                                     insetedView.paddings,
                                     verticalDefault: SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0,
@@ -133,6 +135,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                             let insetedView = style.getViews(for: .safeAreaBottom)[index]
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
+                                .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 .safeAreaPaddingForDictionary(
                                     insetedView.paddings,
                                     verticalDefault: SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0,
@@ -152,6 +155,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                             let insetedView = style.getViews(for: .safeAreaTop)[index]
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
+                                .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 .padding(.top, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
                                 .padding(.bottom, (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
                                 .environment(\.spHorizontalPadding, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
@@ -163,6 +167,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                             let insetedView = style.getViews(for: .safeAreaBottom)[index]
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
+                                .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 .padding(.bottom, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
                                 .padding(.top, (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
                                 .environment(\.spHorizontalPadding, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)

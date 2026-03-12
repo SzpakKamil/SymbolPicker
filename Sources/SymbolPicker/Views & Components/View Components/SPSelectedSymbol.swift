@@ -33,134 +33,143 @@ struct SPSelectedSymbol: View {
     }
     
     var body: some View {
-        #if os(watchOS)
-        Button{
-            
-        }label:{
-            spSelection.wrappedValue.asView()
-                .if{ content in
-                    let size = size
-                    let padding = isImage ? 0 : size * 0.3
-                    let targetSize = (isImage ? size * 1.7 : size) * 0.8
-                    content
-                        .frame(width: targetSize, height: targetSize)
-                        .padding(padding)
-                        .foregroundStyle((colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
-                        .background(isImage ? Color.clear : (colorValue?.color ?? .clear))
-                        .clipShape(.circle)
-                        .scaleEffect(spSelection.wrappedValue.isContentAvailable() ? 1 : 0)
-                        .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
-                        .if{ content in
-                            if #available(watchOS 26.0, *){
-                                content
-                                    .glassEffect()
-                            }else{
-                                content
-                            }
-                        }
-                }
-        }
-        .buttonStyle(.plain)
-        .allowsHitTesting(false)
-        #else
-        HStack {
-            Spacer()
-            Group{
-                if isImage{
-                    Rectangle().fill(.clear)
-                }else{
-                    spSelection.wrappedValue.asView()
-                }
-            }
-            .if { content in
-                if #available(iOS 26.0, visionOS 26.0, macOS 26.0, tvOS 26.0, *) {
-                    let size = size
-                    let padding = size * 0.35
-                    let targetSize = size
-                    content
-                        .frame(width: targetSize, height: targetSize)
-                        .padding(padding)
-                        .foregroundStyle(symbolPickerStyle.colorPicker == nil ? colorScheme == .dark ? .black : .white : (colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
-                        .background(Group {
-                            if !isImage {
-                                if symbolPickerStyle.colorPicker == nil{
-                                    Color.primary
+        if spSelection.wrappedValue.isContentAvailable(){
+#if os(watchOS)
+            Button{
+                
+            }label:{
+                spSelection.wrappedValue.asView()
+                    .if{ content in
+                        let size = size
+                        let padding = isImage ? 0 : size * 0.3
+                        let targetSize = (isImage ? size * 1.7 : size) * 0.8
+                        content
+                            .frame(width: targetSize, height: targetSize)
+                            .padding(padding)
+                            .foregroundStyle(symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 ? (colorScheme == .dark ? .black : .white) : ((colorValue?.luminance ?? 0) > 0.6 ? .black : .white))
+                            .background(Group {
+                                if !isImage {
+                                    if symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0{
+                                        colorScheme == .dark ? Color.white : Color.black
+                                    }else{
+                                        LinearGradient(
+                                            colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
+                                            startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
+                                            endPoint: colorScheme == .dark ? .bottomTrailing : .topLeading)
+                                    }
                                 }else{
-                                    LinearGradient(
-                                        colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
-                                        startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
-                                        endPoint: colorScheme == .dark ? .bottomTrailing : .topLeading)
+                                    spSelection.wrappedValue.asView()
                                 }
-                            }else{
-                                spSelection.wrappedValue.asView()
+                            })
+                            .clipShape(.circle)
+                            .if{ content in
+                                if #available(watchOS 26.0, *){
+                                    content
+                                        .glassEffect()
+                                }else{
+                                    content
+                                }
                             }
-                        })
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.5, style: .continuous))
-                        .shadow(color: (colorValue?.color ?? .black).opacity(0.5), radius: 20)
-                        .scaleEffect(spSelection.wrappedValue.isContentAvailable() ? spCalculateScale : 0)
-                        .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
+                    }
+            }
+            .buttonStyle(.plain)
+            .allowsHitTesting(false)
+#else
+            HStack {
+                Spacer()
+                Group{
+                    if isImage{
+                        Rectangle().fill(.clear)
+                    }else{
+                        spSelection.wrappedValue.asView()
+                    }
+                }
+                .if { content in
+                    if #available(iOS 26.0, visionOS 26.0, macOS 26.0, tvOS 26.0, *) {
+                        let size = size
+                        let padding = size * 0.35
+                        let targetSize = size
+                        content
+                            .frame(width: targetSize, height: targetSize)
+                            .padding(padding)
+                            .foregroundStyle(symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 ? (colorScheme == .dark ? .black : .white) : ((colorValue?.luminance ?? 0) > 0.6 ? .black : .white))
+                            .background(Group {
+                                if !isImage {
+                                    if symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0{
+                                        colorScheme == .dark ? Color.white : Color.black
+                                    }else{
+                                        LinearGradient(
+                                            colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
+                                            startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
+                                            endPoint: colorScheme == .dark ? .bottomTrailing : .topLeading)
+                                    }
+                                }else{
+                                    spSelection.wrappedValue.asView()
+                                }
+                            })
+                            .background(Color.white)
+                            .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.5, style: .continuous))
+                            .shadow(color: (colorValue?.color ?? .black).opacity(0.5), radius: 20)
+                            .scaleEffect(spCalculateScale)
 #if os(watchOS)
                         .offset(y: spCalculateOffset)
 #else
                         .offset(y: spCalculateOffset)
 #endif
-                } else {
-                    let size = size
-                    let padding = isImage ? 0 : size * 0.2
-                    let targetSize = (isImage ? size * 1.7 : size) * 0.8
-                    content
-                        .frame(width: targetSize, height: targetSize)
-                        .padding(padding)
-                        .foregroundStyle(symbolPickerStyle.colorPicker == nil ? colorScheme == .dark ? .black : .white : (colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
-                        .background(Group {
-                            if !isImage {
-                                if symbolPickerStyle.colorPicker == nil{
-                                    Color.primary
+                    } else {
+                        let size = size
+                        let padding = isImage ? 0 : size * 0.2
+                        let targetSize = (isImage ? size * 1.7 : size) * 0.8
+                        content
+                            .frame(width: targetSize, height: targetSize)
+                            .padding(padding)
+                            .foregroundStyle(symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 ? (colorScheme == .dark ? .black : .white) : ((colorValue?.luminance ?? 0) > 0.6 ? .black : .white))
+                            .background(Group {
+                                if !isImage {
+                                    if symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0{
+                                        colorScheme == .dark ? Color.white : Color.black
+                                    }else{
+                                        LinearGradient(
+                                            colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
+                                            startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
+                                            endPoint: colorScheme == .dark ? .bottomTrailing : .topLeading)
+                                    }
                                 }else{
-                                    LinearGradient(
-                                        colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
-                                        startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
-                                        endPoint: colorScheme == .dark ? .bottomTrailing : .topLeading)
+                                    spSelection.wrappedValue.asView()
                                 }
-                            }else{
-                                spSelection.wrappedValue.asView()
-                            }
-                        })
-                        .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.3, style: .continuous))
-                        .scaleEffect(spSelection.wrappedValue.isContentAvailable() ? 1 : 0)
-                        .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
+                            })
+                            .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.3, style: .continuous))
+                    }
+                }
+                Spacer()
+            }
+#if os(tvOS)
+            .if{ content in
+                if #available(tvOS 17.0, *){
+                    content.focusable()
+                }else{
+                    content
                 }
             }
-            Spacer()
-        }
-        #if os(tvOS)
-        .if{ content in
-            if #available(tvOS 17.0, *){
-                content.focusable()
-            }else{
-                content
+#endif
+#if os(iOS) || os(visionOS)
+            .if {content in
+                if #available(iOS 26.0, visionOS 26.0, *) {
+                    content
+                        .padding(.top, 20)
+                }else{
+                    content
+                        .padding(.vertical, 10)
+                }
             }
+            .ignoresSafeArea()
+#else
+            .padding(.top, spCalculateScale != 1 ? 3 : -5)
+            .padding(.bottom, 5)
+            .animation(.smooth, value: spCalculateScale)
+#endif
+            .allowsHitTesting(false)
+#endif
         }
-        #endif
-        #if os(iOS) || os(visionOS)
-        .if {content in
-            if #available(iOS 26.0, visionOS 26.0, *) {
-                content
-                    .padding(.top, 20)
-            }else{
-                content
-                    .padding(.vertical, 10)
-            }
-        }
-        .ignoresSafeArea()
-        #else
-        .padding(.top, spCalculateScale != 1 ? 3 : -5)
-        .padding(.bottom, 5)
-        .animation(.smooth, value: spCalculateScale)
-        #endif
-        .allowsHitTesting(false)
-        #endif
-
     }
 }
