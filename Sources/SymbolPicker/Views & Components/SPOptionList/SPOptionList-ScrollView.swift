@@ -56,23 +56,35 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                 }
 #endif
             }
-            .onChange(of: spSearchText.wrappedValue){ _, _ in
-                proxy.scrollTo(spPageType.wrappedValue, anchor: .top)
+            .onChange(of: spSearchText.wrappedValue){ _ in
+                    proxy.scrollTo(spPageType.wrappedValue, anchor: .top)
             }
 #else
             .onChange(of: spPageType.wrappedValue) { newValue in
-#if os(visonOS)
+                #if os(visonOS)
                 proxy.scrollTo(newValue, anchor: .top)
-#else
-                if style.displayStyle == .compact && newValue != .emoji && newValue != .symbol{
+                #elseif os(iOS)
+                withAnimation{
                     proxy.scrollTo(newValue, anchor: .top)
                 }
-#endif
+                #else
+                proxy.scrollTo(newValue, anchor: .top)
+                #endif
             }
             .onChange(of: spSearchText.wrappedValue){ _ in
-                proxy.scrollTo(spPageType.wrappedValue, anchor: .top)
+                #if os(iOS)
+                if style.displayStyle == .compact{
+                    withAnimation{
+                        proxy.scrollTo(spPageType.wrappedValue, anchor: .top)
+                    }
+                }
+                #else
+                withAnimation{
+                    proxy.scrollTo(spPageType.wrappedValue, anchor: .top)
+                }
+                #endif
             }
-#endif
+            #endif
             .onAppear { proxy.scrollTo(spPageType.wrappedValue, anchor: .top) }
 #if os(iOS) || os(visionOS) || os(macOS) || os(tvOS)
             .if{ content in

@@ -146,8 +146,11 @@ public extension SPSymbolPickerConfiguration {
                     },
                     SPInsetedView(placement: .scrollSectionTop){
                         SPPagePicker()
-                            .padding(.vertical, 8)
+                            .padding(.top, 13)
+                            .padding(.bottom, 4)
+                            .padding(.horizontal, -2)
                         SPSearchBar()
+                            .padding(.horizontal, -2)
                     }
                 ]
             }else{

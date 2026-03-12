@@ -19,6 +19,7 @@ struct SPOptionListSectionGrid<T: SPDataAsset, Content: View>: View {
                 Section(header: SPHeaderView(title: section.category)) {
                     ForEach(section.elements) { item in
                         content(item)
+                            .id(item)
                     }
                 }
                 .id(section.category)

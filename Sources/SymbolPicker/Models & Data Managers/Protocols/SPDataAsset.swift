@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public protocol SPDataAsset: Sendable, Equatable, Identifiable, Codable{
+public protocol SPDataAsset: Sendable, Hashable, Equatable, Identifiable, Codable{
     associatedtype Body: View
     var annotation: String? { get }
     var category: String? { get }
