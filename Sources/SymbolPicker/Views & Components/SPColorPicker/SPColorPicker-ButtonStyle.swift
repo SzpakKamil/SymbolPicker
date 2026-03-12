@@ -18,11 +18,7 @@ struct SPColorPickerButtonStyle: ButtonStyle {
     var backgroundColor: Color{
         #if os(tvOS)
         if #available(tvOS 26.0, *){
-            if colorScheme == .light{
-                return Color.white
-            }else{
-                return Color.white.opacity(0.15)
-            }
+            return Color.primary.opacity(0.3)
         }else{
             if colorScheme == .light{
                 return Color.black.opacity(0.15)

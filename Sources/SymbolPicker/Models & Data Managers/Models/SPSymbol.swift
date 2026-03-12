@@ -127,14 +127,8 @@ extension SPSymbol {
             do {
                 let data = try Data(contentsOf: url)
                 let decoded = try JSONDecoder().decode([SPSymbol].self, from: data)
-                let decodedElements = decoded.filter{ $0.isAvailable() }
-                var finalElements: [SPSymbol] = []
-                for element in decodedElements{
-                    if !finalElements.contains{ $0.id == element.id}{
-                        finalElements.append(element)
-                    }
-                }
-                return finalElements
+                return decoded.filter{ $0.isAvailable() }.removeDuplicates()
+
             } catch let error as DecodingError {
                  throw SPDataManager.Error.decodingFailed(type: "\(SPSymbol.self)", error: error)
             } catch {
@@ -157,9 +151,13 @@ extension SPSymbol {
         #endif
     }
     
-    @MainActor
-    @ViewBuilder
-    public func asView() -> some View {
+    public func isDuplicate(of other: Self) -> Bool {
+        self.filledName == other.filledName && self.notFilled == other.notFilled
+    }
+    
+    
+
+    @MainActor @ViewBuilder public func asView() -> some View {
         SPSymbolView(symbol: self)
     }
 }

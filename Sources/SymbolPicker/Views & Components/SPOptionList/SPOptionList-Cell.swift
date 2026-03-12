@@ -62,10 +62,11 @@ struct SPOptionListCell<T: SPDataAsset>: View {
                     SPEmojiView(emoji: emoji)
                 }
             }
-
         }
-        .focused($isFocused)
-        .buttonStyle(symbolPickerStyle.getCellButtonStyle(isSelected: isSelected, isFocused: isFocused, size: size))
+        #if os(tvOS)
+        .if{ content in if #unavailable(tvOS 26.0){ content.focused($isFocused)}else{content} }
+        #endif
+        .buttonStyle(SPOptionListButtonStyle(isSelected: isSelected, isFocused: isFocused, size: size))
         .accessibilityElement()
         .accessibilityLabel(symbol != nil ? symbol?.annotation ?? SPPageType.symbol.localizedDescription : emoji?.annotation ?? SPPageType.emoji.localizedDescription)
         .accessibilityAddTraits(.isButton)

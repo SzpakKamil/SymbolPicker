@@ -41,7 +41,7 @@ struct SPOptionListButtonStyle: ButtonStyle {
         
             .frame(width: size, height: size * 1.25, alignment: .center)
             .padding(size * 0.25)
-            .foregroundStyle(isFocused ? Color.black : Color.primary)
+            .foregroundStyle(isFocused ? Color.primary : Color.primary)
             #if os(tvOS)
             .background(isFocused ? backgroundColor : .clear)
                 

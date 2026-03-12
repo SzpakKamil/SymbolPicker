@@ -57,14 +57,16 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
 #endif
             }
             .onChange(of: spSearchText.wrappedValue){ _ in
-                    proxy.scrollTo(spPageType.wrappedValue, anchor: .top)
+                proxy.scrollTo(spPageType.wrappedValue, anchor: .top)
             }
 #else
             .onChange(of: spPageType.wrappedValue) { newValue in
-                #if os(visonOS)
-                proxy.scrollTo(newValue, anchor: .top)
-                #elseif os(iOS)
+                #if os(iOS)
                 withAnimation{
+                    proxy.scrollTo(newValue, anchor: .top)
+                }
+                #elseif os(macOS)
+                if spPageType.wrappedValue != .symbol && spPageType.wrappedValue != .emoji{
                     proxy.scrollTo(newValue, anchor: .top)
                 }
                 #else
@@ -72,21 +74,13 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                 #endif
             }
             .onChange(of: spSearchText.wrappedValue){ _ in
-                #if os(iOS)
-                if style.displayStyle == .compact{
-                    withAnimation{
-                        proxy.scrollTo(spPageType.wrappedValue, anchor: .top)
-                    }
-                }
-                #else
                 withAnimation{
                     proxy.scrollTo(spPageType.wrappedValue, anchor: .top)
                 }
-                #endif
             }
             #endif
             .onAppear { proxy.scrollTo(spPageType.wrappedValue, anchor: .top) }
-#if os(iOS) || os(visionOS) || os(macOS) || os(tvOS)
+            #if os(iOS) || os(visionOS) || os(macOS) || os(tvOS)
             .if{ content in
                 if #available(iOS 26.0, visionOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *){
                     content.onScrollGeometryChange(for: [CGFloat].self, of: { geometry in
@@ -122,6 +116,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         ForEach(style.getViews(for: .safeAreaTop).indices, id: \.self){ index in
                             let insetedView = style.getViews(for: .safeAreaTop)[index]
                             insetedView.view
+                                .animation(.smooth, value: spPageType.wrappedValue)
                                 .safeAreaPaddingForDictionary(
                                     insetedView.paddings,
                                     verticalDefault: SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0,
@@ -133,12 +128,12 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                                     }else{ content }
                                 }
                         }
-                        
                     }
                     .safeAreaBar(edge: .bottom) {
                         ForEach(style.getViews(for: .safeAreaBottom).indices, id: \.self){ index in
                             let insetedView = style.getViews(for: .safeAreaBottom)[index]
                             insetedView.view
+                                .animation(.smooth, value: spPageType.wrappedValue)
                                 .safeAreaPaddingForDictionary(
                                     insetedView.paddings,
                                     verticalDefault: SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0,
@@ -157,6 +152,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         ForEach(style.getViews(for: .safeAreaTop).indices, id: \.self){ index in
                             let insetedView = style.getViews(for: .safeAreaTop)[index]
                             insetedView.view
+                                .animation(.smooth, value: spPageType.wrappedValue)
                                 .padding(.top, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
                                 .padding(.bottom, (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
                                 .environment(\.spHorizontalPadding, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
@@ -167,6 +163,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         ForEach(style.getViews(for: .safeAreaBottom).indices, id: \.self){ index in
                             let insetedView = style.getViews(for: .safeAreaBottom)[index]
                             insetedView.view
+                                .animation(.smooth, value: spPageType.wrappedValue)
                                 .padding(.bottom, SPSpacing.getVerticalPadding(for: style.spacing.optionList))
                                 .padding(.top, (SPSpacing.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
                                 .environment(\.spHorizontalPadding, SPSpacing.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
@@ -182,42 +179,54 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
 
     @ViewBuilder
     private func scrollBody(proxy: ScrollViewProxy) -> some View {
-        VStack {
-            ForEach(style.getViews(for: .scrollContentTop).indices, id: \.self){ index in
-                let insetedView = style.getViews(for: .scrollContentTop)[index]
-                insetedView.view
-                    .background { insetedView.background }
-            }
-            .spListStyleRow(forceListStyle: style.displayStyle == .detail)
-            
-            VStack{
-                ForEach(style.getViews(for: .scrollSectionTop).indices, id: \.self){ index in
-                    let insetedView = style.getViews(for: .scrollSectionTop)[index]
+        LazyVStack {
+            let topViews = style.getViews(for: .scrollContentTop)
+            if !topViews.isEmpty{
+                ForEach(topViews.indices, id: \.self){ index in
+                    let insetedView = topViews[index]
                     insetedView.view
                         .background { insetedView.background }
                 }
-                .spListStyleRow(forceListStyle: style.displayStyle != .detail || ![SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
+                .spListStyleRow(forceListStyle: style.displayStyle == .detail)
+            }
+            
+            LazyVStack{
+                let topSectionViews = style.getViews(for: .scrollSectionTop)
+                if !topSectionViews.isEmpty{
+                    ForEach(topSectionViews.indices, id: \.self){ index in
+                        let insetedView = topSectionViews[index]
+                        insetedView.view
+                            .background { insetedView.background }
+                    }
+                    .spListStyleRow(forceListStyle: style.displayStyle != .detail || ![SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
+                }
                 
                 if showProgressView{
                     progressView()
                 }else{
                     content(proxy)
                 }
-                ForEach(style.getViews(for: .scrollSectionBottom).indices, id: \.self){ index in
-                    let insetedView = style.getViews(for: .scrollSectionBottom)[index]
-                    insetedView.view
-                        .background { insetedView.background }
+                let bottomSectionViews = style.getViews(for: .scrollSectionBottom)
+                if !bottomSectionViews.isEmpty{
+                    ForEach(bottomSectionViews.indices, id: \.self){ index in
+                        let insetedView = bottomSectionViews[index]
+                        insetedView.view
+                            .background { insetedView.background }
+                    }
+                    .spListStyleRow(forceListStyle: style.displayStyle != .detail || ![SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
                 }
-                .spListStyleRow(forceListStyle: style.displayStyle != .detail || ![SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
             }
             .spListStyleRow(forceListStyle: style.displayStyle == .detail && [SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
             
-            ForEach(style.getViews(for: .scrollContentBottom).indices, id: \.self){ index in
-                let insetedView = style.getViews(for: .scrollContentBottom)[index]
-                insetedView.view
-                    .background { insetedView.background }
+            let bottomViews = style.getViews(for: .scrollContentBottom)
+            if !bottomViews.isEmpty{
+                ForEach(bottomViews.indices, id: \.self){ index in
+                    let insetedView = bottomViews[index]
+                    insetedView.view
+                        .background { insetedView.background }
+                }
+                .spListStyleRow(forceListStyle: style.displayStyle == .detail)
             }
-            .spListStyleRow(forceListStyle: style.displayStyle == .detail)
         }
         .if { content in if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, visionOS 1.0, *) { content} else {
             content

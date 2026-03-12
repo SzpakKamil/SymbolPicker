@@ -43,7 +43,7 @@ actor SPDataManager {
     }
     
     private nonisolated func performSearch<T: SPDataAsset>(_ items: [T], for text: String) async -> [T] {
-        return items.filter { $0.matches(text) }
+        return items.filter { $0.matches(text) }.removeDuplicates{ $0.isDuplicate(of: $1)}
     }
     
     // MARK: - Fetching and Loading

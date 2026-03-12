@@ -47,7 +47,7 @@ struct SPSearchBar: View {
                 .if{ content in
                     if #available(tvOS 26.0, *){
                         content
-                            .searchBarStyle(.capsule, backgroundColor: Color.primary.opacity(0.05))
+                            .searchBarStyle(.capsule, backgroundColor: Color.primary.opacity(0.1))
                             .searchBarMaterial(.glass)
                             .searchBarScale(.medium)
                             .padding(.vertical, symbolPickerStyle.displayStyle == .detail ? -10 : 0)

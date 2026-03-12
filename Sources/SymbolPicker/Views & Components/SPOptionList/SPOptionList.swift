@@ -22,7 +22,7 @@ public struct SPOptionList<T: SPDataAsset>: View {
     private var currentSize: CGFloat{ SPSpacing.getSize(in: dynamicTypeSize, for: style.spacing.optionList) }
 
     private var columns: [GridItem] {[GridItem(.adaptive(minimum: currentSize, maximum: currentSize * 1.2), spacing: currentSize * 0.8)]}
-
+    
     public var body: some View {
         SPOptionListContainerView{
             #if os(iOS) || os(macOS) || os(visionOS)

@@ -78,13 +78,17 @@ struct SPSelectedSymbol: View {
                     content
                         .frame(width: targetSize, height: targetSize)
                         .padding(padding)
-                        .foregroundStyle((colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
+                        .foregroundStyle(symbolPickerStyle.colorPicker == nil ? colorScheme == .dark ? .black : .white : (colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
                         .background(Group {
                             if !isImage {
-                                LinearGradient(
-                                    colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
-                                    startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
-                                    endPoint: colorScheme == .dark ? .bottomTrailing : .topLeading)
+                                if symbolPickerStyle.colorPicker == nil{
+                                    Color.primary
+                                }else{
+                                    LinearGradient(
+                                        colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
+                                        startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
+                                        endPoint: colorScheme == .dark ? .bottomTrailing : .topLeading)
+                                }
                             }else{
                                 spSelection.wrappedValue.asView()
                             }
@@ -105,8 +109,21 @@ struct SPSelectedSymbol: View {
                     content
                         .frame(width: targetSize, height: targetSize)
                         .padding(padding)
-                        .foregroundStyle((colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
-                        .background(isImage ? Color.clear : (colorValue?.color ?? .clear))
+                        .foregroundStyle(symbolPickerStyle.colorPicker == nil ? colorScheme == .dark ? .black : .white : (colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
+                        .background(Group {
+                            if !isImage {
+                                if symbolPickerStyle.colorPicker == nil{
+                                    Color.primary
+                                }else{
+                                    LinearGradient(
+                                        colors: [(colorValue?.color ?? .clear), (colorValue?.color ?? .clear).opacity(0.9)],
+                                        startPoint: colorScheme == .dark ? .topLeading : .bottomTrailing,
+                                        endPoint: colorScheme == .dark ? .bottomTrailing : .topLeading)
+                                }
+                            }else{
+                                spSelection.wrappedValue.asView()
+                            }
+                        })
                         .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.3, style: .continuous))
                 }
             }

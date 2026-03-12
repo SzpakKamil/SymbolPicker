@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public protocol SPDataAsset: Sendable, Hashable, Equatable, Identifiable, Codable{
+public protocol SPDataAsset: Sendable, Hashable, Equatable, Identifiable, Codable where ID: Sendable{
     associatedtype Body: View
     var annotation: String? { get }
     var category: String? { get }
@@ -16,6 +16,7 @@ public protocol SPDataAsset: Sendable, Hashable, Equatable, Identifiable, Codabl
     func matches(_ text: String) -> Bool
     static var filePrefix: String { get }
     static func fetchAssets(locale: String) async throws -> [Self]
+    func isDuplicate(of other: Self) -> Bool
     func isAvailable() -> Bool
     @MainActor @ViewBuilder func asView() -> Body
 }
@@ -32,6 +33,10 @@ extension SPDataAsset{
                 annotation?.localizedStandardContains(text) == true ||
                 category?.localizedStandardContains(text) == true ||
                 subcategory?.localizedStandardContains(text) == true
+    }
+    
+    public func isDuplicate(of other: Self) -> Bool {
+        self == other
     }
 }
 
