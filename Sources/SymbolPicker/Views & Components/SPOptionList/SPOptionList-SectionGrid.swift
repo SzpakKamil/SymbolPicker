@@ -14,32 +14,17 @@ struct SPOptionListSectionGrid<T: SPDataAsset, Content: View>: View {
     let content: (T) -> Content
     
     var body: some View {
-//        #if !os(macOS)
         LazyVStack{
             ForEach(data, id: \.category) { section in
                 SPHeaderView(title: section.category)
                 LazyVGrid(columns: columns, alignment: .center, spacing: spacing) {
                     ForEach(section.elements) { item in
                         content(item)
-//                            .id(item)
+                            .id(item)
                     }
                 }
             }
         }
-//        #else
-//        LazyVStack{
-//            ForEach(data, id: \.category) { section in
-//                Section(header: SPHeaderView(title: section.category)) {
-//                    LazyVGrid(columns: columns, alignment: .center, spacing: spacing) {
-//                        ForEach(section.elements) { item in
-//                            content(item)
-////                                .id(item)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        #endif
     }
 }
 
