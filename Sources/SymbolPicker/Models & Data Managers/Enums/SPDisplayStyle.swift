@@ -10,4 +10,5 @@ import SwiftUI
 public enum SPDisplayStyle: Sendable{
     case compact
     case detail
+    case plain
 }

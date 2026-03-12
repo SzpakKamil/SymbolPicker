@@ -12,7 +12,7 @@ private struct SPCalculateOffsetEnvironmentProperty: EnvironmentKey {
 }
 
 extension EnvironmentValues {
-  public var spCalculateOffset: CGFloat {
+    var spCalculateOffset: CGFloat {
     get { self[SPCalculateOffsetEnvironmentProperty.self] }
     set { self[SPCalculateOffsetEnvironmentProperty.self] = newValue }
   }

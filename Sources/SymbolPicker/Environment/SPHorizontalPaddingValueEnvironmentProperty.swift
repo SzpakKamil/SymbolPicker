@@ -12,8 +12,8 @@ private struct SPHorizontalPaddingValueEnvironmentProperty: EnvironmentKey {
 }
 
 extension EnvironmentValues {
-  var spHorizontalPadding: CGFloat {
-    get { self[SPHorizontalPaddingValueEnvironmentProperty.self] }
-    set { self[SPHorizontalPaddingValueEnvironmentProperty.self] = newValue }
-  }
+    var spHorizontalPadding: CGFloat {
+        get { self[SPHorizontalPaddingValueEnvironmentProperty.self] }
+        set { self[SPHorizontalPaddingValueEnvironmentProperty.self] = newValue }
+    }
 }

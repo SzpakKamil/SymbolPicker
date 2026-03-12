@@ -1,180 +1,125 @@
 # `SymbolPicker`
-
-![Swift Version](https://img.shields.io/badge/Swift-5.9-teal.svg)
-![Platforms](https://img.shields.io/badge/Platforms-iOS%2014.0+%20|%20iPadOS%2014.0+%20|%20macOS%2011.0+%20|%20visionOS%201.0+-15437D.svg)
+![Swift Version](https://img.shields.io/badge/Swift-6.0+-teal.svg)
+![Platforms](https://img.shields.io/badge/Platforms-iOS%2015.0+%20|%20iPadOS%2015.0+%20|%20macOS%2012.0+%20|%20watchOS%2010.0+%20|%20tvOS%2015.0+%20|%20visionOS%201.0+-15437D.svg)
 ![License](https://img.shields.io/badge/License-MIT-C8ECFE.svg)
 
 ![Banner](./Resources/SymbolPicker-Banner.png#gh-light-mode-only)
 ![Banner](./Resources/SymbolPicker-BannerDark.png#gh-dark-mode-only)
 
-**SymbolPicker** is a SwiftUI package that provides a native, highly customizable symbol picker component for iOS, iPadOS, macOS, and visionOS. Built to integrate seamlessly with SwiftUI, it leverages Apple’s SF Symbols and offers a familiar interface for browsing and selecting symbols with flexible styling and color options. With support for dynamic type, accessibility, and platform-adaptive presentations, `SymbolPicker` is ideal for creating intuitive symbol selection experiences.
+# Symbols, Evolved.
+### I redefined the picker experience. SymbolPicker gives you total control over asset selection in SwiftUI.
 
-For detailed documentation, visit the [SymbolPicker Documentation](https://documentation.kamilszpak.com/documentation/symbolpicker).
+Forget system limitations. I built **SymbolPicker** to offer a unified, modular, and highly customizable interface for selecting Symbols, Emojis, Colors, and Images across all Apple platforms.
+
+> **A complete rewrite.**
+> Version 2.0 is a ground-up reimagining of what a picker should be. Modular components, modern concurrency, and a design that feels native on every device.
+
+Visit the [Site](https://kamilszpak.com/symbolpicker) or [Documentation](https://documentation.kamilszpak.com/documentation/symbolpicker).
+
+---
 
 ## Table of Contents
 
-- [Features](#features)
+- [Production-Ready Features](#production-ready-features)
+- [Your Layout, Your Rules](#your-layout-your-rules)
+- [Instant Integration](#instant-integration)
+- [Modular Architecture](#modular-architecture)
 - [Resources](#resources)
-- [Usage](#usage)
-  - [Basic Usage](#basic-usage)
-  - [Advanced Customization](#advanced-customization)
-- [Modifiers](#modifiers)
 - [Installation](#installation)
 - [Requirements](#requirements)
 - [License](#license)
 
-## Features
+## Production-Ready Features
+I handled the complexity so you don't have to. Integrate a robust asset selector that scales with your app.
 
-- **Native Integration**: Delivers a platform-authentic symbol picker experience, mirroring Apple’s SF Symbols interface.
-- **Extensive Customization**: Modify symbol rendering styles, colors (RGB `[Double]`, SwiftUI `Color`, or predefined `SymbolColor`), and filled/outline variants via SwiftUI modifiers.
-- **Dynamic Search**: Real-time symbol filtering with a built-in search bar for quick navigation.
-- **Symbol Categorization**: Organizes symbols to match Apple’s official SF Symbols categories.
-- **Color Flexibility**: Supports `[Double]` for RGBA, SwiftUI `Color`, or `SymbolColor` with precise styling via `customColor(red:green:blue:alpha:)`.
-- **Accessibility**: Full support for VoiceOver, Dynamic Type, and adaptive layouts for inclusive experiences.
-- **Platform Consistency**: Unified SwiftUI API with adaptive presentations (sheets on iPhone, popovers on iPad/visionOS, windows on macOS).
-- **Built-in Unit Tests**: Includes comprehensive unit and UI tests to ensure reliability across all supported platforms.
+- **Unified Selection**: One picker to rule them all. Select SF Symbols, Emojis, Colors, and Custom Images in a single, cohesive interface.
+- **Cross-Platform Mastery**: Native experiences on iOS, macOS, iPadOS, watchOS, tvOS, and visionOS.
+- **Global Reach**: Fully localized in over 20 languages (English, Spanish, French, German, Chinese, Japanese, and many more).
+- **Accessibility First**: Built with VoiceOver and Dynamic Type at its core, ensuring your app is usable by everyone.
+- **Smart Search**: Powered by `SearchBar`, finding the right symbol or emoji is instant and intuitive.
 
-## Resources
+## Your Layout, Your Rules
+Don't fight the framework. Customize every aspect of the picker to match your design language.
 
-Explore additional SymbolPicker resources to deepen your understanding:
+- **Custom Placements**: Inject your own views with `SPInsetedView`. Add headers, footers, or custom controls exactly where you need them.
+- **Pure Canvas**: Use the `.plain` display style to strip away default layouts. Rearrange core components like `SPSearchBar` or `SPPagePicker` freely using inset views.
+- **Adaptive Design**: The interface optimizes automatically for different screen sizes, from the wrist to the desktop.
 
-- **Documentation**: Dive into detailed SymbolPicker documentation.
-  - [Modifiers](https://documentation.kamilszpak.com/documentation/symbolpicker/modifiers)
-  - [SymbolColor Model](https://documentation.kamilszpak.com/documentation/symbolpicker/symbolcolor)
-
-## Usage
-
-The `SymbolPicker` component is a SwiftUI `View` that adapts to each platform, offering a simple yet powerful API for integration and customization.
+## Instant Integration
+Drop it in and go. The default configuration provides a polished experience out of the box.
 
 ### Basic Usage
-
-A minimal setup for a functional symbol picker across platforms:
+Present the picker as a sheet or popover:
 
 ```swift
 import SwiftUI
 import SymbolPicker
 
 struct ContentView: View {
+    @State private var selection: SPSelection<SPSymbol>? = nil
     @State private var isPresented = false
-    @State private var symbolName = "star.fill"
 
     var body: some View {
-        Button(action: { isPresented = true }) {
-            Image(systemName: symbolName)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 50, height: 50)
+        Button("Select Symbol") {
+            isPresented = true
         }
-        .symbolPicker(isPresented: $isPresented, symbolName: $symbolName)
-        .symbolPickerSymbolsStyle(.filled)
-        .symbolPickerDismiss(type: .onSymbolSelect)
+        .symbolPicker(isPresented: $isPresented, selection: $selection)
+        .onChange(of: selection) { newValue in
+            if let symbol = newValue {
+                print("Selected: \(symbol.id)")
+            }
+        }
     }
 }
 ```
 
-### Advanced Customization
-
-Enhance the symbol picker with color selection using `[Double]`, `SymbolColor`, or SwiftUI `Color`, along with custom styles and platform-specific behaviors:
+## Modular Architecture
+This is where SymbolPicker 2.0 shines. Break it apart and build your own custom selector using the exposed components.
 
 ```swift
-import SwiftUI
-import SymbolPicker
-
-struct ContentView: View {
-    @State private var isPresented = false
-    @State private var symbolName = "car.fill"
-    @State private var colorValues: [Double] = [0.906, 0.392, 0.416, 1.0]
-
-    var body: some View {
-        VStack {
-            Image(systemName: symbolName)
-                .foregroundStyle(Color(
-                    red: colorValues[0],
-                    green: colorValues[1],
-                    blue: colorValues[2],
-                    opacity: colorValues[3]
-                ))
-                .font(.system(size: 64))
-            Button("Select Symbol") { isPresented.toggle() }
-            Text("Symbol: \(symbolName)")
-        }
-        .padding()
-        .symbolPicker(
-            isPresented: $isPresented,
-            symbolName: $symbolName,
-            color: $colorValues
+struct MyConfiguration: SPSymbolPickerConfiguration {
+    // 1. Start with a blank canvas
+    var displayStyle: SPDisplayStyle = .plain 
+    
+    // 2. Define precise component sizing and padding
+    var spacing: SPSpacing {
+        SPSpacing(
+            colorPicker: .init(spacings: [.medium: 45], osScaleFactors: [.iOS: 1.0], horizontalPadding: [:], verticalPadding: [:]),
+            optionList: .init(spacings: [.medium: 20], osScaleFactors: [.iOS: 1.0], horizontalPadding: [:], verticalPadding: [:]),
+            selectedSymbol: .init(spacings: [.medium: 50], osScaleFactors: [.iOS: 1.0], horizontalPadding: [:], verticalPadding: [:])
         )
-        .symbolPickerSymbolsStyle(.filled)
-        .symbolPickerDismiss(type: .onSymbolSelect)
+    }
+
+    // 3. Rebuild the layout by injecting views into specific slots
+    @SPInsetedViewBuilder
+    func insetViewsConfiguration() -> [SPInsetedView] {
+        SPInsetedView(placement: .safeAreaTop) {
+            SPSearchBar()
+            SPPagePicker()
+        }
     }
 }
 ```
 
-## Modifiers
-
-The `SymbolPicker` package offers modifiers to customize its appearance, behavior, and interaction. Below are key examples from each category. For a complete list, refer to the [SymbolPicker Documentation](https://documentation.kamilszpak.com/documentation/symbolpicker/modifiers).
-
-### Symbol Picker Modifiers
-
-- **`symbolPicker(isPresented:symbolName:)`**: Presents the picker without color selection, ideal for simple symbol selection.  
-  *Available on iOS (14.0+), iPadOS (14.0+), macOS (11.0+), visionOS (1.0+).*
-- **`symbolPicker(isPresented:symbolName:color:)`**: Configures the picker with color binding supporting `[Double]` for RGBA, SwiftUI `Color`, or `SymbolColor`.  
-  *Available on iOS (14.0+), iPadOS (14.0+), macOS (11.0+), visionOS (1.0+).*
-
-### Configuration Modifiers
-
-- **`symbolPickerSymbolsStyle(_:)`**: Toggles between `.filled` (e.g., `star.fill`) and `.outline` (e.g., `star`) symbol variants.  
-  *Available on iOS (14.0+), iPadOS (14.0+), macOS (11.0+), visionOS (1.0+).*
-- **`symbolPickerDismiss(type:)`**: Configures dismissal behavior, with `.onSymbolSelect` to close the picker upon symbol selection.  
-  *Available on iOS (14.0+), iPadOS (14.0+), macOS (11.0+), visionOS (1.0+).*
-
-### Color Options
-
-- Supports predefined `SymbolColor` values (e.g., `.red`, `.blue`, `.customColor(red:green:blue:alpha:)`) for consistent styling.
-- Allows `[Double]` for RGBA values, SwiftUI `Color`, or `SymbolColor.customColor(red:green:blue:alpha:)` for precise color customization.
+## Resources
+- **Documentation**: Detailed [API Reference](https://documentation.kamilszpak.com/documentation/symbolpicker).
+- **GitHub Repo**: Track issues and help shape the roadmap.
+- **Swift Package Index**: Check [Compatibility](https://swiftpackageindex.com/SzpakKamil/SymbolPicker) across all platforms.
 
 ## Installation
 
 ### Swift Package Manager
-
-Add `SymbolPicker` to your project via Swift Package Manager. The minimum version required is **1.0.0**.
-
-#### In `Package.swift`:
+Add `SymbolPicker` via SPM. The minimum version required is **2.0.0**.
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/SzpakKamil/SymbolPicker.git", from: "1.0.0")
+    .package(url: "https://github.com/SzpakKamil/SymbolPicker.git", from: "2.0.0")
 ]
 ```
 
-#### In Xcode:
-
-1. Go to **File > Swift Packages > Add Package Dependency**.
-2. Enter the URL: `https://github.com/SzpakKamil/SymbolPicker.git`.
-3. Select version **1.0.0** or later.
-
-### Agent Skill
-You can install the SymbolPicker skill for your CLI agent to get expert guidance on SymbolPicker directly in your terminal.
-
-#### Using skills.sh:
-```bash
-npx skills add https://github.com/SzpakKamil/AgentSkills --skill SymbolPicker
-```
-
-#### Using ClawdHub:
-```bash
-npx dlx clawdhub@latest install symbolpicker
-```
-
 ## Requirements
-
-- **iOS**: 14.0+
-- **iPadOS**: 14.0+
-- **macOS**: 11.0+
-- **visionOS**: 1.0+
-- **Swift**: 5.9+
-- **Xcode**: 15.0+
+- **Platforms**: iOS 15.0+, macOS 12.0+, tvOS 15.0+, watchOS 10.0+, visionOS 1.0+
+- **Tools**: Swift 6.0+, Xcode 16.0+
 
 ## License
-
 `SymbolPicker` is released under the MIT license.

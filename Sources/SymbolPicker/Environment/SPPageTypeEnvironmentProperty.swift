@@ -12,8 +12,8 @@ private struct SPPageTypeEnvironmentKey: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
-  var spPageType: Binding<SPPageType> {
-    get { self[SPPageTypeEnvironmentKey.self] }
-    set { self[SPPageTypeEnvironmentKey.self] = newValue }
-  }
+    var spPageType: Binding<SPPageType> {
+        get { self[SPPageTypeEnvironmentKey.self] }
+        set { self[SPPageTypeEnvironmentKey.self] = newValue }
+    }
 }

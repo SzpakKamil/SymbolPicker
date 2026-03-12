@@ -12,8 +12,8 @@ private struct SPCalculateScaleEnvironmentProperty: EnvironmentKey {
 }
 
 extension EnvironmentValues {
-  public var spCalculateScale: CGFloat {
-    get { self[SPCalculateScaleEnvironmentProperty.self] }
-    set { self[SPCalculateScaleEnvironmentProperty.self] = newValue }
-  }
+    var spCalculateScale: CGFloat {
+        get { self[SPCalculateScaleEnvironmentProperty.self] }
+        set { self[SPCalculateScaleEnvironmentProperty.self] = newValue }
+    }
 }

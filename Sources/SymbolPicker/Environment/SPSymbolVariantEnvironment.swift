@@ -11,7 +11,7 @@ private struct SPSymbolVariantEnvironmentKey: EnvironmentKey {
     static let defaultValue = SPSymbol.Variant.filled
 }
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
   var spSymbolVariant: SPSymbol.Variant {
     get { self[SPSymbolVariantEnvironmentKey.self] }
     set { self[SPSymbolVariantEnvironmentKey.self] = newValue }

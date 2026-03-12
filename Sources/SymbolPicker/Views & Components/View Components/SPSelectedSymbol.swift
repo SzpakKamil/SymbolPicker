@@ -48,6 +48,8 @@ struct SPSelectedSymbol: View {
                         .foregroundStyle((colorValue?.luminance ?? 0) > 0.6 ? .black : .white)
                         .background(isImage ? Color.clear : (colorValue?.color ?? .clear))
                         .clipShape(.circle)
+                        .scaleEffect(spSelection.wrappedValue.isContentAvailable() ? 1 : 0)
+                        .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                         .if{ content in
                             if #available(watchOS 26.0, *){
                                 content
@@ -96,7 +98,8 @@ struct SPSelectedSymbol: View {
                         .background(Color.white)
                         .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.5, style: .continuous))
                         .shadow(color: (colorValue?.color ?? .black).opacity(0.5), radius: 20)
-                        .scaleEffect(spCalculateScale)
+                        .scaleEffect(spSelection.wrappedValue.isContentAvailable() ? spCalculateScale : 0)
+                        .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
 #if os(watchOS)
                         .offset(y: spCalculateOffset)
 #else
@@ -125,6 +128,8 @@ struct SPSelectedSymbol: View {
                             }
                         })
                         .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.3, style: .continuous))
+                        .scaleEffect(spSelection.wrappedValue.isContentAvailable() ? 1 : 0)
+                        .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                 }
             }
             Spacer()
