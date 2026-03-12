@@ -85,10 +85,10 @@ public extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration{
     func spInsetedViews(overwriteDefault: Bool = false, @SPInsetedViewBuilder views: @Sendable @escaping () -> [SPInsetedView]) -> Self{
         var copy = self
         if overwriteDefault{
-            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle) in views() }
+            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) in views() }
         }else{
             let current = copy.style.currentInsetViewConfiguration
-            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle) in current(style) + views() }
+            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) in current(style, colorPicker) + views() }
         }
         return copy
     }
@@ -159,10 +159,10 @@ public extension SymbolPickerModifier where C == SPSymbolPickerDefaultConfigurat
     func spInsetedViews(overwriteDefault: Bool = false, @SPInsetedViewBuilder views: @Sendable @escaping () -> [SPInsetedView]) -> Self{
         var copy = self
         if overwriteDefault{
-            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle) in views() }
+            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) in views() }
         }else{
             let current = copy.style.currentInsetViewConfiguration
-            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle) in current(style) + views() }
+            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) in current(style, colorPicker) + views() }
         }
         return copy
     }

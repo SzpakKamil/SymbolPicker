@@ -36,7 +36,7 @@ public extension SPSymbolPickerConfiguration {
     }
     
     @SPInsetedViewBuilder
-    internal func defaultInsetViews(for displayStyle: SPDisplayStyle) -> [SPInsetedView]{
+    internal static func defaultInsetViews(for displayStyle: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) -> [SPInsetedView]{
         #if os(tvOS)
         let spacing: CGFloat = 25
         #elseif os(macOS)
@@ -77,7 +77,6 @@ public extension SPSymbolPickerConfiguration {
                 }
                 if colorPicker != nil{
                     SPInsetedView(placement: .scrollContentTop){
-                        Text("\(colorPicker.debugDescription)")
                         SPColorPicker()
                             .padding(.vertical, 10)
                     }
@@ -107,7 +106,9 @@ public extension SPSymbolPickerConfiguration {
             }
         }else if #available(iOS 26.0, *){
             SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
-                SPColorPicker()
+                if colorPicker != nil{
+                    SPColorPicker()
+                }
                 if UIDevice.current.userInterfaceIdiom == .pad{
                     SPSearchBar()
                         .padding(.horizontal, -23)
@@ -118,7 +119,9 @@ public extension SPSymbolPickerConfiguration {
             }
         }else{
             SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
-                SPColorPicker()
+                if colorPicker != nil{
+                    SPColorPicker()
+                }
                 SPPagePicker()
             }
             .spPadding(.bottom, value: 3)
@@ -144,11 +147,12 @@ public extension SPSymbolPickerConfiguration {
                 }
                 SPInsetedView(placement: .scrollSectionTop){
                     SPPagePicker()
-                        .padding(.top, 13)
-                        .padding(.bottom, 4)
-                        .padding(.horizontal, -2)
+                        .padding(.top, 10)
+                        .padding(.bottom, 10)
+                        .padding(.horizontal, -3)
                     SPSearchBar()
-                        .padding(.horizontal, -2)
+                        .padding(.top, -8)
+                        .padding(.horizontal, -3)
                 }
             }else{
                 SPInsetedView(placement: .scrollContentTop){
@@ -168,7 +172,9 @@ public extension SPSymbolPickerConfiguration {
             }
         }else{
             SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
-                SPColorPicker()
+                if colorPicker != nil{
+                    SPColorPicker()
+                }
                 SPSearchBar()
                 SPPagePicker()
             }
@@ -217,7 +223,9 @@ public extension SPSymbolPickerConfiguration {
         }else{
             if #available(tvOS 26.0, *){
                 SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
-                    SPColorPicker()
+                    if colorPicker != nil{
+                        SPColorPicker()
+                    }
                     SPSearchBar()
                     SPPagePicker()
                 }
@@ -227,8 +235,10 @@ public extension SPSymbolPickerConfiguration {
                 
             }else{
                 SPInsetedView(placement: .scrollContentTop){
-                    SPColorPicker()
-                        .padding(.top, 5)
+                    if colorPicker != nil{
+                        SPColorPicker()
+                            .padding(.top, 5)
+                    }
                 }
                 SPInsetedView(placement: .scrollContentTop){
                     SPSearchBar()
@@ -242,13 +252,17 @@ public extension SPSymbolPickerConfiguration {
                 SPSelectedSymbol()
             }
             SPInsetedView(placement: .scrollSectionTop, spacing: spacing) {
-                SPColorPicker()
+                if colorPicker != nil{
+                    SPColorPicker()
+                }
                 SPSearchBar()
                 SPPagePicker()
             }
         }else{
             SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
-                SPColorPicker()
+                if colorPicker != nil{
+                    SPColorPicker()
+                }
                 SPSearchBar()
                 SPPagePicker()
             }
@@ -257,7 +271,7 @@ public extension SPSymbolPickerConfiguration {
     }
     
     @SPInsetedViewBuilder func insetViewsConfiguration() -> [SPInsetedView]{
-        defaultInsetViews(for: displayStyle)
+        Self.defaultInsetViews(for: displayStyle, colorPicker: colorPicker)
     }
     
     var spacing: SPSpacing { SPSpacing() }
@@ -297,8 +311,8 @@ public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
     @MainActor public func presentationConfiguration() -> SPPresentationConfiguration { self.currentPresentationConfiguration(displayStyle) }
     @MainActor public var currentColorPickerConfiguration: @MainActor (SPDisplayStyle) -> SPColorPickerConfiguration?
     @MainActor public func colorPickerConfiguration() ->  SPColorPickerConfiguration? { self.currentColorPickerConfiguration(displayStyle) }
-    @MainActor public var currentInsetViewConfiguration: @MainActor (SPDisplayStyle) -> [SPInsetedView]
-    @MainActor public func insetViewsConfiguration() -> [SPInsetedView] { return self.currentInsetViewConfiguration(displayStyle) }
+    @MainActor public var currentInsetViewConfiguration: @MainActor (SPDisplayStyle, SPColorPickerConfiguration?) -> [SPInsetedView]
+    @MainActor public func insetViewsConfiguration() -> [SPInsetedView] { return self.currentInsetViewConfiguration(displayStyle, colorPicker) }
     
     @MainActor public var symbolVariant: SPSymbol.Variant = .filled
     @MainActor public var supportedTypes: [SPPageType] = SPPageType.allCases
@@ -315,6 +329,7 @@ public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
         }
         self.currentPresentationConfiguration = { SPPresentationConfiguration(style: $0) }
         self.currentColorPickerConfiguration = { SPColorPickerConfiguration(style: $0) }
-        self.currentInsetViewConfiguration = { SPSymbolPickerDefaultConfiguration().defaultInsetViews(for: $0) }
+        self.currentInsetViewConfiguration = { style, colorPicker in SPSymbolPickerDefaultConfiguration.defaultInsetViews(for: style, colorPicker: colorPicker) }
     }
 }
+
