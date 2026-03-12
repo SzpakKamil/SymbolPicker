@@ -34,6 +34,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
+                scrollTrigger()
                 scrollBody(proxy: proxy)
                     .if { view in
                         if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
@@ -199,7 +200,6 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                     .spListStyleRow(forceListStyle: style.displayStyle != .detail || ![SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
                 }
                 
-                scrollTrigger()
                 if showProgressView{
                     progressView()
                 }else{
