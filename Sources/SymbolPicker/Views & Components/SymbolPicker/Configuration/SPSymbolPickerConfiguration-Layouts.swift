@@ -67,6 +67,11 @@ public extension SPSymbolPickerConfiguration {
                     SPInsetedView(placement: .scrollContentTop) {
                         SPSelectedSymbol()
                     }
+                    if #unavailable(iOS 26.0){
+                        SPInsetedView(placement: .toolbarTopTralling) {
+                            SPDismissButton()
+                        }
+                    }
                     if colorPicker != nil {
                         SPInsetedView(placement: .scrollContentTop) {
                             SPColorPicker()

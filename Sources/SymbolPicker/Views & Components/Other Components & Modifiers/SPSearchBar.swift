@@ -14,7 +14,10 @@ struct SPSearchBar: View {
     @Environment(\.symbolPickerStyle) var symbolPickerStyle
     var body: some View {
         if [SPPageType.emoji, .symbol].contains(spPageType.wrappedValue){
-            SearchBar(text: spSearchText)
+            SearchBar(
+                text: spSearchText,
+                prompt: spPageType.wrappedValue == .symbol ? SPTranslation.SearchSymbols.localizedDescription: spPageType.wrappedValue == .emoji ? SPTranslation.SearchEmojis.localizedDescription : nil
+            )
                 #if os(macOS)
                 .searchBarStyle(.rounded, backgroundColor: Color.primary.opacity(0.05))
                 #elseif os(iOS)
@@ -70,6 +73,7 @@ struct SPSearchBar: View {
                     }
                 }
                 #endif
+                .id(spPageType.wrappedValue.id)
         }
     }
 }

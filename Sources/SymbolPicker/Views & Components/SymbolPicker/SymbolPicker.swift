@@ -28,7 +28,7 @@ public struct SymbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>: View
         #if os(iOS) || os(watchOS)
         .toolbar{
             ToolbarItemGroup(placement: .topBarTrailing) {
-                style.getForEachViews(for: .toolbarTopTrailing)
+                style.getForEachViews(for: .toolbarTopTralling)
             }
             #if os(iOS)
             ToolbarItemGroup(placement: .topBarTrailing) {
@@ -78,10 +78,13 @@ public struct SymbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>: View
     @ViewBuilder
     func viewContainer(@ViewBuilder view: () -> some View) -> some View{
         #if os(iOS)
-        if #available(iOS 26.0, *), style.displayStyle == .compact, !isDisplayedAsPopover{
+        if #available(iOS 26.0, *), style.displayStyle == .compact, style.getViews(for: .safeAreaBottom).isEmpty, !isDisplayedAsPopover{
             NavigationStack{
                 view()
-                    .searchable(text: $searchText, placement: .toolbarPrincipal)
+                    .searchable(
+                        text: $searchText,
+                        placement: .toolbarPrincipal, prompt: pageType == .symbol ? Text(SPTranslation.SearchSymbols.localizedDescription ): pageType == .emoji ? Text(SPTranslation.SearchEmojis.localizedDescription) : nil
+                    )
                     .ignoresSafeArea(edges: .top)
             }
         }else{

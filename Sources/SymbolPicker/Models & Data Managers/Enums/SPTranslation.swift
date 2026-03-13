@@ -20,6 +20,7 @@ enum SPTranslation: String, Codable, Sendable, Equatable, Identifiable, Hashable
     case Zoom = "SPTranslation.Zoom"
     case Manipulation = "SPTranslation.Manipulation"
     case NoResultsFound = "SPTranslation.NoResultsFound"
+    case Close = "SPTranslation.Close"
     
     
     var id: String{

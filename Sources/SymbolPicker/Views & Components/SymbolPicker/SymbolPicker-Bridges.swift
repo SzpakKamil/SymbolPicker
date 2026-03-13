@@ -131,14 +131,17 @@ struct SymbolPickerViewModifier<T: SPDataAsset, C: SPSymbolPickerConfiguration>:
             .presentationDragIndicator(style.presentation.presentationDragIndicator)
             .presentationDetents(Set(style.presentation.presentationDents.map{$0.asPresentationSize()}))
             .frame(width: width, height: height)
+            .environment(\.spIsPresented, $isPresented)
         }else{
             content()
                 .background(style.presentation.presentationBackgroundColor)
                 .frame(width: width, height: height)
+                .environment(\.spIsPresented, $isPresented)
         }
         #else
         content()
             .frame(width: width, height: height)
+            .environment(\.spIsPresented, $isPresented)
         #endif
     }
     
