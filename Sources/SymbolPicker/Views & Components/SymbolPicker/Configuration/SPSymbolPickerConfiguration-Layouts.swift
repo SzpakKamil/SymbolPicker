@@ -25,9 +25,7 @@ public extension SPSymbolPickerConfiguration {
                 SPInsetedView(placement: .toolbarBottomLeading, spacing: spacing) {
                     SPPagePicker()
                 }
-                SPInsetedView(placement: .toolbarBottomTralling, spacing: spacing) {
-                    SPSelectedSymbol()
-                }
+                SPSelectedSymbol().asInsetView()
                 SPInsetedView(placement: .scrollContentTop, spacing: spacing) {
                     SPSearchBar()
                 }
@@ -47,10 +45,8 @@ public extension SPSymbolPickerConfiguration {
             }
             #elseif os(iOS)
             if displayStyle == .detail {
+                SPSelectedSymbol().asInsetView()
                 if #available(iOS 26.0, *) {
-                    SPInsetedView(placement: .safeAreaTop) {
-                        SPSelectedSymbol()
-                    }
                     if colorPicker != nil {
                         SPInsetedView(placement: .scrollContentTop) {
                             SPColorPicker()
@@ -64,9 +60,6 @@ public extension SPSymbolPickerConfiguration {
                         SPSearchBar()
                     }
                 } else {
-                    SPInsetedView(placement: .scrollContentTop) {
-                        SPSelectedSymbol()
-                    }
                     if #unavailable(iOS 26.0){
                         SPInsetedView(placement: .toolbarTopTralling) {
                             SPDismissButton()
@@ -108,6 +101,11 @@ public extension SPSymbolPickerConfiguration {
                 .spPadding(.bottom, value: 3)
                 .spBackground { Rectangle().fill(.bar).ignoresSafeArea() }
                 
+                if #unavailable(iOS 16.4){
+                    SPInsetedView(placement: .toolbarTopTralling) {
+                        SPDismissButton()
+                    }
+                }
                 SPInsetedView(placement: .safeAreaBottom) {
                     SPSearchBar()
                 }
@@ -116,10 +114,8 @@ public extension SPSymbolPickerConfiguration {
             }
             #elseif os(visionOS)
             if displayStyle == .detail {
+                SPSelectedSymbol().asInsetView()
                 if #available(visionOS 26.0, *) {
-                    SPInsetedView(placement: .safeAreaTop) {
-                        SPSelectedSymbol()
-                    }
                     if colorPicker != nil {
                         SPInsetedView(placement: .scrollContentTop) {
                             SPColorPicker()
@@ -136,9 +132,6 @@ public extension SPSymbolPickerConfiguration {
                             .padding(.horizontal, -3)
                     }
                 } else {
-                    SPInsetedView(placement: .scrollContentTop) {
-                        SPSelectedSymbol()
-                    }
                     if colorPicker != nil {
                         SPInsetedView(placement: .scrollContentTop) {
                             SPColorPicker()
@@ -169,10 +162,8 @@ public extension SPSymbolPickerConfiguration {
             }
             #elseif os(tvOS)
             if displayStyle == .detail {
+                SPSelectedSymbol().asInsetView()
                 if #available(tvOS 26.0, *) {
-                    SPInsetedView(placement: .safeAreaTop) {
-                        SPSelectedSymbol()
-                    }
                     if colorPicker != nil {
                         SPInsetedView(placement: .scrollContentTop) {
                             SPColorPicker()
@@ -185,9 +176,6 @@ public extension SPSymbolPickerConfiguration {
                         SPSearchBar()
                     }
                 } else {
-                    SPInsetedView(placement: .scrollContentTop) {
-                        SPSelectedSymbol()
-                    }
                     if colorPicker != nil {
                         SPInsetedView(placement: .scrollContentTop) {
                             SPColorPicker()
@@ -227,9 +215,7 @@ public extension SPSymbolPickerConfiguration {
             }
             #else
             if displayStyle == .detail {
-                SPInsetedView(placement: .safeAreaTop) {
-                    SPSelectedSymbol()
-                }
+                SPSelectedSymbol().asInsetView()
                 SPInsetedView(placement: .scrollSectionTop, spacing: spacing) {
                     if colorPicker != nil {
                         SPColorPicker()

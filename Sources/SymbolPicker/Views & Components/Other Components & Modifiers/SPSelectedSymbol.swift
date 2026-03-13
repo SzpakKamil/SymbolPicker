@@ -172,4 +172,30 @@ struct SPSelectedSymbol: View {
 #endif
         }
     }
+    
+    func asInsetView() -> SPInsetedView {
+        #if os(watchOS)
+        return SPInsetedView(placement: .toolbarBottomTralling) {
+            self
+        }
+        .spIsDisplayed { $0.spSelection.wrappedValue.isContentAvailable() }
+        #elseif os(macOS)
+        return SPInsetedView(placement: .safeAreaTop) {
+            self
+        }
+        .spIsDisplayed { $0.spSelection.wrappedValue.isContentAvailable() }
+        #else
+        if #available(iOS 26.0, visionOS 26.0, tvOS 26.0, *){
+            return SPInsetedView(placement: .safeAreaTop) {
+                self
+            }
+            .spIsDisplayed { $0.spSelection.wrappedValue.isContentAvailable() }
+        }else{
+            return SPInsetedView(placement: .scrollContentTop) {
+                self
+            }
+            .spIsDisplayed { $0.spSelection.wrappedValue.isContentAvailable() }
+        }
+        #endif
+    }
 }

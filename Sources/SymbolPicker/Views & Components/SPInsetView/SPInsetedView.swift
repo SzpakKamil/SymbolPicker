@@ -11,6 +11,7 @@ public struct SPInsetedView: @unchecked Sendable{
     var view: AnyView
     var background: AnyView?
     var paddings: [Edge.Set: CGFloat?]
+    var isDisplayed: (@Sendable (EnvironmentValues) -> Bool)?
     let placement: SPViewPlacementType
     
     public init(placement: SPViewPlacementType, spacing: CGFloat? = nil, @ViewBuilder view: () -> some View) {
@@ -22,6 +23,7 @@ public struct SPInsetedView: @unchecked Sendable{
         self.paddings = [:]
         self.placement = placement
         self.background = nil
+        self.isDisplayed = nil
     }
     
     public func spPadding(_ edges: Edge.Set, value: CGFloat?) -> Self{
@@ -33,6 +35,12 @@ public struct SPInsetedView: @unchecked Sendable{
     public func spBackground<V: View>(@ViewBuilder _ background: () -> V) -> Self {
         var copy = self
         copy.background = AnyView(background())
+        return copy
+    }
+    
+    public func spIsDisplayed(when action: @escaping @Sendable (EnvironmentValues) -> Bool) -> Self {
+        var copy = self
+        copy.isDisplayed = action
         return copy
     }
 }

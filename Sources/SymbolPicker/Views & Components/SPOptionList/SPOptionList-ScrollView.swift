@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SPOptionListScrollView<V: View, ProgressView: View>: View {
+    @Environment(\.self) var environment
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.spPageType) var spPageType
     @Environment(\.spSelection) var spSelection
@@ -113,8 +114,9 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
             if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, visionOS 26.0, *){
                 content
                     .safeAreaBar(edge: .top) {
-                        ForEach(style.getViews(for: .safeAreaTop).indices, id: \.self){ index in
-                            let insetedView = style.getViews(for: .safeAreaTop)[index]
+                        let views = style.getViews(for: .safeAreaTop).filter { spShouldDisplay($0) }
+                        ForEach(views.indices, id: \.self){ index in
+                            let insetedView = views[index]
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
@@ -131,8 +133,9 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         }
                     }
                     .safeAreaBar(edge: .bottom) {
-                        ForEach(style.getViews(for: .safeAreaBottom).indices, id: \.self){ index in
-                            let insetedView = style.getViews(for: .safeAreaBottom)[index]
+                        let views = style.getViews(for: .safeAreaBottom).filter { spShouldDisplay($0) }
+                        ForEach(views.indices, id: \.self){ index in
+                            let insetedView = views[index]
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
@@ -151,8 +154,9 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
             }else{
                 content
                     .safeAreaInset(edge: .top) {
-                        ForEach(style.getViews(for: .safeAreaTop).indices, id: \.self){ index in
-                            let insetedView = style.getViews(for: .safeAreaTop)[index]
+                        let views = style.getViews(for: .safeAreaTop).filter { spShouldDisplay($0) }
+                        ForEach(views.indices, id: \.self){ index in
+                            let insetedView = views[index]
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
@@ -163,8 +167,9 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         }
                     }
                     .safeAreaInset(edge: .bottom) {
-                        ForEach(style.getViews(for: .safeAreaBottom).indices, id: \.self){ index in
-                            let insetedView = style.getViews(for: .safeAreaBottom)[index]
+                        let views = style.getViews(for: .safeAreaBottom).filter { spShouldDisplay($0) }
+                        ForEach(views.indices, id: \.self){ index in
+                            let insetedView = views[index]
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
@@ -184,7 +189,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
     @ViewBuilder
     private func scrollBody(proxy: ScrollViewProxy) -> some View {
         LazyVStack {
-            let topViews = style.getViews(for: .scrollContentTop)
+            let topViews = style.getViews(for: .scrollContentTop).filter { spShouldDisplay($0) }
             if !topViews.isEmpty{
                 ForEach(topViews.indices, id: \.self){ index in
                     let insetedView = topViews[index]
@@ -195,7 +200,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
             }
             
             LazyVStack{
-                let topSectionViews = style.getViews(for: .scrollSectionTop)
+                let topSectionViews = style.getViews(for: .scrollSectionTop).filter { spShouldDisplay($0) }
                 if !topSectionViews.isEmpty{
                     ForEach(topSectionViews.indices, id: \.self){ index in
                         let insetedView = topSectionViews[index]
@@ -210,7 +215,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                 }else{
                     content(proxy)
                 }
-                let bottomSectionViews = style.getViews(for: .scrollSectionBottom)
+                let bottomSectionViews = style.getViews(for: .scrollSectionBottom).filter { spShouldDisplay($0) }
                 if !bottomSectionViews.isEmpty{
                     ForEach(bottomSectionViews.indices, id: \.self){ index in
                         let insetedView = bottomSectionViews[index]
@@ -222,7 +227,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
             }
             .spListStyleRow(forceListStyle: style.displayStyle == .detail && [SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
             
-            let bottomViews = style.getViews(for: .scrollContentBottom)
+            let bottomViews = style.getViews(for: .scrollContentBottom).filter { spShouldDisplay($0) }
             if !bottomViews.isEmpty{
                 ForEach(bottomViews.indices, id: \.self){ index in
                     let insetedView = bottomViews[index]
@@ -240,6 +245,10 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
         #if os(macOS)
         .padding(.top, style.displayStyle == .compact ? (SPSpacingConfiguration.getVerticalPadding(for: style.spacing.optionList) ?? 0) * -1.5 : 0)
         #endif
+    }
+    
+    private func spShouldDisplay(_ insetedView: SPInsetedView) -> Bool {
+        return insetedView.isDisplayed?(environment) ?? true
     }
     
     func scrollTrigger() -> some View{

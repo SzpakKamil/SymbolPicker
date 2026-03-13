@@ -126,7 +126,6 @@ struct SymbolPickerViewModifier<T: SPDataAsset, C: SPSymbolPickerConfiguration>:
                         .presentationCornerRadius(style.presentation.presentationCornerRadius)
                         .presentationContentInteraction(.scrolls)
                 }else{ content.background(style.presentation.presentationBackgroundColor) }
-                
             }
             .presentationDragIndicator(style.presentation.presentationDragIndicator)
             .presentationDetents(Set(style.presentation.presentationDents.map{$0.asPresentationSize()}))

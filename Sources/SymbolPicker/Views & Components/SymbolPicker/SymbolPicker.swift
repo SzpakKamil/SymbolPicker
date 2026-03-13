@@ -24,46 +24,46 @@ public struct SymbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>: View
     public var body: some View {
         viewContainer{
             SPOptionList(selection: $selection)
+                #if os(iOS) || os(watchOS)
+                .toolbar{
+                    ToolbarItemGroup(placement: .topBarTrailing) {
+                        style.getForEachViews(for: .toolbarTopTralling)
+                    }
+                    #if os(iOS)
+                    ToolbarItemGroup(placement: .topBarTrailing) {
+                        style.getForEachViews(for: .toolbarTopLeading)
+                    }
+                    #endif
+                    #if os(watchOS)
+                    ToolbarItem(placement: .bottomBar) {
+                        let bottomBarLeadingItems = style.getViews(for: .toolbarBottomLeading).count
+                        if bottomBarLeadingItems == 0{
+                            Button(""){}.buttonStyle(.plain)
+                        }else{
+                            style.getForEachViews(for: .toolbarBottomLeading)
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .bottomBar) {
+                        let bottomBarItems = style.getViews(for: .toolbarBottom).count
+                        if bottomBarItems == 0{
+                            Button(""){}.buttonStyle(.plain)
+                        }else{
+                            style.getForEachViews(for: .toolbarBottom)
+                        }
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        let bottomBarTrailingItems = style.getViews(for: .toolbarBottomTralling).count
+                        if bottomBarTrailingItems == 0{
+                            Button(""){}.buttonStyle(.plain)
+                        }else{
+                            style.getForEachViews(for: .toolbarBottomTralling)
+                        }
+                    }
+                    #endif
+                }
+                #endif
         }
-        #if os(iOS) || os(watchOS)
-        .toolbar{
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                style.getForEachViews(for: .toolbarTopTralling)
-            }
-            #if os(iOS)
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                style.getForEachViews(for: .toolbarTopLeading)
-            }
-            #endif
-            #if os(watchOS)
-            ToolbarItem(placement: .bottomBar) {
-                let bottomBarLeadingItems = style.getViews(for: .toolbarBottomLeading).count
-                if bottomBarLeadingItems == 0{
-                    Button(""){}.buttonStyle(.plain)
-                }else{
-                    style.getForEachViews(for: .toolbarBottomLeading)
-                }
-            }
-            
-            ToolbarItem(placement: .bottomBar) {
-                let bottomBarItems = style.getViews(for: .toolbarBottom).count
-                if bottomBarItems == 0{
-                    Button(""){}.buttonStyle(.plain)
-                }else{
-                    style.getForEachViews(for: .toolbarBottom)
-                }
-            }
-            ToolbarItem(placement: .bottomBar) {
-                let bottomBarTrailingItems = style.getViews(for: .toolbarBottomTralling).count
-                if bottomBarTrailingItems == 0{
-                    Button(""){}.buttonStyle(.plain)
-                }else{
-                    style.getForEachViews(for: .toolbarBottomTralling)
-                }
-            }
-            #endif
-        }
-        #endif
         .onAppear{
             pageType = style.defaultType
         }
@@ -87,8 +87,18 @@ public struct SymbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>: View
                     )
                     .ignoresSafeArea(edges: .top)
             }
+        }else if #available(iOS 16.0, *){
+            NavigationStack{
+                view()
+                    .background(style.presentation.presentationBackgroundColor.ignoresSafeArea())
+            }
         }else{
-            view()
+            NavigationView{
+                view()
+                    .navigationBarTitleDisplayMode(.inline)
+                    .padding(.top, style.getViews(for: .toolbarTopLeading).isEmpty && style.getViews(for: .toolbarTopTralling).isEmpty ? 0 : -15)
+                    .background(style.presentation.presentationBackgroundColor.ignoresSafeArea())
+            }
         }
         #else
         view()
