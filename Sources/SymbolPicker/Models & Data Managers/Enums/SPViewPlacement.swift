@@ -1,5 +1,5 @@
 //
-//  SPViewPlacementType.swift
+//  SPViewPlacement.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 23/02/2026.
@@ -14,7 +14,10 @@ public enum SPViewPlacementType: Int, Identifiable, Sendable, Hashable{
     case scrollSectionTop
     case scrollSectionBottom
     case scrollContentBottom
-    #if os(watchOS)
+    #if os(iOS)
+    case toolbarTopLeading
+    case toolbarTopTralling
+    #elseif os(watchOS)
     case toolbarTopTralling
     case toolbarBottomLeading
     case toolbarBottom

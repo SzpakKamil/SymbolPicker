@@ -2,7 +2,7 @@
 //  SPSelection.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 06/02/2026.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
@@ -28,65 +28,83 @@ public protocol SPSelectionProtocol: Sendable {
     func asView() -> AnyView
 }
 
-public nonisolated enum SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionProtocol {
-    case symbol(value: T, color: CKColor? = nil)
-    case emoji(value: SPEmoji, color: CKColor? = nil)
-    case image(value: SPImage, color: CKColor? = nil)
-    case color(value: CKColor)
+public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionProtocol {
+    public var type: SelectionType
+    public private(set) var symbol: T?
+    public private(set) var emoji: SPEmoji?
+    public private(set) var image: SPImage?
+    public private(set) var color: CKColor?
     
     public func isContentAvailable() -> Bool {
-        switch self {
-        case .color:
-            return false
-        default:
-            return true
-        }
+        return type != .color
     }
     
     @MainActor
     public func asView() -> AnyView {
-        switch self {
-        case .symbol(let symbol, _):
-            return AnyView(symbol.asView())
-        case .emoji(let emoji, _):
-            return AnyView(SPEmojiView(emoji: emoji))
-        case .image(let image, _):
-            return AnyView(SPImageView(image: image))
-        case .color(let color):
-            return AnyView(Circle().fill(color))
+        switch type {
+        case .symbol:
+            if let symbol = symbol {
+                return AnyView(symbol.asView())
+            }
+        case .emoji:
+            if let emoji = emoji {
+                return AnyView(SPEmojiView(emoji: emoji))
+            }
+        case .image:
+            if let image = image {
+                return AnyView(SPImageView(image: image))
+            }
+        case .color:
+            if let color = color {
+                return AnyView(Circle().fill(color))
+            }
         }
+        return AnyView(EmptyView())
     }
     
     public var id: String {
-        switch self {
-        case .symbol(let symbol, _):
-            return "symbol:\(symbol.id)"
-        case .emoji(let emoji, _):
-            return "emoji:\(emoji.id):tone\(emoji.tone)"
-        case .image(let image, _):
-            return "image:\(image.id)"
-        case .color(let color):
-            return "color:\(color.id)"
+        switch type {
+        case .symbol:
+            return "symbol:\(String(symbol?.id.hashValue ?? 0) ?? "unknown")"
+        case .emoji:
+            if let emoji = emoji {
+                return "emoji:\(emoji.id):tone\(emoji.tone)"
+            }
+            return "emoji:unknown"
+        case .image:
+            return "image:\(image?.id.uuidString ?? "unknown")"
+        case .color:
+            return "color:\(String(color?.id.hashValue ?? 0) ?? "unknown")"
         }
     }
     
     public init(value: T, color: CKColor? = nil){
-        self = .symbol(value: value, color: color)
+        self.type = .symbol
+        self.symbol = value
+        self.color = color
     }
+    
     public init(value: SPEmoji, color: CKColor? = nil){
-        self = .emoji(value: value, color: color)
+        self.type = .emoji
+        self.emoji = value
+        self.color = color
     }
+    
     public init(value: SPImage, color: CKColor? = nil){
-        self = .image(value: value, color: color)
+        self.type = .image
+        self.image = value
+        self.color = color
     }
+    
     public init(value: CKColor){
-        self = .color(value: value)
+        self.type = .color
+        self.color = value
     }
 }
 
 // MARK: - SelectionType
 extension SPSelection {
-    public enum SelectionType: String, Codable {
+    public enum SelectionType: String, Codable, Sendable {
         case symbol
         case emoji
         case image
@@ -108,44 +126,38 @@ extension SPSelection: Codable {
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let type = try container.decode(SelectionType.self, forKey: .type)
+        self.type = type
         
         switch type {
         case .symbol:
-            let symbol = try container.decode(T.self, forKey: .symbol)
-            let tint = try container.decodeIfPresent(CKColor.self, forKey: .tint)
-            self = .symbol(value: symbol, color: tint)
+            self.symbol = try container.decode(T.self, forKey: .symbol)
+            self.color = try container.decodeIfPresent(CKColor.self, forKey: .tint)
         case .emoji:
-            let emoji = try container.decode(SPEmoji.self, forKey: .emoji)
-            let tint = try container.decodeIfPresent(CKColor.self, forKey: .tint)
-            self = .emoji(value: emoji, color: tint)
+            self.emoji = try container.decode(SPEmoji.self, forKey: .emoji)
+            self.color = try container.decodeIfPresent(CKColor.self, forKey: .tint)
         case .image:
-            let image = try container.decode(SPImage.self, forKey: .image)
-            let tint = try container.decodeIfPresent(CKColor.self, forKey: .tint)
-            self = .image(value: image, color: tint)
+            self.image = try container.decode(SPImage.self, forKey: .image)
+            self.color = try container.decodeIfPresent(CKColor.self, forKey: .tint)
         case .color:
-            let color = try container.decode(CKColor.self, forKey: .color)
-            self = .color(value: color)
+            self.color = try container.decode(CKColor.self, forKey: .color)
         }
     }
     
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
         
-        switch self {
-        case .symbol(let symbol, let tint):
-            try container.encode(SelectionType.symbol, forKey: .type)
+        switch type {
+        case .symbol:
             try container.encode(symbol, forKey: .symbol)
-            try container.encodeIfPresent(tint, forKey: .tint)
-        case .emoji(let emoji, let tint):
-            try container.encode(SelectionType.emoji, forKey: .type)
+            try container.encodeIfPresent(color, forKey: .tint)
+        case .emoji:
             try container.encode(emoji, forKey: .emoji)
-            try container.encodeIfPresent(tint, forKey: .tint)
-        case .image(let image, let tint):
-            try container.encode(SelectionType.image, forKey: .type)
+            try container.encodeIfPresent(color, forKey: .tint)
+        case .image:
             try container.encode(image, forKey: .image) 
-            try container.encodeIfPresent(tint, forKey: .tint)
-        case .color(let color):
-            try container.encode(SelectionType.color, forKey: .type)
+            try container.encodeIfPresent(color, forKey: .tint)
+        case .color:
             try container.encode(color, forKey: .color)
         }
     }
@@ -164,88 +176,43 @@ extension SPSelection: Hashable {
 // MARK: - Mutating Methods
 extension SPSelection {
     public mutating func setColor(_ color: CKColor) {
-        switch self {
-        case .symbol(let symbol, _):
-            self = .symbol(value: symbol, color: color)
-        case .emoji(let emoji, _):
-            self = .emoji(value: emoji, color: color)
-        case .image(let image, _):
-            self = .image(value: image, color: color)
-        case .color:
-            self = .color(value: color)
-        }
+        self.color = color
     }
 
     public mutating func setSymbol(_ symbol: T) {
-        switch self {
-        case .symbol(_, let color):
-            self = .symbol(value: symbol, color: color)
-        case .emoji(_, let color):
-            self = .symbol(value: symbol, color: color)
-        case .image(_, let color):
-            self = .symbol(value: symbol, color: color)
-        case .color(let color):
-            self = .symbol(value: symbol, color: color)
-        }
+        self.type = .symbol
+        self.symbol = symbol
+        self.emoji = nil
+        self.image = nil
     }
 
     public mutating func setEmoji(_ emoji: SPEmoji) {
-        switch self {
-        case .symbol(_, color: let color):
-            self = .emoji(value: emoji, color: color)
-        case .emoji(_, let color):
-            self = .emoji(value: emoji, color: color)
-        case .image(_, let color):
-            self = .emoji(value: emoji, color: color)
-        case .color(let color):
-            self = .emoji(value: emoji, color: color)
-        }
+        self.type = .emoji
+        self.emoji = emoji
+        self.symbol = nil
+        self.image = nil
     }
     
     public mutating func setImage(_ image: SPImage) {
-        switch self {
-        case .symbol(_, color: let color):
-            self = .image(value: image, color: color)
-        case .emoji(_, let color):
-            self = .image(value: image, color: color)
-        case .image(_, let color):
-            self = .image(value: image, color: color)
-        case .color(let color):
-            self = .image(value: image, color: color)
-        }
+        self.type = .image
+        self.image = image
+        self.symbol = nil
+        self.emoji = nil
     }
     
     public func getSymbol() -> T? {
-        if case .symbol(let symbol, _) = self {
-            return symbol
-        }
-        return nil
+        return symbol
     }
     
     public func getColor() -> CKColor? {
-        switch self {
-        case .symbol(_, let color):
-            return color
-        case .emoji(_, let color):
-            return color
-        case .image(_, let color):
-            return color
-        case .color(let color):
-            return color
-        }
+        return color
     }
     
     public func getEmoji() -> SPEmoji? {
-        if case .emoji(let emoji, _) = self {
-            return emoji
-        }
-        return nil
+        return emoji
     }
     
     public func getImage() -> SPImage? {
-        if case .image(let image, _) = self {
-            return image
-        }
-        return nil
+        return image
     }
 }

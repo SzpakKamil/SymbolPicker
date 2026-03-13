@@ -2,7 +2,7 @@
 //  SPSelectionView.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 22/02/2026.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
@@ -14,16 +14,7 @@ public struct SPSelectionView<T: SPDataAsset>: View {
     public var body: some View {
         Group {
             if let selection{
-                switch selection {
-                case .symbol(let symbol, _):
-                    symbol.asView()
-                case .emoji(let emoji, _):
-                    SPEmojiView(emoji: emoji)
-                case .image(let image, _):
-                    SPImageView(image: image)
-                case .color(let color):
-                    Circle().fill(color)
-                }
+                selection.asView()
             }else{
                 EmptyView()
             }

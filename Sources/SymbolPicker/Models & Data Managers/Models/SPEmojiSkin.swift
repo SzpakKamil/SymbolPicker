@@ -2,23 +2,19 @@
 //  SPEmojiSkin.swift
 //  SymbolPicker
 //
-//  Universal Support: iOS, macOS, watchOS, tvOS, visionOS
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
 import Foundation
 
 extension SPEmoji {
-    /// A lightweight, universally compatible model for emoji skin tone variations.
     public nonisolated struct Skin: Identifiable, Sendable, Codable, Equatable, Hashable {
         
-        /// The unique identifier for this skin tone (mapped from 'hexcode').
         public let id: String
         
-        /// Optional description (e.g., "Medium-Light Skin Tone").
         public let annotation: String?
         
-        /// The Unicode version required to support this skin tone (e.g., 15.0).
         public let version: Double
         
         // MARK: - Initializer

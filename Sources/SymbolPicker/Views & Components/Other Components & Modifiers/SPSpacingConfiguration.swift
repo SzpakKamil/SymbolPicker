@@ -1,32 +1,31 @@
 //
-//  SPSpacing.swift
+//  SPSpacingConfiguration.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 21/02/2026.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
 
-
-public struct SPComponentSpacing: Sendable{
-    public let spacings: [DynamicTypeSize: CGFloat]
-    public let osScaleFactors: [SPSupportedPlatforms: CGFloat]
-    public let horizontalPadding: [SPSupportedPlatforms: CGFloat]
-    public let verticalPadding: [SPSupportedPlatforms: CGFloat?]
-    
-    public init(spacings: [DynamicTypeSize : CGFloat], osScaleFactors: [SPSupportedPlatforms : CGFloat], horizontalPadding: [SPSupportedPlatforms : CGFloat], verticalPadding: [SPSupportedPlatforms : CGFloat]) {
-        self.spacings = spacings
-        self.osScaleFactors = osScaleFactors
-        self.horizontalPadding = horizontalPadding
-        self.verticalPadding = verticalPadding
+public struct SPSpacingConfiguration: Sendable{
+    public struct ElementConfiguration: Sendable{
+        public let spacings: [DynamicTypeSize: CGFloat]
+        public let osScaleFactors: [SPSupportedPlatforms: CGFloat]
+        public let horizontalPadding: [SPSupportedPlatforms: CGFloat]
+        public let verticalPadding: [SPSupportedPlatforms: CGFloat?]
+        
+        public init(spacings: [DynamicTypeSize : CGFloat], osScaleFactors: [SPSupportedPlatforms : CGFloat], horizontalPadding: [SPSupportedPlatforms : CGFloat], verticalPadding: [SPSupportedPlatforms : CGFloat]) {
+            self.spacings = spacings
+            self.osScaleFactors = osScaleFactors
+            self.horizontalPadding = horizontalPadding
+            self.verticalPadding = verticalPadding
+        }
     }
-}
-public struct SPSpacing: Sendable{
-    public let colorPicker: SPComponentSpacing
-    public let optionList: SPComponentSpacing
-    public let selectedSymbol: SPComponentSpacing
+    public let colorPicker: ElementConfiguration
+    public let optionList: ElementConfiguration
+    public let selectedSymbol: ElementConfiguration
     
-    public init(colorPicker: SPComponentSpacing, optionList: SPComponentSpacing, selectedSymbol: SPComponentSpacing) {
+    public init(colorPicker: ElementConfiguration, optionList: ElementConfiguration, selectedSymbol: ElementConfiguration) {
         self.colorPicker = colorPicker
         self.optionList = optionList
         self.selectedSymbol = selectedSymbol
@@ -125,7 +124,7 @@ public struct SPSpacing: Sendable{
         )
     }
     
-    static func getSize(in typeSize: DynamicTypeSize, for componentSpacing: SPComponentSpacing, adjustedForPlatform: Bool = true) -> CGFloat {
+    static func getSize(in typeSize: DynamicTypeSize, for componentSpacing: ElementConfiguration, adjustedForPlatform: Bool = true) -> CGFloat {
         let baseSize = componentSpacing.spacings[typeSize] ?? 0
         guard adjustedForPlatform else { return baseSize }
 
@@ -142,7 +141,7 @@ public struct SPSpacing: Sendable{
         return baseSize * (bestMatchFactor ?? 1.0)
     }
     
-    static func getHorizonalPadding(for componentSpacing: SPComponentSpacing) -> CGFloat? {
+    static func getHorizonalPadding(for componentSpacing: ElementConfiguration) -> CGFloat? {
         let current = SPSupportedPlatforms.currentPlatform
         let currentVersion = current.majorVersion ?? 0
 
@@ -155,7 +154,7 @@ public struct SPSpacing: Sendable{
         return horizontalPadding ?? 0
     }
     
-    static func getVerticalPadding(for componentSpacing: SPComponentSpacing) -> CGFloat? {
+    static func getVerticalPadding(for componentSpacing: ElementConfiguration) -> CGFloat? {
         let current = SPSupportedPlatforms.currentPlatform
         let currentVersion = current.majorVersion ?? 0
 

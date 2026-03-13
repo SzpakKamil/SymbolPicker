@@ -1,5 +1,5 @@
 //
-//  SPDisplayType.swift
+//  SPDisplayStyle.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 23/02/2026.

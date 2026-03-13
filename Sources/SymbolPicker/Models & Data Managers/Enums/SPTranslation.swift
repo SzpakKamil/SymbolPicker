@@ -2,12 +2,12 @@
 //  SPTranslation.swift
 //  SymbolPicker
 //
-//  Refactored for Performance & Network Safety
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
 
-public enum SPTranslation: String, Codable, Sendable, Equatable, Identifiable, Hashable {
+enum SPTranslation: String, Codable, Sendable, Equatable, Identifiable, Hashable {
     case DetectedColor = "SPTranslation.DetectedColor"
     case HorizontalOffset = "SPTranslation.HorizontalOffset"
     case PageType = "SPTranslation.PageType"
@@ -22,7 +22,7 @@ public enum SPTranslation: String, Codable, Sendable, Equatable, Identifiable, H
     case NoResultsFound = "SPTranslation.NoResultsFound"
     
     
-    public var id: String{
+    var id: String{
         rawValue
     }
 

@@ -2,7 +2,7 @@
 //  SPEmoji.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 03/03/2025.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
@@ -97,12 +97,10 @@ extension SPEmoji: Hashable {
 // MARK: - Methods
 extension SPEmoji {
     
-    /// Determines if this emoji can be displayed on the current device.
     public func isAvailable() -> Bool {
         return SPEmoji.isAvailable(version: self.version, id: self.id)
     }
     
-    /// Checks availability for any emoji version and ID.
     static func isAvailable(version: Double, id: String) -> Bool {
         // 1. OS Version Check (Fast)
         guard isUnicodeVersionSupported(version) else { return false }
@@ -114,7 +112,6 @@ extension SPEmoji {
         return SPEmoji.isEmojiRenderable(emojiString)
     }
     
-    /// Checks if the current operating system meets the minimum requirements for this emoji's version.
     private static func isUnicodeVersionSupported(_ version: Double) -> Bool {
         let requiredOS = SPEmoji.minimumOSVersion(for: version)
         return ProcessInfo.processInfo.isOperatingSystemAtLeast(requiredOS)
@@ -162,8 +159,6 @@ extension SPEmoji {
         return String(String.UnicodeScalarView(scalars))
     }
     
-    /// Maps Unicode Versions to specific Apple OS Releases.
-    /// Source: Official Apple Release Notes & Emojipedia.
     private static func minimumOSVersion(for unicodeVersion: Double) -> OperatingSystemVersion {
         let ancient = OperatingSystemVersion(majorVersion: 10, minorVersion: 0, patchVersion: 0)
         

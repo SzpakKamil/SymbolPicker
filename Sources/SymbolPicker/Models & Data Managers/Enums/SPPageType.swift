@@ -2,7 +2,7 @@
 //  SPPageType.swift
 //  SymbolPicker
 //
-//  Refactored for Performance & Network Safety
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI

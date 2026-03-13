@@ -1,5 +1,5 @@
 //
-//  SPPresentationType.swift
+//  SPPresentation-Type.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 23/02/2026.

@@ -2,14 +2,14 @@
 //  SPSelectionEnviromentProperty.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 07/02/2026.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
 import ColorKit
 
 private struct SPSelectionEnviromentKey: EnvironmentKey {
-    static let defaultValue: Binding<any SPSelectionProtocol> = Binding.constant(SPSelection<SPSymbol>.color(value: CKColor(hexString: "#0000"))).eraseToAnySPSelectionProtocol()
+    static let defaultValue: Binding<any SPSelectionProtocol> = Binding.constant(SPSelection<SPSymbol>(value: CKColor(hexString: "#0000"))).eraseToAnySPSelectionProtocol()
 }
 
 public extension EnvironmentValues {

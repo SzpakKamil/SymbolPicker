@@ -2,7 +2,7 @@
 //  SPSystemColorPicker.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 15/02/2026.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI

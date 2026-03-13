@@ -2,7 +2,7 @@
 //  SPDataManager.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 07/02/2026.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
@@ -48,13 +48,11 @@ actor SPDataManager {
     
     // MARK: - Fetching and Loading
     
-    /// Public fetch method that returns data grouped by category
     func fetch<T: SPDataAsset>(type: T.Type) async throws -> [SPCategory<T>] {
         let items = try await fetchRaw(type: type)
         return self.groupItems(items)
     }
     
-    /// Internal helper to group flat data into sections while preserving original JSON order
     private func groupItems<T: SPDataAsset>(_ items: [T]) -> [SPCategory<T>] {
         var orderedCategories: [String] = []
         var groupedDictionary: [String: [T]] = [:]
@@ -75,7 +73,6 @@ actor SPDataManager {
         }
     }
     
-    /// Private fetch method that handles caching and raw data loading
     private func fetchRaw<T: SPDataAsset>(type: T.Type) async throws -> [T] {
         let key = type.filePrefix
         

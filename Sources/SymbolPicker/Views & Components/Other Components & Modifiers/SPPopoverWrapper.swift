@@ -2,7 +2,7 @@
 //  SPPopoverWrapper.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 18/02/2026.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
@@ -123,7 +123,7 @@ struct SPPopoverWrapper<Content: View>: UIViewControllerRepresentable {
     }
 }
 
-public extension View {
+extension View {
     @ViewBuilder
     func spPopover<Content: View>(isPresented: Binding<Bool>, arrowEdge: Edge = .bottom, @ViewBuilder content: @escaping () -> Content) -> some View {
         #if os(iOS) || !os(visionOS)
@@ -136,7 +136,7 @@ public extension View {
     }
 }
 #elseif !os(watchOS) && !os(tvOS)
-public extension View {
+extension View {
     @ViewBuilder
     func spPopover<Content: View>(isPresented: Binding<Bool>, arrowEdge: Edge = .bottom, @ViewBuilder content: @escaping () -> Content) -> some View {
         #if os(visionOS)

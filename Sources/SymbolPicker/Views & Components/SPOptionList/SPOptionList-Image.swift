@@ -2,7 +2,7 @@
 //  SPOptionList-Image.swift
 //  SymbolPicker
 //
-//  Refactored for modularity, performance, and improved skin selection.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI

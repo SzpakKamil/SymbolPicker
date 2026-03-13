@@ -2,7 +2,7 @@
 //  SPSelectedSymbol.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 12/04/2025.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
@@ -18,7 +18,7 @@ struct SPSelectedSymbol: View {
     @Environment(\.colorScheme) var colorScheme
     
     var size: CGFloat {
-        SPSpacing.getSize(in: dynamicTypeSize, for: symbolPickerStyle.spacing.selectedSymbol)
+        SPSpacingConfiguration.getSize(in: dynamicTypeSize, for: symbolPickerStyle.spacing.selectedSymbol)
     }
     
     var colorValue: CKColor? {

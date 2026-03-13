@@ -82,8 +82,8 @@ struct MyConfiguration: SPSymbolPickerConfiguration {
     var displayStyle: SPDisplayStyle = .plain 
     
     // 2. Define precise component sizing and padding
-    var spacing: SPSpacing {
-        SPSpacing(
+    var spacing: SPSpacingConfiguration {
+        SPSpacingConfiguration(
             colorPicker: .init(spacings: [.medium: 45], osScaleFactors: [.iOS: 1.0], horizontalPadding: [:], verticalPadding: [:]),
             optionList: .init(spacings: [.medium: 20], osScaleFactors: [.iOS: 1.0], horizontalPadding: [:], verticalPadding: [:]),
             selectedSymbol: .init(spacings: [.medium: 50], osScaleFactors: [.iOS: 1.0], horizontalPadding: [:], verticalPadding: [:])

@@ -2,7 +2,7 @@
 //  SPColorPicker.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 14/02/2026.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
@@ -15,7 +15,7 @@ public struct SPColorPicker: View {
     @Environment(\.spSelection) var spSelection
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State private var isPresentingColorPicker = false
-    var currentSize: CGFloat{ SPSpacing.getSize(in: dynamicTypeSize, for: symbolPickerStyle.spacing.colorPicker) }
+    var currentSize: CGFloat{ SPSpacingConfiguration.getSize(in: dynamicTypeSize, for: symbolPickerStyle.spacing.colorPicker) }
     var selectedColor: CKColor{ spSelection.wrappedValue.getColor() ?? CKColor(red: 0, green: 0, blue: 0, opacity: 0) }
     
     public var body: some View {

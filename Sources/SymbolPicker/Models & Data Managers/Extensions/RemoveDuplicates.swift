@@ -1,8 +1,8 @@
 //
-//  EdgeSet-Hashable.swift
+//  RemoveDuplicates.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 28/02/2026.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI

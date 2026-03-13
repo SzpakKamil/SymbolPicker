@@ -1,0 +1,34 @@
+//
+//  SPSymbolPickerConfiguration.swift
+//  SymbolPicker
+//
+//  Created by Kamil Szpak on 23/02/2026.
+//
+
+import SwiftUI
+
+public protocol SPSymbolPickerConfiguration: Sendable {
+    @MainActor
+    func presentationConfiguration() -> SPPresentationConfiguration
+    
+    @MainActor
+    func colorPickerConfiguration() -> SPColorPickerConfiguration?
+    
+    @MainActor
+    @SPInsetedViewBuilder func insetViewsConfiguration() -> [SPInsetedView]
+    
+    @MainActor
+    var spacing: SPSpacingConfiguration { get }
+    
+    @MainActor
+    var symbolVariant: SPSymbol.Variant { get }
+    
+    @MainActor
+    var supportedTypes: [SPPageType] { get }
+    
+    @MainActor
+    var defaultType: SPPageType { get }
+    
+    @MainActor
+    var displayStyle: SPDisplayStyle { get }
+}

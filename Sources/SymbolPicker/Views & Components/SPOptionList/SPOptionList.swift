@@ -2,7 +2,7 @@
 //  SPOptionList.swift
 //  SymbolPicker
 //
-//  Refactored for modularity, performance, and improved skin selection.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
@@ -19,7 +19,7 @@ public struct SPOptionList<T: SPDataAsset>: View {
     @Binding var selection: SPSelection<T>
     @State private var emojiForSkinPicker: SPEmoji?
     private let dataManager = SPDataManager()
-    private var currentSize: CGFloat{ SPSpacing.getSize(in: dynamicTypeSize, for: style.spacing.optionList) }
+    private var currentSize: CGFloat{ SPSpacingConfiguration.getSize(in: dynamicTypeSize, for: style.spacing.optionList) }
 
     private var columns: [GridItem] {[GridItem(.adaptive(minimum: currentSize, maximum: currentSize * 1.2), spacing: currentSize * 0.8)]}
     

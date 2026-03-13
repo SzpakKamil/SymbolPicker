@@ -25,11 +25,17 @@ public struct SymbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>: View
         viewContainer{
             SPOptionList(selection: $selection)
         }
-        #if os(watchOS)
+        #if os(iOS) || os(watchOS)
         .toolbar{
             ToolbarItemGroup(placement: .topBarTrailing) {
-                style.getForEachViews(for: .toolbarTopTralling)
+                style.getForEachViews(for: .toolbarTopTrailing)
             }
+            #if os(iOS)
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                style.getForEachViews(for: .toolbarTopLeading)
+            }
+            #endif
+            #if os(watchOS)
             ToolbarItem(placement: .bottomBar) {
                 let bottomBarLeadingItems = style.getViews(for: .toolbarBottomLeading).count
                 if bottomBarLeadingItems == 0{
@@ -55,6 +61,7 @@ public struct SymbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>: View
                     style.getForEachViews(for: .toolbarBottomTralling)
                 }
             }
+            #endif
         }
         #endif
         .onAppear{
@@ -99,7 +106,7 @@ extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration {
     
     public init(selection: Binding<SPSelection<T>?>) {
         self._selection = Binding {
-            selection.wrappedValue ?? .color(value: CKColor(hexString: "#0000"))
+            selection.wrappedValue ?? .init(value: CKColor(hexString: "#0000"))
         } set: { newValue in
             selection.wrappedValue = newValue
         }

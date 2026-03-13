@@ -2,7 +2,7 @@
 //  SPSymbolView.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 22/02/2026.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI

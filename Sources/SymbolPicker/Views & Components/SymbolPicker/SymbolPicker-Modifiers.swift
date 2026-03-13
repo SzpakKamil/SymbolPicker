@@ -1,5 +1,5 @@
 //
-//  SymbolPicker-Modifier.swift
+//  SymbolPicker-Modifiers.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 23/02/2026.
@@ -34,7 +34,7 @@ public extension View {
         configuration: C
     ) -> SymbolPickerModifier<T, C, Self> {
         let binding = Binding {
-            selection.wrappedValue ?? .color(value: CKColor(hexString: "#0000"))
+            selection.wrappedValue ?? .init(value: CKColor(hexString: "#0000"))
         } set: { newValue in
             selection.wrappedValue = newValue
         }
@@ -48,7 +48,7 @@ public extension View {
         selection: Binding<SPSelection<T>?>
     ) -> SymbolPickerModifier<T, SPSymbolPickerDefaultConfiguration, Self> {
         let binding = Binding {
-            selection.wrappedValue ?? .color(value: CKColor(hexString: "#0000"))
+            selection.wrappedValue ?? .init(value: CKColor(hexString: "#0000"))
         } set: { newValue in
             selection.wrappedValue = newValue
         }

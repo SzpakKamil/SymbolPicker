@@ -1,8 +1,8 @@
 //
-//  SPPopoverWrapper.swift
+//  SPSearchBar.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 18/02/2026.
+//  Created by Kamil Szpak on 23/02/2026.
 //
 
 import SwiftUI
@@ -27,7 +27,7 @@ struct SPSearchBar: View {
                             .searchBarStyle(.rounded, backgroundColor: Color(.tertiarySystemFill))
                     }
                 }
-                .padding(.horizontal, symbolPickerStyle.displayStyle == .compact ? (SPSpacing.getHorizonalPadding(for: symbolPickerStyle.spacing.optionList) ?? 0) * 0.8  :  -14)
+                .padding(.horizontal, symbolPickerStyle.displayStyle == .compact ? (SPSpacingConfiguration.getHorizonalPadding(for: symbolPickerStyle.spacing.optionList) ?? 0) * 0.8  :  -14)
                 .padding(.top, symbolPickerStyle.displayStyle == .compact ? 3 : -8)
                 .padding(.vertical, -8)
                 #elseif os(visionOS)
