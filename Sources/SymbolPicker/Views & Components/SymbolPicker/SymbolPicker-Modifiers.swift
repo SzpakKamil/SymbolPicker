@@ -82,13 +82,41 @@ public extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration{
         return copy
     }
     
-    func spInsetedViews(overwriteDefault: Bool = false, @SPInsetedViewBuilder views: @Sendable @escaping () -> [SPInsetedView]) -> Self{
+    func spInsetedViews(replaceDefaults: Bool = false, @SPInsetedViewBuilder views: @Sendable @escaping () -> [SPInsetedView]) -> Self {
         var copy = self
-        if overwriteDefault{
-            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) in views() }
-        }else{
-            let current = copy.style.currentInsetViewConfiguration
-            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) in current(style, colorPicker) + views() }
+        let previousConfiguration = copy.style.currentInsetViewConfiguration
+        
+        copy.style.currentInsetViewConfiguration = { (style, colorPicker) in
+            let newViews = views()
+            var currentViews = previousConfiguration(style, colorPicker)
+            
+            for newView in newViews {
+                if replaceDefaults, let index = currentViews.firstIndex(where: { $0.placement == newView.placement }) {
+                    currentViews[index] = newView
+                } else {
+                    currentViews.append(newView)
+                }
+            }
+            
+            return currentViews
+        }
+        
+        return copy
+    }
+    
+    func spSpacing(@SPSpacingBuilder _ content: @Sendable @escaping () -> [SPSpacing]) -> Self {
+        var copy = self
+        let previousConfiguration = copy.style.currentSpacingConfiguration
+        
+        copy.style.currentSpacingConfiguration = { style in
+            let newItems = content()
+            var configurations = previousConfiguration(style)
+            
+            for newItem in newItems {
+                configurations.removeAll { $0.component == newItem.component }
+                configurations.append(newItem)
+            }
+            return configurations
         }
         return copy
     }
@@ -156,13 +184,41 @@ public extension SymbolPickerModifier where C == SPSymbolPickerDefaultConfigurat
         return copy
     }
     
-    func spInsetedViews(overwriteDefault: Bool = false, @SPInsetedViewBuilder views: @Sendable @escaping () -> [SPInsetedView]) -> Self{
+    func spInsetedViews(replaceDefaults: Bool = false, @SPInsetedViewBuilder views: @Sendable @escaping () -> [SPInsetedView]) -> Self {
         var copy = self
-        if overwriteDefault{
-            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) in views() }
-        }else{
-            let current = copy.style.currentInsetViewConfiguration
-            copy.style.currentInsetViewConfiguration = { (style: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) in current(style, colorPicker) + views() }
+        let previousConfiguration = copy.style.currentInsetViewConfiguration
+        
+        copy.style.currentInsetViewConfiguration = { (style, colorPicker) in
+            let newViews = views()
+            var currentViews = previousConfiguration(style, colorPicker)
+            
+            for newView in newViews {
+                if replaceDefaults, let index = currentViews.firstIndex(where: { $0.placement == newView.placement }) {
+                    currentViews[index] = newView
+                } else {
+                    currentViews.append(newView)
+                }
+            }
+            
+            return currentViews
+        }
+        
+        return copy
+    }
+    
+    func spSpacing(@SPSpacingBuilder _ content: @Sendable @escaping () -> [SPSpacing]) -> Self {
+        var copy = self
+        let previousConfiguration = copy.style.currentSpacingConfiguration
+        
+        copy.style.currentSpacingConfiguration = { style in
+            let newItems = content()
+            var configurations = previousConfiguration(style)
+            
+            for newItem in newItems {
+                configurations.removeAll { $0.component == newItem.component }
+                configurations.append(newItem)
+            }
+            return configurations
         }
         return copy
     }

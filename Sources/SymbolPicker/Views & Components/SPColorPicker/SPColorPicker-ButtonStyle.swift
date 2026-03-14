@@ -13,7 +13,8 @@ struct SPColorPickerButtonStyle: ButtonStyle {
     #endif
     let isSelected: Bool
     let isFocused: Bool
-    let size: CGFloat
+    let width: CGFloat
+    let height: CGFloat
     
     var backgroundColor: Color{
         #if os(tvOS)
@@ -33,8 +34,8 @@ struct SPColorPickerButtonStyle: ButtonStyle {
     }
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .frame(width: size, height: size, alignment: .center)
-            .padding(size * 0.15)
+            .frame(width: width, height: height, alignment: .center)
+            .padding(width * 0.15)
             .foregroundStyle(Color.primary)
             .background {
                 if configuration.isPressed {

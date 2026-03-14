@@ -11,7 +11,7 @@ private struct SPSymbolPickerIsPresentedEnvironmentProperty: EnvironmentKey {
     static let defaultValue: Binding<Bool>? = nil
 }
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     var spIsPresented: Binding<Bool>? {
         get { self[SPSymbolPickerIsPresentedEnvironmentProperty.self] }
         set { self[SPSymbolPickerIsPresentedEnvironmentProperty.self] = newValue }

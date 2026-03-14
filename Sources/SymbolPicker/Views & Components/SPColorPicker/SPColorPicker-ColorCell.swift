@@ -13,7 +13,8 @@ struct SPColorPickerColorCell: View {
     @FocusState private var isFocused: Bool
     
     var color: CKColor
-    var size: CGFloat
+    var width: CGFloat
+    var height: CGFloat
     var isSelected: Bool
     var rainbowOutline: Bool
     var action: () -> Void
@@ -87,16 +88,16 @@ struct SPColorPickerColorCell: View {
                 ZStack{
                     Circle()
                         .fill(spColorPickerGradientFill(for: color, in: colorScheme))
-                        .padding(size * 0.12)
+                        .padding(width * 0.12)
                     if isSelected || rainbowOutline{
                         Circle()
                             .stroke(
                                 rainbowOutline ?  AnyShapeStyle(rainbowGradient) : AnyShapeStyle(.tint),
-                                style: rainbowOutline ? StrokeStyle(lineWidth: size * 0.13) :  StrokeStyle(lineWidth: size * 0.07)
+                                style: rainbowOutline ? StrokeStyle(lineWidth: width * 0.13) :  StrokeStyle(lineWidth: width * 0.07)
                             )
                     }
                 }
-                .frame(width: size, height: size)
+                .frame(width: width, height: height)
             }
             #endif
         }
@@ -106,9 +107,10 @@ struct SPColorPickerColorCell: View {
         #endif
     }
     
-    init(color: CKColor, size: CGFloat, isSelected: Bool, rainbowOutline: Bool = false, action: @escaping () -> Void) {
+    init(color: CKColor, width: CGFloat, height: CGFloat, isSelected: Bool, rainbowOutline: Bool = false, action: @escaping () -> Void) {
         self.color = color
-        self.size = size
+        self.width = width
+        self.height = height
         self.isSelected = isSelected
         self.rainbowOutline = rainbowOutline
         self.action = action

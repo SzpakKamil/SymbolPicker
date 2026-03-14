@@ -21,8 +21,11 @@ public extension SPSymbolPickerConfiguration {
     func insetViewsConfiguration() -> [SPInsetedView] {
         Self.defaultInsetViews(for: displayStyle, colorPicker: colorPicker)
     }
-    
-    var spacing: SPSpacingConfiguration { SPSpacingConfiguration() }
+
+    @SPSpacingBuilder
+    func spacingConfiguration() -> [SPSpacing] {
+        Self.defaultSpacingConfiguration()
+    }
     
     var symbolVariant: SPSymbol.Variant { .filled }
     

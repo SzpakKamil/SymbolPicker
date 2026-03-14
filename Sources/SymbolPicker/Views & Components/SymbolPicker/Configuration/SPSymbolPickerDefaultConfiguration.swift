@@ -26,6 +26,12 @@ public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
         return self.currentInsetViewConfiguration(displayStyle, colorPicker)
     }
     
+    @MainActor public var currentSpacingConfiguration: @MainActor (SPDisplayStyle) -> [SPSpacing]
+    
+    @MainActor @SPSpacingBuilder public func spacingConfiguration() -> [SPSpacing] {
+        self.currentSpacingConfiguration(displayStyle)
+    }
+    
     @MainActor public var symbolVariant: SPSymbol.Variant = .filled
     
     @MainActor public var supportedTypes: [SPPageType] = SPPageType.allCases
@@ -45,5 +51,6 @@ public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
         self.currentInsetViewConfiguration = { style, colorPicker in
             SPSymbolPickerDefaultConfiguration.defaultInsetViews(for: style, colorPicker: colorPicker)
         }
+        self.currentSpacingConfiguration = { _ in SPSymbolPickerDefaultConfiguration.defaultSpacingConfiguration() }
     }
 }

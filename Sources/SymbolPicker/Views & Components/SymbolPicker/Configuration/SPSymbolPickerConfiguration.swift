@@ -18,7 +18,7 @@ public protocol SPSymbolPickerConfiguration: Sendable {
     @SPInsetedViewBuilder func insetViewsConfiguration() -> [SPInsetedView]
     
     @MainActor
-    var spacing: SPSpacingConfiguration { get }
+    @SPSpacingBuilder func spacingConfiguration() -> [SPSpacing]
     
     @MainActor
     var symbolVariant: SPSymbol.Variant { get }

@@ -1,5 +1,5 @@
 //
-//  SPSelectedSymbol.swift
+//  SPSelectionPreview.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 23/02/2026.
@@ -9,16 +9,16 @@ import SwiftUI
 import ColorKit
 
 @_documentation(visibility: internal)
-struct SPSelectedSymbol: View {
+struct SPSelectionPreview: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.symbolPickerStyle) var symbolPickerStyle
     @Environment(\.spSelection) var spSelection
-    @Environment(\.spCalculateScale) var spCalculateScale
-    @Environment(\.spCalculateOffset) var spCalculateOffset
+    @Environment(\.spPreviewCalculateScale) var spPreviewCalculateScale
+    @Environment(\.spPreviewCalculateOffset) var spPreviewCalculateOffset
     @Environment(\.colorScheme) var colorScheme
     
     var size: CGFloat {
-        SPSpacingConfiguration.getSize(in: dynamicTypeSize, for: symbolPickerStyle.spacing.selectedSymbol)
+        symbolPickerStyle.spacingConfiguration().getValue(.width, for: .previewSelection, at: dynamicTypeSize)
     }
     
     var colorValue: CKColor? {
@@ -41,8 +41,8 @@ struct SPSelectedSymbol: View {
                 spSelection.wrappedValue.asView()
                     .if{ content in
                         let size = size
-                        let padding = isImage ? 0 : size * 0.3
-                        let targetSize = (isImage ? size * 1.7 : size) * 0.8
+                        let padding = size * 0.35
+                        let targetSize = size
                         content
                             .frame(width: targetSize, height: targetSize)
                             .padding(padding)
@@ -110,11 +110,11 @@ struct SPSelectedSymbol: View {
                             .background(Color.white)
                             .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.5, style: .continuous))
                             .shadow(color: (colorValue?.color ?? .black).opacity(0.5), radius: 20)
-                            .scaleEffect(spCalculateScale)
+                            .scaleEffect(spPreviewCalculateScale)
 #if os(watchOS)
-                        .offset(y: spCalculateOffset)
+                        .offset(y: spPreviewCalculateOffset)
 #else
-                        .offset(y: spCalculateOffset)
+                        .offset(y: spPreviewCalculateOffset)
 #endif
                     } else {
                         let size = size
@@ -164,9 +164,9 @@ struct SPSelectedSymbol: View {
             }
             .ignoresSafeArea()
 #else
-            .padding(.top, spCalculateScale != 1 ? 3 : -5)
+            .padding(.top, spPreviewCalculateScale != 1 ? 3 : -5)
             .padding(.bottom, 5)
-            .animation(.smooth, value: spCalculateScale)
+            .animation(.smooth, value: spPreviewCalculateScale)
 #endif
             .allowsHitTesting(false)
 #endif

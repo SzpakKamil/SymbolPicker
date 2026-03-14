@@ -12,6 +12,7 @@ struct SPSearchBar: View {
     @Environment(\.spSearchText) var spSearchText
     @Environment(\.spPageType) var spPageType
     @Environment(\.symbolPickerStyle) var symbolPickerStyle
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     var body: some View {
         if [SPPageType.emoji, .symbol].contains(spPageType.wrappedValue){
             SearchBar(
@@ -30,7 +31,7 @@ struct SPSearchBar: View {
                             .searchBarStyle(.rounded, backgroundColor: Color(.tertiarySystemFill))
                     }
                 }
-                .padding(.horizontal, symbolPickerStyle.displayStyle == .compact ? (SPSpacingConfiguration.getHorizonalPadding(for: symbolPickerStyle.spacing.optionList) ?? 0) * 0.8  :  -14)
+                .padding(.horizontal, symbolPickerStyle.displayStyle == .compact ? (symbolPickerStyle.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 0.8  :  -14)
                 .padding(.top, symbolPickerStyle.displayStyle == .compact ? 3 : -8)
                 .padding(.vertical, -8)
                 #elseif os(visionOS)

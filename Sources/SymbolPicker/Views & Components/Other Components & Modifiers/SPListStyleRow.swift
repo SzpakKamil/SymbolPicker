@@ -14,6 +14,7 @@ extension View{
 }
 struct SPListStyleRow: ViewModifier{
     @Environment(\.symbolPickerStyle) var style
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     let forceListStyle: Bool
     let detailCornerRadius: CGFloat = {
         if #available(iOS 26.0, tvOS 26.0, visionOS 26.0, *){
@@ -29,8 +30,8 @@ struct SPListStyleRow: ViewModifier{
     func body(content: Content) -> some View {
         #if os(iOS) || os(visionOS) || os(tvOS)
         content
-            .padding(.horizontal, forceListStyle ? (SPSpacingConfiguration.getHorizonalPadding(for: style.spacing.optionList) ?? 0) * 1 : 0)
-            .padding(.vertical, forceListStyle ? (SPSpacingConfiguration.getHorizonalPadding(for: style.spacing.optionList) ?? 0) * 0.25 : 0)
+            .padding(.horizontal, forceListStyle ? (style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 1 : 0)
+            .padding(.vertical, forceListStyle ? (style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 0.25 : 0)
             .background{
                 #if os(visionOS) || os(tvOS)
                 if forceListStyle{
@@ -46,7 +47,7 @@ struct SPListStyleRow: ViewModifier{
                 }
                 #endif
             }
-            .padding(.horizontal, forceListStyle ? (SPSpacingConfiguration.getHorizonalPadding(for: style.spacing.optionList) ?? 0) * 0.1 : 0)
+            .padding(.horizontal, forceListStyle ? (style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 0.1 : 0)
         #else
         content
         #endif

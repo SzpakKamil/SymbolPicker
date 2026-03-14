@@ -14,6 +14,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
     @Environment(\.spSelection) var spSelection
     @Environment(\.spSearchText) var spSearchText
     @Environment(\.symbolPickerStyle) var style
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State private var offsetCalculated: CGFloat = 10
     @State private var scaleCalculated: CGFloat = 1.0
     let content: (ScrollViewProxy?) -> V
@@ -41,8 +42,8 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                     .if { view in
                         if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
                             view
-                                .spSmartSafeAreaPadding(verticalEdges, SPSpacingConfiguration.getVerticalPadding(for: style.spacing.optionList) ?? 0)
-                                .spSmartSafeAreaPadding(.horizontal, SPSpacingConfiguration.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
+                                .spSmartSafeAreaPadding(verticalEdges, style.spacingConfiguration().getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize))
+                                .spSmartSafeAreaPadding(.horizontal, style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
                         } else {
                             view
                         }
@@ -122,8 +123,8 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 .spSafeAreaPaddingForDictionary(
                                     insetedView.paddings,
-                                    verticalDefault: SPSpacingConfiguration.getVerticalPadding(for: style.spacing.optionList) ?? 0,
-                                    horizontalDefault: SPSpacingConfiguration.getHorizonalPadding(for: style.spacing.optionList) ?? 0
+                                    verticalDefault: style.spacingConfiguration().getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize),
+                                    horizontalDefault: style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)
                                 )
                                 .if{ content in
                                     if let background = insetedView.background{
@@ -141,8 +142,8 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 .spSafeAreaPaddingForDictionary(
                                     insetedView.paddings,
-                                    verticalDefault: SPSpacingConfiguration.getVerticalPadding(for: style.spacing.optionList) ?? 0,
-                                    horizontalDefault: SPSpacingConfiguration.getHorizonalPadding(for: style.spacing.optionList) ?? 0
+                                    verticalDefault: style.spacingConfiguration().getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize),
+                                    horizontalDefault: style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)
                                 )
                                 .if{ content in
                                     if let background = insetedView.background{
@@ -160,9 +161,9 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
-                                .padding(.top, SPSpacingConfiguration.getVerticalPadding(for: style.spacing.optionList))
-                                .padding(.bottom, (SPSpacingConfiguration.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
-                                .environment(\.spHorizontalPadding, SPSpacingConfiguration.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
+                                .padding(.top, style.spacingConfiguration().getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize))
+                                .padding(.bottom, style.spacingConfiguration().getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize) * 0.5)
+                                .environment(\.spHorizontalPadding, style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
                                 .background { insetedView.background }
                         }
                     }
@@ -173,16 +174,16 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
-                                .padding(.bottom, SPSpacingConfiguration.getVerticalPadding(for: style.spacing.optionList))
-                                .padding(.top, (SPSpacingConfiguration.getVerticalPadding(for: style.spacing.optionList) ?? 0) * 0.5)
-                                .environment(\.spHorizontalPadding, SPSpacingConfiguration.getHorizonalPadding(for: style.spacing.optionList) ?? 0)
+                                .padding(.bottom, style.spacingConfiguration().getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize))
+                                .padding(.top, style.spacingConfiguration().getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize) * 0.5)
+                                .environment(\.spHorizontalPadding, style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
                                 .background { insetedView.background }
                         }
                     }
             }
         }
-        .environment(\.spCalculateOffset, offsetCalculated)
-        .environment(\.spCalculateScale, scaleCalculated)
+        .environment(\.spPreviewCalculateOffset, offsetCalculated)
+        .environment(\.spPreviewCalculateScale, scaleCalculated)
     }
     
 
@@ -239,11 +240,11 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
         }
         .if { content in if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, visionOS 1.0, *) { content} else {
             content
-                .padding(verticalEdges, SPSpacingConfiguration.getVerticalPadding(for: style.spacing.optionList))
-                .padding(.horizontal, SPSpacingConfiguration.getHorizonalPadding(for: style.spacing.optionList))
+                .padding(verticalEdges, style.spacingConfiguration().getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize))
+                .padding(.horizontal, style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
         }}
         #if os(macOS)
-        .padding(.top, style.displayStyle == .compact ? (SPSpacingConfiguration.getVerticalPadding(for: style.spacing.optionList) ?? 0) * -1.5 : 0)
+        .padding(.top, style.displayStyle == .compact ? style.spacingConfiguration().getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize) * -1.5 : 0)
         #endif
     }
     

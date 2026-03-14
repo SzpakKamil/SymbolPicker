@@ -1,5 +1,5 @@
 //
-//  SPSymbolPickerConfiguration-Layouts.swift
+//  SPSymbolPickerConfiguration-InsetViewsConfiguration.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 23/02/2026.
@@ -25,7 +25,7 @@ public extension SPSymbolPickerConfiguration {
                 SPInsetedView(placement: .toolbarBottomLeading, spacing: spacing) {
                     SPPagePicker()
                 }
-                SPSelectedSymbol().asInsetView()
+                SPSelectionPreview().asInsetView()
                 SPInsetedView(placement: .scrollContentTop, spacing: spacing) {
                     SPSearchBar()
                 }
@@ -45,7 +45,7 @@ public extension SPSymbolPickerConfiguration {
             }
             #elseif os(iOS)
             if displayStyle == .detail {
-                SPSelectedSymbol().asInsetView()
+                SPSelectionPreview().asInsetView()
                 if #available(iOS 26.0, *) {
                     if colorPicker != nil {
                         SPInsetedView(placement: .scrollContentTop) {
@@ -114,7 +114,7 @@ public extension SPSymbolPickerConfiguration {
             }
             #elseif os(visionOS)
             if displayStyle == .detail {
-                SPSelectedSymbol().asInsetView()
+                SPSelectionPreview().asInsetView()
                 if #available(visionOS 26.0, *) {
                     if colorPicker != nil {
                         SPInsetedView(placement: .scrollContentTop) {
@@ -162,7 +162,7 @@ public extension SPSymbolPickerConfiguration {
             }
             #elseif os(tvOS)
             if displayStyle == .detail {
-                SPSelectedSymbol().asInsetView()
+                SPSelectionPreview().asInsetView()
                 if #available(tvOS 26.0, *) {
                     if colorPicker != nil {
                         SPInsetedView(placement: .scrollContentTop) {
@@ -215,7 +215,7 @@ public extension SPSymbolPickerConfiguration {
             }
             #else
             if displayStyle == .detail {
-                SPSelectedSymbol().asInsetView()
+                SPSelectionPreview().asInsetView()
                 SPInsetedView(placement: .scrollSectionTop, spacing: spacing) {
                     if colorPicker != nil {
                         SPColorPicker()
