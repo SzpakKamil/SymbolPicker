@@ -30,8 +30,8 @@ struct SPListStyleRow: ViewModifier{
     func body(content: Content) -> some View {
         #if os(iOS) || os(visionOS) || os(tvOS)
         content
-            .padding(.horizontal, forceListStyle ? (style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 1 : 0)
-            .padding(.vertical, forceListStyle ? (style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 0.25 : 0)
+            .padding(.horizontal, forceListStyle ? (style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 1 : 0)
+            .padding(.vertical, forceListStyle ? (style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 0.25 : 0)
             .background{
                 #if os(visionOS) || os(tvOS)
                 if forceListStyle{
@@ -47,7 +47,7 @@ struct SPListStyleRow: ViewModifier{
                 }
                 #endif
             }
-            .padding(.horizontal, forceListStyle ? (style.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 0.1 : 0)
+            .padding(.horizontal, forceListStyle ? (style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 0.1 : 0)
         #else
         content
         #endif

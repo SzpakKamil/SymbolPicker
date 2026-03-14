@@ -18,7 +18,7 @@ struct SPSelectionPreview: View {
     @Environment(\.colorScheme) var colorScheme
     
     var size: CGFloat {
-        symbolPickerStyle.spacingConfiguration().getValue(.width, for: .previewSelection, at: dynamicTypeSize)
+        symbolPickerStyle.spacings.getValue(.width, for: .previewSelection, at: dynamicTypeSize)
     }
     
     var colorValue: CKColor? {

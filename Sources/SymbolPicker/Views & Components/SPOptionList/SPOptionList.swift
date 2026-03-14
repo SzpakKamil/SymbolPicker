@@ -20,7 +20,7 @@ public struct SPOptionList<T: SPDataAsset>: View {
     @State private var emojiForSkinPicker: SPEmoji?
     private let dataManager = SPDataManager()
     private var currentSize: CGFloat {
-        style.spacingConfiguration().getValue(.width, for: .optionList, at: dynamicTypeSize)
+        style.spacings.getValue(.width, for: .optionList, at: dynamicTypeSize)
     }
 
     private var columns: [GridItem] {[GridItem(.adaptive(minimum: currentSize, maximum: currentSize * 1.2), spacing: currentSize * 0.8)]}

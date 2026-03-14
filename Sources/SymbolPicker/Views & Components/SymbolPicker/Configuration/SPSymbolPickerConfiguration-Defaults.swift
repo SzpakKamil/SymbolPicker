@@ -9,23 +9,17 @@ import SwiftUI
 
 @MainActor
 public extension SPSymbolPickerConfiguration {
-    func colorPickerConfiguration() -> SPColorPickerConfiguration? {
-        return .init(style: displayStyle)
-    }
+    func colorPickerConfiguration() -> SPColorPickerConfiguration? { return .init(style: displayStyle) }
     
-    func presentationConfiguration() -> SPPresentationConfiguration {
-        return .init(style: displayStyle)
-    }
+    func presentationConfiguration() -> SPPresentationConfiguration { return .init(style: displayStyle) }
     
     @SPInsetedViewBuilder
-    func insetViewsConfiguration() -> [SPInsetedView] {
-        Self.defaultInsetViews(for: displayStyle, colorPicker: colorPicker)
-    }
+    func insetViewsConfiguration() -> [SPInsetedView] { Self.defaultInsetViews(for: displayStyle, colorPicker: colorPicker) }
 
     @SPSpacingBuilder
-    func spacingConfiguration() -> [SPSpacing] {
-        Self.defaultSpacingConfiguration()
-    }
+    func spacingConfiguration() -> [SPSpacing] { Self.defaultSpacingConfiguration() }
+    
+    var spacings: [SPSpacing]{ spacingConfiguration() }
     
     var symbolVariant: SPSymbol.Variant { .filled }
     

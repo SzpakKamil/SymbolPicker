@@ -16,10 +16,10 @@ public struct SPColorPicker: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @State private var isPresentingColorPicker = false
     var currentWidth: CGFloat {
-        symbolPickerStyle.spacingConfiguration().getValue(.width, for: .colorPicker, at: dynamicTypeSize)
+        symbolPickerStyle.spacings.getValue(.width, for: .colorPicker, at: dynamicTypeSize)
     }
     var currentHeight: CGFloat {
-        symbolPickerStyle.spacingConfiguration().getValue(.height, for: .colorPicker, at: dynamicTypeSize)
+        symbolPickerStyle.spacings.getValue(.height, for: .colorPicker, at: dynamicTypeSize)
     }
     var selectedColor: CKColor{ spSelection.wrappedValue.getColor() ?? CKColor(red: 0, green: 0, blue: 0, opacity: 0) }
     

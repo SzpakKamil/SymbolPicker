@@ -31,7 +31,7 @@ struct SPSearchBar: View {
                             .searchBarStyle(.rounded, backgroundColor: Color(.tertiarySystemFill))
                     }
                 }
-                .padding(.horizontal, symbolPickerStyle.displayStyle == .compact ? (symbolPickerStyle.spacingConfiguration().getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 0.8  :  -14)
+                .padding(.horizontal, symbolPickerStyle.displayStyle == .compact ? (symbolPickerStyle.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 0.8  :  -14)
                 .padding(.top, symbolPickerStyle.displayStyle == .compact ? 3 : -8)
                 .padding(.vertical, -8)
                 #elseif os(visionOS)
