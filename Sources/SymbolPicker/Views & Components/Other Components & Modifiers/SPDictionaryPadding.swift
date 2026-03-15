@@ -9,41 +9,41 @@ import SwiftUI
 
 fileprivate struct SPDictionaryPadding: ViewModifier {
     let paddings: [Edge.Set: CGFloat?]
-    let verticalDefault: CGFloat
-    let horizontalDefault: CGFloat
+    let verticalDefault: [Edge.Set: CGFloat]
+    let horizontalDefault: [Edge.Set: CGFloat]
 
     func body(content: Content) -> some View {
         content
-            .padding(.top, paddings.spResolve(.top, axis: .vertical, defaultValue: verticalDefault))
-            .padding(.bottom, paddings.spResolve(.bottom, axis: .vertical, defaultValue: verticalDefault))
-            .padding(.leading, paddings.spResolve(.leading, axis: .horizontal, defaultValue: horizontalDefault))
-            .padding(.trailing, paddings.spResolve(.trailing, axis: .horizontal, defaultValue: horizontalDefault))
+            .padding(.top, paddings.spResolve(.top, axis: .vertical, defaultValues: verticalDefault))
+            .padding(.bottom, paddings.spResolve(.bottom, axis: .vertical, defaultValues: verticalDefault))
+            .padding(.leading, paddings.spResolve(.leading, axis: .horizontal, defaultValues: horizontalDefault))
+            .padding(.trailing, paddings.spResolve(.trailing, axis: .horizontal, defaultValues: horizontalDefault))
     }
 }
 
 @available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
 fileprivate struct SPDictionarySafeAreaPadding: ViewModifier {
     let paddings: [Edge.Set: CGFloat?]
-    let verticalDefault: CGFloat
-    let horizontalDefault: CGFloat
+    let verticalDefault: [Edge.Set: CGFloat]
+    let horizontalDefault: [Edge.Set: CGFloat]
 
     func body(content: Content) -> some View {
         content
-            .spSmartSafeAreaPadding(.top, paddings.spResolve(.top, axis: .vertical, defaultValue: verticalDefault))
-            .spSmartSafeAreaPadding(.bottom, paddings.spResolve(.bottom, axis: .vertical, defaultValue: verticalDefault))
-            .spSmartSafeAreaPadding(.leading, paddings.spResolve(.leading, axis: .horizontal, defaultValue: horizontalDefault))
-            .spSmartSafeAreaPadding(.trailing, paddings.spResolve(.trailing, axis: .horizontal, defaultValue: horizontalDefault))
+            .spSmartSafeAreaPadding(.top, paddings.spResolve(.top, axis: .vertical, defaultValues: verticalDefault))
+            .spSmartSafeAreaPadding(.bottom, paddings.spResolve(.bottom, axis: .vertical, defaultValues: verticalDefault))
+            .spSmartSafeAreaPadding(.leading, paddings.spResolve(.leading, axis: .horizontal, defaultValues: horizontalDefault))
+            .spSmartSafeAreaPadding(.trailing, paddings.spResolve(.trailing, axis: .horizontal, defaultValues: horizontalDefault))
     }
 }
 
 
 extension View {
-    func spPaddingForDictionary(_ paddings: [Edge.Set: CGFloat?], verticalDefault: CGFloat = 0, horizontalDefault: CGFloat = 0) -> some View {
+    func spPaddingForDictionary(_ paddings: [Edge.Set: CGFloat?], verticalDefault: [Edge.Set: CGFloat] = [:], horizontalDefault: [Edge.Set: CGFloat] = [:]) -> some View {
         self.modifier(SPDictionaryPadding(paddings: paddings, verticalDefault: verticalDefault, horizontalDefault: horizontalDefault))
     }
     
     @available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
-    func spSafeAreaPaddingForDictionary(_ paddings: [Edge.Set: CGFloat?], verticalDefault: CGFloat = 0, horizontalDefault: CGFloat = 0) -> some View {
+    func spSafeAreaPaddingForDictionary(_ paddings: [Edge.Set: CGFloat?], verticalDefault: [Edge.Set: CGFloat] = [:], horizontalDefault: [Edge.Set: CGFloat] = [:]) -> some View {
         self.modifier(SPDictionarySafeAreaPadding(paddings: paddings, verticalDefault: verticalDefault, horizontalDefault: horizontalDefault))
     }
 
@@ -62,7 +62,7 @@ extension View {
 }
 
 extension Dictionary where Key == Edge.Set, Value == CGFloat? {
-    fileprivate func spResolve(_ edge: Edge.Set, axis: Edge.Set, defaultValue: CGFloat) -> CGFloat {
+    fileprivate func spResolve(_ edge: Edge.Set, axis: Edge.Set, defaultValues: [Edge.Set: CGFloat]) -> CGFloat {
         if let exact = self[edge], let value = exact {
             return value
         }
@@ -72,6 +72,18 @@ extension Dictionary where Key == Edge.Set, Value == CGFloat? {
         if let all = self[.all], let value = all {
             return value
         }
-        return defaultValue
+        
+        // Resolve from defaultValues dictionary
+        if let exactDefault = defaultValues[edge] {
+            return exactDefault
+        }
+        if let axisDefault = defaultValues[axis] {
+            return axisDefault
+        }
+        if let allDefault = defaultValues[.all] {
+            return allDefault
+        }
+        
+        return 0
     }
 }

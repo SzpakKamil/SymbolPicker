@@ -8,85 +8,67 @@
 import SwiftUI
 
 struct SPOptionListButtonStyle: ButtonStyle {
-    #if !os(watchOS) && !os(visionOS)
     @Environment(\.colorScheme) var colorScheme
-    #endif
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.symbolPickerStyle) var style
+    
     let isSelected: Bool
     let isFocused: Bool
-    let size: CGFloat
     
-    var backgroundColor: Color{
-        #if os(tvOS)
-        if #available(tvOS 26.0, *){
-            if colorScheme == .light{
-                return Color.white
-            }else{
-                return Color.white.opacity(0.15)
-            }
+    var width: CGFloat { style.spacings.getValue(.width, for: .optionList, at: dynamicTypeSize) }
+    var height: CGFloat { style.spacings.getValue(.height, for: .optionList, at: dynamicTypeSize) }
+    var cornerRadius: CGFloat {  width * style.optionList.optionListCornerRadiusFactor }
+    var padding: CGFloat {  width * style.optionList.optionListInnerPaddingFactor }
+    
+    func getForegroundColor(configuration: Configuration) -> Color {
+        if configuration.isPressed{
+            style.optionList.optionListForegroundPressed
+        }else if isFocused{
+            style.optionList.optionListForegroundFocused
+        }else if isSelected{
+            style.optionList.optionListForegroundSelected
         }else{
-            if colorScheme == .light{
-                return Color.black.opacity(0.15)
-            }else{
-                return Color.white.opacity(0.15)
+            style.optionList.optionListForeground
+        }
+    }
+    func getBackgroundColor(configuration: Configuration) -> Color {
+        if configuration.isPressed{
+            style.optionList.optionListBackgroundPressed
+        }else if isFocused{
+            style.optionList.optionListBackgroundFocused
+        }else if isSelected{
+            style.optionList.optionListBackgroundSelected
+        }else{
+            style.optionList.optionListBackground
+        }
+    }
+
+    func makeBody(configuration: Configuration) -> some View {
+        ZStack {
+            configuration.label
+                .frame(width: width, height: height, alignment: .center)
+                .padding(padding)
+                .foregroundStyle(getForegroundColor(configuration: configuration))
+                .background(getBackgroundColor(configuration: configuration))
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+        }
+        #if os(tvOS)
+        .if { content in
+            if #available(tvOS 17.0, *) {
+                content.hoverEffect(.highlight)
+            } else {
+                content
+                    .scaleEffect(isFocused ? 1.15 : 1.0)
+                    .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+                    .animation(.smooth(duration: 0.2), value: isFocused)
             }
         }
-
-        #else
-        return Color.primary
+        #elseif os(visionOS)
+        .contentShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+        .hoverEffect(.lift)
         #endif
-    }
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-        
-            .frame(width: size, height: size * 1.25, alignment: .center)
-            .padding(size * 0.25)
-            .foregroundStyle(isFocused ? Color.primary : Color.primary)
-            #if os(tvOS)
-            .background(isFocused ? backgroundColor : .clear)
-                
-            #endif
-            .background {
-                if configuration.isPressed {
-                    #if os(tvOS)
-                    Color.clear
-                    #else
-                    backgroundColor.opacity(0.10)
-                    #endif
-                } else if isSelected {
-                    #if os(tvOS)
-                    backgroundColor.opacity(0.6)
-                    #elseif os(iOS)
-                    backgroundColor.opacity(0.15)
-                    #else
-                    backgroundColor.opacity(0.20)
-                    #endif
-                } else {
-                    Color.clear
-                }
-            }
-            #if os(watchOS)
-            .clipShape(RoundedRectangle(cornerRadius: size * 0.45, style: .continuous))
-            #else
-            .clipShape(RoundedRectangle(cornerRadius: size * 0.25, style: .continuous))
-            #endif
-            #if os(tvOS)
-            .if { content in
-                if #available(tvOS 17.0, *) {
-                    content.hoverEffect(.highlight)
-                } else {
-                    content
-                        .scaleEffect(isFocused ? 1.15 : 1.0)
-                        .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-                        .animation(.smooth(duration: 0.2), value: isFocused)
-                }
-            }
-            #elseif os(visionOS)
-            .hoverEffect(.lift)
-            .clipShape(RoundedRectangle(cornerRadius: size * 0.45, style: .continuous))
-            #endif
-            .transition(.opacity)
-            .animation(.smooth(duration: 0.2), value: isSelected)
-            .animation(.smooth(duration: 0.2), value: configuration.isPressed)
+        .transition(.opacity)
+        .animation(.smooth(duration: 0.2), value: isSelected)
+        .animation(.smooth(duration: 0.2), value: configuration.isPressed)
     }
 }

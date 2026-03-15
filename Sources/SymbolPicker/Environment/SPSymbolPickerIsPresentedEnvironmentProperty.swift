@@ -1,5 +1,5 @@
 //
-//  SPSymbolPickerIsPresentedEnvironmentProperty.swift
+//  SymbolPickerIsPresentedEnvironmentProperty.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 13/03/2026.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-private struct SPSymbolPickerIsPresentedEnvironmentProperty: EnvironmentKey {
+private struct SymbolPickerIsPresentedEnvironmentProperty: EnvironmentKey {
     static let defaultValue: Binding<Bool>? = nil
 }
 
 public extension EnvironmentValues {
     var spIsPresented: Binding<Bool>? {
-        get { self[SPSymbolPickerIsPresentedEnvironmentProperty.self] }
-        set { self[SPSymbolPickerIsPresentedEnvironmentProperty.self] = newValue }
+        get { self[SymbolPickerIsPresentedEnvironmentProperty.self] }
+        set { self[SymbolPickerIsPresentedEnvironmentProperty.self] = newValue }
     }
 }

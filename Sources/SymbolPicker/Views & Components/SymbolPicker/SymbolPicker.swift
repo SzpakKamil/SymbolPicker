@@ -8,7 +8,7 @@
 import SwiftUI
 import ColorKit
 
-public struct SymbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>: View {
+public struct SymbolPicker<T: SPDataAsset, C: SymbolPickerConfiguration>: View {
     @Binding private var selection: SPSelection<T>
     @State var pageType = SPPageType.emoji
     @State var searchText: String = ""
@@ -111,10 +111,10 @@ public struct SymbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>: View
     }
 }
 
-extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration {
+extension SymbolPicker where C == SymbolPickerDefaultConfiguration {
     public init(selection: Binding<SPSelection<T>>) {
         self._selection = selection
-        self.style = SPSymbolPickerDefaultConfiguration()
+        self.style = SymbolPickerDefaultConfiguration()
     }
     
     public init(selection: Binding<SPSelection<T>?>) {
@@ -123,6 +123,6 @@ extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration {
         } set: { newValue in
             selection.wrappedValue = newValue
         }
-        self.style = SPSymbolPickerDefaultConfiguration()
+        self.style = SymbolPickerDefaultConfiguration()
     }
 }

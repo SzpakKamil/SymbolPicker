@@ -74,7 +74,7 @@ struct SPOptionListCell<T: SPDataAsset>: View {
         #if os(tvOS)
         .if{ content in if #unavailable(tvOS 26.0){ content.focused($isFocused)}else{content} }
         #endif
-        .buttonStyle(SPOptionListButtonStyle(isSelected: isSelected, isFocused: isFocused, size: size))
+        .buttonStyle(SPOptionListButtonStyle(isSelected: isSelected, isFocused: isFocused))
         .accessibilityElement()
         .accessibilityLabel(symbol != nil ? symbol?.annotation ?? SPPageType.symbol.localizedDescription : emoji?.annotation ?? SPPageType.emoji.localizedDescription)
         .accessibilityAddTraits(.isButton)

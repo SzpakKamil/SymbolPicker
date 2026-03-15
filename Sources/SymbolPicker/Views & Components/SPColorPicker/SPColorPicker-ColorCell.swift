@@ -35,7 +35,7 @@ struct SPColorPickerColorCell: View {
                 .fill(spColorPickerGradientFill(for: color, in: colorScheme))
         }
         .focused($isFocused)
-        .buttonStyle(SPColorPickerButtonStyle(isSelected: isSelected, isFocused: isFocused, size: size))
+        .buttonStyle(SPColorPickerButtonStyle(isSelected: isSelected, isFocused: isFocused, width: width, height: height))
         .accessibilityLabel(color.localizedDescription)
         .accessibilityAddTraits([.isButton])
         #else

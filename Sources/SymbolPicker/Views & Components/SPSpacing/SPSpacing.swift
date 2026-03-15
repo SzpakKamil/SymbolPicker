@@ -19,7 +19,7 @@ public struct SPSpacing: Sendable {
         self.component = component
         valueProvider = { attribute, typeSize in
             let provided = configuration(typeSize)
-            let defaults = SPSymbolPickerDefaultConfiguration.defaultSpacingConfiguration()
+            let defaults = SymbolPickerDefaultConfiguration.defaultSpacingConfiguration()
 
             switch attribute {
             case .width:

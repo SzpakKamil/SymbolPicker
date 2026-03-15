@@ -77,7 +77,7 @@ struct ContentView: View {
 This is where SymbolPicker 2.0 shines. Break it apart and build your own custom selector using the exposed components.
 
 ```swift
-struct MyConfiguration: SPSymbolPickerConfiguration {
+struct MyConfiguration: SymbolPickerConfiguration {
     // 1. Start with a blank canvas
     var displayStyle: SPDisplayStyle = .plain 
     

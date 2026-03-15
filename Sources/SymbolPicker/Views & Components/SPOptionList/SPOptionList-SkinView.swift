@@ -123,8 +123,7 @@ struct SPOptionListSkinView<T: SPDataAsset>: View {
                 #else
                 return false
                 #endif
-            }(),
-            size: displaySize
+            }()
         ))
 
         // Skin variants
@@ -152,8 +151,7 @@ struct SPOptionListSkinView<T: SPDataAsset>: View {
                         #else
                         return false
                         #endif
-                    }(),
-                    size: displaySize
+                    }()
                 ))
             }
         }

@@ -1,5 +1,5 @@
 //
-//  SPSymbolPickerDefaultConfiguration.swift
+//  SymbolPickerDefaultConfiguration.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 23/02/2026.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
+public struct SymbolPickerDefaultConfiguration: SymbolPickerConfiguration {
     @MainActor public var currentPresentationConfiguration: @MainActor (SPDisplayStyle) -> SPPresentationConfiguration
     
     @MainActor public func presentationConfiguration() -> SPPresentationConfiguration {
@@ -18,6 +18,12 @@ public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
     
     @MainActor public func colorPickerConfiguration() ->  SPColorPickerConfiguration? {
         self.currentColorPickerConfiguration(displayStyle)
+    }
+    
+    @MainActor public var currentOptionListConfiguration: @MainActor (SPDisplayStyle) -> SPOptionListConfiguration
+    
+    @MainActor public func optionListConfiguration() -> SPOptionListConfiguration {
+        self.currentOptionListConfiguration(displayStyle)
     }
     
     @MainActor public var currentInsetViewConfiguration: @MainActor (SPDisplayStyle, SPColorPickerConfiguration?) -> [SPInsetedView]
@@ -48,9 +54,10 @@ public struct SPSymbolPickerDefaultConfiguration: SPSymbolPickerConfiguration {
         }
         self.currentPresentationConfiguration = { SPPresentationConfiguration(style: $0) }
         self.currentColorPickerConfiguration = { SPColorPickerConfiguration(style: $0) }
+        self.currentOptionListConfiguration = { SPOptionListConfiguration(style: $0) }
         self.currentInsetViewConfiguration = { style, colorPicker in
-            SPSymbolPickerDefaultConfiguration.defaultInsetViews(for: style, colorPicker: colorPicker)
+            SymbolPickerDefaultConfiguration.defaultInsetViews(for: style, colorPicker: colorPicker)
         }
-        self.currentSpacingConfiguration = { _ in SPSymbolPickerDefaultConfiguration.defaultSpacingConfiguration() }
+        self.currentSpacingConfiguration = { _ in SymbolPickerDefaultConfiguration.defaultSpacingConfiguration() }
     }
 }

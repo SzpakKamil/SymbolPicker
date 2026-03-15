@@ -22,6 +22,9 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
     let progressView: () -> ProgressView
 
     var verticalEdges: Edge.Set {
+        #if os(macOS)
+        return .vertical
+        #else
         let topIsClear = style.getViews(for: .safeAreaTop).isEmpty
         
         let bottomIsClear = style.getViews(for: .safeAreaBottom).isEmpty
@@ -32,6 +35,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
         case (false, true):  return .bottom
         case (false, false): return []
         }
+        #endif
     }
 
     var body: some View {
@@ -40,12 +44,14 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                 scrollTrigger()
                 scrollBody(proxy: proxy)
                     .if { view in
-                        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
+                        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, visionOS 1.0, *) {
                             view
                                 .spSmartSafeAreaPadding(verticalEdges, style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize))
                                 .spSmartSafeAreaPadding(.horizontal, style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
                         } else {
                             view
+                                .spSmartSafeAreaPadding(verticalEdges, style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize))
+                                .spSmartSafeAreaPadding(.horizontal, style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
                         }
                     }
             }
@@ -123,8 +129,8 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 .spSafeAreaPaddingForDictionary(
                                     insetedView.paddings,
-                                    verticalDefault: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize),
-                                    horizontalDefault: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)
+                                    verticalDefault: [.top: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
+                                    horizontalDefault: [.horizontal: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)]
                                 )
                                 .if{ content in
                                     if let background = insetedView.background{
@@ -135,6 +141,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                     }
                     .safeAreaBar(edge: .bottom) {
                         let views = style.getViews(for: .safeAreaBottom).filter { spShouldDisplay($0) }
+
                         ForEach(views.indices, id: \.self){ index in
                             let insetedView = views[index]
                             insetedView.view
@@ -142,8 +149,8 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 .spSafeAreaPaddingForDictionary(
                                     insetedView.paddings,
-                                    verticalDefault: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize),
-                                    horizontalDefault: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)
+                                    verticalDefault: [.bottom: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
+                                    horizontalDefault: [.horizontal: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)]
                                 )
                                 .if{ content in
                                     if let background = insetedView.background{
@@ -161,21 +168,45 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
-                                .padding(.top, style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize))
-                                .padding(.bottom, style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize) * 0.5)
+                                #if os(visionOS)
+                                .spPaddingForDictionary(
+                                    insetedView.paddings,
+                                    verticalDefault: [.top: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
+                                    horizontalDefault: [.horizontal: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize) * 0.15]
+                                )
+                                #else
+                                .spPaddingForDictionary(
+                                    insetedView.paddings,
+                                    verticalDefault: [.top: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
+                                    horizontalDefault: [.horizontal: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)]
+                                )
+                                #endif
                                 .environment(\.spHorizontalPadding, style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
                                 .background { insetedView.background }
                         }
                     }
                     .safeAreaInset(edge: .bottom) {
                         let views = style.getViews(for: .safeAreaBottom).filter { spShouldDisplay($0) }
+
                         ForEach(views.indices, id: \.self){ index in
                             let insetedView = views[index]
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
-                                .padding(.bottom, style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize))
-                                .padding(.top, style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize) * 0.5)
+                                #if os(visionOS)
+                                .spPaddingForDictionary(
+                                    insetedView.paddings,
+                                    verticalDefault: [.bottom: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
+                                    horizontalDefault: [.horizontal: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize) * 0.15]
+                                )
+                                #else
+                                .spPaddingForDictionary(
+                                    insetedView.paddings,
+                                    verticalDefault: [.bottom: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
+                                    horizontalDefault: [.horizontal: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)]
+                                )
+                                #endif
+
                                 .environment(\.spHorizontalPadding, style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
                                 .background { insetedView.background }
                         }
@@ -265,4 +296,3 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
         self.progressView = progressView
     }
 }
-

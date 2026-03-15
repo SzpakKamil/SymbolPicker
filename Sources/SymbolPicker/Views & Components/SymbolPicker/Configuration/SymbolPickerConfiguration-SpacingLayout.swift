@@ -1,5 +1,5 @@
 //
-//  SPSymbolPickerConfiguration-SpacingLayout.swift
+//  SymbolPickerConfiguration-SpacingLayout.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 14/03/2026.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension SPSymbolPickerConfiguration {
+extension SymbolPickerConfiguration {
     @SPSpacingBuilder
     static func defaultSpacingConfiguration() -> [SPSpacing] {
         SPSpacing(component: .colorPicker) { typeSize in
@@ -33,21 +33,21 @@ extension SPSymbolPickerConfiguration {
             ]
             let base = baseSizes[typeSize] ?? 0
             #if os(iOS)
-            return .init(width: base * 1.4, height: base * 1.4, horizontalPadding: 20, verticalPadding: 20)
+            return .init(width: base * 1.4, height: (base * 1.4) * 1.25, horizontalPadding: 20, verticalPadding: 20)
             #elseif os(macOS)
-            return .init(width: base * 1.0, height: base * 1.0, horizontalPadding: 15, verticalPadding: 15)
+            return .init(width: base * 1.0, height: (base * 1.0) * 1.25, horizontalPadding: 15, verticalPadding: 15)
             #elseif os(tvOS)
             if #available(tvOS 26.0, *) {
-                return .init(width: base * 3.5, height: base * 3.5, horizontalPadding: 30, verticalPadding: 30)
+                return .init(width: base * 3.5, height: (base * 3.5) * 1.25, horizontalPadding: 30, verticalPadding: 30)
             } else {
-                return .init(width: base * 4.0, height: base * 4.0, horizontalPadding: 80, verticalPadding: 80)
+                return .init(width: base * 4.0, height: (base * 4.0) * 1.25, horizontalPadding: 80, verticalPadding: 80)
             }
             #elseif os(visionOS)
-            return .init(width: base * 1.2, height: base * 1.2, horizontalPadding: 20, verticalPadding: 15)
+            return .init(width: base * 1.2, height: (base * 1.2) * 1.25, horizontalPadding: 20, verticalPadding: 15)
             #elseif os(watchOS)
-            return .init(width: base * 0.85, height: base * 0.85, horizontalPadding: 10, verticalPadding: 0)
+            return .init(width: base * 0.85, height: (base * 0.85) * 1.25, horizontalPadding: 10, verticalPadding: 0)
             #else
-            return .init(width: base, height: base, horizontalPadding: 0, verticalPadding: 0)
+            return .init(width: base, height: base * 1.25, horizontalPadding: 0, verticalPadding: 0)
             #endif
         }
         

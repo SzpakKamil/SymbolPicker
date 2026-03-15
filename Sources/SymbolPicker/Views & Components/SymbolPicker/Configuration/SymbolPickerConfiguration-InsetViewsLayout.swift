@@ -1,5 +1,5 @@
 //
-//  SPSymbolPickerConfiguration-InsetViewsConfiguration.swift
+//  SymbolPickerConfiguration-InsetViewsConfiguration.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 23/02/2026.
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @MainActor
-public extension SPSymbolPickerConfiguration {
+public extension SymbolPickerConfiguration {
     @SPInsetedViewBuilder
     internal static func defaultInsetViews(for displayStyle: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) -> [SPInsetedView] {
         if displayStyle != .plain {
@@ -155,9 +155,19 @@ public extension SPSymbolPickerConfiguration {
                 .spBackground {
                     Rectangle()
                         .fill(.bar)
+                        .mask {
+                            LinearGradient(
+                                stops: [
+                                    .init(color: .white, location: 0.8),
+                                    .init(color: .clear, location: 1.0)
+                                ],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        }
                         .blur(radius: 5)
-                        .offset(y: -7)
-                        .scaleEffect(1.01)
+                        .offset(y: 0)
+                        .scaleEffect(1.5)
                 }
             }
             #elseif os(tvOS)

@@ -16,7 +16,7 @@ struct SPSelectionPreview: View {
     @Environment(\.spPreviewCalculateScale) var spPreviewCalculateScale
     @Environment(\.spPreviewCalculateOffset) var spPreviewCalculateOffset
     @Environment(\.colorScheme) var colorScheme
-    
+    @FocusState var isFocused: Bool
     var size: CGFloat {
         symbolPickerStyle.spacings.getValue(.width, for: .previewSelection, at: dynamicTypeSize)
     }
@@ -145,8 +145,12 @@ struct SPSelectionPreview: View {
             }
 #if os(tvOS)
             .if{ content in
-                if #available(tvOS 17.0, *){
-                    content.focusable()
+                if #available(tvOS 15.0, *){
+                    content
+                        .focusable()
+                        .focused($isFocused)
+                        .scaleEffect(isFocused ? 1.1 : 1.0)
+                        .animation(.smooth, value: isFocused)
                 }else{
                     content
                 }
@@ -163,12 +167,13 @@ struct SPSelectionPreview: View {
                 }
             }
             .ignoresSafeArea()
-#else
-            .padding(.top, spPreviewCalculateScale != 1 ? 3 : -5)
-            .padding(.bottom, 5)
+#elseif os(tvOS)
+            .padding(.vertical, 5)
+            #else
+            .padding(.top, spPreviewCalculateScale != 1 ? 3 : -8)
+            .padding(.bottom, 8)
             .animation(.smooth, value: spPreviewCalculateScale)
 #endif
-            .allowsHitTesting(false)
 #endif
         }
     }

@@ -1,5 +1,5 @@
 //
-//  SPSymbolPickerConfiguration.swift
+//  SymbolPickerConfiguration.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 23/02/2026.
@@ -7,12 +7,15 @@
 
 import SwiftUI
 
-public protocol SPSymbolPickerConfiguration: Sendable {
+public protocol SymbolPickerConfiguration: Sendable {
     @MainActor
     func presentationConfiguration() -> SPPresentationConfiguration
     
     @MainActor
     func colorPickerConfiguration() -> SPColorPickerConfiguration?
+    
+    @MainActor
+    func optionListConfiguration() -> SPOptionListConfiguration
     
     @MainActor
     @SPInsetedViewBuilder func insetViewsConfiguration() -> [SPInsetedView]

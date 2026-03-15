@@ -126,13 +126,15 @@ struct SPPopoverWrapper<Content: View>: UIViewControllerRepresentable {
 extension View {
     @ViewBuilder
     func spPopover<Content: View>(isPresented: Binding<Bool>, arrowEdge: Edge = .bottom, @ViewBuilder content: @escaping () -> Content) -> some View {
-        #if os(iOS) || !os(visionOS)
-        self.background(
-            SPPopoverWrapper(isPresented: isPresented, arrowEdge: arrowEdge, content: content)
-        )
-        #else
-        self.popover(isPresented: isPresented, attachmentAnchor: .rect(.bounds), arrowEdge: arrowEdge, content: content)
-        #endif
+        if #available(iOS 16.4, *){
+            self.popover(isPresented: isPresented, attachmentAnchor: .rect(.bounds), arrowEdge: arrowEdge){
+                content().presentationCompactAdaptation(.popover)
+            }
+        }else{
+            self.background(
+                SPPopoverWrapper(isPresented: isPresented, arrowEdge: arrowEdge, content: content)
+            )
+        }
     }
 }
 #elseif !os(watchOS) && !os(tvOS)

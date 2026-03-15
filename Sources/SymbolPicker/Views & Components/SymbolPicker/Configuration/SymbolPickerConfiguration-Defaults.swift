@@ -1,5 +1,5 @@
 //
-//  SPSymbolPickerConfiguration-Defaults.swift
+//  SymbolPickerConfiguration-Defaults.swift
 //  SymbolPicker
 //
 //  Created by Kamil Szpak on 23/02/2026.
@@ -8,10 +8,12 @@
 import SwiftUI
 
 @MainActor
-public extension SPSymbolPickerConfiguration {
+public extension SymbolPickerConfiguration {
     func colorPickerConfiguration() -> SPColorPickerConfiguration? { return .init(style: displayStyle) }
     
     func presentationConfiguration() -> SPPresentationConfiguration { return .init(style: displayStyle) }
+    
+    func optionListConfiguration() -> SPOptionListConfiguration { return .init() }
     
     @SPInsetedViewBuilder
     func insetViewsConfiguration() -> [SPInsetedView] { Self.defaultInsetViews(for: displayStyle, colorPicker: colorPicker) }
@@ -38,6 +40,8 @@ public extension SPSymbolPickerConfiguration {
     internal var colorPicker: SPColorPickerConfiguration? { colorPickerConfiguration() }
     
     internal var presentation: SPPresentationConfiguration { presentationConfiguration() }
+    
+    internal var optionList: SPOptionListConfiguration { optionListConfiguration() }
     
     internal var insetViews: [SPInsetedView] { insetViewsConfiguration() }
 }

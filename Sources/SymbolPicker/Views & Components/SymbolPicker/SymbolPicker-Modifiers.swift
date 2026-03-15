@@ -9,7 +9,7 @@ import SwiftUI
 import ColorKit
 
 public extension View {
-    func symbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>(
+    func symbolPicker<T: SPDataAsset, C: SymbolPickerConfiguration>(
         isPresented: Binding<Bool>,
         selection: Binding<SPSelection<T>>,
         configuration: C
@@ -22,13 +22,13 @@ public extension View {
     func symbolPicker<T: SPDataAsset>(
         isPresented: Binding<Bool>,
         selection: Binding<SPSelection<T>>
-    ) -> SymbolPickerModifier<T, SPSymbolPickerDefaultConfiguration, Self> {
-        return SymbolPickerModifier(isPresented: isPresented, selection: selection, configuration: SPSymbolPickerDefaultConfiguration()) {
+    ) -> SymbolPickerModifier<T, SymbolPickerDefaultConfiguration, Self> {
+        return SymbolPickerModifier(isPresented: isPresented, selection: selection, configuration: SymbolPickerDefaultConfiguration()) {
             self
         }
     }
 
-    func symbolPicker<T: SPDataAsset, C: SPSymbolPickerConfiguration>(
+    func symbolPicker<T: SPDataAsset, C: SymbolPickerConfiguration>(
         isPresented: Binding<Bool>,
         selection: Binding<SPSelection<T>?>,
         configuration: C
@@ -46,19 +46,19 @@ public extension View {
     func symbolPicker<T: SPDataAsset>(
         isPresented: Binding<Bool>,
         selection: Binding<SPSelection<T>?>
-    ) -> SymbolPickerModifier<T, SPSymbolPickerDefaultConfiguration, Self> {
+    ) -> SymbolPickerModifier<T, SymbolPickerDefaultConfiguration, Self> {
         let binding = Binding {
             selection.wrappedValue ?? .init(value: CKColor(hexString: "#0000"))
         } set: { newValue in
             selection.wrappedValue = newValue
         }
-        return SymbolPickerModifier(isPresented: isPresented, selection: binding, configuration: SPSymbolPickerDefaultConfiguration()) {
+        return SymbolPickerModifier(isPresented: isPresented, selection: binding, configuration: SymbolPickerDefaultConfiguration()) {
             self
         }
     }
 }
 
-public extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration{
+public extension SymbolPicker where C == SymbolPickerDefaultConfiguration{
     func spDisplayStyle(_ style: SPDisplayStyle) -> Self{
         var copy = self
         copy.style.displayStyle = style
@@ -156,11 +156,82 @@ public extension SymbolPicker where C == SPSymbolPickerDefaultConfiguration{
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerSupportsCustomColor(value) }
+        return results
+    }
+    
+    // MARK: SPOptionList Modifiers
+    func spOptionListCornerRadiusFactor(_ value: CGFloat) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListCornerRadiusFactor(value) }
+        return results
+    }
+    
+    func spOptionListInnerPaddingFactor(_ value: CGFloat) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListInnerPaddingFactor(value) }
+        return results
+    }
+    
+    func spOptionListForeground(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListForeground(value) }
+        return results
+    }
+    
+    func spOptionListForegroundSelected(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListForegroundSelected(value) }
+        return results
+    }
+    
+    func spOptionListForegroundFocused(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListForegroundFocused(value) }
+        return results
+    }
+    
+    func spOptionListForegroundPressed(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListForegroundPressed(value) }
+        return results
+    }
+    
+    func spOptionListBackground(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListBackground(value) }
+        return results
+    }
+    
+    func spOptionListBackgroundSelected(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListBackgroundSelected(value) }
+        return results
+    }
+    
+    func spOptionListBackgroundFocused(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListBackgroundFocused(value) }
+        return results
+    }
+    
+    func spOptionListBackgroundPressed(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListBackgroundPressed(value) }
         return results
     }
 }
 
-public extension SymbolPickerModifier where C == SPSymbolPickerDefaultConfiguration{
+public extension SymbolPickerModifier where C == SymbolPickerDefaultConfiguration{
     func spDisplayStyle(_ style: SPDisplayStyle) -> Self{
         var copy = self
         copy.style.displayStyle = style
@@ -258,6 +329,77 @@ public extension SymbolPickerModifier where C == SPSymbolPickerDefaultConfigurat
         var results = self
         let current = results.style.currentColorPickerConfiguration
         results.style.currentColorPickerConfiguration = { (style: SPDisplayStyle) in current(style)?.spColorPickerSupportsCustomColor(value) }
+        return results
+    }
+    
+    // MARK: SPOptionList Modifiers
+    func spOptionListCornerRadiusFactor(_ value: CGFloat) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListCornerRadiusFactor(value) }
+        return results
+    }
+    
+    func spOptionListInnerPaddingFactor(_ value: CGFloat) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListInnerPaddingFactor(value) }
+        return results
+    }
+    
+    func spOptionListForeground(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListForeground(value) }
+        return results
+    }
+    
+    func spOptionListForegroundSelected(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListForegroundSelected(value) }
+        return results
+    }
+    
+    func spOptionListForegroundFocused(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListForegroundFocused(value) }
+        return results
+    }
+    
+    func spOptionListForegroundPressed(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListForegroundPressed(value) }
+        return results
+    }
+    
+    func spOptionListBackground(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListBackground(value) }
+        return results
+    }
+    
+    func spOptionListBackgroundSelected(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListBackgroundSelected(value) }
+        return results
+    }
+    
+    func spOptionListBackgroundFocused(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListBackgroundFocused(value) }
+        return results
+    }
+    
+    func spOptionListBackgroundPressed(_ value: Color) -> Self {
+        var results = self
+        let current = results.style.currentOptionListConfiguration
+        results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListBackgroundPressed(value) }
         return results
     }
     
