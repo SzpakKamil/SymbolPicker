@@ -10,7 +10,7 @@ import ColorKit
 import PhotosUI
 
 // MARK: - Generic Support
-public extension Binding where Value: SPSelectionProtocol {
+extension Binding where Value: SPSelectionProtocol {
     var asImageOffsetY: Binding<Double> {
         Binding<Double> {
             self.wrappedValue.getImage()?.offsetY ?? 1.0

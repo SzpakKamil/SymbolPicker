@@ -10,7 +10,7 @@ import PhotosUI
 
 #if !os(tvOS) && !os(watchOS)
 @available(iOS 16.0, macOS 13.0, *)
-public extension Binding where Value == SPImage {
+extension Binding where Value == SPImage {
     var asPhotosPickerItem: Binding<PhotosPickerItem?> {
         Binding<PhotosPickerItem?>(
             get: { nil },

@@ -12,6 +12,7 @@ public struct SymbolPicker<T: SPDataAsset, C: SymbolPickerConfiguration>: View {
     @Binding private var selection: SPSelection<T>
     @State var pageType = SPPageType.emoji
     @State var searchText: String = ""
+    @State private var hasAppeared = false
     var style: C
     
     var isDisplayedAsPopover: Bool{
@@ -65,7 +66,10 @@ public struct SymbolPicker<T: SPDataAsset, C: SymbolPickerConfiguration>: View {
                 #endif
         }
         .onAppear{
-            pageType = style.defaultType
+            if !hasAppeared {
+                pageType = style.defaultType
+                hasAppeared = true
+            }
         }
         .environment(\.spSearchText, $searchText)
         .environment(\.spSymbolVariant, style.symbolVariant)

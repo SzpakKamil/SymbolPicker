@@ -41,7 +41,7 @@ struct SPColorPickerColorCell: View {
         #else
         let image: Image = {
             if rainbowOutline && !isSelected{
-                return Image(.paintbrushCircleFill)
+                return Image("paintbrush.circle.fill", bundle: .module)
             }else{
                 return Image(systemName: isSelected ? "checkmark.circle.fill" : "circle.fill")
             }

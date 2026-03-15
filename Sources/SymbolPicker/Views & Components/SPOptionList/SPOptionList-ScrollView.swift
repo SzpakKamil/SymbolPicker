@@ -68,7 +68,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
             .onChange(of: spSearchText.wrappedValue){ _ in
                 proxy.scrollTo(spPageType.wrappedValue, anchor: .top)
             }
-#else
+#elseif !os(tvOS)
             .onChange(of: spPageType.wrappedValue) { newValue in
                 #if os(iOS)
                 withAnimation{
