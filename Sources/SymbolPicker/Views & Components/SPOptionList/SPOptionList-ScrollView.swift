@@ -120,6 +120,7 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
         .if{ content in
             if #available(iOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, visionOS 26.0, *){
                 content
+                    #if compiler(>=6.2)
                     .safeAreaBar(edge: .top) {
                         let views = style.getViews(for: .safeAreaTop).filter { spShouldDisplay($0) }
                         ForEach(views.indices, id: \.self){ index in
@@ -159,6 +160,58 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                                 }
                         }
                     }
+                    #else
+                    .safeAreaInset(edge: .top) {
+                        let views = style.getViews(for: .safeAreaTop).filter { spShouldDisplay($0) }
+                        ForEach(views.indices, id: \.self){ index in
+                            let insetedView = views[index]
+                            insetedView.view
+                                .animation(.smooth, value: spPageType.wrappedValue)
+                                .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
+                                #if os(visionOS) || os(iOS)
+                                .spPaddingForDictionary(
+                                    insetedView.paddings,
+                                    verticalDefault: [.top: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
+                                    horizontalDefault: [.horizontal: 0]
+                                )
+                                #else
+                                .spPaddingForDictionary(
+                                    insetedView.paddings,
+                                    verticalDefault: [.top: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
+                                    horizontalDefault: [.horizontal: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)]
+                                )
+                                #endif
+                                .environment(\.spHorizontalPadding, style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
+                                .background { insetedView.background }
+                        }
+                    }
+                    .safeAreaInset(edge: .bottom) {
+                        let views = style.getViews(for: .safeAreaBottom).filter { spShouldDisplay($0) }
+
+                        ForEach(views.indices, id: \.self){ index in
+                            let insetedView = views[index]
+                            insetedView.view
+                                .animation(.smooth, value: spPageType.wrappedValue)
+                                .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
+                                #if os(visionOS) || os(iOS)
+                                .spPaddingForDictionary(
+                                    insetedView.paddings,
+                                    verticalDefault: [.bottom: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
+                                    horizontalDefault: [.horizontal: 0]
+                                )
+                                #else
+                                .spPaddingForDictionary(
+                                    insetedView.paddings,
+                                    verticalDefault: [.bottom: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
+                                    horizontalDefault: [.horizontal: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)]
+                                )
+                                #endif
+
+                                .environment(\.spHorizontalPadding, style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
+                                .background { insetedView.background }
+                        }
+                    }
+                    #endif
             }else{
                 content
                     .safeAreaInset(edge: .top) {
