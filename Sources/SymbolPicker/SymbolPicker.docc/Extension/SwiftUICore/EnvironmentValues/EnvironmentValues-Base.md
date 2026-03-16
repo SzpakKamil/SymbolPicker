@@ -32,6 +32,8 @@ Environment properties to control and observe the `SymbolPicker` state.
 ### Configuration
 - ``SwiftUICore/EnvironmentValues/symbolPickerStyle``
 - ``SwiftUICore/EnvironmentValues/spSymbolVariant``
+- ``SwiftUICore/EnvironmentValues/spAllowedPageTypes``
+- ``SwiftUICore/EnvironmentValues/spAllowsColorSelection``
 
 ### State & Navigation
 - ``SwiftUICore/EnvironmentValues/spPageType``
