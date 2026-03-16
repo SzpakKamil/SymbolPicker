@@ -332,7 +332,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
             image.wrappedValue = newValue.getImage() ?? image.wrappedValue
             ckColor.wrappedValue = newValue.getColor() ?? ckColor.wrappedValue
         }
-        self.allowedPageTypes = [.emoji]
+        self.allowedPageTypes = [.image]
         self.allowColorSelection = true
         self.style = configuration
     }
@@ -349,7 +349,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
             image.wrappedValue = newValue.getImage() ?? image.wrappedValue
             color.wrappedValue = newValue.getColor()?.color ?? color.wrappedValue
         }
-        self.allowedPageTypes = [.emoji]
+        self.allowedPageTypes = [.image]
         self.allowColorSelection = true
         self.style = configuration
     }
@@ -368,7 +368,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
             
             colorValues.wrappedValue = [components.r, components.g, components.b, components.a]
         }
-        self.allowedPageTypes = [.emoji]
+        self.allowedPageTypes = [.image]
         self.allowColorSelection = true
         self.style = configuration
     }

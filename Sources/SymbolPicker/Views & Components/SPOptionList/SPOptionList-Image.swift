@@ -15,6 +15,7 @@ import ColorKit
 #if os(iOS) || os(macOS) || os(visionOS)
 @available(iOS 16.0, macOS 14.0, *)
 struct SPOptionListImage<T: SPDataAsset>: View {
+    @Environment(\.spAllowsColorSelection) var spAllowsColorSelection
     @Environment(\.symbolPickerStyle) var style
     @Binding var selection: SPSelection<T>
     
@@ -22,26 +23,29 @@ struct SPOptionListImage<T: SPDataAsset>: View {
         VStack{
             Section {
                 VStack{
-                    ColorPicker(selection: $selection.asCKColor.asColor) {
-                        HStack{
-                            Text(SPTranslation.DetectedColor.localizedDescription)
-                            Spacer()
+                    if let config = style.colorPicker, spAllowsColorSelection {
+                        ColorPicker(selection: $selection.asCKColor.asColor) {
+                            HStack{
+                                Text(SPTranslation.DetectedColor.localizedDescription)
+                                Spacer()
+                            }
                         }
-                    }
-                    #if !os(macOS)
+                        #if !os(macOS)
                         .padding(.top, 10)
                         .padding(.bottom, 5)
-                    #endif
-                    #if !os(macOS)
-                    Divider()
-                    #endif
+                        #endif
+                        #if !os(macOS)
+                        Divider()
+                        #endif
+                    }
+
                     HStack{
                         PhotosPicker(SPTranslation.SelectImage.localizedDescription, selection: $selection.asImage)
                         Spacer()
                     }
                     #if !os(macOS)
                     .padding(.bottom, 10)
-                    .padding(.top, 5)
+                    .padding(.top, style.colorPicker != nil && spAllowsColorSelection ? 5 : 10)
                     #endif
                 }
                 #if os(iOS) || os(visionOS)
