@@ -1,0 +1,33 @@
+# Public Environment Properties Guide for SymbolPicker
+
+These environment properties are available for use within any custom view or logic interacting with the `SymbolPicker` component. They provide control and feedback over the picker's state and appearance.
+
+---
+
+### 1. `spPageType`
+- **Type:** `Binding<SPPageType>`
+- **Usage:** Used by components like `SPPagePicker`, `SPSearchBar`, and `SPOptionList`. It determines the currently active category of data being displayed (e.g., `.symbol`, `.emoji`, or `.color`).
+- **End User Impact:** Allows you to programmatically switch between the symbol, emoji, and color pickers. You can also observe this binding to react when the user manually switches pages.
+
+### 2. `spSearchText`
+- **Type:** `Binding<String>`
+- **Usage:** Primarily used by `SPSearchBar` for input and by `SPOptionList` to filter the items shown on the current page.
+- **End User Impact:** Enables pre-filling the search query when the picker appears or monitoring the search text in real-time. It's a direct way to programmatically filter the picker's content.
+
+### 3. `spSelection`
+- **Type:** `Binding<any SPSelectionProtocol>`
+- **Usage:** This is the core binding used throughout the package. Every asset cell (symbol, emoji, or color) updates this binding upon selection. `SPSelectionPreview` also uses it to display the current choice.
+- **End User Impact:** The primary way to get the user's selection from the picker. You can use it to set an initial selection or perform actions immediately when the selection changes.
+
+### 4. `spSymbolVariant`
+- **Type:** `SPSymbol.Variant`
+- **Usage:** Read by `SPSymbolView` to decide between rendering filled or outlined versions of SF Symbols.
+- **End User Impact:** Provides a global toggle for the visual style of all symbols in the picker. This ensures consistency with your app's overall iconography (e.g., always using filled icons in a specific context).
+
+### 5. `symbolPickerStyle`
+- **Type:** `SymbolPickerConfiguration`
+- **Usage:** This property is accessed by almost every component in the library. it contains layout settings, spacing values, display styles (compact/detail), and configuration for sub-pickers (like the color picker).
+- **End User Impact:** The most powerful way to customize the picker's behavior and look. By reading or overriding this in the environment, you can dynamically adjust how the picker renders without modifying its internal source code.
+
+---
+*Note: The previous `spIsPresented` property has been deprecated and removed in favor of the standard SwiftUI `@Environment(\.dismiss)` action.*
