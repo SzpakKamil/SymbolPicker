@@ -98,7 +98,7 @@ public extension SymbolPickerConfiguration {
                     }
                     SPPagePicker()
                 }
-                .spPadding(.bottom, value: 3)
+                .spPadding(.bottom, value: 8)
                 .spBackground { Rectangle().fill(.bar).ignoresSafeArea() }
                 
                 if #unavailable(iOS 16.4){
@@ -106,11 +106,7 @@ public extension SymbolPickerConfiguration {
                         SPDismissButton()
                     }
                 }
-                SPInsetedView(placement: .safeAreaBottom) {
-                    SPSearchBar()
-                }
-                .spPadding(.top, value: 3)
-                .spBackground { Rectangle().fill(.bar).ignoresSafeArea() }
+                SPSearchBar().asInsetView()
             }
             #elseif os(visionOS)
             if displayStyle == .detail {

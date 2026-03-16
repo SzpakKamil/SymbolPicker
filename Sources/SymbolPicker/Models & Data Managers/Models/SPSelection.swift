@@ -78,21 +78,27 @@ public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionPr
         }
     }
     
-    public init(value: T, color: CKColor? = nil){
+    public init(symbol: T, color: CKColor? = nil){
         self.type = .symbol
-        self.symbol = value
+        self.symbol = symbol
         self.color = color
     }
     
-    public init(value: SPEmoji, color: CKColor? = nil){
+    public init(systemName: String, color: CKColor? = nil) where T == SPSymbol{
+        self.type = .symbol
+        self.symbol = SPSymbol(filledName: systemName, notFilled: systemName, version: 1.0)
+        self.color = color
+    }
+    
+    public init(emoji: SPEmoji, color: CKColor? = nil){
         self.type = .emoji
-        self.emoji = value
+        self.emoji = emoji
         self.color = color
     }
     
-    public init(value: SPImage, color: CKColor? = nil){
+    public init(image: SPImage, color: CKColor? = nil){
         self.type = .image
-        self.image = value
+        self.image = image
         self.color = color
     }
     

@@ -41,8 +41,9 @@ struct SPOptionListContainerView<T: SPDataAsset, PhotoView: View, SymbolView: Vi
             ProgressView()
                 #if os(iOS)
                 .padding(.vertical, 30)
+                #elseif os(macOS)
+                    .padding(.top, 40)
                 #endif
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .task(id: searchText.wrappedValue, priority: .high) { await performSearch() }
         .task(id: pageType.wrappedValue, priority: .high) { await loadData() }

@@ -168,11 +168,11 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
-                                #if os(visionOS)
+                                #if os(visionOS) || os(iOS)
                                 .spPaddingForDictionary(
                                     insetedView.paddings,
                                     verticalDefault: [.top: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
-                                    horizontalDefault: [.horizontal: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize) * 0.15]
+                                    horizontalDefault: [.horizontal: 0]
                                 )
                                 #else
                                 .spPaddingForDictionary(
@@ -193,11 +193,11 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                             insetedView.view
                                 .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
-                                #if os(visionOS)
+                                #if os(visionOS) || os(iOS)
                                 .spPaddingForDictionary(
                                     insetedView.paddings,
                                     verticalDefault: [.bottom: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
-                                    horizontalDefault: [.horizontal: style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize) * 0.15]
+                                    horizontalDefault: [.horizontal: 0]
                                 )
                                 #else
                                 .spPaddingForDictionary(

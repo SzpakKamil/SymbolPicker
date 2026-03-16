@@ -8,18 +8,31 @@
 import SwiftUI
 
 struct SPDismissButton: View {
-    @Environment(\.spIsPresented) var spIsPresented
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         #if os(iOS)
         if #available(iOS 26.0, *){
+            #if compiler(>=6.2)
             Button(SPTranslation.Close.localizedDescription, systemImage: "xmark"){
-                spIsPresented?.wrappedValue = false
+                dismiss()
             }
             .buttonStyle(.glass)
             .buttonBorderShape(.circle)
+            #else
+            Button{
+                dismiss()
+            }label: {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.title3)
+                    .foregroundStyle(.secondary)
+                    .tint(.primary)
+                    .symbolRenderingMode(.hierarchical)
+            }
+            .accessibilityLabel(SPTranslation.Close.localizedDescription)
+            #endif
         }else if #available(iOS 17.0, *){
             Button{
-                spIsPresented?.wrappedValue = false
+                dismiss()
             }label: {
                 Image(systemName: "xmark.circle.fill")
                     .font(.title3)
@@ -30,12 +43,12 @@ struct SPDismissButton: View {
             .accessibilityLabel(SPTranslation.Close.localizedDescription)
         }else{
             Button(SPTranslation.Close.localizedDescription){
-                spIsPresented?.wrappedValue = false
+                dismiss()
             }
         }
         #else
         Button(SPTranslation.Close.localizedDescription){
-            spIsPresented?.wrappedValue = false
+            dismiss()
         }
         #endif
     }

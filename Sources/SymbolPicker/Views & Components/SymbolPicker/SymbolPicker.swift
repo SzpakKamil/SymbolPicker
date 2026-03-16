@@ -94,6 +94,8 @@ public struct SymbolPicker<T: SPDataAsset, C: SymbolPickerConfiguration>: View {
         }else if #available(iOS 16.0, *){
             NavigationStack{
                 view()
+                    .navigationBarTitleDisplayMode(.inline)
+                    .padding(.top, style.getViews(for: .toolbarTopLeading).isEmpty && style.getViews(for: .toolbarTopTralling).isEmpty ? 0 : -15)
                     .background(style.presentation.presentationBackgroundColor.ignoresSafeArea())
             }
         }else{

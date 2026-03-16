@@ -80,7 +80,7 @@ struct SPColorPickerColorCell: View {
                     .scaledToFit()
                     .foregroundStyle(spColorPickerGradientFill(for: color, in: colorScheme), rainbowOutline ?  AnyShapeStyle(rainbowGradient) : AnyShapeStyle(.tint))
                     .fontWeight(.light)
-                    #if !os(visionOS)
+                    #if !os(visionOS) && compiler(>=6.2)
                     .glassEffect(.clear.interactive())
                     #endif
                     .padding(rainbowOutline || isSelected ? 0 : 6)

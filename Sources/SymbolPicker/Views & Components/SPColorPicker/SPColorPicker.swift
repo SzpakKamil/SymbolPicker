@@ -96,7 +96,7 @@ public struct SPColorPicker: View {
             }
         }
 
-        #if os(visionOS) || os(watchOS)
+        #if os(visionOS) || os(watchOS) || !compiler(>=6.2)
         baseLayout
         #else
         if #available(iOS 26.0, macOS 26.0, tvOS 26.0, *) {

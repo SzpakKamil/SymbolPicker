@@ -13,6 +13,8 @@ struct SPOptionListEmptyState: View {
             ContentUnavailableView.search
             #if os(tvOS)
                 .ignoresSafeArea()
+            #elseif os(macOS)
+                .padding(.top, 40)
             #endif
         } else {
             VStack{

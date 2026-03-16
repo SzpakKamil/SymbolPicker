@@ -46,10 +46,10 @@ struct SPSelectionPreview: View {
                         content
                             .frame(width: targetSize, height: targetSize)
                             .padding(padding)
-                            .foregroundStyle(symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 ? (colorScheme == .dark ? .black : .white) : ((colorValue?.luminance ?? 0) > 0.6 ? .black : .white))
+                            .foregroundStyle(symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 || colorValue == nil ? (colorScheme == .dark ? .black : .white) : ((colorValue?.luminance ?? 0) > 0.6 ? .black : .white))
                             .background(Group {
                                 if !isImage {
-                                    if symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0{
+                                    if symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 || colorValue == nil{
                                         colorScheme == .dark ? Color.white : Color.black
                                     }else{
                                         LinearGradient(
@@ -62,6 +62,7 @@ struct SPSelectionPreview: View {
                                 }
                             })
                             .clipShape(.circle)
+                        #if compiler(>=6.2)
                             .if{ content in
                                 if #available(watchOS 26.0, *){
                                     content
@@ -70,6 +71,7 @@ struct SPSelectionPreview: View {
                                     content
                                 }
                             }
+                        #endif
                     }
             }
             .buttonStyle(.plain)
@@ -92,10 +94,10 @@ struct SPSelectionPreview: View {
                         content
                             .frame(width: targetSize, height: targetSize)
                             .padding(padding)
-                            .foregroundStyle(symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 ? (colorScheme == .dark ? .black : .white) : ((colorValue?.luminance ?? 0) > 0.6 ? .black : .white))
+                            .foregroundStyle(symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 || colorValue == nil ? (colorScheme == .dark ? .black : .white) : ((colorValue?.luminance ?? 0) > 0.6 ? .black : .white))
                             .background(Group {
                                 if !isImage {
-                                    if symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0{
+                                    if symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 || colorValue == nil{
                                         colorScheme == .dark ? Color.white : Color.black
                                     }else{
                                         LinearGradient(
@@ -118,15 +120,15 @@ struct SPSelectionPreview: View {
 #endif
                     } else {
                         let size = size
-                        let padding = isImage ? 0 : size * 0.2
-                        let targetSize = (isImage ? size * 1.7 : size) * 0.8
+                        let padding = size * 0.2
+                        let targetSize = size * 0.8
                         content
                             .frame(width: targetSize, height: targetSize)
                             .padding(padding)
-                            .foregroundStyle(symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 ? (colorScheme == .dark ? .black : .white) : ((colorValue?.luminance ?? 0) > 0.6 ? .black : .white))
+                            .foregroundStyle(symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 || colorValue == nil ? (colorScheme == .dark ? .black : .white) : ((colorValue?.luminance ?? 0) > 0.6 ? .black : .white))
                             .background(Group {
                                 if !isImage {
-                                    if symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0{
+                                    if symbolPickerStyle.colorPicker == nil || colorValue?.rgbComponents().a == 0 || colorValue == nil{
                                         colorScheme == .dark ? Color.white : Color.black
                                     }else{
                                         LinearGradient(
