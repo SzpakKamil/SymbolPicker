@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreText
 
-public nonisolated struct SPEmoji: Identifiable, Sendable, SPDataAsset {
+public struct SPEmoji: Identifiable, Sendable, SPDataAsset {
     public let id: String
     public let annotation: String?
     public let version: Double

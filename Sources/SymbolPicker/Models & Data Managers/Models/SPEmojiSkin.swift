@@ -9,7 +9,7 @@ import SwiftUI
 import Foundation
 
 extension SPEmoji {
-    public nonisolated struct Skin: Identifiable, Sendable, Codable, Equatable, Hashable {
+    public struct Skin: Identifiable, Sendable, Codable, Equatable, Hashable {
         
         public let id: String
         

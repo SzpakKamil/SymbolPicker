@@ -13,7 +13,7 @@ import UIKit
 import AppKit
 #endif
 
-public nonisolated struct SPSymbol: Identifiable, Sendable, SPDataAsset {
+public struct SPSymbol: Identifiable, Sendable, SPDataAsset {
     public let id: String
     public let annotation: String?
     public let filledName: String
