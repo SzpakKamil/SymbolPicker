@@ -71,7 +71,7 @@ struct SPColorPickerColorCell: View {
                     .strokeBorder(Color.black.opacity(0.03), lineWidth: 1.5)
             }
             .if{ content in
-                if #available(iOS 17.0, macOS 14.0, *), !rainbowOutline { content.contentTransition(.symbolEffect(.replace)) }else{ content }
+                if #available(iOS 26.0, macOS 26.0, *), !rainbowOutline { content.contentTransition(.symbolEffect(.replace)) }else{ content }
             }
             #else
             if #available(iOS 26.0, visionOS 26.0, tvOS 26.0, watchOS 26.0, *){

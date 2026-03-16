@@ -141,6 +141,9 @@ struct SPSelectionPreview: View {
                                 }
                             })
                             .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.3, style: .continuous))
+                        #if os(macOS)
+                            .shadow(color: (colorValue?.color ?? .black).opacity(0.5), radius: 20)
+                        #endif
                     }
                 }
                 Spacer()

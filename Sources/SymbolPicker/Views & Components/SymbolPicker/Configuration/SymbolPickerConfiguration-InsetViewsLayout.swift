@@ -220,24 +220,52 @@ public extension SymbolPickerConfiguration {
                 }
             }
             #else
-            if displayStyle == .detail {
-                SPSelectionPreview().asInsetView()
-                SPInsetedView(placement: .scrollSectionTop, spacing: spacing) {
-                    if colorPicker != nil {
-                        SPColorPicker()
+            if #available(macOS 26.0, *){
+                if displayStyle == .detail {
+                    SPSelectionPreview().asInsetView()
+                    SPInsetedView(placement: .scrollSectionTop, spacing: spacing) {
+                        if colorPicker != nil {
+                            SPColorPicker()
+                        }
+                        SPSearchBar()
+                        SPPagePicker()
                     }
-                    SPSearchBar()
-                    SPPagePicker()
+                } else {
+                    SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
+                        if colorPicker != nil {
+                            SPColorPicker()
+                        }
+                        SPSearchBar()
+                        SPPagePicker()
+                    }
                 }
-            } else {
-                SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
-                    if colorPicker != nil {
-                        SPColorPicker()
+            }else{
+                if displayStyle == .detail {
+                    SPInsetedView(placement: .scrollSectionTop, spacing: spacing) {
+                        SPSelectionPreview()
+                        if colorPicker != nil {
+                            SPColorPicker()
+                        }
+                        SPSearchBar()
+                        SPPagePicker()
                     }
-                    SPSearchBar()
-                    SPPagePicker()
+                } else {
+                    SPInsetedView(placement: .safeAreaTop, spacing: spacing) {
+                        if colorPicker != nil {
+                            SPColorPicker()
+                        }
+                        SPSearchBar()
+                        SPPagePicker()
+                    }
+                    .spBackground{
+                        Rectangle()
+                            .fill(.regularMaterial)
+                            .scaleEffect(1.15)
+                            .shadow(radius: 1)
+                    }
                 }
             }
+
             #endif
         }
     }

@@ -126,7 +126,6 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         ForEach(views.indices, id: \.self){ index in
                             let insetedView = views[index]
                             insetedView.view
-                                .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 .spSafeAreaPaddingForDictionary(
                                     insetedView.paddings,
@@ -146,7 +145,6 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         ForEach(views.indices, id: \.self){ index in
                             let insetedView = views[index]
                             insetedView.view
-                                .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 .spSafeAreaPaddingForDictionary(
                                     insetedView.paddings,
@@ -166,7 +164,6 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         ForEach(views.indices, id: \.self){ index in
                             let insetedView = views[index]
                             insetedView.view
-                                .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 #if os(visionOS) || os(iOS)
                                 .spPaddingForDictionary(
@@ -191,7 +188,6 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         ForEach(views.indices, id: \.self){ index in
                             let insetedView = views[index]
                             insetedView.view
-                                .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
                                 #if os(visionOS) || os(iOS)
                                 .spPaddingForDictionary(
@@ -219,9 +215,8 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         ForEach(views.indices, id: \.self){ index in
                             let insetedView = views[index]
                             insetedView.view
-                                .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
-                                #if os(visionOS) || os(iOS)
+                                #if os(visionOS) || os(iOS) || os(macOS)
                                 .spPaddingForDictionary(
                                     insetedView.paddings,
                                     verticalDefault: [.top: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],
@@ -244,9 +239,8 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         ForEach(views.indices, id: \.self){ index in
                             let insetedView = views[index]
                             insetedView.view
-                                .animation(.smooth, value: spPageType.wrappedValue)
                                 .animation(.smooth, value: spSelection.wrappedValue.isContentAvailable())
-                                #if os(visionOS) || os(iOS)
+                                #if os(visionOS) || os(iOS) || os(macOS)
                                 .spPaddingForDictionary(
                                     insetedView.paddings,
                                     verticalDefault: [.bottom: style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize)],

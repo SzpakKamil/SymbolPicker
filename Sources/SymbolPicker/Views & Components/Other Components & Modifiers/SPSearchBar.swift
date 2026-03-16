@@ -13,21 +13,47 @@ struct SPSearchBar: View {
     @Environment(\.spPageType) var spPageType
     @Environment(\.symbolPickerStyle) var symbolPickerStyle
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
+    @Environment(\.spHorizontalPadding) var horizontalPadding
     var body: some View {
+        let backgroundColor: Color? = {
+            #if os(macOS)
+            if #available(macOS 26.0, *){
+                Color.primary.opacity(0.1)
+            }else{
+                Color.primary.opacity(0.05)
+            }
+            #elseif os(iOS)
+            if #available(iOS 26.0, *){
+                Color.primary.opacity(0.05)
+            }else{
+                Color(.tertiarySystemFill)
+            }
+            #elseif os(visionOS)
+            nil
+            #elseif os(tvOS)
+            if #available(tvOS 26.0, *){
+                Color.primary.opacity(0.1)
+            }else{
+                Color.primary.opacity(0.05)
+            }
+            #else
+            Color.clear
+            #endif
+        }()
         SearchBar(
             text: spSearchText,
             prompt: spPageType.wrappedValue == .symbol ? SPTranslation.SearchSymbols.localizedDescription: spPageType.wrappedValue == .emoji ? SPTranslation.SearchEmojis.localizedDescription : nil
         )
 #if os(macOS)
-        .searchBarStyle(.rounded, backgroundColor: Color.primary.opacity(0.1))
+        .searchBarStyle(.rounded, backgroundColor: backgroundColor)
 #elseif os(iOS)
         .if{ content in
             if #available(iOS 26.0, *){
                 content
-                    .searchBarStyle(.capsule, backgroundColor: Color.primary.opacity(0.05))
+                    .searchBarStyle(.capsule, backgroundColor: backgroundColor)
             }else{
                 content
-                    .searchBarStyle(.rounded, backgroundColor: Color(.tertiarySystemFill))
+                    .searchBarStyle(.rounded, backgroundColor: backgroundColor)
             }
         }
         .padding(.horizontal, symbolPickerStyle.displayStyle == .compact ? (symbolPickerStyle.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 0.8  :  -14)
@@ -50,13 +76,13 @@ struct SPSearchBar: View {
         .if{ content in
             if #available(tvOS 26.0, *){
                 content
-                    .searchBarStyle(.capsule, backgroundColor: Color.primary.opacity(0.1))
+                    .searchBarStyle(.capsule, backgroundColor: backgroundColor)
                     .searchBarMaterial(.glass)
                     .searchBarScale(.medium)
                     .padding(.vertical, symbolPickerStyle.displayStyle == .detail ? -10 : 0)
             }else{
                 content
-                    .searchBarStyle(.rounded, backgroundColor: Color.primary.opacity(0.05))
+                    .searchBarStyle(.rounded, backgroundColor: backgroundColor)
                     .searchBarScale(.medium)
             }
         }
@@ -70,6 +96,9 @@ struct SPSearchBar: View {
                     .searchBarMaterial(.glass)
             }else{
                 content
+                #if os(macOS)
+                    .padding(.horizontal, horizontalPadding)
+                #endif
             }
         }
 #endif

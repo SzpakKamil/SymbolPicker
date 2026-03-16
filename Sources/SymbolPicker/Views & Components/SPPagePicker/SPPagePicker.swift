@@ -31,12 +31,22 @@ public struct SPPagePicker: View {
             Picker(SPTranslation.PageType.localizedDescription, selection: spPageType) {
                 ForEach(style.supportedTypes){
                     #if os(macOS)
-                    if supportedTypesCount == 2{
-                        Text("           \($0.localizedDescription)           ")
-                            .tag($0)
+                    if #available(macOS 26.0, *){
+                        if supportedTypesCount == 2{
+                            Text("           \($0.localizedDescription)           ")
+                                .tag($0)
+                        }else{
+                            Text("     \($0.localizedDescription)    ")
+                                .tag($0)
+                        }
                     }else{
-                        Text("     \($0.localizedDescription)    ")
-                            .tag($0)
+                        if supportedTypesCount == 2{
+                            Text(" \($0.localizedDescription)           ")
+                                .tag($0)
+                        }else{
+                            Text(" \($0.localizedDescription)    ")
+                                .tag($0)
+                        }
                     }
                     #elseif os(tvOS)
                     if #available(tvOS 26.0, *){
