@@ -106,6 +106,72 @@ public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionPr
         self.type = .color
         self.color = value
     }
+    
+    public init(systemName: String, color: Color?) where T == SPSymbol  {
+        if let color {
+            self.init(systemName: systemName, color: CKColor(color))
+        } else {
+            self.init(systemName: systemName)
+        }
+    }
+    
+    public init(systemName: String, colorValues: [Double]?) where T == SPSymbol {
+        if let colorValues, !colorValues.isEmpty {
+            if colorValues.count == 4 {
+                self.init(systemName: systemName, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2], opacity: colorValues[3]))
+            } else if colorValues.count == 3 {
+                self.init(systemName: systemName, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2]))
+            } else {
+                self.init(systemName: systemName)
+            }
+        } else {
+            self.init(systemName: systemName)
+        }
+    }
+    
+    public init(emoji: SPEmoji, color: Color?) where T == SPSymbol {
+        if let color {
+            self.init(emoji: emoji, color: CKColor(color))
+        } else {
+            self.init(emoji: emoji)
+        }
+    }
+    
+    public init(emoji: SPEmoji, colorValues: [Double]?) where T == SPSymbol {
+        if let colorValues, !colorValues.isEmpty {
+            if colorValues.count == 4 {
+                self.init(emoji: emoji, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2], opacity: colorValues[3]))
+            } else if colorValues.count == 3 {
+                self.init(emoji: emoji, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2]))
+            } else {
+                self.init(emoji: emoji)
+            }
+        } else {
+            self.init(emoji: emoji)
+        }
+    }
+    
+    public init(image: SPImage, color: Color?) where T == SPSymbol {
+        if let color {
+            self.init(image: image, color: CKColor(color))
+        } else {
+            self.init(image: image)
+        }
+    }
+    
+    public init(image: SPImage, colorValues: [Double]?)  where T == SPSymbol {
+        if let colorValues, !colorValues.isEmpty {
+            if colorValues.count == 4 {
+                self.init(image: image, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2], opacity: colorValues[3]))
+            } else if colorValues.count == 3 {
+                self.init(image: image, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2]))
+            } else {
+                self.init(image: image)
+            }
+        } else {
+            self.init(image: image)
+        }
+    }
 }
 
 // MARK: - SelectionType

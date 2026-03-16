@@ -10,60 +10,65 @@ import ColorKit
 
 public struct SPPagePicker: View {
     @Environment(\.spPageType) var spPageType
+    @Environment(\.spAllowedPageTypes) var spAllowedPageTypes
     @Environment(\.spHorizontalPadding) var spHorizontalPadding
     @Environment(\.symbolPickerStyle) var style
-    public var body: some View{
-        let supportedTypesCount = style.supportedTypes.count
-        if supportedTypesCount > 1{
+    
+    public var body: some View {
+        let filteredTypes = style.supportedTypes.filter { spAllowedPageTypes.contains($0) }
+        let supportedTypes = filteredTypes.isEmpty ? spAllowedPageTypes : filteredTypes
+        let supportedTypesCount = supportedTypes.count
+        
+        if supportedTypesCount > 1 {
             #if os(watchOS)
-            if spPageType.wrappedValue == .emoji{
-                Button(SPPageType.symbol.localizedDescription, systemImage: SPPageType.symbol.systemName){
+            if spPageType.wrappedValue == .emoji {
+                Button(SPPageType.symbol.localizedDescription, systemImage: SPPageType.symbol.systemName) {
                     spPageType.wrappedValue = .symbol
                 }
-            }else{
-                Button(SPPageType.emoji.localizedDescription, systemImage: SPPageType.emoji.systemName){
+            } else {
+                Button(SPPageType.emoji.localizedDescription, systemImage: SPPageType.emoji.systemName) {
                     spPageType.wrappedValue = .emoji
                 }
             }
             #else
             
-            // Needs to be this dirty because of SwiftUI Limitations
+            // Using the resolved supportedTypes for the Picker
             Picker(SPTranslation.PageType.localizedDescription, selection: spPageType) {
-                ForEach(style.supportedTypes){
+                ForEach(supportedTypes) { type in
                     #if os(macOS)
-                    if #available(macOS 26.0, *){
-                        if supportedTypesCount == 2{
-                            Text("           \($0.localizedDescription)           ")
-                                .tag($0)
-                        }else{
-                            Text("     \($0.localizedDescription)    ")
-                                .tag($0)
+                    if #available(macOS 26.0, *) {
+                        if supportedTypesCount == 2 {
+                            Text("           \(type.localizedDescription)           ")
+                                .tag(type)
+                        } else {
+                            Text("     \(type.localizedDescription)    ")
+                                .tag(type)
                         }
-                    }else{
-                        if supportedTypesCount == 2{
-                            Text(" \($0.localizedDescription)           ")
-                                .tag($0)
-                        }else{
-                            Text(" \($0.localizedDescription)    ")
-                                .tag($0)
+                    } else {
+                        if supportedTypesCount == 2 {
+                            Text(" \(type.localizedDescription)           ")
+                                .tag(type)
+                        } else {
+                            Text(" \(type.localizedDescription)    ")
+                                .tag(type)
                         }
                     }
                     #elseif os(tvOS)
-                    if #available(tvOS 26.0, *){
-                        Text($0.localizedDescription)
-                            .tag($0)
-                    }else{
-                        if style.displayStyle == .compact{
-                            Text("‎‎‎‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ \($0.localizedDescription) ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ")
-                                .tag($0)
-                        }else{
-                            Text("‎‎‎‎ ‎ ‎ ‎ ‎ ‎ \($0.localizedDescription) ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ")
-                                .tag($0)
+                    if #available(tvOS 26.0, *) {
+                        Text(type.localizedDescription)
+                            .tag(type)
+                    } else {
+                        if style.displayStyle == .compact {
+                            Text("‎‎‎‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ \(type.localizedDescription) ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ")
+                                .tag(type)
+                        } else {
+                            Text("‎‎‎‎ ‎ ‎ ‎ ‎ ‎ \(type.localizedDescription) ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ")
+                                .tag(type)
                         }
                     }
                     #else
-                    Text($0.localizedDescription)
-                        .tag($0)
+                    Text(type.localizedDescription)
+                        .tag(type)
                     #endif
                 }
             }

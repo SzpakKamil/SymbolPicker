@@ -84,7 +84,7 @@ extension Binding where Value: SPSelectionProtocol {
 }
 
 // MARK: - Existential Support
-public extension Binding where Value == any SPSelectionProtocol {
+extension Binding where Value == any SPSelectionProtocol {
     var asImageOffsetY: Binding<Double> {
         Binding<Double> {
             self.wrappedValue.getImage()?.offsetY ?? 1.0

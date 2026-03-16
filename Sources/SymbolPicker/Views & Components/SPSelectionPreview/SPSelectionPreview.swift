@@ -34,7 +34,7 @@ struct SPSelectionPreview: View {
     
     var body: some View {
         if spSelection.wrappedValue.isContentAvailable(){
-#if os(watchOS)
+            #if os(watchOS)
             Button{
                 
             }label:{
@@ -62,7 +62,7 @@ struct SPSelectionPreview: View {
                                 }
                             })
                             .clipShape(.circle)
-                        #if compiler(>=6.2)
+                            #if compiler(>=6.2)
                             .if{ content in
                                 if #available(watchOS 26.0, *){
                                     content
@@ -71,12 +71,12 @@ struct SPSelectionPreview: View {
                                     content
                                 }
                             }
-                        #endif
+                            #endif
                     }
             }
             .buttonStyle(.plain)
             .allowsHitTesting(false)
-#else
+            #else
             HStack {
                 Spacer()
                 Group{
@@ -113,11 +113,11 @@ struct SPSelectionPreview: View {
                             .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.5, style: .continuous))
                             .shadow(color: (colorValue?.color ?? .black).opacity(0.5), radius: 20)
                             .scaleEffect(spPreviewCalculateScale)
-#if os(watchOS)
-                        .offset(y: spPreviewCalculateOffset)
-#else
-                        .offset(y: spPreviewCalculateOffset)
-#endif
+                            #if os(watchOS)
+                            .offset(y: spPreviewCalculateOffset)
+                            #else
+                            .offset(y: spPreviewCalculateOffset)
+                            #endif
                     } else {
                         let size = size
                         let padding = size * 0.2
@@ -148,7 +148,7 @@ struct SPSelectionPreview: View {
                 }
                 Spacer()
             }
-#if os(tvOS)
+            #if os(tvOS)
             .if{ content in
                 if #available(tvOS 15.0, *){
                     content
@@ -160,8 +160,8 @@ struct SPSelectionPreview: View {
                     content
                 }
             }
-#endif
-#if os(iOS) || os(visionOS)
+            #endif
+            #if os(iOS) || os(visionOS)
             .if {content in
                 if #available(iOS 26.0, visionOS 26.0, *) {
                     content
@@ -172,14 +172,17 @@ struct SPSelectionPreview: View {
                 }
             }
             .ignoresSafeArea()
-#elseif os(tvOS)
+            #elseif os(tvOS)
             .padding(.vertical, 5)
             #else
             .padding(.top, spPreviewCalculateScale != 1 ? 3 : -8)
             .padding(.bottom, 8)
             .animation(.smooth, value: spPreviewCalculateScale)
-#endif
-#endif
+            #endif
+            #if !os(tvOS)
+            .allowsHitTesting(false)
+            #endif
+            #endif
         }
     }
     

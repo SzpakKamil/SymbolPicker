@@ -18,6 +18,27 @@ public struct SPEmoji: Identifiable, Sendable, SPDataAsset {
     public let skins: [Skin]?
     public var tone: Int = 0
     
+    public init(string: String){
+        let hexPattern = "^[0-9a-fA-F]+(-[0-9a-fA-F]+)*$"
+        let isHexcode = string.range(of: hexPattern, options: .regularExpression) != nil
+        
+        if isHexcode {
+            self.id = string
+        } else {
+            self.id = string.unicodeScalars
+                .map { String(format: "%X", $0.value) }
+                .joined(separator: "-")
+        }
+        
+        self.version = 1.0
+        self.category = nil
+        self.subcategory = nil
+        self.annotation = nil
+        self.tags = nil
+        self.skins = nil
+        self.tone = 0
+    }
+    
     init(id: String, version: Double, category: String? = nil, annotation: String? = nil, subcategory: String? = nil, tags: [String]? = nil, skins: [Skin]? = nil, tone: Int = 0) {
         self.id = id
         self.version = version

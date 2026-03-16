@@ -24,8 +24,20 @@ public struct SPSymbol: Identifiable, Sendable, SPDataAsset {
     public let subcategory: String?
     public let tags: [String]?
     
-    init(filledName: String, notFilled: String, version: Double, variant: SPSymbol.Variant? = nil, annotation: String? = nil, category: String? = nil, subcategory: String? = nil, tags: [String]? = nil) {
-        self.id = "\(filledName)\(notFilled)\(category ?? "")"
+    public init(systemName: String){
+        self.id = systemName
+        self.filledName = systemName
+        self.notFilled = systemName
+        self.version = 1.0
+        self.variant = nil
+        self.annotation = nil
+        self.category = nil
+        self.subcategory = nil
+        self.tags = nil
+    }
+    
+    init(filledName: String, notFilled: String, version: Double = 1.0, variant: SPSymbol.Variant? = nil, annotation: String? = nil, category: String? = nil, subcategory: String? = nil, tags: [String]? = nil) {
+        self.id = filledName
         self.filledName = filledName
         self.notFilled = notFilled
         self.annotation = annotation
@@ -110,6 +122,11 @@ extension SPSymbol: Codable, Hashable, Equatable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+    
+    @_documentation(visibility: internal)
+    public static func == (lhs: SPSymbol, rhs: SPSymbol) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
 // MARK: - Methods
@@ -155,7 +172,9 @@ extension SPSymbol {
         self.filledName == other.filledName && self.notFilled == other.notFilled
     }
     
-    
+    public func name(for variant: SPSymbol.Variant) -> String {
+        variant == .filled ? filledName : notFilled
+    }
 
     @MainActor @ViewBuilder public func asView() -> some View {
         SPSymbolView(symbol: self)

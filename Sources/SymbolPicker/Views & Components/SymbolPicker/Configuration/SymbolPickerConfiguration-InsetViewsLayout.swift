@@ -54,10 +54,13 @@ public extension SymbolPickerConfiguration {
                         }
                     }
                     SPInsetedView(placement: .scrollSectionTop) {
-                        SPPagePicker()
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, -5)
-                        SPSearchBar()
+                        VStack{
+                            SPPagePicker()
+                                .padding(.horizontal, -5)
+                                .padding(.bottom, 8)
+                            SPSearchBar()
+                        }
+                        .padding(.top, 10)
                     }
                 } else {
                     if #unavailable(iOS 26.0){

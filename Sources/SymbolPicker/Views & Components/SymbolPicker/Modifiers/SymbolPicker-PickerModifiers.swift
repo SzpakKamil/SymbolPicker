@@ -8,57 +8,7 @@
 import SwiftUI
 import ColorKit
 
-public extension View {
-    func symbolPicker<T: SPDataAsset, C: SymbolPickerConfiguration>(
-        isPresented: Binding<Bool>,
-        selection: Binding<SPSelection<T>>,
-        configuration: C
-    ) -> SymbolPickerModifier<T, C, Self> {
-        return SymbolPickerModifier(isPresented: isPresented, selection: selection, configuration: configuration) {
-            self
-        }
-    }
-    
-    func symbolPicker<T: SPDataAsset>(
-        isPresented: Binding<Bool>,
-        selection: Binding<SPSelection<T>>
-    ) -> SymbolPickerModifier<T, SymbolPickerDefaultConfiguration, Self> {
-        return SymbolPickerModifier(isPresented: isPresented, selection: selection, configuration: SymbolPickerDefaultConfiguration()) {
-            self
-        }
-    }
-
-    func symbolPicker<T: SPDataAsset, C: SymbolPickerConfiguration>(
-        isPresented: Binding<Bool>,
-        selection: Binding<SPSelection<T>?>,
-        configuration: C
-    ) -> SymbolPickerModifier<T, C, Self> {
-        let binding = Binding {
-            selection.wrappedValue ?? .init(value: CKColor(hexString: "#0000"))
-        } set: { newValue in
-            selection.wrappedValue = newValue
-        }
-        return SymbolPickerModifier(isPresented: isPresented, selection: binding, configuration: configuration) {
-            self
-        }
-    }
-    
-    func symbolPicker<T: SPDataAsset>(
-        isPresented: Binding<Bool>,
-        selection: Binding<SPSelection<T>?>
-    ) -> SymbolPickerModifier<T, SymbolPickerDefaultConfiguration, Self> {
-        let binding = Binding {
-            selection.wrappedValue ?? .init(value: CKColor(hexString: "#0000"))
-        } set: { newValue in
-            selection.wrappedValue = newValue
-        }
-        return SymbolPickerModifier(isPresented: isPresented, selection: binding, configuration: SymbolPickerDefaultConfiguration()) {
-            self
-        }
-    }
-}
-
-public extension SymbolPicker where C == SymbolPickerDefaultConfiguration{
+public extension SymbolPicker where Configuration == SymbolPickerDefaultConfiguration{
     func spDisplayStyle(_ style: SPDisplayStyle) -> Self{
         var copy = self
         copy.style.displayStyle = style
@@ -231,7 +181,7 @@ public extension SymbolPicker where C == SymbolPickerDefaultConfiguration{
     }
 }
 
-public extension SymbolPickerModifier where C == SymbolPickerDefaultConfiguration{
+public extension SymbolPickerModifier where Configuration == SymbolPickerDefaultConfiguration{
     func spDisplayStyle(_ style: SPDisplayStyle) -> Self{
         var copy = self
         copy.style.displayStyle = style

@@ -11,6 +11,7 @@ import ColorKit
 public struct SPColorPicker: View {
     @Environment(\.spHorizontalPadding) var spHorizontalPadding
     @Environment(\.symbolPickerStyle) var symbolPickerStyle
+    @Environment(\.spAllowsColorSelection) var spAllowsColorSelection
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.spSelection) var spSelection
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
@@ -24,7 +25,7 @@ public struct SPColorPicker: View {
     var selectedColor: CKColor{ spSelection.wrappedValue.getColor() ?? CKColor(red: 0, green: 0, blue: 0, opacity: 0) }
     
     public var body: some View {
-        if let config = symbolPickerStyle.colorPicker {
+        if let config = symbolPickerStyle.colorPicker, spAllowsColorSelection {
             #if os(watchOS)
             Button("Color Picker", systemImage: "paintbrush.pointed.fill"){
                 isPresentingColorPicker.toggle()

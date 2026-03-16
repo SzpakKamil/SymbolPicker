@@ -7,33 +7,36 @@
 
 import SwiftUI
 
-public struct SymbolPickerModifier<T: SPDataAsset, C:SymbolPickerConfiguration, V: View>: View {
+public struct SymbolPickerModifier<DataAsset: SPDataAsset, Configuration:SymbolPickerConfiguration, V: View>: View {
     let content: V
     let isPresented: Binding<Bool>
-    let selection: Binding<SPSelection<T>>
-    var style: C
+    var style: Configuration
+    let picker: SymbolPicker<DataAsset, Configuration>
     
     public var body: some View {
-        content.modifier(SymbolPickerViewModifier(
+        var configuredPicker = picker
+        configuredPicker.style = style
+        
+        return content.modifier(SymbolPickerViewModifier(
             isPresented: isPresented,
-            selection: selection,
+            picker: configuredPicker,
             configuration: style
         ))
     }
-    init(isPresented: Binding<Bool>, selection: Binding<SPSelection<T>>, configuration: C, @ViewBuilder content: () -> V) {
+    init(isPresented: Binding<Bool>, configuration: Configuration, picker: SymbolPicker<DataAsset, Configuration>,  @ViewBuilder content: () -> V, ) {
         self.content = content()
         self.isPresented = isPresented
-        self.selection = selection
+        self.picker = picker
         self.style = configuration
     }
 }
 
 
 
-struct SymbolPickerViewModifier<T: SPDataAsset, C: SymbolPickerConfiguration>: ViewModifier {
+struct SymbolPickerViewModifier<DataAsset: SPDataAsset, Configuration: SymbolPickerConfiguration>: ViewModifier {
     @Binding private var isPresented: Bool
-    @Binding private var selection: SPSelection<T>
-    var style: C
+    var style: Configuration
+    var picker: SymbolPicker<DataAsset, Configuration>
     
     var isDisplayedAsPopover: Bool{
         #if os(iOS)
@@ -82,30 +85,30 @@ struct SymbolPickerViewModifier<T: SPDataAsset, C: SymbolPickerConfiguration>: V
         #if os(watchOS) || os(tvOS)
         content
             .sheet(isPresented: $isPresented) {
-                presentationDentedView{ SymbolPicker(selection: $selection, configuration: style) }
+                presentationDentedView{ picker }
             }
         #else
         switch style.presentation.presentationType{
         case .default, .popover:
             content
                 .popover(isPresented: $isPresented) {
-                    presentationDentedView{ SymbolPicker(selection: $selection, configuration: style) }
+                    presentationDentedView{ picker }
                     
                 }
         case .sheet:
             content
                 .sheet(isPresented: $isPresented) {
-                    presentationDentedView{ SymbolPicker(selection: $selection, configuration: style) }
+                    presentationDentedView{ picker }
                 }
         case .fullScreenCover:
             content
             #if os(iOS)
                 .fullScreenCover(isPresented: $isPresented) {
-                    presentationDentedView{ SymbolPicker(selection: $selection, configuration: style) }
+                    presentationDentedView{ picker }
                 }
             #else
                 .sheet(isPresented: $isPresented) {
-                    presentationDentedView{ SymbolPicker(selection: $selection, configuration: style) }
+                    presentationDentedView{ picker }
                 }
             #endif
         }
@@ -141,9 +144,9 @@ struct SymbolPickerViewModifier<T: SPDataAsset, C: SymbolPickerConfiguration>: V
         #endif
     }
     
-    init(isPresented: Binding<Bool>, selection: Binding<SPSelection<T>>, configuration: C) {
+    init(isPresented: Binding<Bool>, picker: SymbolPicker<DataAsset, Configuration>, configuration: Configuration) {
         self._isPresented = isPresented
-        self._selection = selection
+        self.picker = picker
         self.style = configuration
     }
 }

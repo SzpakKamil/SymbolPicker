@@ -7,9 +7,10 @@
 
 import SwiftUI
 import PhotosUI
+import ImageIO
 
 // MARK: - Core Model
-public struct SPImage: Identifiable, Hashable, Sendable, Codable {
+public struct SPImage: Identifiable, Hashable, Sendable, Codable, SPDataAsset {
     public let id: UUID
     public let fileName: String
     public let createdAt: Date
@@ -20,7 +21,25 @@ public struct SPImage: Identifiable, Hashable, Sendable, Codable {
     
     public var width: Double
     public var height: Double
+
+    // MARK: - SPDataAsset Conformance
+    public var annotation: String? { fileName }
+    public var category: String? { nil }
+    public var subcategory: String? { nil }
+    public var tags: [String]? { nil }
     
+    public static var filePrefix: String { "images" }
+    
+    public static func fetchAssets(locale: String) async throws -> [SPImage] {
+        // Local images are usually not fetched from a bundled JSON,
+        // but this could be implemented to return user-saved images.
+        return []
+    }
+    
+    public func isAvailable() -> Bool {
+        FileManager.default.fileExists(atPath: fileURL.path)
+    }
+
     private static var baseDirectory: URL {
         let directory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
         let folder = directory.appendingPathComponent("SymbolPicker/Images", isDirectory: true)
@@ -37,6 +56,44 @@ public struct SPImage: Identifiable, Hashable, Sendable, Codable {
 
     public var localURL: URL { fileURL }
 
+    // MARK: - Initializer (Remote Fetching)
+    /// Asynchronously fetches image data from a remote URL and initializes the instance with correct dimensions.
+    public init(
+        url: URL,
+        fileName: String? = nil,
+        zoom: Double = 1.0,
+        offsetX: Double = 0.0,
+        offsetY: Double = 0.0
+    ) async throws {
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+            throw URLError(.badServerResponse)
+        }
+        
+        self.id = UUID()
+        self.fileName = fileName ?? url.lastPathComponent
+        self.createdAt = Date()
+        self.zoom = zoom
+        self.offsetX = offsetX
+        self.offsetY = offsetY
+        
+        // Calculate dimensions immediately so zoom/offset math works
+        if let source = CGImageSourceCreateWithData(data as CFData, nil),
+           let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any],
+           let w = properties[kCGImagePropertyPixelWidth] as? CGFloat,
+           let h = properties[kCGImagePropertyPixelHeight] as? CGFloat {
+            self.width = Double(w)
+            self.height = Double(h)
+        } else {
+            self.width = 0
+            self.height = 0
+        }
+        
+        // Save to local storage
+        try data.write(to: self.fileURL, options: .atomic)
+    }
+
     // MARK: - Initializer (Local Creation)
     public init(fileName: String, rawData: Data, zoom: Double = 1.0, offsetX: Double = 0.0, offsetY: Double = 0.0, width: Double = 0, height: Double = 0) {
         self.id = UUID()
@@ -45,8 +102,19 @@ public struct SPImage: Identifiable, Hashable, Sendable, Codable {
         self.zoom = zoom
         self.offsetX = offsetX
         self.offsetY = offsetY
-        self.width = width
-        self.height = height
+        
+        // If width/height are zero, attempt to calculate them from rawData
+        if width == 0 || height == 0,
+           let source = CGImageSourceCreateWithData(rawData as CFData, nil),
+           let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any],
+           let w = properties[kCGImagePropertyPixelWidth] as? CGFloat,
+           let h = properties[kCGImagePropertyPixelHeight] as? CGFloat {
+            self.width = Double(w)
+            self.height = Double(h)
+        } else {
+            self.width = width
+            self.height = height
+        }
         
         // Immediate persistence on creation
         try? rawData.write(to: fileURL, options: .atomic)
@@ -91,5 +159,8 @@ public struct SPImage: Identifiable, Hashable, Sendable, Codable {
             try? data.write(to: destination, options: .atomic)
         }
     }
-}
 
+    @MainActor @ViewBuilder public func asView() -> some View {
+        SPImageView(image: self)
+    }
+}
