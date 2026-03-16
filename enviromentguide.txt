@@ -2,6 +2,10 @@
 
 These environment properties are available for use within any custom view or logic interacting with the `SymbolPicker` component. They provide control and feedback over the picker's state and appearance.
 
+### Usage Recommendations
+- **When using the standard `SymbolPicker` view:** Overwriting these environment keys is **not recommended**, as the picker manages its own internal state using these properties.
+- **When building custom views or using standalone components:** Using these properties (reading for styling or observing state) is **highly recommended**. If you are using components like `SPColorPicker`, `SPOptionList`, or `SPPagePicker` separately, these properties are the primary way to integrate your UI with the library's data flow.
+
 ---
 
 ### 1. `spPageType`
