@@ -34,7 +34,7 @@ actor SPDataManager {
     func search<T: SPDataAsset>(_ type: T.Type, for text: String) async throws -> [SPCategory<T>] {
         let items = try await fetchRaw(type: T.self)
         
-        if text.isEmpty {
+        if text.trimmingCharacters(in: .whitespaces).isEmpty {
             return self.groupItems(items)
         }
         
