@@ -1,6 +1,6 @@
 #  ``SwiftUICore/EnvironmentValues/spSearchText``
 
-Determines the current search query in the picker.
+A `String` value that determines the current search query in the picker.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,7 +22,9 @@ Determines the current search query in the picker.
 
 ## Overview
 
-> Warning: Use this property to integrate search functionality in custom **Inset Views**. Avoid manual overrides on the standard `SymbolPicker` to prevent state inconsistencies between the input field and the displayed results.
+Use this property to integrate search functionality in custom **``SymbolPicker/SPInsetedView``**, enabling programmatic filtering of the picker's content.
+
+> Warning: Avoid manual overrides on the standard ``SymbolPicker/SymbolPicker`` to prevent state inconsistencies between the input field and the displayed results.
 
 ### End User Impact
 

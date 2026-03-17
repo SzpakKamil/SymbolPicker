@@ -1,6 +1,6 @@
 #  ``SwiftUICore/EnvironmentValues/spSymbolVariant``
 
-The visual variant for SF Symbols in the picker.
+An ``SPSymbol/Variant`` value that determines the visual variant for SF Symbols in the picker. ``SPSymbol/Variant`` is an enum defining the visual style of an SF Symbol, such as ``SPSymbol/Variant/filled`` or ``SPSymbol/Variant/outlined``.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,7 +22,9 @@ The visual variant for SF Symbols in the picker.
 
 ## Overview
 
-> Warning: Use this to ensure **Inset Views** match the style of icons in the picker. Prefer using the provided `spSymbolsVariant(_:)` modifier for overall configuration instead of manual environment overrides.
+Use this to ensure **``SymbolPicker/SPInsetedView``** match the style of icons in the picker.
+
+> Warning: Prefer using the provided ``SymbolPicker/SymbolPicker/spSymbolsVariant(_:)`` modifier for overall configuration instead of manual environment overrides.
 
 ### End User Impact
 

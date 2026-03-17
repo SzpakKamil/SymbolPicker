@@ -1,6 +1,6 @@
 # ``SwiftUICore/EnvironmentValues/spAllowsColorSelection``
 
-A Boolean value that determines whether the color picker is available for the selected symbol or emoji.
+A `Boolean` value that determines whether the color picker is available for the selected symbol or emoji.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -24,9 +24,9 @@ A Boolean value that determines whether the color picker is available for the se
 
 When set to `true`, users can select a color for the chosen asset. When `false`, the color selection interface is hidden.
 
-This property takes effect when you use the `SymbolPicker` initializers or `.symbolPicker` view modifiers that do not require an `SPSelection` type. It serves as a mechanism for the `SymbolPicker` to enforce a specific presentation and appearance without overriding the `SymbolPickerConfiguration` implementations.
+This property takes effect when you use the ``SymbolPicker/SymbolPicker`` initializers or ``SwiftUICore/View`` view modifiers that do not require an ``SPSelection`` type. It serves as a mechanism for the ``SymbolPicker/SymbolPicker`` to enforce a specific presentation and appearance without overriding the ``SymbolPickerConfiguration`` implementations.
 
-> Important: This property is read-only within the picker's view hierarchy. For customization of the picker's behavior and appearance, it is recommended to use the properties available in `SymbolPickerConfiguration`.
+> Important: This property is read-only within the picker's view hierarchy. For customization of the picker's behavior and appearance, it is recommended to use the properties available in ``SymbolPickerConfiguration``.
 
 ### End User Impact
 

@@ -23,9 +23,9 @@ Public environment properties to control and observe the SymbolPicker state.
 
 ## Overview
 
-Environment properties to control and observe the `SymbolPicker` state.
+Environment properties to control and observe the ``SymbolPicker/SymbolPicker`` state.
 
-> Warning: These properties are primarily intended for reading state or styling within custom **Inset Views**. Manually overwriting these keys on the standard `SymbolPicker` view is strictly discouraged as it breaks internal cross-view synchronization and communication.
+> Warning: These properties are primarily intended for reading state or styling within custom **Inset Views**. Manually overwriting these keys on the standard ``SymbolPicker/SymbolPicker`` view is strictly discouraged as it breaks internal cross-view synchronization and communication.
 
 ## Topics
 

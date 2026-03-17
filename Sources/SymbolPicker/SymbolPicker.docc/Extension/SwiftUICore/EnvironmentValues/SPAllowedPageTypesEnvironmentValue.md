@@ -1,6 +1,6 @@
 # ``SwiftUICore/EnvironmentValues/spAllowedPageTypes``
 
-An array of `SPPageType` that specifies which pages (e.g., symbols, emojis) are available to the user.
+An array of ``SPPageType`` that specifies which pages (e.g., symbols, emojis) are available to the user. A ``SPPageType`` represents the type of content (image, emoji, or symbol) that can be displayed in the ``SymbolPicker/SymbolPicker``.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -24,9 +24,9 @@ An array of `SPPageType` that specifies which pages (e.g., symbols, emojis) are 
 
 Use this property to dynamically control which data categories are accessible within the symbol picker. For example, you can limit the picker to only show symbols by setting this value to `[.symbol]`.
 
-This property takes effect when you use the `SymbolPicker` initializers or `.symbolPicker` view modifiers that do not require an `SPSelection` type. It serves as a mechanism for the `SymbolPicker` to enforce a specific presentation and appearance without overriding the `SymbolPickerConfiguration` implementations.
+This property takes effect when you use the ``SymbolPicker/SymbolPicker`` initializers or ``SwiftUICore/View`` view modifiers that do not require an ``SPSelection`` type. It serves as a mechanism for the ``SymbolPicker/SymbolPicker`` to enforce a specific presentation and appearance without overriding the ``SymbolPickerConfiguration`` implementations.
 
-> Important: This property is read-only within the picker's view hierarchy. For customization of the picker's behavior and appearance, it is recommended to use the properties available in `SymbolPickerConfiguration`.
+> Important: This property is read-only within the picker's view hierarchy. For customization of the picker's behavior and appearance, it is recommended to use the properties available in ``SymbolPickerConfiguration``.
 
 ### End User Impact
 

@@ -1,6 +1,6 @@
 #  ``SwiftUICore/EnvironmentValues/symbolPickerStyle``
 
-The global configuration style for the SymbolPicker.
+A ``SymbolPickerConfiguration`` protocol that defines the global configuration style for the SymbolPicker. ``SymbolPickerConfiguration`` is a protocol that defines the configurable aspects of the ``SymbolPicker/SymbolPicker`` appearance and behavior.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,7 +22,9 @@ The global configuration style for the SymbolPicker.
 
 ## Overview
 
-> Warning: Read this in custom **Inset Views** to respect the picker's layout and display mode. Never overwrite this manually; pass your configuration as a parameter to the `SymbolPicker` view or `.symbolPicker` modifier instead.
+Read this in custom **``SymbolPicker/SPInsetedView``** to respect the picker's layout and display mode.
+
+> Warning: Never overwrite this manually; pass your configuration as a parameter to the ``SymbolPicker/SymbolPicker`` view or ``SwiftUICore/View`` modifier instead.
 
 ### End User Impact
 
