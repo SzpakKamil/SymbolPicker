@@ -1,6 +1,6 @@
 # ``SwiftUICore/EnvironmentValues/spAllowedPageTypes``
 
-An array of ``SPPageType`` that specifies which pages (e.g., symbols, emojis) are available to the user. A ``SPPageType`` represents the type of content (image, emoji, or symbol) that can be displayed in the ``SymbolPicker/SymbolPicker``.
+An array of ``SPPageType`` that specifies which pages (e.g., symbols, emojis) are available to the user.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -21,6 +21,8 @@ An array of ``SPPageType`` that specifies which pages (e.g., symbols, emojis) ar
 }
 
 ## Overview
+
+A ``SPPageType`` represents the type of content (image, emoji, or symbol) that can be displayed in the ``SymbolPicker``.
 
 Use this property to dynamically control which data categories are accessible within the symbol picker. For example, you can limit the picker to only show symbols by setting this value to `[.symbol]`.
 

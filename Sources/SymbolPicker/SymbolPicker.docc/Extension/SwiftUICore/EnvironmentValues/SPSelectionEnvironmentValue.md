@@ -1,6 +1,6 @@
 #  ``SwiftUICore/EnvironmentValues/spSelection``
 
-A binding to an ``SPSelection`` value, which is the core selection for the asset in the picker. ``SPSelection`` is a generic struct representing the selected asset (symbol, emoji, image, or color) within the ``SymbolPicker/SymbolPicker``.
+A binding to an ``SPSelection`` value, which is the core selection for the asset in the picker.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -21,6 +21,8 @@ A binding to an ``SPSelection`` value, which is the core selection for the asset
 }
 
 ## Overview
+
+``SPSelection`` is a generic struct representing the selected asset (symbol, emoji, image, or color) within the ``SymbolPicker/SymbolPicker``.
 
 This property is highly recommended for custom **``SymbolPicker/SPInsetedView``** that need to display or update selection.
 

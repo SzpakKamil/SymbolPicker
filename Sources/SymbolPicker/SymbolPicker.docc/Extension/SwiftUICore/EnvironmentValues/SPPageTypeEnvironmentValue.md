@@ -1,6 +1,6 @@
 #  ``SwiftUICore/EnvironmentValues/spPageType``
 
-A ``SPPageType`` value that determines the currently active category of data being displayed. A ``SPPageType`` represents the type of content (image, emoji, or symbol) that can be displayed in the ``SymbolPicker/SymbolPicker``.
+A ``SPPageType`` value that determines the currently active category of data being displayed.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -21,6 +21,8 @@ A ``SPPageType`` value that determines the currently active category of data bei
 }
 
 ## Overview
+
+A ``SPPageType`` represents the type of content (image, emoji, or symbol) that can be displayed in the ``SymbolPicker``.
 
 Use this property to observe or switch categories within custom **``SymbolPicker/SPInsetedView``**.
 
