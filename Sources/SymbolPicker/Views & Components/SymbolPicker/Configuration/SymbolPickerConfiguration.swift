@@ -33,5 +33,8 @@ public protocol SymbolPickerConfiguration: Sendable {
     var defaultType: SPPageType { get }
     
     @MainActor
+    var allowSearching: Bool { get }
+    
+    @MainActor
     var displayStyle: SPDisplayStyle { get }
 }

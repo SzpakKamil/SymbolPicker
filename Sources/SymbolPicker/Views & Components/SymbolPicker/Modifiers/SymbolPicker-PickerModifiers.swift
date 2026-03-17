@@ -19,6 +19,13 @@ public extension SymbolPicker where Configuration == SymbolPickerDefaultConfigur
         copy.style.symbolVariant = variant
         return copy
     }
+    
+    func spAllowSearching(_ condition: Bool) -> Self{
+        var copy = self
+        copy.style.allowSearching = condition
+        return copy
+    }
+    
     func spPageTypes(_ types: SPPageType..., defaultType: SPPageType) -> Self{
         var copy = self
         copy.style.supportedTypes = types
@@ -192,6 +199,13 @@ public extension SymbolPickerModifier where Configuration == SymbolPickerDefault
         copy.style.symbolVariant = variant
         return copy
     }
+    
+    func spAllowSearching(_ condition: Bool) -> Self{
+        var copy = self
+        copy.style.allowSearching = condition
+        return copy
+    }
+    
     func spPageTypes(_ types: SPPageType..., defaultType: SPPageType) -> Self{
         var copy = self
         copy.style.supportedTypes = types

@@ -29,6 +29,8 @@ public extension SymbolPickerConfiguration {
     
     var defaultType: SPPageType { .symbol }
     
+    var allowSearching: Bool { true }
+    
     var displayStyle: SPDisplayStyle {
         if #available(iOS 26.0, visionOS 26.0, tvOS 26.0, watchOS 26.0, *) {
             return .compact

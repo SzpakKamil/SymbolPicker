@@ -44,6 +44,8 @@ public struct SymbolPickerDefaultConfiguration: SymbolPickerConfiguration {
     
     @MainActor public var defaultType: SPPageType = .symbol
     
+    @MainActor public var allowSearching: Bool = true
+    
     @MainActor public var displayStyle: SPDisplayStyle
 
     public init() {

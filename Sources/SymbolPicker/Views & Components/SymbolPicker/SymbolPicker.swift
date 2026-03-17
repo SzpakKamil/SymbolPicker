@@ -91,7 +91,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
     @ViewBuilder
     func viewContainer(@ViewBuilder view: () -> some View) -> some View{
         #if os(iOS)
-        if #available(iOS 26.0, *), style.displayStyle == .compact, style.getViews(for: .safeAreaBottom).isEmpty, !isDisplayedAsPopover{
+        if #available(iOS 26.0, *), style.displayStyle == .compact, style.getViews(for: .safeAreaBottom).isEmpty, !isDisplayedAsPopover, style.allowSearching{
             NavigationStack{
                 view()
                     .searchable(

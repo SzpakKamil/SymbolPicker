@@ -16,7 +16,7 @@ struct SPSearchBar: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.spHorizontalPadding) var horizontalPadding
     var body: some View {
-        if spAllowedPageTypes.contains(.symbol) || spAllowedPageTypes.contains(.emoji){
+        if (spAllowedPageTypes.contains(.symbol) || spAllowedPageTypes.contains(.emoji)) && symbolPickerStyle.allowSearching{
             
             let backgroundColor: Color? = {
 #if os(macOS)
