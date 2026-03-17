@@ -37,7 +37,7 @@ public struct SPSymbol: Identifiable, Sendable, SPDataAsset {
     }
     
     init(filledName: String, notFilled: String, version: Double = 1.0, variant: SPSymbol.Variant? = nil, annotation: String? = nil, category: String? = nil, subcategory: String? = nil, tags: [String]? = nil) {
-        self.id = filledName
+        self.id = "\(filledName)\(notFilled)\(category)"
         self.filledName = filledName
         self.notFilled = notFilled
         self.annotation = annotation
@@ -126,6 +126,10 @@ extension SPSymbol: Codable, Hashable, Equatable {
     @_documentation(visibility: internal)
     public static func == (lhs: SPSymbol, rhs: SPSymbol) -> Bool {
         lhs.id == rhs.id
+    }
+    
+    public func isSelection(of symbol: Self) -> Bool{
+        self.filledName == symbol.filledName || self.filledName == symbol.notFilled
     }
 }
 

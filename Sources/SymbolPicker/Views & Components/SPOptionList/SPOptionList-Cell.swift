@@ -22,10 +22,10 @@ struct SPOptionListCell<T: SPDataAsset>: View {
     private var isSelected: Bool {
         if let symbol{
             guard let selectedSymbol = selection.getSymbol() else { return false }
-            return selectedSymbol.id == symbol.id
+            return selectedSymbol.isSelection(of: symbol)
         }else if let emoji{
             guard let selectedEmoji = selection.getEmoji() else { return false }
-            return selectedEmoji.id == emoji.id
+            return selectedEmoji.isSelection(of: emoji)
         }else{
             return false
         }
