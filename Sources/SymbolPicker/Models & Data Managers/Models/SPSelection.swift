@@ -36,7 +36,16 @@ public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionPr
     public private(set) var color: CKColor?
     
     public func isContentAvailable() -> Bool {
-        return type != .color
+        switch type {
+        case .symbol:
+            return symbol?.isAvailable() ?? false
+        case .emoji:
+            return emoji?.isAvailable() ?? false
+        case .image:
+            return image?.isAvailable() ?? false
+        case .color:
+            return false
+        }
     }
     
     @MainActor

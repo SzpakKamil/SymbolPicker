@@ -20,10 +20,13 @@ struct SPListStyleRow: ViewModifier {
     let forceListStyle: Bool
     
     private var shouldApplyStyle: Bool {
-        forceListStyle && currentWidth >= 10
+        forceListStyle && currentWidth >= 20
     }
 
     let detailCornerRadius: CGFloat = {
+        #if os(visionOS)
+        return 30
+        #else
         if #available(iOS 26.0, tvOS 26.0, visionOS 26.0, *) {
             #if os(tvOS)
             return 40
@@ -33,20 +36,22 @@ struct SPListStyleRow: ViewModifier {
         } else {
             return 15
         }
+        #endif
     }()
 
     func body(content: Content) -> some View {
         #if os(iOS) || os(visionOS) || os(tvOS)
-        content
-            .background(
-                GeometryReader { proxy in
-                    Color.clear
-                        .onAppear { currentWidth = proxy.size.width }
-                        .onChange(of: proxy.size.width) { newValue in
-                            currentWidth = newValue
-                        }
-                }
-            )
+        VStack{
+            content
+                .background(
+                    GeometryReader { proxy in
+                        Color.clear
+                            .task(id: proxy.size) {
+                                currentWidth = proxy.size.width
+                            }
+                    }
+                )
+        }
             .padding(.horizontal, shouldApplyStyle ? (style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 1 : 0)
             .padding(.vertical, shouldApplyStyle ? (style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize)) * 0.25 : 0)
             .background {

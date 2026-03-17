@@ -13,6 +13,7 @@ struct SPSearchBar: View {
     @Environment(\.spPageType) var spPageType
     @Environment(\.symbolPickerStyle) var symbolPickerStyle
     @Environment(\.spAllowedPageTypes) var spAllowedPageTypes
+    @Environment(\.spAllowsColorSelection) var spAllowsColorSelection
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.spHorizontalPadding) var horizontalPadding
     var body: some View {
@@ -63,15 +64,16 @@ struct SPSearchBar: View {
             .padding(.top, symbolPickerStyle.displayStyle == .compact ? 3 : -8)
             .padding(.vertical, -8)
 #elseif os(visionOS)
-            .searchBarStyle(.capsule)
             .if{ content in
                 if #available(visionOS 26.0, *){
                     content
+                        .searchBarStyle(.capsule)
                         .padding(.horizontal, -25)
                         .padding(.vertical, -20)
                 }else{
                     content
-                        .padding(.horizontal, symbolPickerStyle.displayStyle == .detail ? -25: -5)
+                        .searchBarStyle(.capsule)
+                        .padding(.horizontal, symbolPickerStyle.displayStyle == .detail ? -27: -5)
                         .padding(.vertical, -20)
                 }
             }

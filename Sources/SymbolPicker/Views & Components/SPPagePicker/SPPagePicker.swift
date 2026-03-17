@@ -74,7 +74,13 @@ public struct SPPagePicker: View {
             }
             .labelsHidden()
             .pickerStyle(.segmented)
-            .padding(.horizontal, spHorizontalPadding)
+            #if os(visionOS)
+            .if{ content in
+                if #available(visionOS 26.0, *){ content.padding(.top, -3) }else{ content.padding(.top, 3) }
+            }
+            .padding(.top, 3)
+            #endif
+            .padding(.horizontal, spHorizontalPadding * 0.90)
             #endif
         }
     }

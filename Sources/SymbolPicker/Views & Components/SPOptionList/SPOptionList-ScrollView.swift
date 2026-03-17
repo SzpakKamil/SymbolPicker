@@ -48,10 +48,8 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                             view
                                 .spSmartSafeAreaPadding(verticalEdges, style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize))
                                 .spSmartSafeAreaPadding(.horizontal, style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
-                        } else {
+                        }else{
                             view
-                                .spSmartSafeAreaPadding(verticalEdges, style.spacings.getValue(.verticalPadding, for: .optionList, at: dynamicTypeSize))
-                                .spSmartSafeAreaPadding(.horizontal, style.spacings.getValue(.horizontalPadding, for: .optionList, at: dynamicTypeSize))
                         }
                     }
             }
@@ -274,8 +272,10 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                     let insetedView = topViews[index]
                     insetedView.view
                         .background { insetedView.background }
+                        .spListStyleRow(forceListStyle: style.displayStyle == .detail)
+                        .padding(.bottom, 3)
                 }
-                .spListStyleRow(forceListStyle: style.displayStyle == .detail)
+                
             }
             
             LazyVStack{
@@ -285,8 +285,9 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         let insetedView = topSectionViews[index]
                         insetedView.view
                             .background { insetedView.background }
+                            .spListStyleRow(forceListStyle: style.displayStyle != .detail || ![SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
                     }
-                    .spListStyleRow(forceListStyle: style.displayStyle != .detail || ![SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
+                    
                 }
                 
                 if showProgressView{
@@ -300,8 +301,9 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                         let insetedView = bottomSectionViews[index]
                         insetedView.view
                             .background { insetedView.background }
+                            .spListStyleRow(forceListStyle: style.displayStyle != .detail || ![SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
                     }
-                    .spListStyleRow(forceListStyle: style.displayStyle != .detail || ![SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
+                    
                 }
             }
             .spListStyleRow(forceListStyle: style.displayStyle == .detail && [SPPageType.emoji, .symbol].contains(spPageType.wrappedValue))
@@ -312,8 +314,10 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                     let insetedView = bottomViews[index]
                     insetedView.view
                         .background { insetedView.background }
+                        .spListStyleRow(forceListStyle: style.displayStyle == .detail)
+                        .padding(.bottom, 3)
                 }
-                .spListStyleRow(forceListStyle: style.displayStyle == .detail)
+                
             }
         }
         .if { content in if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, visionOS 1.0, *) { content} else {

@@ -18,7 +18,7 @@ public struct SPInsetedView: @unchecked Sendable{
         #if os(watchOS)
         self.view = AnyView(view())
         #else
-        self.view = AnyView(VStack(spacing: spacing){view()})
+        self.view = AnyView(VStack(spacing: spacing){view()}.frame(idealWidth: 10))
         #endif
         self.paddings = [:]
         self.placement = placement

@@ -37,7 +37,7 @@ struct SPImageView: View {
                         .frame(width: containerSize.width, height: containerSize.height)
                         .clipped()
                 case .failure:
-                    Image(systemName: "photo.badge.exclamationmark")
+                    Image(systemName: "photo")
                         .resizable()
                         .scaledToFit()
                         .foregroundStyle(.secondary)

@@ -15,14 +15,15 @@ public struct SymbolPickerModifier<DataAsset: SPDataAsset, Configuration:SymbolP
     
     public var body: some View {
         var configuredPicker = picker
-        configuredPicker.style = style
-        
+        configuredPicker.setStyle(style)
+
         return content.modifier(SymbolPickerViewModifier(
             isPresented: isPresented,
             picker: configuredPicker,
             configuration: style
         ))
     }
+
     init(isPresented: Binding<Bool>, configuration: Configuration, picker: SymbolPicker<DataAsset, Configuration>,  @ViewBuilder content: () -> V, ) {
         self.content = content()
         self.isPresented = isPresented

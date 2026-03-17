@@ -10,7 +10,7 @@ import PhotosUI
 import ImageIO
 
 // MARK: - Core Model
-public struct SPImage: Identifiable, Hashable, Sendable, Codable, SPDataAsset {
+public struct SPImage: Identifiable, Hashable, Sendable, Codable {
     public let id: UUID
     public let fileName: String
     public let createdAt: Date
@@ -29,15 +29,18 @@ public struct SPImage: Identifiable, Hashable, Sendable, Codable, SPDataAsset {
     public var tags: [String]? { nil }
     
     public static var filePrefix: String { "images" }
-    
-    public static func fetchAssets(locale: String) async throws -> [SPImage] {
-        // Local images are usually not fetched from a bundled JSON,
-        // but this could be implemented to return user-saved images.
-        return []
-    }
+
     
     public func isAvailable() -> Bool {
-        FileManager.default.fileExists(atPath: fileURL.path)
+        guard FileManager.default.fileExists(atPath: fileURL.path) else { return false }
+        
+        // Check if the data is a valid image
+        if let source = CGImageSourceCreateWithURL(fileURL as CFURL, nil) {
+            let status = CGImageSourceGetStatus(source)
+            return status == .statusComplete && CGImageSourceGetCount(source) > 0
+        }
+        
+        return false
     }
 
     private static var baseDirectory: URL {

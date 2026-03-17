@@ -75,10 +75,14 @@ public extension SymbolPickerConfiguration {
                         }
                     }
                     SPInsetedView(placement: .scrollSectionTop) {
-                        SPPagePicker()
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, -5)
-                        SPSearchBar()
+                        VStack{
+                            SPPagePicker()
+                                .padding(.bottom, 4)
+                                .padding(.horizontal, -5)
+                            SPSearchBar()
+                                .padding(.top, 4)
+                        }
+                        .padding(.top, 8)
                     }
                 }
             } else if #available(iOS 26.0, *) {
@@ -102,7 +106,7 @@ public extension SymbolPickerConfiguration {
                     SPPagePicker()
                 }
                 .spPadding(.bottom, value: 8)
-                .spBackground { Rectangle().fill(.bar).ignoresSafeArea() }
+                .spBackground { Rectangle().fill(.bar).ignoresSafeArea().shadow(radius: 1) }
                 
                 if #unavailable(iOS 16.4){
                     SPInsetedView(placement: .toolbarTopTralling) {
@@ -122,13 +126,16 @@ public extension SymbolPickerConfiguration {
                         }
                     }
                     SPInsetedView(placement: .scrollSectionTop) {
-                        SPPagePicker()
-                            .padding(.top, 10)
-                            .padding(.bottom, 10)
-                            .padding(.horizontal, -3)
-                        SPSearchBar()
-                            .padding(.top, -8)
-                            .padding(.horizontal, -3)
+                        VStack{
+                            SPPagePicker()
+                                .padding(.bottom, 10)
+                                .padding(.horizontal, -3)
+                            SPSearchBar()
+                                .padding(.top, -8)
+                                .padding(.bottom, -3)
+                                .padding(.horizontal, -3)
+                        }
+                        .padding(.top, 13)
                     }
                 } else {
                     if colorPicker != nil {
@@ -138,9 +145,12 @@ public extension SymbolPickerConfiguration {
                         }
                     }
                     SPInsetedView(placement: .scrollSectionTop) {
-                        SPPagePicker()
-                            .padding(.vertical, 8)
-                        SPSearchBar()
+                        VStack{
+                            SPPagePicker()
+                                .padding(.bottom, 2)
+                            SPSearchBar()
+                        }
+                        .padding(.top, 8)
                     }
                 }
             } else {
@@ -180,9 +190,12 @@ public extension SymbolPickerConfiguration {
                         }
                     }
                     SPInsetedView(placement: .scrollSectionTop) {
-                        SPPagePicker()
-                            .padding(.vertical, 25)
-                        SPSearchBar()
+                        VStack{
+                            SPPagePicker()
+                                .padding(.bottom, 25)
+                            SPSearchBar()
+                        }
+                        .padding(.top, 25)
                     }
                 } else {
                     if colorPicker != nil {
@@ -192,9 +205,12 @@ public extension SymbolPickerConfiguration {
                         }
                     }
                     SPInsetedView(placement: .scrollSectionTop) {
-                        SPPagePicker()
-                            .padding(.vertical, 8)
-                        SPSearchBar()
+                        VStack{
+                            SPPagePicker()
+                                .padding(.bottom, 8)
+                            SPSearchBar()
+                        }
+                        .padding(.top, 10)
                     }
                 }
             } else {

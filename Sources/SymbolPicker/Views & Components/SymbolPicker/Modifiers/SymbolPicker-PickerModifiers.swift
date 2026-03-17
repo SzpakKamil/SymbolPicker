@@ -9,33 +9,45 @@ import SwiftUI
 import ColorKit
 
 public extension SymbolPicker where Configuration == SymbolPickerDefaultConfiguration{
+    @available(iOS 16.4, *)
     func spDisplayStyle(_ style: SPDisplayStyle) -> Self{
         var copy = self
-        copy.style.displayStyle = style
+        var newStyle = copy.style
+        newStyle.displayStyle = style
+        copy.setStyle(newStyle)
         return copy
     }
     func spSymbolsVariant(_ variant: SPSymbol.Variant) -> Self{
         var copy = self
-        copy.style.symbolVariant = variant
+        var newStyle = copy.style
+        newStyle.symbolVariant = variant
+        copy.setStyle(newStyle)
         return copy
     }
-    
+
     func spAllowSearching(_ condition: Bool) -> Self{
         var copy = self
-        copy.style.allowSearching = condition
+        var newStyle = copy.style
+        newStyle.allowSearching = condition
+        copy.setStyle(newStyle)
         return copy
     }
-    
+
     func spPageTypes(_ types: SPPageType..., defaultType: SPPageType) -> Self{
         var copy = self
-        copy.style.supportedTypes = types
-        copy.style.defaultType = defaultType
+        var newStyle = copy.style
+        newStyle.supportedTypes = types
+        newStyle.defaultType = defaultType
+        copy.setStyle(newStyle)
         return copy
     }
+
     func spPageTypes(_ types: [SPPageType], defaultType: SPPageType) -> Self{
         var copy = self
-        copy.style.supportedTypes = types
-        copy.style.defaultType = defaultType
+        var newStyle = copy.style
+        newStyle.supportedTypes = types
+        newStyle.defaultType = defaultType
+        copy.setStyle(newStyle)
         return copy
     }
     
@@ -189,6 +201,7 @@ public extension SymbolPicker where Configuration == SymbolPickerDefaultConfigur
 }
 
 public extension SymbolPickerModifier where Configuration == SymbolPickerDefaultConfiguration{
+    @available(iOS 16.4, *)
     func spDisplayStyle(_ style: SPDisplayStyle) -> Self{
         var copy = self
         copy.style.displayStyle = style
