@@ -18,6 +18,7 @@ public protocol SPDataAsset: Sendable, Hashable, Equatable, Identifiable, Codabl
     static func fetchAssets(locale: String) async throws -> [Self]
     func isDuplicate(of other: Self) -> Bool
     func isAvailable() -> Bool
+    func isSelection(of symbol: Self) -> Bool
     @MainActor @ViewBuilder func asView() -> Body
 }
 
@@ -37,6 +38,10 @@ extension SPDataAsset{
     
     public func isDuplicate(of other: Self) -> Bool {
         self == other
+    }
+    
+    public func isSelection(of symbol: Self) -> Bool {
+        self == symbol
     }
 }
 
