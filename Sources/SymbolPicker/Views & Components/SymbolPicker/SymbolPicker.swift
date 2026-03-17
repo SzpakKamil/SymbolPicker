@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Foundation
 import ColorKit
 
 public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerConfiguration>: View {
@@ -185,6 +186,27 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
     }
     
     public init(
+        systemImage: Binding<String?>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let systemImageBinding = systemImage
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { variant in
+            Binding {
+                SPSelection(systemName: systemImageBinding.wrappedValue ?? "")
+            } set: { newValue in
+                if let symbol = newValue.getSymbol() {
+                    systemImageBinding.wrappedValue = symbol.name(for: variant)
+                }
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.symbol]
+        self.allowColorSelection = false
+        self.style = configuration
+    }
+    
+    public init(
         systemImage: Binding<String>,
         ckColor: Binding<CKColor>,
         configuration: Configuration = SymbolPickerDefaultConfiguration()
@@ -209,6 +231,30 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
     }
     
     public init(
+        systemImage: Binding<String?>,
+        ckColor: Binding<CKColor>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let systemImageBinding = systemImage
+        let ckColorBinding = ckColor
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { variant in
+            Binding {
+                SPSelection(systemName: systemImageBinding.wrappedValue ?? "", color: ckColorBinding.wrappedValue)
+            } set: { newValue in
+                if let symbol = newValue.getSymbol() {
+                    systemImageBinding.wrappedValue = symbol.name(for: variant)
+                }
+                ckColorBinding.wrappedValue = newValue.getColor() ?? ckColorBinding.wrappedValue
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.symbol]
+        self.allowColorSelection = true
+        self.style = configuration
+    }
+    
+    public init(
         systemImage: Binding<String>,
         color: Binding<Color>,
         configuration: Configuration = SymbolPickerDefaultConfiguration()
@@ -218,6 +264,30 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
         let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { variant in
             Binding {
                 SPSelection(systemName: systemImageBinding.wrappedValue, color: colorBinding.wrappedValue)
+            } set: { newValue in
+                if let symbol = newValue.getSymbol() {
+                    systemImageBinding.wrappedValue = symbol.name(for: variant)
+                }
+                colorBinding.wrappedValue = newValue.getColor()?.color ?? colorBinding.wrappedValue
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.symbol]
+        self.allowColorSelection = true
+        self.style = configuration
+    }
+    
+    public init(
+        systemImage: Binding<String?>,
+        color: Binding<Color>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let systemImageBinding = systemImage
+        let colorBinding = color
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { variant in
+            Binding {
+                SPSelection(systemName: systemImageBinding.wrappedValue ?? "", color: colorBinding.wrappedValue)
             } set: { newValue in
                 if let symbol = newValue.getSymbol() {
                     systemImageBinding.wrappedValue = symbol.name(for: variant)
@@ -258,6 +328,31 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
     }
     
     public init(
+        systemImage: Binding<String?>,
+        colorValues: Binding<[Double]>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let systemImageBinding = systemImage
+        let colorValuesBinding = colorValues
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { variant in
+            Binding {
+                SPSelection(systemName: systemImageBinding.wrappedValue ?? "", colorValues: colorValuesBinding.wrappedValue)
+            } set: { newValue in
+                if let symbol = newValue.getSymbol() {
+                    systemImageBinding.wrappedValue = symbol.name(for: variant)
+                }
+                let components = newValue.getColor()?.rgbComponents() ?? .init(r: 0, g: 0, b: 0, a: 1)
+                colorValuesBinding.wrappedValue = [components.r, components.g, components.b, components.a]
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.symbol]
+        self.allowColorSelection = true
+        self.style = configuration
+    }
+    
+    public init(
         emoji: Binding<SPEmoji>,
         configuration: Configuration = SymbolPickerDefaultConfiguration()
     ) where DataAsset == SPSymbol {
@@ -267,6 +362,25 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
                 SPSelection(emoji: emojiBinding.wrappedValue)
             } set: { newValue in
                 emojiBinding.wrappedValue = newValue.getEmoji() ?? emojiBinding.wrappedValue
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.emoji]
+        self.allowColorSelection = false
+        self.style = configuration
+    }
+    
+    public init(
+        emoji: Binding<SPEmoji?>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let emojiBinding = emoji
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
+            Binding {
+                SPSelection(emoji: emojiBinding.wrappedValue ?? SPEmoji(""))
+            } set: { newValue in
+                emojiBinding.wrappedValue = newValue.getEmoji()
             }
         }
         self.selectionRecreator = recreator
@@ -288,6 +402,28 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
                 SPSelection(emoji: emojiBinding.wrappedValue, color: ckColorBinding.wrappedValue)
             } set: { newValue in
                 emojiBinding.wrappedValue = newValue.getEmoji() ?? emojiBinding.wrappedValue
+                ckColorBinding.wrappedValue = newValue.getColor() ?? ckColorBinding.wrappedValue
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.emoji]
+        self.allowColorSelection = true
+        self.style = configuration
+    }
+    
+    public init(
+        emoji: Binding<SPEmoji?>,
+        ckColor: Binding<CKColor>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let emojiBinding = emoji
+        let ckColorBinding = ckColor
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
+            Binding {
+                SPSelection(emoji: emojiBinding.wrappedValue ?? SPEmoji(""), color: ckColorBinding.wrappedValue)
+            } set: { newValue in
+                emojiBinding.wrappedValue = newValue.getEmoji()
                 ckColorBinding.wrappedValue = newValue.getColor() ?? ckColorBinding.wrappedValue
             }
         }
@@ -321,6 +457,28 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
     }
     
     public init(
+        emoji: Binding<SPEmoji?>,
+        color: Binding<Color>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let emojiBinding = emoji
+        let colorBinding = color
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
+            Binding {
+                SPSelection(emoji: emojiBinding.wrappedValue ?? SPEmoji(""), color: colorBinding.wrappedValue)
+            } set: { newValue in
+                emojiBinding.wrappedValue = newValue.getEmoji()
+                colorBinding.wrappedValue = newValue.getColor()?.color ?? colorBinding.wrappedValue
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.emoji]
+        self.allowColorSelection = true
+        self.style = configuration
+    }
+    
+    public init(
         emoji: Binding<SPEmoji>,
         colorValues: Binding<[Double]>,
         configuration: Configuration = SymbolPickerDefaultConfiguration()
@@ -332,6 +490,29 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
                 SPSelection(emoji: emojiBinding.wrappedValue, colorValues: colorValuesBinding.wrappedValue)
             } set: { newValue in
                 emojiBinding.wrappedValue = newValue.getEmoji() ?? emojiBinding.wrappedValue
+                let components = newValue.getColor()?.rgbComponents() ?? .init(r: 0, g: 0, b: 0, a: 1)
+                colorValuesBinding.wrappedValue = [components.r, components.g, components.b, components.a]
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.emoji]
+        self.allowColorSelection = true
+        self.style = configuration
+    }
+    
+    public init(
+        emoji: Binding<SPEmoji?>,
+        colorValues: Binding<[Double]>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let emojiBinding = emoji
+        let colorValuesBinding = colorValues
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
+            Binding {
+                SPSelection(emoji: emojiBinding.wrappedValue ?? SPEmoji(""), colorValues: colorValuesBinding.wrappedValue)
+            } set: { newValue in
+                emojiBinding.wrappedValue = newValue.getEmoji()
                 let components = newValue.getColor()?.rgbComponents() ?? .init(r: 0, g: 0, b: 0, a: 1)
                 colorValuesBinding.wrappedValue = [components.r, components.g, components.b, components.a]
             }
@@ -366,6 +547,27 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
     
     @available(iOS 16.0, macOS 14.0, visionOS 26.0, *)
     public init(
+        image: Binding<SPImage?>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let imageBinding = image
+        let placeholderImage = SPImage(fileName: "SymbolPicker.Placeholder", rawData: Data())
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
+            Binding {
+                SPSelection(image: imageBinding.wrappedValue ?? placeholderImage)
+            } set: { newValue in
+                imageBinding.wrappedValue = newValue.getImage()
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.image]
+        self.allowColorSelection = false
+        self.style = configuration
+    }
+    
+    @available(iOS 16.0, macOS 14.0, visionOS 26.0, *)
+    public init(
         image: Binding<SPImage>,
         ckColor: Binding<CKColor>,
         configuration: Configuration = SymbolPickerDefaultConfiguration()
@@ -377,6 +579,30 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
                 SPSelection(image: imageBinding.wrappedValue, color: ckColorBinding.wrappedValue)
             } set: { newValue in
                 imageBinding.wrappedValue = newValue.getImage() ?? imageBinding.wrappedValue
+                ckColorBinding.wrappedValue = newValue.getColor() ?? ckColorBinding.wrappedValue
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.image]
+        self.allowColorSelection = true
+        self.style = configuration
+    }
+    
+    @available(iOS 16.0, macOS 14.0, visionOS 26.0, *)
+    public init(
+        image: Binding<SPImage?>,
+        ckColor: Binding<CKColor>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let imageBinding = image
+        let ckColorBinding = ckColor
+        let placeholderImage = SPImage(fileName: "SymbolPicker.Placeholder", rawData: Data())
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
+            Binding {
+                SPSelection(image: imageBinding.wrappedValue ?? placeholderImage, color: ckColorBinding.wrappedValue)
+            } set: { newValue in
+                imageBinding.wrappedValue = newValue.getImage()
                 ckColorBinding.wrappedValue = newValue.getColor() ?? ckColorBinding.wrappedValue
             }
         }
@@ -412,6 +638,30 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
     
     @available(iOS 16.0, macOS 14.0, visionOS 26.0, *)
     public init(
+        image: Binding<SPImage?>,
+        color: Binding<Color>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let imageBinding = image
+        let colorBinding = color
+        let placeholderImage = SPImage(fileName: "SymbolPicker.Placeholder", rawData: Data())
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
+            Binding {
+                SPSelection(image: imageBinding.wrappedValue ?? placeholderImage, color: colorBinding.wrappedValue)
+            } set: { newValue in
+                imageBinding.wrappedValue = newValue.getImage()
+                colorBinding.wrappedValue = newValue.getColor()?.color ?? colorBinding.wrappedValue
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.image]
+        self.allowColorSelection = true
+        self.style = configuration
+    }
+    
+    @available(iOS 16.0, macOS 14.0, visionOS 26.0, *)
+    public init(
         image: Binding<SPImage>,
         colorValues: Binding<[Double]>,
         configuration: Configuration = SymbolPickerDefaultConfiguration()
@@ -423,6 +673,31 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
                 SPSelection(image: imageBinding.wrappedValue, colorValues: colorValuesBinding.wrappedValue)
             } set: { newValue in
                 imageBinding.wrappedValue = newValue.getImage() ?? imageBinding.wrappedValue
+                let components = newValue.getColor()?.rgbComponents() ?? .init(r: 0, g: 0, b: 0, a: 1)
+                colorValuesBinding.wrappedValue = [components.r, components.g, components.b, components.a]
+            }
+        }
+        self.selectionRecreator = recreator
+        self._selection = recreator(configuration.symbolVariant)
+        self.allowedPageTypes = [.image]
+        self.allowColorSelection = true
+        self.style = configuration
+    }
+    
+    @available(iOS 16.0, macOS 14.0, visionOS 26.0, *)
+    public init(
+        image: Binding<SPImage?>,
+        colorValues: Binding<[Double]>,
+        configuration: Configuration = SymbolPickerDefaultConfiguration()
+    ) where DataAsset == SPSymbol {
+        let imageBinding = image
+        let colorValuesBinding = colorValues
+        let placeholderImage = SPImage(fileName: "SymbolPicker.Placeholder", rawData: Data())
+        let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
+            Binding {
+                SPSelection(image: imageBinding.wrappedValue ?? placeholderImage, colorValues: colorValuesBinding.wrappedValue)
+            } set: { newValue in
+                imageBinding.wrappedValue = newValue.getImage()
                 let components = newValue.getColor()?.rgbComponents() ?? .init(r: 0, g: 0, b: 0, a: 1)
                 colorValuesBinding.wrappedValue = [components.r, components.g, components.b, components.a]
             }

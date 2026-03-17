@@ -1,0 +1,140 @@
+SymbolPicker View Modifiers Documentation
+=========================================
+
+The SymbolPicker package provides a series of view modifiers to present a symbol, emoji, or image picker. All modifiers are named `symbolPicker` and follow a consistent pattern for presentation and configuration.
+
+General Parameters
+------------------
+- isPresented: Binding<Bool> - Controls whether the picker is currently presented.
+- configuration: SymbolPickerConfiguration - (Optional) Custom configuration for the picker. Defaults to `SymbolPickerDefaultConfiguration()`.
+
+1. Generic Selection Modifier
+-----------------------------
+How it works:
+Presents a picker for any data asset conforming to `SPDataAsset`. It uses a generic selection binding.
+
+Example Usage:
+```swift
+struct ContentView: View {
+    @State private var isPresented = false
+    @State private var selection = SPSelection<SPSymbol>(value: .init(systemName: "star"))
+
+    var body: some View {
+        Button("Select Symbol") {
+            isPresented = true
+        }
+        .symbolPicker(isPresented: $isPresented, selection: $selection)
+    }
+}
+```
+
+Types Used:
+- SPDataAsset
+- SPSelection<DataAsset>
+- SymbolPickerConfiguration
+
+Availability:
+- All platforms.
+
+2. SF Symbol (System Image) Modifiers
+-------------------------------------
+How it works:
+Specifically designed for SF Symbols. It binds directly to a `String` (the system name) and optionally to various color types.
+
+Overloads:
+- systemImage: Binding<String> or Binding<String?>
+- Optional color bindings:
+    - ckColor: Binding<CKColor>
+    - color: Binding<Color>
+    - colorValues: Binding<[Double]>
+
+Example Usage:
+```swift
+struct ContentView: View {
+    @State private var isPresented = false
+    @State private var systemName = "house"
+    @State private var color = Color.blue
+
+    var body: some View {
+        Button("Pick Symbol") {
+            isPresented = true
+        }
+        .symbolPicker(isPresented: $isPresented, systemImage: $systemName, color: $color)
+    }
+}
+```
+
+Types Used:
+- CKColor (from ColorKit)
+- Color (SwiftUI)
+- [Double] (Color values)
+
+Availability:
+- All platforms.
+
+3. Emoji Modifiers
+------------------
+How it works:
+Presents a picker for emojis. It binds to `SPEmoji` or `SPEmoji?` and optionally to color types.
+
+Overloads:
+- emoji: Binding<SPEmoji> or Binding<SPEmoji?>
+- Optional color bindings:
+    - ckColor: Binding<CKColor>
+    - color: Binding<Color>
+    - colorValues: Binding<[Double]>
+
+Example Usage:
+```swift
+struct ContentView: View {
+    @State private var isPresented = false
+    @State private var emoji: SPEmoji?
+
+    var body: some View {
+        Button("Select Emoji") {
+            isPresented = true
+        }
+        .symbolPicker(isPresented: $isPresented, emoji: $emoji)
+    }
+}
+```
+
+Types Used:
+- SPEmoji
+
+Availability:
+- All platforms.
+
+4. Custom Image Modifiers
+-------------------------
+How it works:
+Presents a picker for custom images (`SPImage`). Supports optional color bindings.
+
+Overloads:
+- image: Binding<SPImage> or Binding<SPImage?>
+- Optional color bindings:
+    - ckColor: Binding<CKColor>
+    - color: Binding<Color>
+    - colorValues: Binding<[Double]>
+
+Example Usage:
+```swift
+struct ContentView: View {
+    @State private var isPresented = false
+    @State private var image: SPImage?
+
+    var body: some View {
+        Button("Select Image") {
+            isPresented = true
+        }
+        .symbolPicker(isPresented: $isPresented, image: $image)
+    }
+}
+```
+
+Types Used:
+- SPImage
+
+Availability:
+- Platform-restricted: iOS 16.0+, macOS 14.0+, visionOS 26.0+.
+- Requires: `#if os(iOS) || os(macOS) || os(visionOS)`

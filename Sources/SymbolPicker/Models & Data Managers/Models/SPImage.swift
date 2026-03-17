@@ -9,6 +9,12 @@ import SwiftUI
 import PhotosUI
 import ImageIO
 
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
+
 // MARK: - Core Model
 public struct SPImage: Identifiable, Hashable, Sendable, Codable {
     public let id: UUID
@@ -95,6 +101,31 @@ public struct SPImage: Identifiable, Hashable, Sendable, Codable {
         
         // Save to local storage
         try data.write(to: self.fileURL, options: .atomic)
+    }
+
+    // MARK: - Initializer (System Symbol)
+    public init?(systemName: String) {
+        #if canImport(UIKit)
+        let config = UIImage.SymbolConfiguration(pointSize: 100, weight: .regular)
+        guard let image = UIImage(systemName: systemName, withConfiguration: config)?.withTintColor(.black, renderingMode: .alwaysOriginal),
+              let data = image.pngData() else { return nil }
+        let width = Double(image.size.width)
+        let height = Double(image.size.height)
+        
+        #elseif canImport(AppKit)
+        let config = NSImage.SymbolConfiguration(pointSize: 100, weight: .regular)
+        guard let image = NSImage(systemSymbolName: systemName, accessibilityDescription: nil)?.withSymbolConfiguration(config),
+              let tiff = image.tiffRepresentation,
+              let bitmap = NSBitmapImageRep(data: tiff),
+              let data = bitmap.representation(using: .png, properties: [:]) else { return nil }
+        let width = Double(image.size.width)
+        let height = Double(image.size.height)
+        
+        #else
+        return nil
+        #endif
+        
+        self.init(fileName: systemName, rawData: data, width: width, height: height)
     }
 
     // MARK: - Initializer (Local Creation)
