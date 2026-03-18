@@ -66,6 +66,7 @@ struct SPOptionListImage<T: SPDataAsset>: View {
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                             Slider(value: $selection.asZoom, in: 1.0...5.0)
+                                .accessibilityLabel(SPTranslation.Zoom.localizedDescription)
                         }
                         
                         VStack(alignment: .leading) {
@@ -73,6 +74,7 @@ struct SPOptionListImage<T: SPDataAsset>: View {
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                             Slider(value: $selection.asImageOffsetX, in: -1.0...1.0)
+                                .accessibilityLabel(SPTranslation.HorizontalOffset.localizedDescription)
                         }
                         
                         VStack(alignment: .leading) {
@@ -80,6 +82,7 @@ struct SPOptionListImage<T: SPDataAsset>: View {
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                             Slider(value: $selection.asImageOffsetY, in: -1.0...1.0)
+                                .accessibilityLabel(SPTranslation.HorizontalOffset.localizedDescription)
                         }
                     }
                     #if os(iOS) || os(visionOS)

@@ -21,7 +21,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/SzpakKamil/SearchBar.git", exact: "2.1.6"),
-        .package(url: "https://github.com/SzpakKamil/ColorKit.git", from: "1.0.0")
+        .package(url: "https://github.com/SzpakKamil/ColorKit.git", exact: "1.0.0")
     ],
     targets: [
         .target(

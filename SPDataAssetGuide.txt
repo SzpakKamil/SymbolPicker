@@ -1,0 +1,86 @@
+SPDataAsset Protocol Guide
+==========================
+
+The `SPDataAsset` protocol is the core abstraction for all selectable assets in the SymbolPicker package (Symbols, Emojis). It defines a common interface for fetching, searching, displaying, and identifying assets.
+
+Protocol Definition
+-------------------
+```swift
+public protocol SPDataAsset: Sendable, Hashable, Equatable, Identifiable, Codable where ID: Sendable {
+    associatedtype Body: View
+    
+    var annotation: String? { get }
+    var category: String? { get }
+    var subcategory: String? { get }
+    var tags: [String]? { get }
+    
+    func matches(_ text: String) -> Bool
+    
+    static var filePrefix: String { get }
+    static func fetchAssets(locale: String) async throws -> [Self]
+    
+    func isDuplicate(of other: Self) -> Bool
+    func isAvailable() -> Bool
+    func isSelection(of symbol: Self) -> Bool
+    
+    @MainActor @ViewBuilder func asView() -> Body
+}
+```
+
+Properties
+----------
+- **annotation**: `String?`
+  - A descriptive name or localized name of the asset.
+  - Used for searching and accessibility descriptions.
+- **category**: `String?`
+  - The primary category the asset belongs to (e.g., "Nature", "Objects").
+  - Used by `SPDataManager` to group items into sections.
+- **subcategory**: `String?`
+  - A more specific classification within the category.
+- **tags**: `[String]?`
+  - Keywords associated with the asset.
+  - Used to enhance search results (e.g., a "star" symbol might have tags like "favorite" or "rating").
+- **filePrefix**: `static String`
+  - The base name used to locate JSON data files in the app bundle (e.g., "symbols" for `symbols_en.json`).
+
+Methods
+-------
+- **matches(_ text: String) -> Bool**
+  - Determines if the asset matches a search query.
+  - **Default Implementation**: Checks if any tag contains the text, or if the annotation, category, or subcategory contains the text (case-insensitive).
+- **fetchAssets(locale: String) async throws -> [Self]**
+  - A static method that loads assets from the bundle based on the provided locale.
+  - It handles fallback to English if the specific locale file is not found.
+- **isDuplicate(of other: Self) -> Bool**
+  - Checks if another asset is semantically identical.
+  - **Default Implementation**: Uses the `==` operator.
+- **isAvailable() -> Bool**
+  - Checks if the asset is renderable on the current OS version.
+  - For Emojis, it checks Unicode version support. For Symbols, it checks if `UIImage(systemName:)` or `NSImage(systemSymbolName:)` returns a valid image.
+- **isSelection(of symbol: Self) -> Bool**
+  - Used to determine if this asset is the one currently selected.
+  - **Default Implementation**: Uses the `==` operator.
+- **asView() -> Body**
+  - Returns a SwiftUI view that renders the asset (e.g., `SPSymbolView` or `SPEmojiView`).
+
+Default Implementations (via Protocol Extension)
+------------------------------------------------
+The protocol provides default implementations for several methods to reduce boilerplate:
+- `matches(_ text: String)`: standard case-insensitive search across metadata.
+- `isDuplicate(of other: Self)`: simple equality check.
+- `isSelection(of symbol: Self)`: simple equality check.
+- `localizationPrefix` & `resolvedLocalePrefix`: computed properties to manage localization keys in cache.
+
+Usage in the Codebase
+---------------------
+- **SPDataManager**: Uses `SPDataAsset` to generically fetch and search for different types of assets. It uses `filePrefix` to locate bundle resources and `fetchAssets` to load them into memory.
+- **SPSelection<T: SPDataAsset>**: A wrapper that holds the selected asset and its optional tint color.
+- **SymbolPicker<DataAsset: SPDataAsset>**: The main UI component that presents a grid of assets. It works with any type conforming to `SPDataAsset`.
+- **SPOptionList<T: SPDataAsset>**: A list-based view for choosing between different categories of assets.
+
+Conforming Types
+----------------
+- **SPSymbol**: Represents an SF Symbol. Implements specialized `isAvailable` (OS check) and `isSelection` (handles filled/unfilled variants).
+- **SPEmoji**: Represents a Unicode emoji. Implements complex `isAvailable` (CoreText rendering check) and handles skin tone variants.
+
+*Note: While `SPImage` implements many similar properties, it does not strictly conform to `SPDataAsset` because it represents user-added content rather than bundle-provided resources, and thus lacks the static `fetchAssets` requirement.*

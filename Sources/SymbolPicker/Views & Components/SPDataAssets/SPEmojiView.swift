@@ -17,12 +17,17 @@ struct SPEmojiView: View {
                 .minimumScaleFactor(0.01)
                 .lineLimit(1)
                 .drawingGroup()
+                .accessibilityElement()
+                .accessibilityLabel(emoji.annotation ?? SPPageType.emoji.localizedDescription)
+                .accessibilityAddTraits(.isSelected)
         } else {
             Text(Image(systemName: "questionmark"))
                 .font(.system(size: 300))
                 .minimumScaleFactor(0.01)
                 .lineLimit(1)
                 .drawingGroup()
+                .accessibilityLabel(emoji.annotation ?? SPPageType.emoji.localizedDescription)
+                .accessibilityAddTraits(.isSelected)
         }
     }
     

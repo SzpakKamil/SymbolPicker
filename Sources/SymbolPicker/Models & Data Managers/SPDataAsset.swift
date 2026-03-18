@@ -8,7 +8,6 @@
 import SwiftUI
 
 public protocol SPDataAsset: Sendable, Hashable, Equatable, Identifiable, Codable where ID: Sendable{
-    @_documentation(visibility: internal)
     associatedtype Body: View
     var annotation: String? { get }
     var category: String? { get }

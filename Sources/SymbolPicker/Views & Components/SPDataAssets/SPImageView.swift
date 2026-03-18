@@ -45,6 +45,17 @@ struct SPImageView: View {
                     EmptyView()
                 }
             }
+            #if !os(tvOS) && !os(watchOS)
+            .if{ content in
+                if #available(iOS 16.0, macOS 14.0, visionOS 26.0, *){
+                    content
+                        .accessibilityLabel(SPPageType.image.localizedDescription)
+                        .accessibilityAddTraits(.isSelected)
+                }else{
+                    content
+                }
+            }
+            #endif
         }
         .drawingGroup()
         .id(image.id)

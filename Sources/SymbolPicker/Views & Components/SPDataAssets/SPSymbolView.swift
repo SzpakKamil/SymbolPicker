@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SPSymbolView: View {
     @Environment(\.spSymbolVariant) var symbolVariant
+    private let annotation: String?
     private let filledName: String
     private let notFilledName: String
     private let isAvailable: Bool
@@ -25,6 +26,8 @@ struct SPSymbolView: View {
         }else{
             Image(systemName: "questionmark")
                 .drawingGroup()
+                .accessibilityLabel(SPPageType.symbol.localizedDescription)
+                .accessibilityAddTraits(.isSelected)
         }
     }
     
@@ -36,9 +39,12 @@ struct SPSymbolView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .aspectRatio(1, contentMode: .fit)
             .drawingGroup()
+            .accessibilityLabel(annotation ?? SPPageType.symbol.localizedDescription)
+            .accessibilityAddTraits(.isSelected)
     }
     
     public init(symbol: SPSymbol) {
+        self.annotation = symbol.annotation
         self.filledName = symbol.filledName
         self.notFilledName = symbol.notFilled
         self.isAvailable = symbol.isAvailable()
