@@ -115,9 +115,9 @@ public struct SPImage: Identifiable, Hashable, Sendable, Codable {
         #elseif canImport(AppKit)
         let config = NSImage.SymbolConfiguration(pointSize: 100, weight: .regular)
         guard let image = NSImage(systemSymbolName: systemName, accessibilityDescription: nil)?.withSymbolConfiguration(config),
-              let tiff = image.tiffRepresentation,
-              let bitmap = NSBitmapImageRep(data: tiff),
-              let data = bitmap.representation(using: .png, properties: [:]) else { return nil }
+              let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
+        let bitmap = NSBitmapImageRep(cgImage: cgImage)
+        guard let data = bitmap.representation(using: .png, properties: [:]) else { return nil }
         let width = Double(image.size.width)
         let height = Double(image.size.height)
         

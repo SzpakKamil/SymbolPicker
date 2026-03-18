@@ -28,9 +28,8 @@ extension UIImage {
 #elseif os(macOS)
 extension NSImage {
     func averageColor() -> NSColor? {
-        guard let tiffData = self.tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffData) else { return nil }
-        let ciImage = CIImage(bitmapImageRep: bitmapImage)
-        guard let inputImage = ciImage else { return nil }
+        guard let cgImage = self.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
+        let inputImage = CIImage(cgImage: cgImage)
         let extentVector = CIVector(x: inputImage.extent.origin.x, y: inputImage.extent.origin.y, z: inputImage.extent.size.width, w: inputImage.extent.size.height)
 
         guard let filter = CIFilter(name: "CIAreaAverage", parameters: [kCIInputImageKey: inputImage, kCIInputExtentKey: extentVector]) else { return nil }
