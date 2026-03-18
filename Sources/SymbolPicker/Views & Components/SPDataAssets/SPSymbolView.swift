@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SPSymbolView: View {
+public struct SPSymbolView: View {
     @Environment(\.spSymbolVariant) var symbolVariant
     private let annotation: String?
     private let filledName: String
@@ -35,7 +35,7 @@ struct SPSymbolView: View {
         Image(systemName: variant == .filled ? filledName : notFilledName)
             .resizable()
             .scaledToFit()
-            // Force the view to occupy a square space
+
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .aspectRatio(1, contentMode: .fit)
             .drawingGroup()

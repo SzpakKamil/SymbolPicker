@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SPEmojiView: View {
+public struct SPEmojiView: View {
     private let emoji: SPEmoji
     
     public var body: some View {
@@ -36,7 +36,7 @@ struct SPEmojiView: View {
     }
 }
 
-struct SPEmojiSkinView: View {
+public struct SPEmojiSkinView: View {
     private let skin: SPEmoji.Skin
     
     public var body: some View {

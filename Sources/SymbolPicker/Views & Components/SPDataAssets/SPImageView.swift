@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct SPImageView: View {
+public struct SPImageView: View {
     let image: SPImage
     
-    var body: some View {
+    public var body: some View {
         GeometryReader { geometry in
             AsyncImage(url: image.localURL) { phase in
                 switch phase {
