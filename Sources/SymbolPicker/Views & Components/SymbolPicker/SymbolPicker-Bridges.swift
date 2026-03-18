@@ -24,7 +24,7 @@ public struct SymbolPickerModifier<DataAsset: SPDataAsset, Configuration:SymbolP
         ))
     }
 
-    init(isPresented: Binding<Bool>, configuration: Configuration, picker: SymbolPicker<DataAsset, Configuration>,  @ViewBuilder content: () -> V, ) {
+    init(isPresented: Binding<Bool>, configuration: Configuration, picker: SymbolPicker<DataAsset, Configuration>,  @ViewBuilder content: () -> V) {
         self.content = content()
         self.isPresented = isPresented
         self.picker = picker
