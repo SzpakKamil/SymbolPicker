@@ -9,7 +9,7 @@ import SwiftUI
 
 public actor SPDataManager {
     // MARK: - Error Cases
-    enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case fileNotFound(fileName: String)
         case bundleURLNotCreated(fileName: String)
         case decodingFailed(type: String, error: DecodingError)
