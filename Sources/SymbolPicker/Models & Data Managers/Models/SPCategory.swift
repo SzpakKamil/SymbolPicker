@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct SPCategory<T: SPDataAsset>: Identifiable, Equatable, Comparable {
-    var id: String { category }
+public struct SPCategory<T: SPDataAsset>: Identifiable, Equatable, Comparable, Sendable {
+    public var id: String { category }
     let category: String
     let elements: [T]
     
-    static func == (lhs: SPCategory<T>, rhs: SPCategory<T>) -> Bool {
+    public static func == (lhs: SPCategory<T>, rhs: SPCategory<T>) -> Bool {
         lhs.category == rhs.category && lhs.elements == rhs.elements
     }
     
-    static func < (lhs: SPCategory<T>, rhs: SPCategory<T>) -> Bool {
+    public static func < (lhs: SPCategory<T>, rhs: SPCategory<T>) -> Bool {
         lhs.category < rhs.category
     }
 }

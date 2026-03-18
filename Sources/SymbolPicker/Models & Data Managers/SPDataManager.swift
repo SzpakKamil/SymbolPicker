@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-actor SPDataManager {
+public actor SPDataManager {
     // MARK: - Error Cases
     enum Error: Swift.Error {
         case fileNotFound(fileName: String)
@@ -31,7 +31,7 @@ actor SPDataManager {
     
     // MARK: - Search Methods
     
-    func search<T: SPDataAsset>(_ type: T.Type, for text: String) async throws -> [SPCategory<T>] {
+    public func search<T: SPDataAsset>(_ type: T.Type, for text: String) async throws -> [SPCategory<T>] {
         let items = try await fetchRaw(type: T.self)
         
         if text.trimmingCharacters(in: .whitespaces).isEmpty {
@@ -48,7 +48,7 @@ actor SPDataManager {
     
     // MARK: - Fetching and Loading
     
-    func fetch<T: SPDataAsset>(type: T.Type) async throws -> [SPCategory<T>] {
+    public func fetch<T: SPDataAsset>(type: T.Type) async throws -> [SPCategory<T>] {
         let items = try await fetchRaw(type: type)
         return self.groupItems(items)
     }
