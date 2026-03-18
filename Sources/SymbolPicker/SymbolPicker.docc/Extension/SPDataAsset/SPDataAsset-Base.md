@@ -38,7 +38,7 @@ Existing conformances include:
 - ``SymbolPicker/SPSymbol``: Represents Apple's SF Symbols.
 - ``SymbolPicker/SPEmoji``: Represents Unicode emojis with support for skin tone variants.
 
-> Note: While ``SymbolPicker/SPImage`` shares many properties with `SPDataAsset`, it is handled separately as it represents user-provided or remote content rather than bundle-provided resources.
+> Note: While ``SymbolPicker/SPImage`` shares many properties with `SPDataAsset`, it is handled separately as it represents user-selected photos from the library (via PhotosPicker) rather than bundle-provided resources.
 
 ## Topics
 

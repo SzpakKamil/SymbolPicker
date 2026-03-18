@@ -8,8 +8,7 @@
 import SwiftUI
 import ColorKit
 
-@_documentation(visibility: internal)
-struct SPSelectionPreview: View {
+public struct SPSelectionPreview: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.symbolPickerStyle) var symbolPickerStyle
     @Environment(\.spSelection) var spSelection
@@ -32,7 +31,7 @@ struct SPSelectionPreview: View {
         return false
     }
     
-    var body: some View {
+    public var body: some View {
         if spSelection.wrappedValue.isContentAvailable(){
             #if os(watchOS)
             Button{
@@ -211,4 +210,6 @@ struct SPSelectionPreview: View {
         }
         #endif
     }
+    
+    public init(){}
 }

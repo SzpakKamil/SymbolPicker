@@ -61,7 +61,7 @@ Present a picker for ``SPEmoji``, with support for various color binding types.
 - ``SwiftUICore/View/symbolPicker(isPresented:emoji:colorValues:configuration:)-(_,Binding<SPEmoji?>,_,_)``
 
 ### Custom Image Presentation
-Present a picker for ``SPImage``.
+Present a picker specifically for user-selected photos from the library (``SymbolPicker/SPImage``).
 
 - ``SwiftUICore/View/symbolPicker(isPresented:image:configuration:)-(_,Binding<SPImage>,_)``
 - ``SwiftUICore/View/symbolPicker(isPresented:image:configuration:)-(_,Binding<SPImage?>,_)``
