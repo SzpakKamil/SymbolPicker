@@ -198,6 +198,33 @@ public extension SymbolPicker where Configuration == SymbolPickerDefaultConfigur
         results.style.currentOptionListConfiguration = { (style: SPDisplayStyle) in current(style).spOptionListBackgroundPressed(value) }
         return results
     }
+    
+    
+    // MARK: SPSelectionPreview Modifiers
+    func spSelectionPreviewCornerRadiusFactor(_ value: CGFloat) -> Self {
+        var results = self
+        let current = results.style.currentSelectionPreviewConfiguration
+        results.style.currentSelectionPreviewConfiguration = { (style: SPDisplayStyle) in current(style).spSelectionPreviewCornerRadiusFactor(value) }
+        return results
+    }
+    
+    #if (os(iOS) || os(visionOS) || os(macOS) || os(tvOS) || os(watchOS)) && compiler(>=6.0)
+    @available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, watchOS 26.0, *)
+    func spSelectionPreviewCalculateOffset(_ closure: @Sendable @escaping (ScrollGeometry) -> CGFloat) -> Self {
+        var results = self
+        let current = results.style.currentSelectionPreviewConfiguration
+        results.style.currentSelectionPreviewConfiguration = { (style: SPDisplayStyle) in current(style).spSelectionPreviewCalculateOffset(closure) }
+        return results
+    }
+    
+    @available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, watchOS 26.0, *)
+    func spSelectionPreviewCalculateScale(_ closure: @Sendable @escaping (ScrollGeometry) -> CGFloat) -> Self {
+        var results = self
+        let current = results.style.currentSelectionPreviewConfiguration
+        results.style.currentSelectionPreviewConfiguration = { (style: SPDisplayStyle) in current(style).spSelectionPreviewCalculateScale(closure) }
+        return results
+    }
+    #endif
 }
 
 public extension SymbolPickerModifier where Configuration == SymbolPickerDefaultConfiguration{
@@ -424,6 +451,30 @@ public extension SymbolPickerModifier where Configuration == SymbolPickerDefault
         result.style.currentPresentationConfiguration = { (style: SPDisplayStyle) in current(style).spPresentationDents(dents) }
         return result
     }
-
-
+    
+    // MARK: SPSelectionPreview Modifiers
+    func spSelectionPreviewCornerRadiusFactor(_ value: CGFloat) -> Self {
+        var results = self
+        let current = results.style.currentSelectionPreviewConfiguration
+        results.style.currentSelectionPreviewConfiguration = { (style: SPDisplayStyle) in current(style).spSelectionPreviewCornerRadiusFactor(value) }
+        return results
+    }
+    
+    #if (os(iOS) || os(visionOS) || os(macOS) || os(tvOS) || os(watchOS)) && compiler(>=6.0)
+    @available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, watchOS 26.0, *)
+    func spSelectionPreviewCalculateOffset(_ closure: @Sendable @escaping (ScrollGeometry) -> CGFloat) -> Self {
+        var results = self
+        let current = results.style.currentSelectionPreviewConfiguration
+        results.style.currentSelectionPreviewConfiguration = { (style: SPDisplayStyle) in current(style).spSelectionPreviewCalculateOffset(closure) }
+        return results
+    }
+    
+    @available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, watchOS 26.0, *)
+    func spSelectionPreviewCalculateScale(_ closure: @Sendable @escaping (ScrollGeometry) -> CGFloat) -> Self {
+        var results = self
+        let current = results.style.currentSelectionPreviewConfiguration
+        results.style.currentSelectionPreviewConfiguration = { (style: SPDisplayStyle) in current(style).spSelectionPreviewCalculateScale(closure) }
+        return results
+    }
+    #endif
 }

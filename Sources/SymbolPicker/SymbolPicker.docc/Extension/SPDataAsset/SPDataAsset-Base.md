@@ -25,10 +25,10 @@ A protocol that defines the requirements for assets that can be displayed and se
 The `SPDataAsset` protocol serves as the fundamental abstraction for all selectable assets within the SymbolPicker package. It provides a standardized interface that allows the system to treat disparate types—such as SF Symbols, Emojis, and custom icons—uniformly for fetching, searching, and UI rendering.
 
 By conforming to `SPDataAsset`, a type integrates into the package's core architecture, enabling:
-- **Generic Fetching**: The ``SymbolPicker/SPDataManager`` can load assets from localized JSON resources in the app bundle using the `filePrefix` and `fetchAssets(locale:)` requirements.
-- **Unified Search**: Search logic is standardized through the `matches(_:)` method, which utilizes properties like `annotation`, `category`, and `tags` to provide a responsive and relevant user experience.
-- **Availability Checking**: The `isAvailable()` method ensures that the UI only displays assets that are supported by the user's current operating system and hardware.
-- **Visual Representation**: The `asView()` method allows each asset type to define its own SwiftUI rendering logic while remaining compatible with generic grid and list layouts.
+- **Generic Fetching**: The ``SymbolPicker/SPDataManager`` can load assets from localized JSON resources in the app bundle using the ``SymbolPicker/SPDataAsset/filePrefix`` and ``SymbolPicker/SPDataAsset/fetchAssets(locale:)`` requirements.
+- **Unified Search**: Search logic is standardized through the ``SymbolPicker/SPDataAsset/matches(_:)`` method, which utilizes properties like ``annotation``, ``category``, and ``tags`` to provide a responsive and relevant user experience.
+- **Availability Checking**: The ``SymbolPicker/SPDataAsset/isAvailable()`` method ensures that the UI only displays assets that are supported by the user's current operating system and hardware.
+- **Visual Representation**: The ``SymbolPicker/SPDataAsset/asView()`` method allows each asset type to define its own SwiftUI rendering logic while remaining compatible with generic grid and list layouts.
 
 ### Conformance
 

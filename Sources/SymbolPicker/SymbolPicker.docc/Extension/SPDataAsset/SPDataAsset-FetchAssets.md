@@ -24,15 +24,15 @@ The `fetchAssets(locale:)` method is the primary way that assets are loaded into
 
 ### Implementation Requirements
 
-A type conforming to `SPDataAsset` must implement this method to:
+A type conforming to ``SPDataAsset`` must implement this method to:
 - Construct the resource URL using its ``SymbolPicker/SPDataAsset/filePrefix`` and the provided locale string.
 - Load the contents of the JSON file from the bundle.
 - Decode the JSON data into an array of the conforming type.
 - Filter the results using ``SymbolPicker/SPDataAsset/isAvailable()`` to ensure that only supported assets are returned.
 
-### Asynchronous Operations
+### Asynchronous & Non-isolated Operations
 
-Loading and decoding large asset files (especially for emojis) can be computationally intensive. By making this method `async`, the `SPDataManager` can perform these operations in the background, keeping the main thread responsive for UI interactions.
+Loading and decoding large asset files (especially for emojis) can be computationally intensive. By making this method `async` and `nonisolated`, the ``SymbolPicker/SPDataManager`` can perform these operations without blocking its own mailbox. This ensures that the data manager remains responsive to other requests while the heavy disk I/O and JSON decoding are handled on a background thread.
 
 ### Fallback Behavior
 

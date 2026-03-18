@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct SPOptionListSectionGrid<T: SPDataAsset, Content: View>: View {
-    let data: [SPCategory<T>]
+struct SPOptionListSectionGrid<DataAsset: SPDataAsset, Content: View>: View {
+    let data: [SPCategory<DataAsset>]
     let columns: [GridItem]
     let spacing: CGFloat
-    let content: (T) -> Content
+    let content: (DataAsset) -> Content
     
     var body: some View {
         #if os(macOS)

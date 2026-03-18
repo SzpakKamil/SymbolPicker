@@ -17,7 +17,7 @@ The primary classification group for the asset, supporting SF Symbols, Emojis, a
 
 ## Overview
 
-The `category` property provides a high-level grouping mechanism that the `SymbolPicker` uses to organize assets into meaningful sections. For example, in a symbols picker, a category could be "Nature", "Objects", or "People".
+The `category` property provides a high-level grouping mechanism that the ``SymbolPicker/SPOptionList`` uses to organize assets into meaningful sections. For example, in a symbols picker, a category could be "Nature", "Objects", or "People".
 
 ### Role in UI Organization
 
@@ -32,4 +32,4 @@ Categories are typically localized through the same JSON resource files as the a
 
 ### Implementation Detail
 
-When a type conforms to `SPDataAsset`, it must define how it handles categories. For ``SymbolPicker/SPSymbol``, categories are pre-defined by the system metadata, while for ``SymbolPicker/SPEmoji``, they follow standard Unicode category classifications.
+When a type conforms to ``SPDataAsset``, it must define how it handles categories. For ``SymbolPicker/SPSymbol``, categories are pre-defined by the system metadata, while for ``SymbolPicker/SPEmoji``, they follow standard Unicode category classifications.

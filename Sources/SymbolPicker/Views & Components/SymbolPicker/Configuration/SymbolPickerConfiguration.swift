@@ -18,6 +18,9 @@ public protocol SymbolPickerConfiguration: Sendable {
     func optionListConfiguration() -> SPOptionListConfiguration
     
     @MainActor
+    func selectionPreviewConfiguration() -> SPSelectionPreviewConfiguration
+    
+    @MainActor
     @SPInsetedViewBuilder func insetViewsConfiguration() -> [SPInsetedView]
     
     @MainActor

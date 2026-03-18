@@ -14,10 +14,10 @@ import ColorKit
 
 #if os(iOS) || os(macOS) || os(visionOS)
 @available(iOS 16.0, macOS 14.0, *)
-struct SPOptionListImage<T: SPDataAsset>: View {
+struct SPOptionListImage<DataAsset: SPDataAsset>: View {
     @Environment(\.spAllowsColorSelection) var spAllowsColorSelection
     @Environment(\.symbolPickerStyle) var style
-    @Binding var selection: SPSelection<T>
+    @Binding var selection: SPSelection<DataAsset>
     
     var body: some View{
         VStack{

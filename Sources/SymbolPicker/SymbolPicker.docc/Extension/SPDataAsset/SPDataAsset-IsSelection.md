@@ -20,7 +20,7 @@ Checks if the current asset matches the one currently selected in the picker, su
 
 ## Overview
 
-The `isSelection(of:)` method is primarily used in the UI layer of the `SymbolPicker` package. It helps the system determine which asset in the grid or list should be highlighted as "selected".
+The `isSelection(of:)` method is primarily used in the UI layer of the ``SymbolPicker`` package. It helps the system determine which asset in the grid or list should be highlighted as "selected".
 
 ### Highlighting Selection
 

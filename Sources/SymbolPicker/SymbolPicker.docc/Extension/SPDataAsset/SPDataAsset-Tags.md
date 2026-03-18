@@ -28,7 +28,7 @@ Search queries are evaluated against these tags in the default implementation of
 
 ### Asset Refinement
 
-By providing a rich set of tags, a type conforming to `SPDataAsset` can significantly improve the user's ability to find specific assets, especially in large libraries like the SF Symbol set or the Unicode emoji set.
+By providing a rich set of tags, a type conforming to ``SPDataAsset`` can significantly improve the user's ability to find specific assets, especially in large libraries like the SF Symbol set or the Unicode emoji set.
 
 ### Localization
 

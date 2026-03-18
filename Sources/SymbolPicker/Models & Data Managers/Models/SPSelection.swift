@@ -28,9 +28,9 @@ public protocol SPSelectionProtocol: Sendable {
     func asView() -> AnyView
 }
 
-public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionProtocol {
+public struct SPSelection<DataAsset: SPDataAsset>: Identifiable, Sendable, SPSelectionProtocol {
     public var type: SelectionType
-    public private(set) var symbol: T?
+    public private(set) var symbol: DataAsset?
     public private(set) var emoji: SPEmoji?
     public private(set) var image: SPImage?
     public private(set) var color: CKColor?
@@ -87,13 +87,13 @@ public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionPr
         }
     }
     
-    public init(symbol: T, color: CKColor? = nil){
+    public init(symbol: DataAsset, color: CKColor? = nil){
         self.type = .symbol
         self.symbol = symbol
         self.color = color
     }
     
-    public init(systemName: String, color: CKColor? = nil) where T == SPSymbol{
+    public init(systemName: String, color: CKColor? = nil) where DataAsset == SPSymbol{
         self.type = .symbol
         self.symbol = SPSymbol(filledName: systemName, notFilled: systemName, version: 1.0)
         self.color = color
@@ -116,7 +116,7 @@ public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionPr
         self.color = value
     }
     
-    public init(systemName: String, color: Color?) where T == SPSymbol  {
+    public init(systemName: String, color: Color?) where DataAsset == SPSymbol  {
         if let color {
             self.init(systemName: systemName, color: CKColor(color))
         } else {
@@ -124,7 +124,7 @@ public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionPr
         }
     }
     
-    public init(systemName: String, colorValues: [Double]?) where T == SPSymbol {
+    public init(systemName: String, colorValues: [Double]?) where DataAsset == SPSymbol {
         if let colorValues, !colorValues.isEmpty {
             if colorValues.count == 4 {
                 self.init(systemName: systemName, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2], opacity: colorValues[3]))
@@ -138,7 +138,7 @@ public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionPr
         }
     }
     
-    public init(emoji: SPEmoji, color: Color?) where T == SPSymbol {
+    public init(emoji: SPEmoji, color: Color?) where DataAsset == SPSymbol {
         if let color {
             self.init(emoji: emoji, color: CKColor(color))
         } else {
@@ -146,7 +146,7 @@ public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionPr
         }
     }
     
-    public init(emoji: SPEmoji, colorValues: [Double]?) where T == SPSymbol {
+    public init(emoji: SPEmoji, colorValues: [Double]?) where DataAsset == SPSymbol {
         if let colorValues, !colorValues.isEmpty {
             if colorValues.count == 4 {
                 self.init(emoji: emoji, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2], opacity: colorValues[3]))
@@ -160,7 +160,7 @@ public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionPr
         }
     }
     
-    public init(image: SPImage, color: Color?) where T == SPSymbol {
+    public init(image: SPImage, color: Color?) where DataAsset == SPSymbol {
         if let color {
             self.init(image: image, color: CKColor(color))
         } else {
@@ -168,7 +168,7 @@ public struct SPSelection<T: SPDataAsset>: Identifiable, Sendable, SPSelectionPr
         }
     }
     
-    public init(image: SPImage, colorValues: [Double]?)  where T == SPSymbol {
+    public init(image: SPImage, colorValues: [Double]?)  where DataAsset == SPSymbol {
         if let colorValues, !colorValues.isEmpty {
             if colorValues.count == 4 {
                 self.init(image: image, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2], opacity: colorValues[3]))
@@ -211,7 +211,7 @@ extension SPSelection: Codable {
         
         switch type {
         case .symbol:
-            self.symbol = try container.decode(T.self, forKey: .symbol)
+            self.symbol = try container.decode(DataAsset.self, forKey: .symbol)
             self.color = try container.decodeIfPresent(CKColor.self, forKey: .tint)
         case .emoji:
             self.emoji = try container.decode(SPEmoji.self, forKey: .emoji)
@@ -260,7 +260,7 @@ extension SPSelection {
         self.color = color
     }
 
-    public mutating func setSymbol(_ symbol: T) {
+    public mutating func setSymbol(_ symbol: DataAsset) {
         self.type = .symbol
         self.symbol = symbol
         self.emoji = nil
@@ -281,7 +281,7 @@ extension SPSelection {
         self.emoji = nil
     }
     
-    public func getSymbol() -> T? {
+    public func getSymbol() -> DataAsset? {
         return symbol
     }
     

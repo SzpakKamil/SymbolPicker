@@ -21,14 +21,14 @@ The `Body` associated type is a requirement of the ``SymbolPicker/SPDataAsset`` 
 
 ### Generic Programming
 
-By using an associated type, the `SPDataAsset` protocol allows each conforming type (e.g., `SPSymbol`, `SPEmoji`) to define its own specific view representation while still allowing the system to work with assets generically.
+By using an associated type, the ``SPDataAsset`` protocol allows each conforming type (e.g., ``SPSymbol``, ``SPEmoji``) to define its own specific view representation while still allowing the system to work with assets generically.
 
 ### Implementation
 
-When a type conforms to `SPDataAsset`, it must provide a concrete `Body` type. For example:
-- For **SPSymbol**, the `Body` is `SPSymbolView`.
-- For **SPEmoji**, the `Body` is `SPEmojiView`.
-- For **SPImage**, the `Body` is `SPImageView`.
+When a type conforms to ``SPDataAsset``, it must provide a concrete `Body` type. For example:
+- For **SPSymbol**, the `Body` is ``SPSymbolView``.
+- For **SPEmoji**, the `Body` is ``SPEmojiView``.
+- For **SPImage**, the `Body` is ``SPImageView``.
 
 ### SwiftUI Compatibility
 
@@ -36,4 +36,4 @@ The `Body` associated type must conform to the `View` protocol, ensuring that th
 
 ### Main Actor Decoration
 
-Because the `Body` type represents a SwiftUI view, any logic used to generate or configure it within `asView()` should be performed on the main actor to maintain UI thread safety.
+Because the `Body` type represents a SwiftUI view, any logic used to generate or configure it within ``asView()`` should be performed on the main actor to maintain UI thread safety.

@@ -86,26 +86,19 @@ struct SPOptionListScrollView<V: View, ProgressView: View>: View {
                 }
             }
             #endif
-            #if os(iOS) || os(visionOS) || os(macOS) || os(tvOS)
+            #if (os(iOS) || os(visionOS) || os(macOS) || os(tvOS)) && compiler(>=6.2)
             .if{ content in
                 if #available(iOS 26.0, visionOS 26.0, macOS 26.0, tvOS 26.0, watchOS 26.0, *){
                     content.onScrollGeometryChange(for: [CGFloat].self, of: { geometry in
-                        [geometry.bounds.minY, geometry.contentInsets.top]
+                        let config = style.selectionPreview
+                        return [config.calculateOffset(geometry), config.calculateScale(geometry)]
                     }, action: { oldValue, newValue in
-                        let minY = newValue[0]
-                        let topInset = newValue[1]
-                        
-                        let start = -topInset
-                        let end = start + 61
-                        
-                        let progress = min(max((start - minY) / (start - end), 0), 1)
-                        let newOffsetCalculated = 10 - (30 * progress)
+                        let newOffsetCalculated = newValue[0]
+                        let newScaleCalculated = newValue[1]
                         
                         if abs(offsetCalculated - newOffsetCalculated) > 0.5 {
                             offsetCalculated = newOffsetCalculated
                         }
-                        
-                        let newScaleCalculated =  1.0 - 0.5 * progress // Scales from 1.0 to 0.5
                         
                         if abs(scaleCalculated - newScaleCalculated) > 0.01 {
                             scaleCalculated = newScaleCalculated

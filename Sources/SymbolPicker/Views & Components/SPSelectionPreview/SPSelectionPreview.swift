@@ -110,7 +110,7 @@ struct SPSelectionPreview: View {
                                 }
                             })
                             .background(Color.white)
-                            .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.5, style: .continuous))
+                            .clipShape(RoundedRectangle(cornerRadius: targetSize * symbolPickerStyle.selectionPreview.selectionPreviewCornerRadiusFactor, style: .continuous))
                             .shadow(color: (colorValue?.color ?? .black).opacity(0.5), radius: 20)
                             .scaleEffect(spPreviewCalculateScale)
                             #if os(watchOS)
@@ -140,7 +140,7 @@ struct SPSelectionPreview: View {
                                     spSelection.wrappedValue.asView()
                                 }
                             })
-                            .clipShape(RoundedRectangle(cornerRadius: targetSize * 0.3, style: .continuous))
+                            .clipShape(RoundedRectangle(cornerRadius: targetSize * symbolPickerStyle.selectionPreview.selectionPreviewCornerRadiusFactor, style: .continuous))
                         #if os(macOS)
                             .shadow(color: (colorValue?.color ?? .black).opacity(0.5), radius: 20)
                         #endif

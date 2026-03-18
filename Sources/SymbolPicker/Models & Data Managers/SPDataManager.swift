@@ -31,8 +31,8 @@ public actor SPDataManager {
     
     // MARK: - Search Methods
     
-    public func search<T: SPDataAsset>(_ type: T.Type, for text: String) async throws -> [SPCategory<T>] {
-        let items = try await fetchRaw(type: T.self)
+    public func search<DataAsset: SPDataAsset>(_ type: DataAsset.Type, for text: String) async throws -> [SPCategory<DataAsset>] {
+        let items = try await fetchRaw(type: DataAsset.self)
         
         if text.trimmingCharacters(in: .whitespaces).isEmpty {
             return self.groupItems(items)
@@ -42,20 +42,20 @@ public actor SPDataManager {
         return [SPCategory(category: SPTranslation.SearchResults.localizedDescription, elements: filteredItems)]
     }
     
-    private nonisolated func performSearch<T: SPDataAsset>(_ items: [T], for text: String) async -> [T] {
+    private nonisolated func performSearch<DataAsset: SPDataAsset>(_ items: [DataAsset], for text: String) async -> [DataAsset] {
         return items.filter { $0.matches(text) }.removeDuplicates{ $0.isDuplicate(of: $1)}
     }
     
     // MARK: - Fetching and Loading
     
-    public func fetch<T: SPDataAsset>(type: T.Type) async throws -> [SPCategory<T>] {
+    public func fetch<DataAsset: SPDataAsset>(type: DataAsset.Type) async throws -> [SPCategory<DataAsset>] {
         let items = try await fetchRaw(type: type)
         return self.groupItems(items)
     }
     
-    private func groupItems<T: SPDataAsset>(_ items: [T]) -> [SPCategory<T>] {
+    private func groupItems<DataAsset: SPDataAsset>(_ items: [DataAsset]) -> [SPCategory<DataAsset>] {
         var orderedCategories: [String] = []
-        var groupedDictionary: [String: [T]] = [:]
+        var groupedDictionary: [String: [DataAsset]] = [:]
         
         for item in items {
             guard let categoryName = item.category else { continue }
@@ -73,19 +73,19 @@ public actor SPDataManager {
         }
     }
     
-    private func fetchRaw<T: SPDataAsset>(type: T.Type) async throws -> [T] {
+    private func fetchRaw<DataAsset: SPDataAsset>(type: DataAsset.Type) async throws -> [DataAsset] {
         let key = type.filePrefix
         
-        if let cachedData = cache.dataByType[key] as? [T] { return cachedData }
+        if let cachedData = cache.dataByType[key] as? [DataAsset] { return cachedData }
         
-        if let existingTask = cache.taskForType[key] as? Task<[T], Swift.Error> {
+        if let existingTask = cache.taskForType[key] as? Task<[DataAsset], Swift.Error> {
             return try await existingTask.value
         }
         
         let locale = self.resolveLocaleIdentifier(for: type)
         
-        let task = Task<[T], Swift.Error> {
-            return try await T.fetchAssets(locale: locale)
+        let task = Task<[DataAsset], Swift.Error> {
+            return try await DataAsset.fetchAssets(locale: locale)
         }
         
         cache.taskForType[key] = task
@@ -103,7 +103,7 @@ public actor SPDataManager {
     
     // MARK: - Locale Resolution
     
-    private func resolveLocaleIdentifier<T: SPDataAsset>(for type: T.Type) -> String {
+    private func resolveLocaleIdentifier<DataAsset: SPDataAsset>(for type: DataAsset.Type) -> String {
         let prefix = type.filePrefix
         if let cached = cache.localeByType[prefix] { return cached }
         
@@ -129,7 +129,7 @@ public actor SPDataManager {
         return finalLocale
     }
 
-    func getLocales<T: SPDataAsset>(for type: T.Type) -> [String] {
+    func getLocales<DataAsset: SPDataAsset>(for type: DataAsset.Type) -> [String] {
         let prefix = type.filePrefix
         
         if let cached = cache.localesByType[prefix] { return cached }

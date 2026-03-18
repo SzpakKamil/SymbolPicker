@@ -26,6 +26,12 @@ public struct SymbolPickerDefaultConfiguration: SymbolPickerConfiguration {
         self.currentOptionListConfiguration(displayStyle)
     }
     
+    @MainActor public var currentSelectionPreviewConfiguration: @MainActor (SPDisplayStyle) -> SPSelectionPreviewConfiguration
+    
+    @MainActor public func selectionPreviewConfiguration() -> SPSelectionPreviewConfiguration {
+        self.currentSelectionPreviewConfiguration(displayStyle)
+    }
+    
     @MainActor public var currentInsetViewConfiguration: @MainActor (SPDisplayStyle, SPColorPickerConfiguration?) -> [SPInsetedView]
     
     @MainActor public func insetViewsConfiguration() -> [SPInsetedView] {
@@ -57,6 +63,7 @@ public struct SymbolPickerDefaultConfiguration: SymbolPickerConfiguration {
         self.currentPresentationConfiguration = { SPPresentationConfiguration(style: $0) }
         self.currentColorPickerConfiguration = { SPColorPickerConfiguration(style: $0) }
         self.currentOptionListConfiguration = { SPOptionListConfiguration(style: $0) }
+        self.currentSelectionPreviewConfiguration = { _ in SPSelectionPreviewConfiguration() }
         self.currentInsetViewConfiguration = { style, colorPicker in
             SymbolPickerDefaultConfiguration.defaultInsetViews(for: style, colorPicker: colorPicker)
         }

@@ -15,7 +15,7 @@ public protocol SPDataAsset: Sendable, Hashable, Equatable, Identifiable, Codabl
     var tags: [String]? { get }
     func matches(_ text: String) -> Bool
     static var filePrefix: String { get }
-    static func fetchAssets(locale: String) async throws -> [Self]
+    nonisolated static func fetchAssets(locale: String) async throws -> [Self]
     func isDuplicate(of other: Self) -> Bool
     func isAvailable() -> Bool
     func isSelection(of symbol: Self) -> Bool

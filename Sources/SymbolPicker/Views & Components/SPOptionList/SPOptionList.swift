@@ -11,12 +11,12 @@ import SearchBar
 import ColorKit
 
 // MARK: - Main View
-public struct SPOptionList<T: SPDataAsset>: View {
+public struct SPOptionList<DataAsset: SPDataAsset>: View {
     @Environment(\.spSearchText) private var searchText
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.spPageType) private var pageType
     @Environment(\.symbolPickerStyle) private var style
-    @Binding var selection: SPSelection<T>
+    @Binding var selection: SPSelection<DataAsset>
     @State private var emojiForSkinPicker: SPEmoji?
     private let dataManager = SPDataManager()
     private var currentSize: CGFloat {
@@ -56,7 +56,7 @@ public struct SPOptionList<T: SPDataAsset>: View {
         #endif
 
     }
-    public init(selection: Binding<SPSelection<T>>) {
+    public init(selection: Binding<SPSelection<DataAsset>>) {
         self._selection = selection
     }
 }

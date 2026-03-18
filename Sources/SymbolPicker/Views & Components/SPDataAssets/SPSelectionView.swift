@@ -8,8 +8,8 @@
 import SwiftUI
 import ColorKit
 
-public struct SPSelectionView<T: SPDataAsset>: View {
-    private var selection: SPSelection<T>?
+public struct SPSelectionView<DataAsset: SPDataAsset>: View {
+    private var selection: SPSelection<DataAsset>?
     
     public var body: some View {
         Group {
@@ -22,7 +22,7 @@ public struct SPSelectionView<T: SPDataAsset>: View {
         .id(selection?.id)
     }
     
-    public init(selection: SPSelection<T>?) {
+    public init(selection: SPSelection<DataAsset>?) {
         self.selection = selection
     }
 }

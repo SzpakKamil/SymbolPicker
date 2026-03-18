@@ -12,6 +12,7 @@ public extension SymbolPickerConfiguration {
     func colorPickerConfiguration() -> SPColorPickerConfiguration? { return .init(style: displayStyle) }
     
     func presentationConfiguration() -> SPPresentationConfiguration { return .init(style: displayStyle) }
+    func selectionPreviewConfiguration() -> SPSelectionPreviewConfiguration { return .init() }
     
     func optionListConfiguration() -> SPOptionListConfiguration { return .init() }
     
@@ -40,6 +41,8 @@ public extension SymbolPickerConfiguration {
     }
     
     internal var colorPicker: SPColorPickerConfiguration? { colorPickerConfiguration() }
+    
+    internal var selectionPreview: SPSelectionPreviewConfiguration { selectionPreviewConfiguration() }
     
     internal var presentation: SPPresentationConfiguration { presentationConfiguration() }
     

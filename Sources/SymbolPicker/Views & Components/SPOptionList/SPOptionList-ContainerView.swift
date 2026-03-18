@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct SPOptionListContainerView<T: SPDataAsset, PhotoView: View, SymbolView: View, EmojiView: View>: View {
+struct SPOptionListContainerView<DataAsset: SPDataAsset, PhotoView: View, SymbolView: View, EmojiView: View>: View {
     @Environment(\.spSearchText) var searchText
     @Environment(\.spPageType) var pageType
     @Environment(\.symbolPickerStyle) var style
-    @State private var symbols: [SPCategory<T>] = []
+    @State private var symbols: [SPCategory<DataAsset>] = []
     @State private var emojis: [SPCategory<SPEmoji>] = []
     
     let photoView: () -> PhotoView
-    let symbolView: ([SPCategory<T>]) -> SymbolView
+    let symbolView: ([SPCategory<DataAsset>]) -> SymbolView
     let emojiView: ([SPCategory<SPEmoji>]) -> EmojiView
     private let dataManager = SPDataManager()
     
@@ -55,7 +55,7 @@ struct SPOptionListContainerView<T: SPDataAsset, PhotoView: View, SymbolView: Vi
         
         do {
             async let searchedSymbols = types.contains(.symbol) || defaultType == .symbol
-                ? try await dataManager.search(T.self, for: searchText.wrappedValue)
+                ? try await dataManager.search(DataAsset.self, for: searchText.wrappedValue)
                 : []
                 
             async let searchedEmojis = types.contains(.emoji) || defaultType == .emoji
@@ -78,7 +78,7 @@ struct SPOptionListContainerView<T: SPDataAsset, PhotoView: View, SymbolView: Vi
         
         do {
             async let fetchedSymbols = types.contains(.symbol) || defaultType == .symbol
-                ? try await dataManager.fetch(type: T.self)
+                ? try await dataManager.fetch(type: DataAsset.self)
                 : []
                 
             async let fetchedEmojis = types.contains(.emoji) || defaultType == .emoji
@@ -94,7 +94,7 @@ struct SPOptionListContainerView<T: SPDataAsset, PhotoView: View, SymbolView: Vi
         }
     }
     
-    init(@ViewBuilder photoView: @escaping () -> PhotoView, @ViewBuilder symbolView: @escaping ([SPCategory<T>]) -> SymbolView, @ViewBuilder emojiView: @escaping ([SPCategory<SPEmoji>]) -> EmojiView) {
+    init(@ViewBuilder photoView: @escaping () -> PhotoView, @ViewBuilder symbolView: @escaping ([SPCategory<DataAsset>]) -> SymbolView, @ViewBuilder emojiView: @escaping ([SPCategory<SPEmoji>]) -> EmojiView) {
         self.photoView = photoView
         self.symbolView = symbolView
         self.emojiView = emojiView

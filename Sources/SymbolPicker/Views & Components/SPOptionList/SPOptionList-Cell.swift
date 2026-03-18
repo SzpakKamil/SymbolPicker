@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct SPOptionListCell<T: SPDataAsset>: View {
+struct SPOptionListCell<DataAsset: SPDataAsset>: View {
     @Environment(\.symbolPickerStyle) private var symbolPickerStyle
-    @Binding var selection: SPSelection<T>
+    @Binding var selection: SPSelection<DataAsset>
     @FocusState private var isFocused: Bool
-    let symbol: T?
+    let symbol: DataAsset?
     let emoji: SPEmoji?
     let size: CGFloat
     let columns: [GridItem]
@@ -93,7 +93,7 @@ struct SPOptionListCell<T: SPDataAsset>: View {
         #endif
     }
     
-    init(selection: Binding<SPSelection<T>>, emoji: SPEmoji, size: CGFloat, columns: [GridItem], onShowSkins: @escaping (SPEmoji) -> Void = {_ in}) {
+    init(selection: Binding<SPSelection<DataAsset>>, emoji: SPEmoji, size: CGFloat, columns: [GridItem], onShowSkins: @escaping (SPEmoji) -> Void = {_ in}) {
         self._selection = selection
         self.symbol = nil
         self.emoji = emoji
@@ -102,7 +102,7 @@ struct SPOptionListCell<T: SPDataAsset>: View {
         self.onShowSkins = onShowSkins
     }
     
-    init(selection: Binding<SPSelection<T>>, symbol: T, size: CGFloat) {
+    init(selection: Binding<SPSelection<DataAsset>>, symbol: DataAsset, size: CGFloat) {
         self._selection = selection
         self.symbol = symbol
         self.emoji = nil

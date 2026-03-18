@@ -24,18 +24,17 @@ The `asView()` method is the core requirement for rendering assets within the `S
 ### UI Integration
 
 When building the picker grid or list, the ``SymbolPicker/SPOptionList`` calls `asView()` on each asset to obtain its rendering. This allows the picker to uniformly display different asset types:
-- **SPSymbol**: For symbols, `asView()` returns a `SPSymbolView`.
-- **SPEmoji**: For emojis, `asView()` returns a `SPEmojiView`.
-- **SPImage**: For custom images, `asView()` returns a `SPImageView`.
+- **SPSymbol**: For symbols, ``asView()`` returns a ``SPSymbolView``.
+- **SPEmoji**: For emojis, ``asView()`` returns a ``SPEmojiView``.
 
 ### Specialized Rendering
 
-The conforming type's implementation of `asView()` should handle any specific rendering requirements for that asset. For example, `SPEmojiView` can manage skin tone variants, and `SPSymbolView` can handle variant configurations.
+The conforming type's implementation of ``asView()`` should handle any specific rendering requirements for that asset. For example, ``SPEmojiView`` can manage skin tone variants, and ``SPSymbolView`` can handle variant configurations.
 
 ### Main Actor Decoration
 
-Because `asView()` is responsible for creating SwiftUI views, it is decorated with `@MainActor` to ensure that it is always called on the main thread, maintaining UI thread safety.
+Because ``asView()`` is responsible for creating SwiftUI views, it is decorated with `@MainActor` to ensure that it is always called on the main thread, maintaining UI thread safety.
 
 ### Generic Component Support
 
-By returning a concrete view type (specified by the ``SymbolPicker/SPDataAsset/Body`` associated type), `asView()` allows the picker's higher-level components to remain generic and flexible.
+By returning a concrete view type (specified by the ``SymbolPicker/SPDataAsset/Body`` associated type), ``asView()`` allows the picker's higher-level components to remain generic and flexible.

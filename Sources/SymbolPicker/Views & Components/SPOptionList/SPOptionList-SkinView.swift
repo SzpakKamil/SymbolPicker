@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct SPOptionListSkinView<T: SPDataAsset>: View {
+struct SPOptionListSkinView<DataAsset: SPDataAsset>: View {
     @Environment(\.dismiss) private var dismiss
-    @Binding var selection: SPSelection<T>
+    @Binding var selection: SPSelection<DataAsset>
     #if os(tvOS)
     @FocusState private var focusedIndex: Int?
     #endif
