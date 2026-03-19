@@ -9,20 +9,19 @@ import Foundation
 import ColorKit
 
 
-
 public struct SPColorPickerConfiguration: Sendable{
     public enum Direction: Int, Sendable{
         case grid, row
     }
-    var colors: [CKColor] = [
+    public var colors: [CKColor] = [
         .red, .orange, .yellow, .green,
         .mint, .teal, .blue, .indigo,
         .purple, .pink, .brown
     ]
-    var type: Self.Direction
-    var supportCustomColor: Bool = true
-    var supportOpacity: Bool = false
-    var spacing: CGFloat? = nil
+    public var type: Self.Direction
+    public var supportCustomColor: Bool = true
+    public var supportOpacity: Bool = false
+    public var spacing: CGFloat? = nil
     
     public init(){
         self.type = .row

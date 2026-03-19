@@ -8,6 +8,26 @@
 
 ## Topics
 
+### Protocols
+
+- ``SPDataAsset``
+- ``SPSelectionProtocol``
+- ``SymbolPickerConfiguration``
+
+### Models
+
+- ``SPCategory``
+- ``SPSymbol``
+- ``SPEmoji``
+- ``SPImage``
+
+### Configurations
+
+- ``SPPresentationConfiguration``
+- ``SPColorPickerConfiguration``
+- ``SPOptionListConfiguration``
+- ``SPSelectionPreviewConfiguration``
+
 ### Extensions
 
 - ``SwiftUICore/View``

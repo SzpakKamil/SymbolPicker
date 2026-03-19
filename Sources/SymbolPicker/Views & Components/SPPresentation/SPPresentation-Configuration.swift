@@ -8,13 +8,13 @@
 import SwiftUI
 
 public struct SPPresentationConfiguration: Sendable{
-    var presentationCornerRadius: CGFloat?
-    var presentationType: Self.DisplayType
-    var presentationDragIndicator: Visibility
-    var presentationBackgroundColor: Color
-    var presentationContentInteraction: Self.ContentInteraction
-    var presentationBackgroundInteraction: Self.BackgroundInteraction
-    var presentationDents: Set<Self.PresentationDents>
+    public var presentationCornerRadius: CGFloat?
+    public var presentationType: Self.DisplayType
+    public var presentationDragIndicator: Visibility
+    public var presentationBackgroundColor: Color
+    public var presentationContentInteraction: Self.ContentInteraction
+    public var presentationBackgroundInteraction: Self.BackgroundInteraction
+    public var presentationDents: Set<Self.PresentationDents>
     
     public init(){
         self.presentationType = .default

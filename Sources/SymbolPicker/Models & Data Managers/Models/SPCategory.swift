@@ -9,13 +9,15 @@ import SwiftUI
 
 public struct SPCategory<DataAsset: SPDataAsset>: Identifiable, Equatable, Comparable, Sendable {
     public var id: String { category }
-    let category: String
-    let elements: [DataAsset]
+    public let category: String
+    public let elements: [DataAsset]
     
+    @_documentation(visibility: internal)
     public static func == (lhs: SPCategory<DataAsset>, rhs: SPCategory<DataAsset>) -> Bool {
         lhs.category == rhs.category && lhs.elements == rhs.elements
     }
     
+    @_documentation(visibility: internal)
     public static func < (lhs: SPCategory<DataAsset>, rhs: SPCategory<DataAsset>) -> Bool {
         lhs.category < rhs.category
     }

@@ -10,10 +10,10 @@ import SwiftUI
 public extension SymbolPickerConfiguration {
     @MainActor
     @SPSpacingBuilder
-    func spacingConfiguration() -> [SPSpacing] { Self.defaultSpacingConfiguration() }
+    public func spacingConfiguration() -> [SPSpacing] { Self.defaultSpacingConfiguration() }
     
     @MainActor
-    var spacings: [SPSpacing]{ spacingConfiguration() }
+    public var spacings: [SPSpacing]{ spacingConfiguration() }
     
     @SPSpacingBuilder
     internal static func defaultSpacingConfiguration() -> [SPSpacing] {
