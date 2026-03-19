@@ -10,9 +10,9 @@ import SwiftUI
 @MainActor
 public extension SymbolPickerConfiguration {
     @SPInsetedViewBuilder
-    public func insetViewsConfiguration() -> [SPInsetedView] { Self.defaultInsetViews(for: displayStyle, colorPicker: colorPicker) }
+    func insetViewsConfiguration() -> [SPInsetedView] { Self.defaultInsetViews(for: displayStyle, colorPicker: colorPicker) }
     
-    public var insetViews: [SPInsetedView] { insetViewsConfiguration() }
+    var insetViews: [SPInsetedView] { insetViewsConfiguration() }
     
     @SPInsetedViewBuilder
     internal static func defaultInsetViews(for displayStyle: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) -> [SPInsetedView] {

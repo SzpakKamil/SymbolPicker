@@ -23,7 +23,7 @@ struct SPOptionListImage<DataAsset: SPDataAsset>: View {
         VStack{
             Section {
                 VStack{
-                    if let config = style.colorPicker, spAllowsColorSelection {
+                    if style.colorPicker != nil && spAllowsColorSelection {
                         ColorPicker(selection: $selection.asCKColor.asColor) {
                             HStack{
                                 Text(SPTranslation.DetectedColor.localizedDescription)

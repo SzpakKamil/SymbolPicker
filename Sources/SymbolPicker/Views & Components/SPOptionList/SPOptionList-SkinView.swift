@@ -99,7 +99,6 @@ struct SPOptionListSkinView<DataAsset: SPDataAsset>: View {
 
     @ViewBuilder
     private func content(watchSize: CGFloat? = nil) -> some View {
-        let displaySize = watchSize ?? size
         Button {
             var baseEmoji = emoji
             baseEmoji.tone = 0

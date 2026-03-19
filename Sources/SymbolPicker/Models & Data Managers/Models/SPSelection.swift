@@ -74,7 +74,7 @@ public struct SPSelection<DataAsset: SPDataAsset>: Identifiable, Sendable, SPSel
     public var id: String {
         switch type {
         case .symbol:
-            return "symbol:\(String(symbol?.id.hashValue ?? 0) ?? "unknown")"
+            return "symbol:\(String(symbol?.id.hashValue ?? 0))"
         case .emoji:
             if let emoji = emoji {
                 return "emoji:\(emoji.id):tone\(emoji.tone)"
@@ -83,7 +83,7 @@ public struct SPSelection<DataAsset: SPDataAsset>: Identifiable, Sendable, SPSel
         case .image:
             return "image:\(image?.id.uuidString ?? "unknown")"
         case .color:
-            return "color:\(String(color?.id.hashValue ?? 0) ?? "unknown")"
+            return "color:\(String(color?.id.hashValue ?? 0))"
         }
     }
     

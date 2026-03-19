@@ -13,7 +13,7 @@ public extension SymbolPickerConfiguration {
     
     var supportedTypes: [SPPageType] { SPPageType.allCases }
     
-    public var defaultType: SPPageType { .symbol }
+    var defaultType: SPPageType { .symbol }
     
     var allowSearching: Bool { true }
     
