@@ -1,0 +1,185 @@
+# SPSymbol & SPSymbol.Variant Comprehensive Guide
+
+This guide provides an exhaustive technical breakdown of the `SPSymbol` data model and its associated types within the `SymbolPicker` package. `SPSymbol` is the foundational structure used to represent, manage, and render Apple's SF Symbols with enhanced metadata, variant support, and platform-specific availability logic.
+
+**File Location**: `/Users/kamilszpak/SymbolPickerGuide.txt`
+
+---
+
+## 1. Overview of SPSymbol
+`SPSymbol` is more than a wrapper around a system name string. It is a data-driven model that conforms to `SPDataAsset`, allowing it to be seamlessly managed by `SPDataManager` and displayed within the `SymbolPicker` grid. It solves several key problems:
+- **Variant Consistency**: Keeps track of which "filled" icon corresponds to which "outlined" icon.
+- **Platform Safety**: Prevents crashes or empty views on older OS versions by verifying symbol existence at runtime.
+- **Searchability**: Adds tags and annotations so users can find symbols by meaning (e.g., searching "love" finds "heart").
+- **Localization**: Supports fetching translated metadata based on the user's locale.
+
+---
+
+## 2. SPSymbol.Variant (Nested Type)
+
+The `Variant` enum defines the visual state of an SF Symbol. It is used to toggle between the two primary styles supported by most icons in the SF Symbols library.
+
+### Enum Definition
+```swift
+public enum Variant: String, Identifiable, Equatable, Hashable, Codable, Sendable {
+    case filled
+    case outlined
+}
+```
+
+### Cases
+- **`.filled`**: Represents the solid version of the symbol (usually suffixed with `.fill` in the system name).
+- **`.outlined`**: Represents the standard stroked version of the symbol.
+
+### Properties
+- **`id: String`**: 
+  - **Purpose**: Returns a human-readable, capitalized string representation of the case.
+  - **Values**: Returns `"Filled"` for the `.filled` case and `"Outlined"` for the `.outlined` case.
+  - **Usage**: Used in SwiftUI `Picker` or `SegmentedControl` components within the `SymbolPicker` settings to allow users to toggle the visual style of the library.
+
+---
+
+## 3. SPSymbol Properties
+
+Every property in `SPSymbol` serves a specific architectural purpose in the picker's lifecycle.
+
+### Identification & Versioning
+- **`id: String`**: 
+  - **Logic**: A composite identifier generated during initialization as `filledName + notFilled + category`.
+  - **Usage**: Since SF Symbols might appear in multiple categories, this composite ID ensures that the `Identifiable` protocol works correctly in SwiftUI lists and grids without collision.
+- **`version: Double`**: 
+  - **Logic**: Represents the version of the SF Symbols library (e.g., `1.0`, `2.0`, `5.0`) required for this asset.
+  - **Usage**: Primarily used for internal tracking and debugging of data catalogs.
+
+### Naming & Style
+- **`filledName: String`**: The system name used for the filled variant (e.g., `"star.bubble.fill"`).
+- **`notFilled: String`**: The system name used for the outlined variant (e.g., `"star.bubble"`).
+- **`variant: SPSymbol.Variant?`**: 
+  - **Logic**: An optional property that stores the currently active style for this instance.
+  - **Usage**: When set, the `asView()` method and `name(for:)` method use this value to determine which system name to render. If `nil`, the library typically defaults to the `notFilled` state unless the specific view context overrides it.
+
+### Metadata & Search
+- **`annotation: String?`**: 
+  - **Logic**: A localized, descriptive name for the symbol.
+  - **Usage**: Used as the primary search target and as an accessibility label/tooltip for the user.
+- **`category: String?`**: The top-level group (e.g., `"Weather"`).
+- **`subcategory: String?`**: The granular group (e.g., `"Cloudy"`).
+- **`tags: [String]?`**: 
+  - **Logic**: An array of keywords.
+  - **Usage**: Essential for the search engine. Tags allow a symbol like `paperplane` to be found when the user types "send" or "mail".
+
+---
+
+## 4. Initializers
+
+`SPSymbol` provides two distinct initializers depending on whether the asset is being created manually in code or loaded from a data source.
+
+### 4.1. The "Quick" Initializer
+```swift
+public init(systemName: String)
+```
+- **Description**: Creates a symbol wrapper where the filled and outlined names are identical.
+- **Internal Logic**:
+  - `id` is set to the `systemName`.
+  - `filledName` and `notFilled` both become `systemName`.
+  - `version` defaults to `1.0`.
+  - All metadata (`category`, `tags`, etc.) are initialized as `nil`.
+- **Usage**: Best for simple implementations where you don't need variant toggling or advanced search metadata.
+
+### 4.2. The "Full" Initializer
+```swift
+init(filledName: String, notFilled: String, version: Double = 1.0, variant: SPSymbol.Variant? = nil, annotation: String? = nil, category: String? = nil, subcategory: String? = nil, tags: [String]? = nil)
+```
+- **Description**: The primary internal initializer used by the `Codable` implementation and `fetchAssets`.
+- **Internal Logic**:
+  - **ID Generation**: Automatically constructs the `id` property by concatenating the names and category to ensure global uniqueness within the `DataManager`.
+- **Usage**: This is used when ingesting the large JSON catalogs included in the package resources to build a rich, searchable symbol library.
+
+---
+
+## 5. Core Methods
+
+### 5.1. Platform & Availability
+- **`isAvailable() -> Bool`**: 
+  - **How it works**: This is a critical safety check. 
+    - On **iOS/UIKit**: It attempts to initialize a `UIImage(systemName:)` for both the `filledName` and `notFilled` strings.
+    - On **macOS/AppKit**: It uses `NSImage(systemSymbolName:)`.
+  - **Returns**: `true` only if *both* variant strings are recognized by the current operating system. 
+  - **Impact**: This ensures that users on iOS 15 don't see "empty" slots for symbols introduced in iOS 17.
+
+### 5.2. Style Resolution
+- **`name(for variant: SPSymbol.Variant) -> String`**: 
+  - **Returns**: `filledName` if the input is `.filled`, or `notFilled` if the input is `.outlined`.
+  - **Usage**: Used by rendering views to pull the correct system string at the moment of drawing.
+
+### 5.3. Comparison & Selection
+- **`isSelection(of symbol: Self) -> Bool`**: 
+  - **Logic**: Checks if the target `symbol` matches this one by comparing the `filledName` against either our `filledName` or `notFilled`.
+  - **Purpose**: This allows the picker to highlight the "Heart" symbol as selected even if the user changes the global variant from filled to outlined.
+- **`isDuplicate(of other: Self) -> Bool`**: 
+  - **Logic**: Compares both `filledName` and `notFilled`. Used during the loading process to clean up overlapping data in the JSON files.
+- **`matches(_ text: String) -> Bool`**: 
+  - **Logic**: The search engine. It performs a `localizedStandardContains` check against `tags`, `annotation`, `category`, and `subcategory`.
+
+### 5.4. Rendering
+- **`asView() -> some View`**: 
+  - **Returns**: An `SPSymbolView`.
+  - **Logic**: This is a `@MainActor` `@ViewBuilder` method. It initializes the internal SwiftUI view which handles the actual `Image(systemName:)` call, applying appropriate scaling and respecting the internal `variant` state.
+
+---
+
+## 6. Static Methods & Data Management
+
+Section 6 details the static properties and methods used to orchestrate data flow between the package bundle and the application.
+
+- **`static let filePrefix: String = "symbols"`**: 
+  - **Usage**: Acts as a namespace for the data manager. It instructs `SPDataManager` to look for localizable JSON files following the naming convention: `\(filePrefix)_\(locale).json`.
+
+- **`static func fetchAssets(locale: String) async throws -> [SPSymbol]`**: 
+  - **The Pipeline**:
+    1. **Bundle Lookup**: Accesses `Bundle.module` to find the JSON resource.
+    2. **Locale Resolution**: 
+       - First attempts `symbols_pl.json` (if user is in Polish).
+       - Fallbacks to `symbols_en.json` if the specific locale is missing.
+    3. **Asynchronous Decoding**: Reads the file data and decodes it into a temporary array.
+    4. **Safety Filter**: Immediately iterates through the array and executes `isAvailable()`. Only symbols valid on the current device proceed.
+    5. **Integrity Check**: Runs `removeDuplicates` based on the unique `id`.
+  - **Performance**: Designed to be run once at app startup or when the user changes their language settings.
+
+---
+
+## 7. Protocol Conformances
+
+- **`Identifiable`**: Uses the composite `id` for SwiftUI list stability.
+- **`Sendable`**: Allows the symbol data to be passed safely between background loading tasks and the Main Actor for rendering.
+- **`SPDataAsset`**: This is the core protocol of the library. By conforming to this, `SPSymbol` can be used in any generic container (like `SPCategory<SPSymbol>`) and is compatible with the `SPDataManager's` universal search and fetch methods.
+- **`Codable`**: Implements custom `CodingKeys` to map JSON fields (like `filledName`, `notFilled`, `tags`) to the struct properties.
+
+---
+
+## 8. Integration with SPSelection
+
+When a user interacts with the `SymbolPicker`, the `SPSymbol` is typically wrapped in an `SPSelection` object.
+
+### Accessing Symbol Data from Selection
+Since `SPSelection` is generic over `SPDataAsset`, you can safely cast or access the symbol:
+```swift
+let selection: SPSelection<SPSymbol> = ...
+if let symbol = selection.symbol {
+    let activeName = symbol.name(for: .filled)
+    // Use the name in a standard SwiftUI Image
+    Image(systemName: activeName)
+}
+```
+
+### Selection Persistence
+Because `SPSymbol` is `Codable`, an `SPSelection<SPSymbol>` can be easily saved to `UserDefaults` or a database. When decoded, it retains its `id`, `filledName`, and `notFilled` properties, allowing for perfect state restoration.
+
+---
+
+## 9. Best Practices
+
+1. **Always use fetchAssets**: Never manually construct an array of hundreds of `SPSymbol` objects. Use the static `fetchAssets` method to leverage the optimized JSON catalogs and automatic availability filtering.
+2. **Handle Optional Variant**: When displaying a symbol in your own UI, check if the `variant` property is set. If it is `nil`, consider providing a default style (usually `.outlined`).
+3. **Deduplication**: If you are merging symbols from multiple sources, always call `removeDuplicates` on the final array to prevent SwiftUI `id` collisions in the grid.
+4. **Search Performance**: The `matches(_:)` method is designed for real-time search. Ensure you call it on a background thread if the symbol library is exceptionally large (though the default library is optimized for main thread search).

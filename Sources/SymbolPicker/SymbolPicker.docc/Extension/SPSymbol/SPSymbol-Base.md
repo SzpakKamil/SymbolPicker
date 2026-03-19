@@ -1,7 +1,5 @@
 # ``SymbolPicker/SPSymbol``
 
-A data model for SF Symbols, supporting filled and outlined variants, localization, and system availability checks.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,54 +18,61 @@ A data model for SF Symbols, supporting filled and outlined variants, localizati
     @AutomaticArticleSubheading(disabled)
 }
 
+A data-driven model representing an Apple SF Symbol with enhanced metadata, variant support, and platform-specific availability logic.
+
 ## Overview
 
-`SPSymbol` is the primary data structure for managing Apple's SF Symbols within the `SymbolPicker`. It abstracts the complexity of symbol names, which often differ between their "filled" and "outlined" variants (e.g., `heart.fill` vs `heart`). It also ensures that only symbols available on the user's current operating system are displayed.
+`SPSymbol` is the foundational structure used to manage and render SF Symbols within the `SymbolPicker` package. It conforms to ``SymbolPicker/SPDataAsset``, allowing it to be managed by ``SymbolPicker/SPDataManager`` and displayed in a grid.
 
-### Core Features
+Beyond being a simple wrapper for a system name string, `SPSymbol` provides a robust architectural solution for:
+- **Variant Consistency**: Tracks corresponding "filled" and "outlined" icons, ensuring that users can switch styles globally while maintaining their current selection.
+- **Platform Safety**: Verifies symbol existence at runtime to prevent crashes or empty placeholders on older OS versions.
+- **Searchability**: Includes localized annotations and tags for semantic search (e.g., searching "love" finds "heart").
+- **Localization**: Supports fetching translated metadata based on the user's locale.
 
-- **Variant Handling**: Stores both `filledName` and `notFilled` system names, allowing the UI to toggle between styles dynamically.
-- **Availability**: Checks if the specific symbol (and its variants) can be instantiated on the running OS version.
-- **Categorization**: Groups symbols into categories (e.g., "Weather", "Objects") to simplify browsing.
-- **Search Optimization**: Includes `tags` and `annotation` fields to improve search relevance beyond just the system name.
+### Data Management
 
-### Conformance
+Symbols are typically loaded from localized JSON resources included in the package bundle. The static ``SymbolPicker/SPSymbol/fetchAssets(locale:)`` method orchestrates this process, including resource resolution and automatic availability filtering.
 
-`SPSymbol` is designed for use in robust data-driven UIs:
-- **Identifiable**: Uses a composite ID to ensure uniqueness even if names overlap.
-- **Codable**: Efficiently serializes to and from JSON asset catalogs.
-- **SPDataAsset**: Interoperates with other asset types like Emojis in the picker.
+### Integration with SPSelection
+
+When a user interacts with the `SymbolPicker`, the `SPSymbol` is typically wrapped in an ``SymbolPicker/SPSelection`` object. Because `SPSymbol` is `Codable`, selections can be easily persisted to `UserDefaults` or other storage.
 
 ## Topics
 
-### Properties
+### Visual Variants
+
+- ``SymbolPicker/SPSymbol/Variant``
+- ``SymbolPicker/SPSymbol/variant``
+- ``SymbolPicker/SPSymbol/name(for:)``
+
+### Asset Properties
 
 - ``SymbolPicker/SPSymbol/id``
 - ``SymbolPicker/SPSymbol/filledName``
 - ``SymbolPicker/SPSymbol/notFilled``
 - ``SymbolPicker/SPSymbol/annotation``
-- ``SymbolPicker/SPSymbol/version``
-- ``SymbolPicker/SPSymbol/variant``
 - ``SymbolPicker/SPSymbol/category``
 - ``SymbolPicker/SPSymbol/subcategory``
 - ``SymbolPicker/SPSymbol/tags``
-
-### Nested Types
-
-- ``SymbolPicker/SPSymbol/Variant``
+- ``SymbolPicker/SPSymbol/version``
 
 ### Initialization
 
 - ``SymbolPicker/SPSymbol/init(systemName:)``
 - ``SymbolPicker/SPSymbol/init(filledName:notFilled:version:variant:annotation:category:subcategory:tags:)``
 
-### Core Functionality
+### Platform & Validation
 
 - ``SymbolPicker/SPSymbol/isAvailable()``
-- ``SymbolPicker/SPSymbol/name(for:)``
-- ``SymbolPicker/SPSymbol/asView()``
+- ``SymbolPicker/SPSymbol/isDuplicate(of:)``
+- ``SymbolPicker/SPSymbol/isSelection(of:)``
+
+### Data Management
+
 - ``SymbolPicker/SPSymbol/fetchAssets(locale:)``
-
-### Static Helpers
-
 - ``SymbolPicker/SPSymbol/filePrefix``
+
+### Rendering
+
+- ``SymbolPicker/SPSymbol/asView()``

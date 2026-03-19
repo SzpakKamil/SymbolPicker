@@ -1,12 +1,12 @@
 {
-  "originHash" : "946dbba46338ff071d2768dadb93fb3456e33e0ddd9d7fb4f76b25d2e65779f2",
+  "originHash" : "52b424264135e39141d0100aa055cf1be59e8e00c10d9c5dab94cae9a921f5f1",
   "pins" : [
     {
       "identity" : "colorkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SzpakKamil/ColorKit.git",
       "state" : {
-        "revision" : "16bb31e2c67fc050b11ef4fa61cf6fedb6c019de",
+        "revision" : "2ea5097eafe34413179b5da08c98bb094a37c151",
         "version" : "1.0.0"
       }
     },
