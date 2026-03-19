@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/defaultType-1223w``
+# ``SymbolPicker/SymbolPickerConfiguration/defaultType-2ngdh``
 
 @Metadata {
     @SupportedLanguage(swift)

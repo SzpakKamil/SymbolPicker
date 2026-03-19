@@ -35,7 +35,7 @@ The primary implementation of this protocol is the generic ``SymbolPicker/SPSele
 
 ### Type Erasure
 
-In many parts of the `SymbolPicker` package, `SPSelectionProtocol` is used with type erasure (`any SPSelectionProtocol`). This is particularly important for the ``SymbolPicker/SymbolPickerStyle`` and environment values, where the system needs to handle selections without knowing the specific `DataAsset` type at compile time.
+In many parts of the `SymbolPicker` package, `SPSelectionProtocol` is used with type erasure (`any SPSelectionProtocol`). This is particularly important for the ``SymbolPicker/SymbolPicker`` and environment values, where the system needs to handle selections without knowing the specific `DataAsset` type at compile time.
 
 ## Topics
 

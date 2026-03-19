@@ -31,7 +31,10 @@ The `insetViewsConfiguration()` method is a powerful layout mechanism that allow
 - **``SymbolPicker/SPViewPlacementType/safeAreaTop`` / ``SymbolPicker/SPViewPlacementType/safeAreaBottom``**: Sticky views that stay at the top or bottom of the screen, typically used for headers, footers, or persistent controls.
 - **``SymbolPicker/SPViewPlacementType/scrollContentTop`` / ``SymbolPicker/SPViewPlacementType/scrollContentBottom``**: Views that scroll with the main list but sit outside the core content container. They are ideal for wrapping the entire picker content.
 - **``SymbolPicker/SPViewPlacementType/scrollSectionTop`` / ``SymbolPicker/SPViewPlacementType/scrollSectionBottom``**: Views that scroll and are placed immediately above or below the asset grid itself. They share the same row styling as the assets, making them perfect for headers or footers specific to the asset list.
-- **``SymbolPicker/SPViewPlacementType/toolbarTopTralling`` / ``SymbolPicker/SPViewPlacementType/toolbarBottomLeading``**: Views placed directly into the platform's native toolbar. (Note: The enum uses `Tralling` for trailing).
+- **``SymbolPicker/SPViewPlacementType/toolbarTopTralling`` / ``SymbolPicker/SPViewPlacementType/toolbarTopLeading``**: Views placed directly into the platform's native toolbar. (Note: The enum uses `Tralling` for trailing).
+- **``SymbolPicker/SPViewPlacementType/toolbarBottomLeading``**: Views integrated into the leading side of the platform's native bottom toolbar. This position is typically used for secondary actions or dismissal options.
+- **``SymbolPicker/SPViewPlacementType/toolbarBottom``**: Views placed in the center of the native bottom toolbar. This high-visibility location is often reserved for primary actions or important status indicators.
+- **``SymbolPicker/SPViewPlacementType/toolbarBottomTralling``**: Views placed on the trailing side of the native bottom toolbar. (Note: The enum uses `Tralling` for trailing). This is generally the preferred location for confirmation or primary actions.
 
 ### Customization
 

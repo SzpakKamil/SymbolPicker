@@ -14,7 +14,7 @@
 
 Sets the available presentation detents and returns the modified configuration.
 
-- Parameter value: A set of detents (e.g., `.medium`, `.large`).
+- Parameter dents: A set of detents (e.g., `.medium`, `.large`).
 - Returns: The updated configuration instance.
 
 ## Overview

@@ -279,7 +279,7 @@ public extension View {
         }
     }
 
-    #if os(iOS) || os(macOS) || os(visionOS)
+    #if !os(tvOS) && !os(watchOS)
     @available(iOS 16.0, macOS 14.0, visionOS 26.0, *)
     func symbolPicker<Configuration: SymbolPickerConfiguration>(
         isPresented: Binding<Bool>,

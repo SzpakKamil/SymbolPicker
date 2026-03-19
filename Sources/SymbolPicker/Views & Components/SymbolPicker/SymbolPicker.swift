@@ -49,7 +49,6 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
                         style.getForEachViews(for: .toolbarTopLeading)
                     }
                     #endif
-                    #if os(watchOS)
                     ToolbarItem(placement: .bottomBar) {
                         let bottomBarLeadingItems = style.getViews(for: .toolbarBottomLeading).count
                         if bottomBarLeadingItems == 0{
@@ -75,7 +74,6 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
                             style.getForEachViews(for: .toolbarBottomTralling)
                         }
                     }
-                    #endif
                 }
                 #endif
         }
