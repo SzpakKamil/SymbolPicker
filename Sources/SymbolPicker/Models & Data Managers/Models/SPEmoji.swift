@@ -39,7 +39,7 @@ public struct SPEmoji: Identifiable, Sendable, SPDataAsset {
         self.tone = 0
     }
     
-    init(id: String, version: Double, category: String? = nil, annotation: String? = nil, subcategory: String? = nil, tags: [String]? = nil, skins: [Skin]? = nil, tone: Int = 0) {
+    public init(id: String, version: Double, category: String? = nil, annotation: String? = nil, subcategory: String? = nil, tags: [String]? = nil, skins: [Skin]? = nil, tone: Int = 0) {
         self.id = id
         self.version = version
         self.category = category
@@ -255,7 +255,7 @@ extension SPEmoji {
     // 2. NSCache handles the "Memory Leak" problem by auto-evicting under pressure
     private static let availabilityCache = AvailabilityCache()
     
-    static func isEmojiRenderable(_ emoji: String) -> Bool {
+    public static func isEmojiRenderable(_ emoji: String) -> Bool {
         guard !emoji.isEmpty else { return false }
         
         let key = emoji as NSString

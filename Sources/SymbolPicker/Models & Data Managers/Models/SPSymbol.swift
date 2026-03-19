@@ -36,7 +36,7 @@ public struct SPSymbol: Identifiable, Sendable, SPDataAsset {
         self.tags = nil
     }
     
-    init(filledName: String, notFilled: String, version: Double = 1.0, variant: SPSymbol.Variant? = nil, annotation: String? = nil, category: String? = nil, subcategory: String? = nil, tags: [String]? = nil) {
+    public init(filledName: String, notFilled: String, version: Double = 1.0, variant: SPSymbol.Variant? = nil, annotation: String? = nil, category: String? = nil, subcategory: String? = nil, tags: [String]? = nil) {
         self.id = "\(filledName)\(notFilled)\(category)"
         self.filledName = filledName
         self.notFilled = notFilled

@@ -26,7 +26,11 @@ Sets the closure for calculating the dynamic scale of the selection preview and 
 ```swift
 let config = SPSelectionPreviewConfiguration()
     .spSelectionPreviewCalculateScale { geometry in
-        // Custom scale logic
-        return 1.0
+        let minY = geometry.bounds.minY
+        let topInset = geometry.contentInsets.top
+        let start = -topInset
+        let end = start + 61
+        let progress = min(max((start - minY) / (start - end), 0), 1)
+        return 1.0 - 0.5 * progress
     }
 ```

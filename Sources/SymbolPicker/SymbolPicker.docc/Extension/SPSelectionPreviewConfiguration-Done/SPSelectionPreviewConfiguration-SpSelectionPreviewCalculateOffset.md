@@ -26,7 +26,11 @@ Sets the closure for calculating the dynamic vertical offset of the selection pr
 ```swift
 let config = SPSelectionPreviewConfiguration()
     .spSelectionPreviewCalculateOffset { geometry in
-        // Custom offset logic
-        return 0.0
+        let minY = geometry.bounds.minY
+        let topInset = geometry.contentInsets.top
+        let start = -topInset
+        let end = start + 61
+        let progress = min(max((start - minY) / (start - end), 0), 1)
+        return 10 - (30 * progress)
     }
 ```
