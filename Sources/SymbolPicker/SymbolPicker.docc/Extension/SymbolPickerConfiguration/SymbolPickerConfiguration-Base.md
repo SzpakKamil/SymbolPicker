@@ -43,11 +43,21 @@ Methods that return specific configuration objects for various sub-components.
 - ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()``
 - ``SymbolPicker/SymbolPickerConfiguration/selectionPreviewConfiguration()``
 
+### Convenience Accessors
+Public properties that provide shortened syntax for accessing component configurations.
+
+- ``SymbolPicker/SymbolPickerConfiguration/presentation``
+- ``SymbolPicker/SymbolPickerConfiguration/colorPicker``
+- ``SymbolPicker/SymbolPickerConfiguration/optionList``
+- ``SymbolPicker/SymbolPickerConfiguration/selectionPreview``
+
 ### Layout & Spacing
 Customizing the overall structure and dynamic dimensions of the picker.
 
 - ``SymbolPicker/SymbolPickerConfiguration/insetViewsConfiguration()``
+- ``SymbolPicker/SymbolPickerConfiguration/insetViews``
 - ``SymbolPicker/SymbolPickerConfiguration/spacingConfiguration()``
+- ``SymbolPicker/SymbolPickerConfiguration/spacings``
 
 ### Global Properties
 Properties that define the overall state and behavior of the picker.

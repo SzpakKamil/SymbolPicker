@@ -40,13 +40,13 @@ public extension SymbolPickerConfiguration {
         }
     }
     
-    internal var colorPicker: SPColorPickerConfiguration? { colorPickerConfiguration() }
+    var colorPicker: SPColorPickerConfiguration? { colorPickerConfiguration() }
     
-    internal var selectionPreview: SPSelectionPreviewConfiguration { selectionPreviewConfiguration() }
+    var selectionPreview: SPSelectionPreviewConfiguration { selectionPreviewConfiguration() }
     
-    internal var presentation: SPPresentationConfiguration { presentationConfiguration() }
+    var presentation: SPPresentationConfiguration { presentationConfiguration() }
     
-    internal var optionList: SPOptionListConfiguration { optionListConfiguration() }
+    var optionList: SPOptionListConfiguration { optionListConfiguration() }
     
-    internal var insetViews: [SPInsetedView] { insetViewsConfiguration() }
+    var insetViews: [SPInsetedView] { insetViewsConfiguration() }
 }

@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/colorPickerConfiguration()``
+# ``SymbolPicker/SymbolPickerConfiguration/colorPicker``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -13,30 +13,15 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Returns an optional ``SymbolPicker/SPColorPickerConfiguration`` for the integrated ``SymbolPicker/SPColorPicker`` view.
-
-- Returns: An ``SymbolPicker/SPColorPickerConfiguration`` if color selection is enabled; otherwise, `nil`.
+A convenience computed property that returns the integrated color selection tool configuration.
 
 ## Overview
 
-The `colorPickerConfiguration()` method controls the availability and setup of the color picker tool. If this method returns `nil`, the ``SymbolPicker/SPColorPicker`` will be completely disabled within the picker UI.
+The `colorPicker` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/colorPickerConfiguration()``.
 
-### Configuration Options
+### Implementation
 
-The configuration object allows you to customize:
-- **Enabled State**: Toggle the picker's visibility.
-- **Color Palette**: Provide a custom list of colors for the grid.
-- **Layout**: Choose between a standard grid or a horizontal list.
-- **Advanced Features**: Toggle support for opacity adjustments and custom color selection via a system picker.
-
-### Customization
-
+It is defined as a simple wrapper:
 ```swift
-func colorPickerConfiguration() -> SPColorPickerConfiguration? {
-    SPColorPickerConfiguration()
-        .spColorPickerEnabled(true)
-        .spColorPickerLayout(.grid, spacing: 10)
-        .spColorPickerSupportsOpacity(false)
-        .spColorPickerColors([.red, .orange, .yellow, .green, .blue, .purple])
-}
+var colorPicker: SPColorPickerConfiguration? { colorPickerConfiguration() }
 ```

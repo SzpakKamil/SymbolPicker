@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/selectionPreview``
+# ``SymbolPicker/SymbolPickerConfiguration/spacings``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -13,15 +13,15 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A convenience computed property that returns the selection preview configuration.
+A convenience computed property that returns the collection of spacing rules for the picker.
 
 ## Overview
 
-The `selectionPreview` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/selectionPreviewConfiguration()``.
+The `spacings` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/spacingConfiguration()``. It is primarily used internally to reduce repetitive function calls and maintain cleaner code when layout components need to retrieve dynamic dimensions.
 
 ### Implementation
 
 It is defined as a simple wrapper:
 ```swift
-var selectionPreview: SPSelectionPreviewConfiguration { selectionPreviewConfiguration() }
+var spacings: [SPSpacing] { spacingConfiguration() }
 ```

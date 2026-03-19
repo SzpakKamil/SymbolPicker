@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/insetViewsConfiguration()``
+# ``SymbolPicker/SymbolPickerConfiguration/insetViews``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -13,36 +13,15 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Returns an array of ``SymbolPicker/SPInsetedView`` objects defining the custom layout of the picker.
-
-- Returns: A collection of inseted views.
+A convenience computed property that returns the collection of inseted views.
 
 ## Overview
 
-The `insetViewsConfiguration()` method is a powerful layout mechanism that allows placing auxiliary views (like search bars, color pickers, or headers) into specific ``SymbolPicker/SPViewPlacementType`` slots within the picker UI.
+The `insetViews` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/insetViewsConfiguration()``.
 
-### Inset View Placements
+### Implementation
 
-- **``SymbolPicker/SPViewPlacementType/safeAreaTop`` / ``SymbolPicker/SPViewPlacementType/safeAreaBottom``**: Sticky views that stay at the top or bottom of the screen, typically used for headers, footers, or persistent controls.
-- **``SymbolPicker/SPViewPlacementType/scrollContentTop`` / ``SymbolPicker/SPViewPlacementType/scrollContentBottom``**: Views that scroll with the main list but sit outside the core content container. They are ideal for wrapping the entire picker content.
-- **``SymbolPicker/SPViewPlacementType/scrollSectionTop`` / ``SymbolPicker/SPViewPlacementType/scrollSectionBottom``**: Views that scroll and are placed immediately above or below the asset grid itself. They share the same row styling as the assets, making them perfect for headers or footers specific to the asset list.
-- **``SymbolPicker/SPViewPlacementType/toolbarTopTralling`` / ``SymbolPicker/SPViewPlacementType/toolbarBottomLeading``**: Views placed directly into the platform's native toolbar. (Note: The enum uses `Tralling` for trailing).
-
-### Customization
-
+It is defined as a simple wrapper:
 ```swift
-func insetViewsConfiguration() -> [SPInsetedView] {
-    // Only show a custom header and the page picker
-    SPInsetedView(placement: .safeAreaTop) {
-        VStack {
-            Text("My Icon Picker")
-                .font(.headline)
-            Divider()
-        }
-    }
-    
-    SPInsetedView(placement: .safeAreaBottom) {
-        SPPagePicker()
-    }
-}
+var insetViews: [SPInsetedView] { insetViewsConfiguration() }
 ```

@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()``
+# ``SymbolPicker/SymbolPickerConfiguration/optionList``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -13,28 +13,15 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Returns an ``SymbolPicker/SPOptionListConfiguration`` which governs the styling of the main ``SymbolPicker/SPOptionList`` grid.
-
-- Returns: A configuration object for the main symbol/emoji list.
+A convenience computed property that returns the main asset list configuration.
 
 ## Overview
 
-The `optionListConfiguration()` method provides granular control over the ``SymbolPicker/SPOptionList``. It defines the appearance of individual items in their various states: normal, selected, focused, and pressed.
+The `optionList` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()``.
 
-### Styling Options
+### Implementation
 
-- **Corner Radius**: Adjust the corner radius of individual grid items.
-- **Padding**: Control the inner padding within each item.
-- **State Colors**: Customize the foreground and background colors for each interaction state.
-
-### Customization
-
+It is defined as a simple wrapper:
 ```swift
-func optionListConfiguration() -> SPOptionListConfiguration {
-    SPOptionListConfiguration()
-        .spOptionListCornerRadiusFactor(1.0) // Circle items
-        .spOptionListForegroundSelected(.white)
-        .spOptionListBackgroundSelected(.blue)
-        .spOptionListInnerPaddingFactor(0.2)
-}
+var optionList: SPOptionListConfiguration { optionListConfiguration() }
 ```
