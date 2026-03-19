@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/presentationConfiguration()``
+# ``SymbolPicker/SymbolPickerConfiguration/presentationConfiguration()-8l8re``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,7 +22,11 @@ Returns an ``SymbolPicker/SPPresentationConfiguration`` object that controls how
 
 - Returns: A configuration object for modal presentation behaviors.
 
-## Overview
+## Default Implementation
+
+```swift
+func presentationConfiguration() -> SPPresentationConfiguration { return .init(style: displayStyle) }
+```
 
 The `presentationConfiguration()` method is responsible for defining the "shell" of the picker. It governs the presentation type (e.g., sheet or popover), the background color of the modal, corner radii, and drag interaction behaviors.
 

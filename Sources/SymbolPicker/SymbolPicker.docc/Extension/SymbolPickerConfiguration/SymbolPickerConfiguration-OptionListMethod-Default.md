@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()``
+# ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()-2d7xc``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,7 +22,11 @@ Returns an ``SymbolPicker/SPOptionListConfiguration`` which governs the styling 
 
 - Returns: A configuration object for the main symbol/emoji list.
 
-## Overview
+## Default Implementation
+
+```swift
+func optionListConfiguration() -> SPOptionListConfiguration { return .init() }
+```
 
 The `optionListConfiguration()` method provides granular control over the ``SymbolPicker/SPOptionList``. It defines the appearance of individual items in their various states: normal, selected, focused, and pressed.
 

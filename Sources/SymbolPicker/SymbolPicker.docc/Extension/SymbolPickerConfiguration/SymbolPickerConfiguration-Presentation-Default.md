@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/presentation``
+# ``SymbolPicker/SymbolPickerConfiguration/presentation-2p8w1``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -13,20 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-@Options {
-    @AutomaticSeeAlso(disabled)
-}
-
-
 A convenience computed property that returns the presentation configuration.
 
-## Overview
+## Default Implementation
 
-The `presentation` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/presentationConfiguration()``.
+The default implementation returns the result of the ``SymbolPicker/SymbolPickerConfiguration/presentationConfiguration()`` method.
 
-### Implementation
-
-It is defined as a simple wrapper:
 ```swift
 var presentation: SPPresentationConfiguration { presentationConfiguration() }
 ```

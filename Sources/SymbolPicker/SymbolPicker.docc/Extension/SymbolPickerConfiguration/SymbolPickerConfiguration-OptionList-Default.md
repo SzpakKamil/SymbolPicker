@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/optionList``
+# ``SymbolPicker/SymbolPickerConfiguration/optionList-1q9z3``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -13,20 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-@Options {
-    @AutomaticSeeAlso(disabled)
-}
-
-
 A convenience computed property that returns the main asset list configuration.
 
-## Overview
+## Default Implementation
 
-The `optionList` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()``.
+The default implementation returns the result of the ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()`` method.
 
-### Implementation
-
-It is defined as a simple wrapper:
 ```swift
 var optionList: SPOptionListConfiguration { optionListConfiguration() }
 ```

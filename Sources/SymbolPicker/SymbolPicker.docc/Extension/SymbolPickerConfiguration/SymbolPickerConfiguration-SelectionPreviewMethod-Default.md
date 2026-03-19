@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/selectionPreviewConfiguration()``
+# ``SymbolPicker/SymbolPickerConfiguration/selectionPreviewConfiguration()-3z2zs``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,7 +22,11 @@ Returns an ``SymbolPicker/SPSelectionPreviewConfiguration`` for the ``SymbolPick
 
 - Returns: A configuration object for the selection preview component.
 
-## Overview
+## Default Implementation
+
+```swift
+func selectionPreviewConfiguration() -> SPSelectionPreviewConfiguration { return .init() }
+```
 
 The `selectionPreviewConfiguration()` method defines the appearance and dynamic animation behaviors of the ``SymbolPicker/SPSelectionPreview`` that displays the currently selected asset.
 

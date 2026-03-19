@@ -8,7 +8,7 @@
 import SwiftUI
 import SearchBar
 
-struct SPSearchBar: View {
+public struct SPSearchBar: View {
     @Environment(\.spSearchText) var spSearchText
     @Environment(\.spPageType) var spPageType
     @Environment(\.symbolPickerStyle) var symbolPickerStyle
@@ -16,7 +16,7 @@ struct SPSearchBar: View {
     @Environment(\.spAllowsColorSelection) var spAllowsColorSelection
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.spHorizontalPadding) var horizontalPadding
-    var body: some View {
+    public var body: some View {
         if (spAllowedPageTypes.contains(.symbol) || spAllowedPageTypes.contains(.emoji)) && symbolPickerStyle.allowSearching{
             
             let backgroundColor: Color? = {
@@ -124,4 +124,6 @@ struct SPSearchBar: View {
         }
         #endif
     }
+    
+    public init(){}
 }

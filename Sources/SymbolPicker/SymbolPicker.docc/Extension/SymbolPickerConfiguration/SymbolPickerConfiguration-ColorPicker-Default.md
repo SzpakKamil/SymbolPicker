@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/colorPicker``
+# ``SymbolPicker/SymbolPickerConfiguration/colorPicker-7e4y1``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -13,19 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-@Options {
-    @AutomaticSeeAlso(disabled)
-}
-
 A convenience computed property that returns the integrated color selection tool configuration.
 
-## Overview
+## Default Implementation
 
-The `colorPicker` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/colorPickerConfiguration()``.
+The default implementation returns the result of the ``SymbolPicker/SymbolPickerConfiguration/colorPickerConfiguration()`` method.
 
-### Implementation
-
-It is defined as a simple wrapper:
 ```swift
 var colorPicker: SPColorPickerConfiguration? { colorPickerConfiguration() }
 ```

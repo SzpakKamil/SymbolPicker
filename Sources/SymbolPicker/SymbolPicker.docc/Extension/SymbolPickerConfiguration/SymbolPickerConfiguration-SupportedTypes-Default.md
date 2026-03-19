@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/supportedTypes``
+# ``SymbolPicker/SymbolPickerConfiguration/supportedTypes-3e5vy``
 
 @Metadata {
     @SupportedLanguage(swift)

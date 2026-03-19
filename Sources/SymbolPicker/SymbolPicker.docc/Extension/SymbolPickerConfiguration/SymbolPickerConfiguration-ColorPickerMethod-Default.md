@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/colorPickerConfiguration()``
+# ``SymbolPicker/SymbolPickerConfiguration/colorPickerConfiguration()-6p73j``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,7 +22,11 @@ Returns an optional ``SymbolPicker/SPColorPickerConfiguration`` for the integrat
 
 - Returns: An ``SymbolPicker/SPColorPickerConfiguration`` if color selection is enabled; otherwise, `nil`.
 
-## Overview
+## Default Implementation
+
+```swift
+func colorPickerConfiguration() -> SPColorPickerConfiguration? { return .init(style: displayStyle) }
+```
 
 The `colorPickerConfiguration()` method controls the availability and setup of the color picker tool. If this method returns `nil`, the ``SymbolPicker/SPColorPicker`` will be completely disabled within the picker UI.
 

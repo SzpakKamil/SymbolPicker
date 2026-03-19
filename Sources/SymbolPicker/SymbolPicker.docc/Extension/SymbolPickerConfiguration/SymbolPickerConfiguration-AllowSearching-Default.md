@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/allowSearching``
+# ``SymbolPicker/SymbolPickerConfiguration/allowSearching-92ykr``
 
 @Metadata {
     @SupportedLanguage(swift)

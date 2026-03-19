@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/selectionPreview``
+# ``SymbolPicker/SymbolPickerConfiguration/selectionPreview-3u8x2``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -13,20 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-@Options {
-    @AutomaticSeeAlso(disabled)
-}
-
-
 A convenience computed property that returns the selection preview configuration.
 
-## Overview
+## Default Implementation
 
-The `selectionPreview` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/selectionPreviewConfiguration()``.
+The default implementation returns the result of the ``SymbolPicker/SymbolPickerConfiguration/selectionPreviewConfiguration()`` method.
 
-### Implementation
-
-It is defined as a simple wrapper:
 ```swift
 var selectionPreview: SPSelectionPreviewConfiguration { selectionPreviewConfiguration() }
 ```

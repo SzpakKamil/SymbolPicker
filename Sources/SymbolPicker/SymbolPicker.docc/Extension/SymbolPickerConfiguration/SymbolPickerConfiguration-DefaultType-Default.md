@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/optionList``
+# ``SymbolPicker/SymbolPickerConfiguration/defaultType-1223w``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -18,15 +18,14 @@
 }
 
 
-A convenience computed property that returns the main asset list configuration.
+The ``SymbolPicker/SPPageType`` asset type that is selected when the picker first opens.
 
 ## Overview
 
-The `optionList` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()``.
+The `defaultType` property defines which tab or asset type is initially displayed to the user. It must be one of the types defined in the ``SymbolPicker/SymbolPickerConfiguration/supportedTypes`` property.
 
-### Implementation
+### Customization
 
-It is defined as a simple wrapper:
 ```swift
-var optionList: SPOptionListConfiguration { optionListConfiguration() }
+var defaultType: SPPageType = .emoji
 ```

@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/spacings``
+# ``SymbolPicker/SymbolPickerConfiguration/spacings-1r2t5``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -13,20 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-@Options {
-    @AutomaticSeeAlso(disabled)
-}
-
-
 A convenience computed property that returns the collection of spacing rules for the picker.
 
-## Overview
+## Default Implementation
 
-The `spacings` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/spacingConfiguration()``. It is primarily used internally to reduce repetitive function calls and maintain cleaner code when layout components need to retrieve dynamic dimensions.
+The default implementation returns the result of the ``SymbolPicker/SymbolPickerConfiguration/spacingConfiguration()`` method.
 
-### Implementation
-
-It is defined as a simple wrapper:
 ```swift
 var spacings: [SPSpacing] { spacingConfiguration() }
 ```

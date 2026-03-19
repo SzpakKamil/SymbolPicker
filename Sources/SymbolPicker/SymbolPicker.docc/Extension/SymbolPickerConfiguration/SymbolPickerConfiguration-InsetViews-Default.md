@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/insetViews``
+# ``SymbolPicker/SymbolPickerConfiguration/insetViews-5v7x4``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -13,20 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-@Options {
-    @AutomaticSeeAlso(disabled)
-}
-
-
 A convenience computed property that returns the collection of inseted views.
 
-## Overview
+## Default Implementation
 
-The `insetViews` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/insetViewsConfiguration()``.
+The default implementation returns the result of the ``SymbolPicker/SymbolPickerConfiguration/insetViewsConfiguration()`` method.
 
-### Implementation
-
-It is defined as a simple wrapper:
 ```swift
 var insetViews: [SPInsetedView] { insetViewsConfiguration() }
 ```

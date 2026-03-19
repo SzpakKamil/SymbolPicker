@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/spacingConfiguration()``
+# ``SymbolPicker/SymbolPickerConfiguration/spacingConfiguration()-1uh8x``
 
 @Metadata {
     @SupportedLanguage(swift)

@@ -13,6 +13,11 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
+@Options {
+    @AutomaticSeeAlso(disabled)
+}
+
+
 The ``SymbolPicker/SPPageType`` asset type that is selected when the picker first opens.
 
 ## Overview

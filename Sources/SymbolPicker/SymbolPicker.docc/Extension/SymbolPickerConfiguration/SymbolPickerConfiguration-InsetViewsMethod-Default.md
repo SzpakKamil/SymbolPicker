@@ -1,4 +1,4 @@
-# ``SymbolPicker/SymbolPickerConfiguration/insetViewsConfiguration()``
+# ``SymbolPicker/SymbolPickerConfiguration/insetViewsConfiguration()-7c9n4``
 
 @Metadata {
     @SupportedLanguage(swift)

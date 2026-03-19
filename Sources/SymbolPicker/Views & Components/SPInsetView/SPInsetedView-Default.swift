@@ -1,8 +1,8 @@
 //
-//  SymbolPickerConfiguration-InsetViewsConfiguration.swift
+//  SPInsetedView-Default.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 23/02/2026.
+//  Created by Kamil Szpak on 15/03/2026.
 //
 
 import SwiftUI
@@ -10,7 +10,12 @@ import SwiftUI
 @MainActor
 public extension SymbolPickerConfiguration {
     @SPInsetedViewBuilder
-    internal static func defaultInsetViews(for displayStyle: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) -> [SPInsetedView] {
+    func insetViewsConfiguration() -> [SPInsetedView] { Self.defaultInsetViews(for: displayStyle, colorPicker: colorPicker) }
+    
+    var insetViews: [SPInsetedView] { insetViewsConfiguration() }
+    
+    @SPInsetedViewBuilder
+    static func defaultInsetViews(for displayStyle: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) -> [SPInsetedView] {
         if displayStyle != .plain {
             #if os(tvOS)
             let spacing: CGFloat = 25

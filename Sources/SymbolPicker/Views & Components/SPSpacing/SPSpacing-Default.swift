@@ -1,13 +1,20 @@
 //
-//  SymbolPickerConfiguration-SpacingLayout.swift
+//  SPSpacing-Default.swift
 //  SymbolPicker
 //
-//  Created by Kamil Szpak on 14/03/2026.
+//  Created by Kamil Szpak on 15/03/2026.
 //
 
 import SwiftUI
 
-extension SymbolPickerConfiguration {
+public extension SymbolPickerConfiguration {
+    @MainActor
+    @SPSpacingBuilder
+    func spacingConfiguration() -> [SPSpacing] { Self.defaultSpacingConfiguration() }
+    
+    @MainActor
+    var spacings: [SPSpacing]{ spacingConfiguration() }
+    
     @SPSpacingBuilder
     static func defaultSpacingConfiguration() -> [SPSpacing] {
         SPSpacing(component: .colorPicker) { typeSize in

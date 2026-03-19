@@ -65,8 +65,8 @@ public struct SymbolPickerDefaultConfiguration: SymbolPickerConfiguration {
         self.currentOptionListConfiguration = { SPOptionListConfiguration(style: $0) }
         self.currentSelectionPreviewConfiguration = { _ in SPSelectionPreviewConfiguration() }
         self.currentInsetViewConfiguration = { style, colorPicker in
-            SymbolPickerDefaultConfiguration.defaultInsetViews(for: style, colorPicker: colorPicker)
+            Self.defaultInsetViews(for: style, colorPicker: colorPicker)
         }
-        self.currentSpacingConfiguration = { _ in SymbolPickerDefaultConfiguration.defaultSpacingConfiguration() }
+        self.currentSpacingConfiguration = { _ in Self.defaultSpacingConfiguration() }
     }
 }
