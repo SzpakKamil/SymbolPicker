@@ -16,7 +16,7 @@ The layout orientation of the color picker component.
 
 ## Overview
 
-The `type` property defines how the color cells are arranged within the color picker.
+The `type` property defines how the color cells are arranged within the color picker. It uses the ``SymbolPicker/SPColorPickerConfiguration/Direction`` enum to specify the layout style.
 
 ### Layout Styles
 

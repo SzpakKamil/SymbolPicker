@@ -16,6 +16,8 @@ public struct SPSearchBar: View {
     @Environment(\.spAllowsColorSelection) var spAllowsColorSelection
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.spHorizontalPadding) var horizontalPadding
+    
+    @_documentation(visibility: internal)
     public var body: some View {
         if (spAllowedPageTypes.contains(.symbol) || spAllowedPageTypes.contains(.emoji)) && symbolPickerStyle.allowSearching{
             

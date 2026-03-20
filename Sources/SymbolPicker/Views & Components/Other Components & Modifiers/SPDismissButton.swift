@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct SPDismissButton: View {
+public struct SPDismissButton: View {
     @Environment(\.dismiss) var dismiss
-    var body: some View {
+    @_documentation(visibility: internal)
+    public var body: some View {
         #if os(iOS)
         if #available(iOS 26.0, *){
             #if compiler(>=6.2)
@@ -52,4 +53,6 @@ struct SPDismissButton: View {
         }
         #endif
     }
+    
+    public init(){}
 }

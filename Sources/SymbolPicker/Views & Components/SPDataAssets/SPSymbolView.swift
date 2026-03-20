@@ -15,6 +15,7 @@ public struct SPSymbolView: View {
     private let isAvailable: Bool
     private let variant: SPSymbol.Variant?
     
+    @_documentation(visibility: internal)
     public var body: some View {
         if isAvailable{
             switch variant {

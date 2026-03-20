@@ -69,3 +69,11 @@ Chainable methods for updating configuration properties.
 - ``SymbolPicker/SPPresentationConfiguration/spPresentationContentInteraction(_:)``
 - ``SymbolPicker/SPPresentationConfiguration/spPresentationBackgroundInteraction(_:)``
 - ``SymbolPicker/SPPresentationConfiguration/spPresentationDents(_:)``
+
+### Nested Types
+Helper types used for configuration.
+
+- ``SymbolPicker/SPPresentationConfiguration/DisplayType``
+- ``SymbolPicker/SPPresentationConfiguration/ContentInteraction``
+- ``SymbolPicker/SPPresentationConfiguration/BackgroundInteraction``
+- ``SymbolPicker/SPPresentationConfiguration/PresentationDents``

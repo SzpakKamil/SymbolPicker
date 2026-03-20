@@ -12,9 +12,9 @@ public struct SPInsetedView: @unchecked Sendable{
     var background: AnyView?
     var paddings: [Edge.Set: CGFloat?]
     var isDisplayed: (@Sendable (EnvironmentValues) -> Bool)?
-    let placement: SPViewPlacementType
+    let placement: SPInsetedView.Placement
     
-    public init(placement: SPViewPlacementType, spacing: CGFloat? = nil, @ViewBuilder view: () -> some View) {
+    public init(placement: SPInsetedView.Placement, spacing: CGFloat? = nil, @ViewBuilder view: () -> some View) {
         #if os(watchOS)
         self.view = AnyView(view())
         #else

@@ -14,6 +14,7 @@ public struct SPPagePicker: View {
     @Environment(\.spHorizontalPadding) var spHorizontalPadding
     @Environment(\.symbolPickerStyle) var style
     
+    @_documentation(visibility: internal)
     public var body: some View {
         let filteredTypes = style.supportedTypes.filter { spAllowedPageTypes.contains($0) }
         let supportedTypes = filteredTypes.isEmpty ? spAllowedPageTypes : filteredTypes

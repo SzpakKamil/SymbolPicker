@@ -294,12 +294,12 @@ public extension SymbolPickerConfiguration {
         }
     }
     
-    internal func getViews(for type: SPViewPlacementType) -> [SPInsetedView] {
+    internal func getViews(for type: SPInsetedView.Placement) -> [SPInsetedView] {
         insetViews.filter { $0.placement == type }
     }
     
     @ViewBuilder
-    internal func getForEachViews(for type: SPViewPlacementType) -> some View {
+    internal func getForEachViews(for type: SPInsetedView.Placement) -> some View {
         let items = getViews(for: type)
         ForEach(items.indices, id: \.self) { index in
             let item = items[index]

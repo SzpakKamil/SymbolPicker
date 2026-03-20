@@ -66,3 +66,8 @@ Chainable methods for updating configuration properties.
 - ``SymbolPicker/SPColorPickerConfiguration/spColorPickerLayout(_:spacing:)``
 - ``SymbolPicker/SPColorPickerConfiguration/spColorPickerSupportsOpacity(_:)``
 - ``SymbolPicker/SPColorPickerConfiguration/spColorPickerSupportsCustomColor(_:)``
+
+### Nested Types
+Helper types used for color picker configuration.
+
+- ``SymbolPicker/SPColorPickerConfiguration/Direction``

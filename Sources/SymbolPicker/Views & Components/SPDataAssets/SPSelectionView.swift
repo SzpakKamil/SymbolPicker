@@ -11,6 +11,7 @@ import ColorKit
 public struct SPSelectionView<DataAsset: SPDataAsset>: View {
     private var selection: SPSelection<DataAsset>?
     
+    @_documentation(visibility: internal)
     public var body: some View {
         Group {
             if let selection{

@@ -10,6 +10,7 @@ import SwiftUI
 public struct SPEmojiView: View {
     private let emoji: SPEmoji
     
+    @_documentation(visibility: internal)
     public var body: some View {
         if emoji.isAvailable() {
             Text(emoji.emojiString())
@@ -39,6 +40,7 @@ public struct SPEmojiView: View {
 public struct SPEmojiSkinView: View {
     private let skin: SPEmoji.Skin
     
+    @_documentation(visibility: internal)
     public var body: some View {
         if skin.isAvailable() {
             Text(skin.emojiString())

@@ -20,7 +20,7 @@ Sets the layout direction and optional spacing for the color picker, returning t
 
 ## Overview
 
-`spColorPickerLayout(_:spacing:)` allows you to simultaneously configure the layout type (``SymbolPicker/SPColorPickerConfiguration/type``) and spacing (``SymbolPicker/SPColorPickerConfiguration/spacing``) of the color picker.
+`spColorPickerLayout(_:spacing:)` allows you to simultaneously configure the layout type (``SymbolPicker/SPColorPickerConfiguration/type``) and spacing (``SymbolPicker/SPColorPickerConfiguration/spacing``) of the color picker. It uses the ``SymbolPicker/SPColorPickerConfiguration/Direction`` enum to define how color cells are arranged.
 
 ### Usage in Code
 

@@ -1,136 +1,105 @@
-# SymbolPicker Package: SPImage Comprehensive Guide
+# SymbolPicker: Views & Components Guide
 
-This guide provides an exhaustive technical breakdown of the `SPImage` data model within the `SymbolPicker` package. `SPImage` is a versatile asset model designed to manage, persist, and render images from diverse sources—including system symbols, remote URLs, and local data—while providing advanced layout controls like zoom and offset.
+This guide details the core UI components of the `SymbolPicker` package. These views are designed to be modular, platform-adaptive, and highly customizable through the `SymbolPickerStyle` environment.
 
 **File Location**: `/Users/kamilszpak/Desktop/Projects/Swift/Packages/SymbolPicker/SymbolPickerGuide.txt`
 
 ---
 
-## 1. Overview of SPImage
-`SPImage` serves as the high-level abstraction for non-vector or custom image assets. While `SPSymbol` and `SPEmoji` focus on system-provided glyphs, `SPImage` handles pixel-based data. It conforms to `SPDataAsset`, allowing it to participate in the `SymbolPicker` ecosystem alongside symbols and emojis.
+## 1. SPOptionList
+`SPOptionList` is the primary grid/list view responsible for displaying data assets (Symbols, Emojis, or Images). It handles layout, selection state, and the display of skin tone pickers for emojis.
 
-Key problems solved by `SPImage`:
-- **Source Agnosticism**: Unified interface for local data, remote assets, and rendered system icons.
-- **Local Persistence**: Automatically manages a local cache in the `Application Support` directory to ensure offline availability and performance.
-- **Interactive Layout**: Built-in support for zoom and offset, allowing users to "crop" or align images within the picker's grid.
-- **Dimension Awareness**: Automatically calculates and stores pixel dimensions to maintain aspect ratio consistency during rendering.
-
----
-
-## 2. SPImage Properties
-
-### Identification & Metadata
-- **`id: UUID`**: 
-  - **Logic**: A unique identifier generated upon creation.
-  - **Usage**: Used for `Identifiable` conformance in SwiftUI and as the filename for local disk persistence (`\(id).data`).
-- **`fileName: String`**: 
-  - **Logic**: Stores the original filename or system name.
-  - **Usage**: Acts as the primary `annotation` for search and accessibility.
-- **`createdAt: Date`**: Tracks when the asset was first created or ingested.
-
-### Transformation & State
-- **`zoom: Double`**: 
-  - **Purpose**: A scaling factor (default `1.0`).
-  - **Usage**: Applied in `SPImageView` to allow users to zoom into specific parts of an image.
-- **`offsetX: Double` & `offsetY: Double`**: 
-  - **Purpose**: Translation coordinates.
-  - **Usage**: Used to pan the image within its container, often in conjunction with `zoom`.
-
-### Dimensions
-- **`width: Double` & `height: Double`**: 
-  - **Logic**: The intrinsic pixel dimensions of the image.
-  - **Usage**: Critical for `SPImageView` to calculate the correct rendering ratio and prevent stretching.
-
----
-
-## 3. Initializers
-
-`SPImage` provides specialized initializers to handle different asset lifecycles.
-
-### 3.1. Remote Fetching Initializer
+### Generic Usage
+`SPOptionList` is a generic view that accepts any type conforming to `SPDataAsset`.
 ```swift
-public init(url: URL, fileName: String? = nil, ...) async throws
-```
-- **Logic**: 
-  1. Downloads data via `URLSession`.
-  2. Validates the HTTP response.
-  3. Uses `CGImageSource` to extract pixel width/height without fully decoding the image into memory.
-  4. Persists the data to the local `SymbolPicker/Images` directory.
-- **Usage**: Used for adding external web images to the user's library.
-
-### 3.2. System Symbol Initializer
-```swift
-public init?(systemName: String)
-```
-- **Logic**: 
-  1. Renders an SF Symbol at a fixed high resolution (100pt).
-  2. Converts the resulting `UIImage` (iOS) or `NSImage` (macOS) into a PNG data stream.
-  3. Captures the rendered dimensions.
-- **Usage**: Converts a system symbol into a persistent pixel-based asset that can be treated as a standard image.
-
-### 3.3. Local Data Initializer
-```swift
-public init(fileName: String, rawData: Data, ...)
-```
-- **Logic**: 
-  - Ingests raw `Data`.
-  - Attempts to infer dimensions from the data if they are not provided.
-  - Immediately writes the data to disk.
-- **Usage**: Used when picking images from the user's photo library or file system.
-
----
-
-## 4. Core Methods
-
-### 4.1. Availability & Safety
-- **`isAvailable() -> Bool`**: 
-  - **How it works**: Performs a two-step check:
-    1. Verifies the file exists at the expected `localURL`.
-    2. Uses `CGImageSourceGetStatus` to verify the file contains valid, non-corrupt image data.
-- **`localURL: URL`**: 
-  - **Logic**: Computes the path within the `Application Support` directory.
-
-### 4.2. Rendering
-- **`asView() -> some View`**: 
-  - **Returns**: An `SPImageView`.
-  - **Logic**: Encapsulates the logic for loading the image from disk asynchronously and applying the stored `zoom` and `offset` transformations.
-
----
-
-## 5. Data Persistence & Codable Logic
-
-`SPImage` implements a "lazy-loading" persistence pattern to keep JSON payloads small while ensuring data integrity.
-
-- **Encoding**: When `SPImage` is encoded (e.g., to a database or JSON file), it reads the binary data from the local disk and includes it in the `rawData` coding key. This ensures the asset is portable.
-- **Decoding**: When an `SPImage` is received (decoded), it takes the data from the `rawData` key and saves it to the local device's disk. This allows for seamless synchronization of image assets across different devices or app sessions.
-
----
-
-## 6. Protocol Conformances
-
-- **`Identifiable`**: Uses the `UUID` for list/grid stability.
-- **`SPDataAsset`**: Ensures compatibility with `SPDataManager` and the generic `SymbolPicker` UI.
-- **`Sendable`**: Safe for use in concurrent environments (essential for the `async` fetching initializer).
-- **`Hashable`**: Allows `SPImage` to be used in sets or as navigation state.
-
----
-
-## 7. Integration with SPSelection
-
-Selected images are wrapped in `SPSelection<SPImage>`. Because `SPImage` stores its own transformation state (`zoom`, `offset`), the user's "crop" or "alignment" is preserved within the selection object.
-
-```swift
-let selection: SPSelection<SPImage> = ...
-if let image = selection.image {
-    print("Displaying image: \(image.fileName) at zoom \(image.zoom)")
-}
+SPOptionList(selection: $selection)
 ```
 
+### Key Features
+- **Dynamic Grid Layout**: Automatically calculates column count based on the available width and the current dynamic type size, ensuring accessibility compliance.
+- **Sectioned Display**: Organizes assets into sections (e.g., by category) for easier navigation.
+- **Skin Tone Support**: On supported platforms, long-pressing an emoji cell triggers a skin tone selector (or a sheet on watchOS/tvOS).
+- **Selection Handling**: Updates the provided `Binding<SPSelection<DataAsset>>` when an item is tapped.
+
+### Customization
+- **Spacing**: Controlled via `SymbolPickerStyle.spacings`.
+- **Item Size**: Adaptive based on the environment's `dynamicTypeSize`.
+
 ---
 
-## 8. Best Practices
+## 2. SPColorPicker
+`SPColorPicker` provides a unified interface for selecting colors to tint symbols. It supports predefined palettes, grid/row layouts, and a custom color picker integration.
 
-1. **Background Initialization**: Always use the `async` initializer for remote URLs to avoid blocking the main thread.
-2. **Dimension Awareness**: Let `SPImage` calculate dimensions automatically from `rawData` rather than providing them manually to avoid aspect ratio distortion.
-3. **Local Storage Management**: Be aware that `SPImage` stores data in `Application Support`. Large numbers of images will increase the app's "Data & Storage" footprint.
-4. **Rendering Context**: Use `asView()` rather than manually loading the `localURL` to ensure that zoom and offset properties are correctly applied.
+### Usage
+```swift
+SPColorPicker()
+```
+*Note: The color picker will only render if `spAllowsColorSelection` is true and a valid `SPColorPickerConfiguration` is present in the style.*
+
+### Configuration
+The appearance and behavior are controlled via `SPColorPickerConfiguration`:
+- **Layout Types**: `.grid` (multi-row) or `.row` (single horizontal scroll).
+- **Custom Colors**: Enables a "rainbow" cell that opens the system color picker.
+- **Spacing & Sizing**: customizable via the configuration object.
+
+### Platform Specifics
+- **iOS/macOS/visionOS**: Renders within a glass-effect container on supported versions.
+- **watchOS**: Presents as a button that opens a dedicated color selection sheet.
+- **tvOS**: Optimized focus-based navigation.
+
+---
+
+## 3. SPPagePicker
+`SPPagePicker` is the segmented control or tab bar that allows users to switch between different asset types (e.g., Symbols vs. Emojis).
+
+### Usage
+```swift
+SPPagePicker()
+```
+
+### Behavior
+- **Automatic Filtering**: Only displays segments for page types enabled in `spAllowedPageTypes`.
+- **Hiding**: If only one page type is allowed, the picker automatically hides itself to save space.
+- **Platform Adaptation**:
+  - **iOS/visionOS**: Uses a segmented control style with platform-appropriate padding.
+  - **watchOS**: Renders as a toggle button to switch between the two available modes.
+  - **macOS/tvOS**: Uses specialized spacing and focus effects for better readability.
+
+---
+
+## 4. SPSearchBar
+`SPSearchBar` is a wrapper around the `SearchBar` package, customized for the `SymbolPicker` context. It handles search text binding and platform-specific styling.
+
+### Usage
+```swift
+SPSearchBar()
+```
+
+### Features
+- **Context-Aware Prompt**: Automatically changes placeholder text based on the active page (e.g., "Search Symbols" vs. "Search Emojis").
+- **Adaptive Styling**:
+  - **iOS/visionOS**: Uses a capsule style with blurred backgrounds.
+  - **macOS**: Uses a rounded rect style.
+  - **tvOS**: Optimized for focus and remote interaction.
+- **Glass Effects**: On supported platforms (iOS 26+), integrates with system glass materials.
+
+### Inset Helper
+The `asInsetView()` method wraps the search bar in an `SPInsetedView`, positioning it correctly within the scrollable content area (e.g., pinned to the top or bottom safe area).
+
+---
+
+## 5. SPDismissButton
+`SPDismissButton` is a standardized close button used within the picker's presentation.
+
+### Usage
+```swift
+SPDismissButton()
+```
+
+### Behavior
+- **Action**: Triggers the SwiftUI `dismiss` environment action.
+- **Styling**:
+  - **iOS 26+**: Uses a glass button style with a circle border.
+  - **Legacy iOS**: Falls back to a standard `xmark.circle.fill` icon.
+  - **macOS/watchOS**: Standard text or icon button.
+- **Localization**: Uses `SPTranslation.Close` for accessibility labels and button titles.

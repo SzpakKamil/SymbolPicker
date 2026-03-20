@@ -27,3 +27,4 @@ Sets the foreground color for focused items and returns the modified configurati
 let config = SPOptionListConfiguration()
     .spOptionListForegroundFocused(.white)
 ```
+   

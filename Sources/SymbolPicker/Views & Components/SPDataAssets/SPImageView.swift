@@ -10,6 +10,7 @@ import SwiftUI
 public struct SPImageView: View {
     let image: SPImage
     
+    @_documentation(visibility: internal)
     public var body: some View {
         GeometryReader { geometry in
             AsyncImage(url: image.localURL) { phase in
@@ -59,5 +60,9 @@ public struct SPImageView: View {
         }
         .drawingGroup()
         .id(image.id)
+    }
+    
+    public init(image: SPImage) {
+        self.image = image
     }
 }

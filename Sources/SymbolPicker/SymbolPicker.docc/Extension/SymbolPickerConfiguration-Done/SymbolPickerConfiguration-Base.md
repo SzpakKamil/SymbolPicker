@@ -29,7 +29,7 @@ The package provides a default implementation, ``SymbolPicker/SymbolPickerDefaul
 ### Key Aspects of Configuration
 
 - **Component Styles**: Granular control over the appearance of the ``SymbolPicker/SPOptionList``, ``SymbolPicker/SPColorPicker``, and ``SymbolPicker/SPSelectionPreview``.
-- **Layout System**: A powerful ``SymbolPicker/SPInsetedView`` system for placing custom UI elements into predefined slots defined by ``SymbolPicker/SPViewPlacementType``.
+- **Layout System**: A powerful ``SymbolPicker/SPInsetedView`` system for placing custom UI elements into predefined slots defined by ``SymbolPicker/SPInsetedView/Placement``.
 - **Spacing**: Dynamic, type-size-aware ``SymbolPicker/SPSpacing`` dimensions for all picker components.
 - **Global Behavior**: Controls for supported ``SymbolPicker/SPPageType`` asset types (Symbols, Emojis, and User Photos), default page, searching, and ``SymbolPicker/SPSymbol/Variant`` variants.
 

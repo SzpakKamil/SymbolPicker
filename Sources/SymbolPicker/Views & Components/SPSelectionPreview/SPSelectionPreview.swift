@@ -31,6 +31,7 @@ public struct SPSelectionPreview: View {
         return false
     }
     
+    @_documentation(visibility: internal)
     public var body: some View {
         if spSelection.wrappedValue.isContentAvailable(){
             #if os(watchOS)

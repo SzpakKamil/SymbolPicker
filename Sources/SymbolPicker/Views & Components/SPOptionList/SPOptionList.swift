@@ -25,6 +25,7 @@ public struct SPOptionList<DataAsset: SPDataAsset>: View {
 
     private var columns: [GridItem] {[GridItem(.adaptive(minimum: currentSize, maximum: currentSize * 1.2), spacing: currentSize * 0.8)]}
     
+    @_documentation(visibility: internal)
     public var body: some View {
         SPOptionListContainerView{
             #if os(iOS) || os(macOS) || os(visionOS)

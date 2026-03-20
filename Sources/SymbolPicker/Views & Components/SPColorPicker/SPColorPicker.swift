@@ -24,6 +24,7 @@ public struct SPColorPicker: View {
     }
     var selectedColor: CKColor{ spSelection.wrappedValue.getColor() ?? CKColor(red: 0, green: 0, blue: 0, opacity: 0) }
     
+    @_documentation(visibility: internal)
     public var body: some View {
         if let config = symbolPickerStyle.colorPicker, spAllowsColorSelection {
             #if os(watchOS)
