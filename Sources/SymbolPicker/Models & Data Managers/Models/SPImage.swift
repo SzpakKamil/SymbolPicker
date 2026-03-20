@@ -27,15 +27,6 @@ public struct SPImage: Identifiable, Hashable, Sendable, Codable {
     
     public var width: Double
     public var height: Double
-
-    // MARK: - SPDataAsset Conformance
-    public var annotation: String? { fileName }
-    public var category: String? { nil }
-    public var subcategory: String? { nil }
-    public var tags: [String]? { nil }
-    
-    public static var filePrefix: String { "images" }
-
     
     public func isAvailable() -> Bool {
         guard FileManager.default.fileExists(atPath: fileURL.path) else { return false }
@@ -159,6 +150,7 @@ public struct SPImage: Identifiable, Hashable, Sendable, Codable {
         case id, fileName, createdAt, rawData, zoom, offsetX, offsetY, width, height
     }
 
+    @_documentation(visibility: internal)
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
@@ -176,6 +168,7 @@ public struct SPImage: Identifiable, Hashable, Sendable, Codable {
         }
     }
 
+    @_documentation(visibility: internal)
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(UUID.self, forKey: .id)

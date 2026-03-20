@@ -48,7 +48,18 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         style.getForEachViews(for: .toolbarTopLeading)
                     }
-                    #endif
+                    
+                    ToolbarItem(placement: .bottomBar) {
+                        style.getForEachViews(for: .toolbarBottomLeading)
+                    }
+                    
+                    ToolbarItem(placement: .bottomBar) {
+                        style.getForEachViews(for: .toolbarBottom)
+                    }
+                    ToolbarItem(placement: .bottomBar) {
+                        style.getForEachViews(for: .toolbarBottomTralling)
+                    }
+                    #else
                     ToolbarItem(placement: .bottomBar) {
                         let bottomBarLeadingItems = style.getViews(for: .toolbarBottomLeading).count
                         if bottomBarLeadingItems == 0{
@@ -74,6 +85,8 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
                             style.getForEachViews(for: .toolbarBottomTralling)
                         }
                     }
+                    #endif
+
                 }
                 #endif
         }
