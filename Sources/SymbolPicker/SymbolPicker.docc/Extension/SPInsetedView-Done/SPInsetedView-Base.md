@@ -47,6 +47,7 @@ Using the ``spIsDisplayed(when:)`` method, you can control when an inset view is
 - ``SymbolPicker/SPInsetedView/spPadding(_:value:)``
 
 ### Nested Types
-Helper types used for inset view configuration.
+Helper types and ResultBuilder components used for inset view configuration.
 
 - ``SymbolPicker/SPInsetedView/Placement``
+- ``SymbolPicker/SPInsetedViewBuilder``

@@ -4,6 +4,8 @@
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
     @Available(watchOS, introduced: "10.0")
+    @Available(swift, introduced: "6.0")
+    @Available(Xcode, introduced: "15.0")
     @DocumentationExtension(mergeBehavior: override)
 }
 
