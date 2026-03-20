@@ -36,7 +36,6 @@ Each spacing object targets a specific ``SymbolPicker/SPSpacing/Component``, suc
 
 ### Initialization
 
-- ``SymbolPicker/SPSpacingBuilder``
 - ``SymbolPicker/SPSpacing/init(component:configuration:)``
 - ``SymbolPicker/SPSpacing/init(component:width:height:horizontalPadding:verticalPadding:)``
 
@@ -49,3 +48,4 @@ Each spacing object targets a specific ``SymbolPicker/SPSpacing/Component``, suc
 - ``SymbolPicker/SPSpacing/Sizing``
 - ``SymbolPicker/SPSpacing/Attribute``
 - ``SymbolPicker/SPSpacing/Component``
+- ``SymbolPicker/SPSpacingBuilder``
