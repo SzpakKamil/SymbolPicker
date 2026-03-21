@@ -7,12 +7,8 @@
 ![Banner](./Resources/SymbolPicker-BannerDark.png#gh-dark-mode-only)
 
 # Symbols, Evolved.
-### I redefined the picker experience. SymbolPicker gives you total control over asset selection in SwiftUI.
 
-Forget system limitations. I built **SymbolPicker** to offer a unified, modular, and highly customizable interface for selecting Symbols, Emojis, Colors, and Images across all Apple platforms.
-
-> **A complete rewrite.**
-> Version 2.0 is a ground-up reimagining of what a picker should be. Modular components, modern concurrency, and a design that feels native on every device.
+Total control over asset selection in SwiftUI. `SymbolPicker` offers a unified, modular interface for selecting Symbols, Emojis, Colors, and Images across all Apple platforms.
 
 Visit the [Site](https://kamilszpak.com/symbolpicker) or [Documentation](https://documentation.kamilszpak.com/documentation/symbolpicker).
 
@@ -20,7 +16,7 @@ Visit the [Site](https://kamilszpak.com/symbolpicker) or [Documentation](https:/
 
 ## Table of Contents
 
-- [Production-Ready Features](#production-ready-features)
+- [Features](#features)
 - [Your Layout, Your Rules](#your-layout-your-rules)
 - [Instant Integration](#instant-integration)
 - [Modular Architecture](#modular-architecture)
@@ -29,24 +25,24 @@ Visit the [Site](https://kamilszpak.com/symbolpicker) or [Documentation](https:/
 - [Requirements](#requirements)
 - [License](#license)
 
-## Production-Ready Features
-I handled the complexity so you don't have to. Integrate a robust asset selector that scales with your app.
+## Features
+Integrate a robust asset selector that scales with your app.
 
-- **Unified Selection**: One picker to rule them all. Select SF Symbols, Emojis, Colors, and Custom Images in a single, cohesive interface.
-- **Cross-Platform Mastery**: Native experiences on iOS, macOS, iPadOS, watchOS, tvOS, and visionOS.
-- **Global Reach**: Fully localized in over 20 languages (English, Spanish, French, German, Chinese, Japanese, and many more).
-- **Accessibility First**: Built with VoiceOver and Dynamic Type at its core, ensuring your app is usable by everyone.
-- **Smart Search**: Powered by `SearchBar`, finding the right symbol or emoji is instant and intuitive.
+- **Unified Selection**: Select SF Symbols, Emojis, Colors, and Custom Images in one interface.
+- **Cross-Platform**: Native support for iOS, macOS, iPadOS, watchOS, tvOS, and visionOS.
+- **Global Reach**: Localized in 20+ languages.
+- **Accessibility First**: Supports VoiceOver and Dynamic Type.
+- **Smart Search**: Search symbols and emojis instantly.
 
 ## Your Layout, Your Rules
-Don't fight the framework. Customize every aspect of the picker to match your design language.
+Customize the picker to match your design.
 
-- **Custom Placements**: Inject your own views with `SPInsetedView`. Add headers, footers, or custom controls exactly where you need them.
-- **Pure Canvas**: Use the `.plain` display style to strip away default layouts. Rearrange core components like `SPSearchBar` or `SPPagePicker` freely using inset views.
-- **Adaptive Design**: The interface optimizes automatically for different screen sizes, from the wrist to the desktop.
+- **Custom Placements**: Inject custom views (headers, footers) with `SPInsetedView`.
+- **Pure Canvas**: Use `.plain` style to strip default layouts. Rearrange components with inset views.
+- **Adaptive Design**: Interface adapts to all screen sizes.
 
 ## Instant Integration
-Drop it in and go. The default configuration provides a polished experience out of the box.
+Default configuration provides a polished experience.
 
 ### Basic Usage
 Present the picker as a sheet or popover:
@@ -74,7 +70,7 @@ struct ContentView: View {
 ```
 
 ## Modular Architecture
-This is where SymbolPicker 2.0 shines. Break it apart and build your own custom selector using the exposed components.
+Build custom selectors using exposed components.
 
 ```swift
 struct MyConfiguration: SymbolPickerConfiguration {
@@ -109,7 +105,7 @@ struct MyConfiguration: SymbolPickerConfiguration {
 ## Installation
 
 ### Swift Package Manager
-Add `SymbolPicker` via SPM. The minimum version required is **2.0.0**.
+Add `SymbolPicker` via SPM. Minimum version: **2.0.0**.
 
 ```swift
 dependencies: [
