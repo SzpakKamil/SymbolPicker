@@ -1,10 +1,3 @@
-//
-//  Package.swift
-//  SymbolPicker
-//
-//  Created by Kamil Szpak on 23/02/2026.
-//
-
 // swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
@@ -20,7 +13,7 @@ let package = Package(
         .library(name: "SymbolPicker", targets: ["SymbolPicker"])
     ],
     dependencies: [
-        .package(url: "https://github.com/SzpakKamil/SearchBar.git", exact: "2.1.6"),
+        .package(url: "https://github.com/SzpakKamil/SearchBar.git", exact: "2.1.7"),
         .package(url: "https://github.com/SzpakKamil/ColorKit.git", exact: "1.0.0")
     ],
     targets: [

@@ -226,7 +226,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
         let ckColorBinding = ckColor
         let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { variant in
             Binding {
-                SPSelection(systemName: systemImageBinding.wrappedValue, color: ckColorBinding.wrappedValue)
+                SPSelection(systemName: systemImageBinding.wrappedValue, ckColor: ckColorBinding.wrappedValue)
             } set: { newValue in
                 if let symbol = newValue.getSymbol() {
                     systemImageBinding.wrappedValue = symbol.name(for: variant)
@@ -250,7 +250,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
         let ckColorBinding = ckColor
         let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { variant in
             Binding {
-                SPSelection(systemName: systemImageBinding.wrappedValue ?? "", color: ckColorBinding.wrappedValue)
+                SPSelection(systemName: systemImageBinding.wrappedValue ?? "", ckColor: ckColorBinding.wrappedValue)
             } set: { newValue in
                 if let symbol = newValue.getSymbol() {
                     systemImageBinding.wrappedValue = symbol.name(for: variant)
@@ -410,7 +410,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
         let ckColorBinding = ckColor
         let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
             Binding {
-                SPSelection(emoji: emojiBinding.wrappedValue, color: ckColorBinding.wrappedValue)
+                SPSelection(emoji: emojiBinding.wrappedValue, ckColor: ckColorBinding.wrappedValue)
             } set: { newValue in
                 emojiBinding.wrappedValue = newValue.getEmoji() ?? emojiBinding.wrappedValue
                 ckColorBinding.wrappedValue = newValue.getColor() ?? ckColorBinding.wrappedValue
@@ -432,7 +432,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
         let ckColorBinding = ckColor
         let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
             Binding {
-                SPSelection(emoji: emojiBinding.wrappedValue ?? SPEmoji(""), color: ckColorBinding.wrappedValue)
+                SPSelection(emoji: emojiBinding.wrappedValue ?? SPEmoji(""), ckColor: ckColorBinding.wrappedValue)
             } set: { newValue in
                 emojiBinding.wrappedValue = newValue.getEmoji()
                 ckColorBinding.wrappedValue = newValue.getColor() ?? ckColorBinding.wrappedValue
@@ -587,7 +587,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
         let ckColorBinding = ckColor
         let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
             Binding {
-                SPSelection(image: imageBinding.wrappedValue, color: ckColorBinding.wrappedValue)
+                SPSelection(image: imageBinding.wrappedValue, ckColor: ckColorBinding.wrappedValue)
             } set: { newValue in
                 imageBinding.wrappedValue = newValue.getImage() ?? imageBinding.wrappedValue
                 ckColorBinding.wrappedValue = newValue.getColor() ?? ckColorBinding.wrappedValue
@@ -611,7 +611,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
         let placeholderImage = SPImage(fileName: "SymbolPicker.Placeholder", rawData: Data())
         let recreator: (SPSymbol.Variant) -> Binding<SPSelection<DataAsset>> = { _ in
             Binding {
-                SPSelection(image: imageBinding.wrappedValue ?? placeholderImage, color: ckColorBinding.wrappedValue)
+                SPSelection(image: imageBinding.wrappedValue ?? placeholderImage, ckColor: ckColorBinding.wrappedValue)
             } set: { newValue in
                 imageBinding.wrappedValue = newValue.getImage()
                 ckColorBinding.wrappedValue = newValue.getColor() ?? ckColorBinding.wrappedValue

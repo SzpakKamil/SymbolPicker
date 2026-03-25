@@ -1,0 +1,36 @@
+# Enum Information Guide
+
+## SPDisplayStyle
+**File:** `Sources/SymbolPicker/Models & Data Managers/Enums/SPDisplayStyle.swift`
+**Type:** `enum` (Sendable)
+**Cases:**
+- `compact`: A compact display style for the picker.
+- `detail`: A detailed display style for the picker.
+- `plain`: A plain display style for the picker.
+
+## SPPageType
+**File:** `Sources/SymbolPicker/Models & Data Managers/Enums/SPPageType.swift`
+**Type:** `enum` (String, Codable, Sendable, Equatable, CaseIterable, Identifiable, Hashable)
+**Cases:**
+- `image`: Represents an image page (Available on iOS 16.0+, macOS 14.0+, visionOS 26.0+).
+- `emoji`: Represents an emoji page.
+- `symbol`: Represents a symbol page.
+**Properties/Methods:**
+- `id`: Returns the raw value.
+- `systemName`: Returns a system icon name for each type (`hand.thumbsup.fill`, `star.fill`, or `photo`).
+- `allCases`: Static property providing cases based on platform and OS availability.
+- `localizedDescription`: Returns a localized string for the page type.
+
+## SPSupportedPlatforms
+**File:** `Sources/SymbolPicker/Models & Data Managers/Enums/SPSupportedPlatforms.swift`
+**Type:** `enum` (Hashable, Sendable)
+**Cases:**
+- `iOS(version: Int?)`: iOS platform with optional major version.
+- `macOS(version: Int?)`: macOS platform with optional major version.
+- `tvOS(version: Int?)`: tvOS platform with optional major version.
+- `watchOS(version: Int?)`: watchOS platform with optional major version.
+- `visionOS(version: Int?)`: visionOS platform with optional major version.
+**Properties/Methods:**
+- `currentPlatform`: Static property returning the current platform and its major version.
+- `majorVersion`: Returns the associated version integer.
+- `isSamePlatform(as:)`: Checks if another platform matches the type (ignoring version).

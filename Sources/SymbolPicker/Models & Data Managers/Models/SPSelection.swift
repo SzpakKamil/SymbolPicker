@@ -87,38 +87,38 @@ public struct SPSelection<DataAsset: SPDataAsset>: Identifiable, Sendable, SPSel
         }
     }
     
+    public init(value: CKColor){
+        self.type = .color
+        self.color = value
+    }
+    
     public init(symbol: DataAsset, color: CKColor? = nil){
         self.type = .symbol
         self.symbol = symbol
         self.color = color
     }
     
-    public init(systemName: String, color: CKColor? = nil) where DataAsset == SPSymbol{
+    public init(systemName: String, ckColor: CKColor? = nil) where DataAsset == SPSymbol{
         self.type = .symbol
         self.symbol = SPSymbol(filledName: systemName, notFilled: systemName, version: 1.0)
-        self.color = color
+        self.color = ckColor
     }
     
-    public init(emoji: SPEmoji, color: CKColor? = nil){
+    public init(emoji: SPEmoji, ckColor: CKColor? = nil){
         self.type = .emoji
         self.emoji = emoji
-        self.color = color
+        self.color = ckColor
     }
     
-    public init(image: SPImage, color: CKColor? = nil){
+    public init(image: SPImage, ckColor: CKColor? = nil){
         self.type = .image
         self.image = image
-        self.color = color
-    }
-    
-    public init(value: CKColor){
-        self.type = .color
-        self.color = value
+        self.color = ckColor
     }
     
     public init(systemName: String, color: Color?) where DataAsset == SPSymbol  {
         if let color {
-            self.init(systemName: systemName, color: CKColor(color))
+            self.init(systemName: systemName, color: color)
         } else {
             self.init(systemName: systemName)
         }
@@ -127,9 +127,9 @@ public struct SPSelection<DataAsset: SPDataAsset>: Identifiable, Sendable, SPSel
     public init(systemName: String, colorValues: [Double]?) where DataAsset == SPSymbol {
         if let colorValues, !colorValues.isEmpty {
             if colorValues.count == 4 {
-                self.init(systemName: systemName, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2], opacity: colorValues[3]))
+                self.init(systemName: systemName, colorValues: colorValues)
             } else if colorValues.count == 3 {
-                self.init(systemName: systemName, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2]))
+                self.init(systemName: systemName, colorValues: colorValues)
             } else {
                 self.init(systemName: systemName)
             }
@@ -140,7 +140,7 @@ public struct SPSelection<DataAsset: SPDataAsset>: Identifiable, Sendable, SPSel
     
     public init(emoji: SPEmoji, color: Color?) where DataAsset == SPSymbol {
         if let color {
-            self.init(emoji: emoji, color: CKColor(color))
+            self.init(emoji: emoji, color: color)
         } else {
             self.init(emoji: emoji)
         }
@@ -149,9 +149,9 @@ public struct SPSelection<DataAsset: SPDataAsset>: Identifiable, Sendable, SPSel
     public init(emoji: SPEmoji, colorValues: [Double]?) where DataAsset == SPSymbol {
         if let colorValues, !colorValues.isEmpty {
             if colorValues.count == 4 {
-                self.init(emoji: emoji, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2], opacity: colorValues[3]))
+                self.init(emoji: emoji, colorValues: colorValues)
             } else if colorValues.count == 3 {
-                self.init(emoji: emoji, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2]))
+                self.init(emoji: emoji, colorValues: colorValues)
             } else {
                 self.init(emoji: emoji)
             }
@@ -162,7 +162,7 @@ public struct SPSelection<DataAsset: SPDataAsset>: Identifiable, Sendable, SPSel
     
     public init(image: SPImage, color: Color?) where DataAsset == SPSymbol {
         if let color {
-            self.init(image: image, color: CKColor(color))
+            self.init(image: image, color: color)
         } else {
             self.init(image: image)
         }
@@ -171,9 +171,9 @@ public struct SPSelection<DataAsset: SPDataAsset>: Identifiable, Sendable, SPSel
     public init(image: SPImage, colorValues: [Double]?)  where DataAsset == SPSymbol {
         if let colorValues, !colorValues.isEmpty {
             if colorValues.count == 4 {
-                self.init(image: image, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2], opacity: colorValues[3]))
+                self.init(image: image, colorValues: colorValues)
             } else if colorValues.count == 3 {
-                self.init(image: image, color: CKColor(red: colorValues[0], green: colorValues[1], blue: colorValues[2]))
+                self.init(image: image, colorValues: colorValues)
             } else {
                 self.init(image: image)
             }
