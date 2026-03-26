@@ -1,5 +1,7 @@
 # ``SymbolPicker/SPInsetedView``
 
+A container view for injecting custom UI elements into predefined slots within the `SymbolPicker`.
+
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -18,36 +20,29 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A container for secondary views that are displayed in specific areas of the symbol picker, such as the top or bottom bar.
-
 ## Overview
 
-`SPInsetedView` allows you to inject custom SwiftUI views into the picker's layout at predefined locations. It provides a chainable API for configuring background styles, conditional visibility, and custom padding.
+`SPInsetedView` is a core part of the `SymbolPicker` extensibility model. It allows developers to place any SwiftUI view into specific "safe area" or "toolbar" locations, such as at the top of the picker, at the bottom, or in platform-specific toolbar slots.
 
-This component is primarily used when configuring the ``SymbolPicker/SymbolPickerConfiguration/presentation`` to add supplemental information, branding, or additional controls to the picker's interface.
+By using the `spInsetedViews` modifier on a `SymbolPicker`, you can provide an array of these containers to add headers, footers, or additional interactive controls.
 
-### View Placement
+### Key Aspects
 
-Each `SPInsetedView` must be initialized with a placement, which determines where the view will be rendered within the picker's container.
-
-### Dynamic Visibility
-
-Using the ``spIsDisplayed(when:)`` method, you can control when an inset view is visible based on the current environment state (e.g., search text, color selection, or page type).
+- **Placement Awareness**: Each `SPInsetedView` is associated with a ``SymbolPicker/SPInsetedView/Placement``, which determines where it appears in the hierarchy.
+- **Adaptive Layout**: The picker automatically adjusts its internal spacing and scroll insets to accommodate these views.
+- **Generic Content**: It can wrap any type of SwiftUI view.
 
 ## Topics
 
-### Initialization
+### Initializers
 
-- ``SymbolPicker/SPInsetedView/init(placement:spacing:view:)``
+- ``SymbolPicker/SPInsetedView/init(placement:content:)``
 
-### Configuration Methods
+### Properties
 
-- ``SymbolPicker/SPInsetedView/spBackground(_:)``
-- ``SymbolPicker/SPInsetedView/spIsDisplayed(when:)``
-- ``SymbolPicker/SPInsetedView/spPadding(_:value:)``
+- ``SymbolPicker/SPInsetedView/placement``
+- ``SymbolPicker/SPInsetedView/content``
 
-### Nested Types
-Helper types and ResultBuilder components used for inset view configuration.
+### Enumerations
 
 - ``SymbolPicker/SPInsetedView/Placement``
-- ``SymbolPicker/SPInsetedViewBuilder``

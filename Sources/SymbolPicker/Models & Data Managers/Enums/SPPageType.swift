@@ -19,7 +19,7 @@ public enum SPPageType: String, Codable, Sendable, Equatable, CaseIterable, Iden
         rawValue
     }
     
-    var systemName: String{
+    public var systemName: String{
         switch self {
         case .emoji:
             return "hand.thumbsup.fill"
@@ -43,7 +43,7 @@ public enum SPPageType: String, Codable, Sendable, Equatable, CaseIterable, Iden
         #endif
     }
     
-    var localizedDescription: String {
+    public var localizedDescription: String {
         if #available (iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *){
             return String(localized: .init("SPPageType.\(rawValue)"), bundle: .module)
         } else {

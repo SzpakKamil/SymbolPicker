@@ -14,7 +14,7 @@ public enum SPSupportedPlatforms: Hashable, Sendable {
     case watchOS(_ version: Int? = nil)
     case visionOS(_ version: Int? = nil)
     
-    static var currentPlatform: SPSupportedPlatforms {
+    public static var currentPlatform: SPSupportedPlatforms {
         let version = ProcessInfo.processInfo.operatingSystemVersion.majorVersion
         
         #if os(iOS)
@@ -31,14 +31,14 @@ public enum SPSupportedPlatforms: Hashable, Sendable {
         #endif
     }
     
-    var majorVersion: Int? {
+    public var majorVersion: Int? {
         switch self {
         case .iOS(let v), .macOS(let v), .tvOS(let v), .watchOS(let v), .visionOS(let v):
             return v
         }
     }
 
-    func isSamePlatform(as other: SPSupportedPlatforms) -> Bool {
+    public func isSamePlatform(as other: SPSupportedPlatforms) -> Bool {
         switch (self, other) {
         case (.iOS, .iOS), (.macOS, .macOS), (.tvOS, .tvOS), (.watchOS, .watchOS), (.visionOS, .visionOS):
             return true

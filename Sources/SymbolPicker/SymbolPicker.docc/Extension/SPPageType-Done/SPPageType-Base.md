@@ -51,6 +51,7 @@ The `SPPageType` enum includes logic to determine which pages are available base
 ### Instance Properties
 
 - ``SymbolPicker/SPPageType/id``
+- ``SymbolPicker/SPPageType/localizedDescription``
 - ``SymbolPicker/SPPageType/systemName``
 
 ### Static Properties

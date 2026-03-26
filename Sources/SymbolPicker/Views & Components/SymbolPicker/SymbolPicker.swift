@@ -36,6 +36,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
         [SPPresentationConfiguration.DisplayType.popover, .default].contains(style.presentation.presentationType)
         #endif
     }
+    @_documentation(visibility: internal)
     public var body: some View {
         viewContainer{
             SPOptionList(selection: $selection)
