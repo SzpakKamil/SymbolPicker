@@ -1,0 +1,41 @@
+# ``SymbolPicker/SymbolPickerModifier/spOptionListForegroundSelected(_:)``
+
+@Metadata {
+    @SupportedLanguage(swift)
+    @Available(iOS, introduced: "15.0")
+    @Available(iPadOS, introduced: "15.0")
+    @Available(macOS, introduced: "12.0")
+    @Available(tvOS, introduced: "15.0")
+    @Available(watchOS, introduced: "10.0")
+    @Available(visionOS, introduced: "1.0")
+    @Available(swift, introduced: "6.0")
+    @Available(Xcode, introduced: "15.0")
+    @DocumentationExtension(mergeBehavior: override)
+}
+
+@Options {
+    @AutomaticSeeAlso(disabled)
+    @AutomaticArticleSubheading(disabled)
+}
+
+Sets the foreground color for the currently selected asset cell in the picker's grid.
+
+## Overview
+
+Use this modifier to highlight the active selection with a distinct foreground color, making it visually clear which symbol or emoji the user has chosen.
+
+### Example
+
+Set a custom selected foreground color:
+
+```swift
+Text("Select Icon")
+    .symbolPicker(isPresented: $isPresented, systemImage: $symbolName)
+    .spOptionListForegroundSelected(.white)
+```
+
+### Parameters
+
+| Name | Type | Description |
+| :--- | :--- | :--- |
+| `value` | `Color` | The foreground color applied to the currently selected cell. |

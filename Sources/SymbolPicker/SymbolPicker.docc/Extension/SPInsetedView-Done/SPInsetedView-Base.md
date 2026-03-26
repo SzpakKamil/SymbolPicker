@@ -36,12 +36,7 @@ By using the `spInsetedViews` modifier on a `SymbolPicker`, you can provide an a
 
 ### Initializers
 
-- ``SymbolPicker/SPInsetedView/init(placement:content:)``
-
-### Properties
-
-- ``SymbolPicker/SPInsetedView/placement``
-- ``SymbolPicker/SPInsetedView/content``
+- ``SymbolPicker/SPInsetedView/init(placement:spacing:view:)``
 
 ### Enumerations
 

@@ -16,7 +16,7 @@ public extension SymbolPickerConfiguration {
     var spacings: [SPSpacing]{ spacingConfiguration() }
     
     @SPSpacingBuilder
-    internal static func defaultSpacingConfiguration() -> [SPSpacing] {
+    public static func defaultSpacingConfiguration() -> [SPSpacing] {
         SPSpacing(component: .colorPicker) { typeSize in
             let baseSizes: [DynamicTypeSize: CGFloat] = [
                 .xSmall: 45, .small: 45, .medium: 45, .large: 50, .xLarge: 55, .xxLarge: 60, .xxxLarge: 65,

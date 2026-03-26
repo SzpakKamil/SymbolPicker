@@ -28,10 +28,34 @@ The package provides a default implementation, ``SymbolPicker/SymbolPickerDefaul
 
 ### Key Aspects of Configuration
 
-- **Component Styles**: Granular control over the appearance of the ``SymbolPicker/SPOptionList``, ``SymbolPicker/SPColorPicker``, and ``SymbolPicker/SPSelectionPreview``.
-- **Layout System**: A powerful ``SymbolPicker/SPInsetedView`` system for placing custom UI elements into predefined slots defined by ``SymbolPicker/SPInsetedView/Placement``.
-- **Spacing**: Dynamic, type-size-aware ``SymbolPicker/SPSpacing`` dimensions for all picker components.
-- **Global Behavior**: Controls for supported ``SymbolPicker/SPPageType`` asset types (Symbols, Emojis, and User Photos), default page, searching, and ``SymbolPicker/SPSymbol/Variant`` variants.
+- **Component Styles**: Granular control over the appearance and behavior of sub-components like the asset grid (``SymbolPicker/SPOptionList``), the color selector (``SymbolPicker/SPColorPicker``), and the selection preview card (``SymbolPicker/SPSelectionPreview``).
+- **Layout System**: A powerful ``SymbolPicker/SPInsetedView`` system for placing custom SwiftUI views into predefined "safe area" or "toolbar" slots defined by ``SymbolPicker/SPInsetedView/Placement``.
+- **Dynamic Spacing**: Type-size-aware ``SymbolPicker/SPSpacing`` dimensions that allow the picker's layout to scale gracefully with dynamic type settings.
+- **Global Behavior**: Centralized control over supported asset categories (``SymbolPicker/SPPageType``), default page selection, search functionality, and SF Symbol variants (``SymbolPicker/SPSymbol/Variant``).
+
+## Custom Implementation
+
+You can create a custom configuration by conforming to the protocol. For most use cases, it's easier to subclass or extend the default configuration and override only the specific properties or methods you need.
+
+```swift
+struct MyCustomConfig: SymbolPickerConfiguration {
+    // Override the display style to always use compact layout
+    var displayStyle: SPDisplayStyle { .compact }
+
+    // Restrict the picker to only show SF Symbols
+    var supportedTypes: [SPPageType] { [.symbol] }
+
+    // Customize the color picker's palette
+    func colorPickerConfiguration() -> SPColorPickerConfiguration {
+        var config = SPColorPickerDefaultConfiguration()
+        config.colors = [.red, .blue, .green]
+        return config
+    }
+}
+
+// Usage:
+SymbolPicker(systemImage: $symbolName, configuration: MyCustomConfig())
+```
 
 ## Topics
 

@@ -26,51 +26,36 @@ Reference for the available `SymbolPicker` modifiers.
 
 ## Modifier Categories
 
-### Core Behavior Modifiers
-These modifiers affect the fundamental state and visual style of the picker.
-
+### Display and Behavior Modifiers
 - ``SymbolPicker/SymbolPicker/spDisplayStyle(_:)``
 - ``SymbolPicker/SymbolPicker/spSymbolsVariant(_:)``
 - ``SymbolPicker/SymbolPicker/spAllowSearching(_:)``
-- ``SymbolPicker/SymbolPicker/spPageTypes(_:defaultType:)``
-
-### Component Layout Modifiers
-These modifiers control how individual parts of the picker are arranged.
-
+- ``SymbolPicker/SymbolPicker/spPageTypes(_:defaultType:)-(SPPageType...,_)``
+- ``SymbolPicker/SymbolPicker/spPageTypes(_:defaultType:)-([SPPageType],_)``
 - ``SymbolPicker/SymbolPicker/spInsetedViews(replaceDefaults:views:)``
-- ``SymbolPicker/SymbolPicker/spSpacing(content:)``
+- ``SymbolPicker/SymbolPicker/spSpacing(_:)``
 
-### Color Picker (`SPColorPicker`) Modifiers
-These modifiers specifically target the color selection interface.
-
+### Color Picker Modifiers
 - ``SymbolPicker/SymbolPicker/spColorPickerEnabled(_:)``
-- ``SymbolPicker/SymbolPicker/spColorPickerColors(_:)``
+- ``SymbolPicker/SymbolPicker/spColorPickerColors(_:)-([CKColor])``
+- ``SymbolPicker/SymbolPicker/spColorPickerColors(_:)-(CKColor...)``
 - ``SymbolPicker/SymbolPicker/spColorPickerLayout(_:spacing:)``
 - ``SymbolPicker/SymbolPicker/spColorPickerSupportsOpacity(_:)``
 - ``SymbolPicker/SymbolPicker/spColorPickerSupportsCustomColor(_:)``
 
-### Option List (`SPOptionList`) Modifiers
-These modifiers affect the appearance of the main grid of assets and their individual cells.
-
+### Option List Appearance Modifiers
 - ``SymbolPicker/SymbolPicker/spOptionListCornerRadiusFactor(_:)``
 - ``SymbolPicker/SymbolPicker/spOptionListInnerPaddingFactor(_:)``
-- ``SymbolPicker/SymbolPicker/spOptionListForeground(_:state:)``
-- ``SymbolPicker/SymbolPicker/spOptionListBackground(_:state:)``
+- ``SymbolPicker/SymbolPicker/spOptionListForeground(_:)``
+- ``SymbolPicker/SymbolPicker/spOptionListForegroundFocused(_:)``
+- ``SymbolPicker/SymbolPicker/spOptionListForegroundPressed(_:)``
+- ``SymbolPicker/SymbolPicker/spOptionListForegroundSelected(_:)``
+- ``SymbolPicker/SymbolPicker/spOptionListBackground(_:)``
+- ``SymbolPicker/SymbolPicker/spOptionListBackgroundFocused(_:)``
+- ``SymbolPicker/SymbolPicker/spOptionListBackgroundSelected(_:)``
+- ``SymbolPicker/SymbolPicker/spOptionListBackgroundPressed(_:)``
 
-### Presentation (`SPPresentationConfiguration`) Modifiers
-These modifiers control how the picker is presented as a sheet, full-screen cover, or popover.
-
-- ``SymbolPicker/SymbolPicker/spPresentationType(_:)``
-- ``SymbolPicker/SymbolPicker/spPresentationCornerRadius(_:)``
-- ``SymbolPicker/SymbolPicker/spPresentationDragIndicator(_:)``
-- ``SymbolPicker/SymbolPicker/spPresentationBackgroundColor(_:)``
-- ``SymbolPicker/SymbolPicker/spPresentationContentInteraction(_:)``
-- ``SymbolPicker/SymbolPicker/spPresentationBackgroundInteraction(_:)``
-- ``SymbolPicker/SymbolPicker/spPresentationDents(_:)``
-
-### Selection Preview (`SPSelectionPreview`) Modifiers
-These modifiers enable advanced visual effects for the selection preview.
-
+### Selection Preview Modifiers
 - ``SymbolPicker/SymbolPicker/spSelectionPreviewCornerRadiusFactor(_:)``
 - ``SymbolPicker/SymbolPicker/spSelectionPreviewCalculateOffset(_:)``
 - ``SymbolPicker/SymbolPicker/spSelectionPreviewCalculateScale(_:)``
