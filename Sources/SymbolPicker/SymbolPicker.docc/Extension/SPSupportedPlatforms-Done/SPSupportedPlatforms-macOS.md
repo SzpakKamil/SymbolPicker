@@ -6,8 +6,8 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The macOS platform with an optional version number.
+The macOS platform with an optional version.
 
 ## Overview
 
-The `macOS` case represents the Apple desktop platform. It can store an optional integer representing the major OS version (e.g., 12, 13, 14), which allows the library to perform version-specific feature detection.
+The `macOS` case represents the Apple desktop platform. It stores an optional integer for the major OS version, such as 12, 13, or 14. Use this data to enable features specific to different macOS versions.

@@ -18,21 +18,19 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-An array of asset categories that the picker is permitted to display.
+The available asset categories.
 
 ## Overview
 
-The `supportedTypes` property defines which asset categories (e.g., SF Symbols, Emojis, and User Photos) are available to the user. By default, it contains all available categories: ``SymbolPicker/SPPageType/allCases``.
+The `supportedTypes` property sets which categories—SF Symbols, Emojis, or User Photos—appear in the picker. By default, it includes every category in ``SymbolPicker/SPPageType/allCases``.
 
-### Category Switcher
+### Navigation
 
-The picker's category switcher (page picker) automatically adjusts based on this property. If only one category is supported, the switcher is hidden to simplify the interface.
+The category switcher (page picker) adjusts automatically based on this list. If you only support one category, the switcher disappears.
 
 ### Customization
 
-Restrict the picker to only specific categories.
-
 ```swift
 var config = SymbolPickerDefaultConfiguration()
-config.supportedTypes = [.symbol, .emoji] // Only symbols and emojis
+config.supportedTypes = [.symbol, .emoji] // Show only symbols and emojis
 ```

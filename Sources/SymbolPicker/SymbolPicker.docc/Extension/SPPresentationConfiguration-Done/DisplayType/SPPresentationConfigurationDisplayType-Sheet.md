@@ -13,15 +13,15 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Presents the picker as a sheet.
+You slide the picker up as a modal sheet.
 
 ## Overview
 
-When set to `.sheet`, the `SymbolPicker` slides up from the bottom of the screen on iOS and iPadOS, or appears as a centered modal sheet on macOS.
+When you set the style to `.sheet`, the `SymbolPicker` slides from the bottom on iPhone and iPad. On Mac, it appears as a centered modal attached to your window.
 
 ### Characteristics
-- **iOS/iPadOS**: Offers standard pull-to-dismiss behavior and can be resized (if ``SymbolPicker/SPPresentationConfiguration/presentationDents`` are configured).
-- **macOS**: Appears as a modal sheet attached to the window, blocking interaction with the parent window until dismissed.
+- **iOS/iPadOS**: You get standard pull-to-dismiss gestures. You can also set multiple heights if you configure ``SymbolPicker/SPPresentationConfiguration/presentationDents``.
+- **macOS**: The sheet locks the parent window. You must pick a symbol or cancel to return to the main app.
 
 ### Use Case
-Ideal for primary tasks that require a significant portion of the screen or when the user must complete a selection flow.
+Use sheets for primary tasks. They give users plenty of room to browse symbols while keeping the original context visible in the background.

@@ -13,19 +13,19 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Compares two symbols by their names to avoid redundancy during the loading process.
+Compares two symbols by name.
 
-- Parameter other: The other symbol to compare with.
-- Returns: `true` if the symbols have the same `filledName` and `notFilled` names; otherwise, `false`.
+- Parameter other: The symbol to compare.
+- Returns: `true` if the symbols share the same `filledName` and `notFilled` names.
 
 ## Overview
 
-The `isDuplicate(of:)` method is used during the data ingestion process to ensure that the picker does not display the same symbol multiple times.
+The `isDuplicate(of:)` method prevents the picker from showing the same symbol multiple times during data loading.
 
-### Redundancy Prevention
+### Redundancy
 
-SF Symbols might sometimes be listed multiple times in raw data sources or across different localized files. This method provides a reliable way to identify these duplicates by comparing the core identity of the symbol: its filled and outlined system names.
+SF Symbols may appear multiple times in raw data or localized files. This method identifies these duplicates by checking the core names.
 
-### Usage in Data Loading
+### Usage
 
-When symbols are fetched using ``SymbolPicker/SPSymbol/fetchAssets(locale:)``, this method can be used to filter the resulting array, ensuring that the final list presented to the user is clean and free of redundant entries.
+``SymbolPicker/SPSymbol/fetchAssets(locale:)`` uses this method to filter the array. This ensures the user sees a clean list of unique icons.

@@ -13,20 +13,20 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The scaling factor applied to the image.
+The scale factor for the image.
 
 ## Overview
 
-The `zoom` property defines the scale level for an `SPImage` asset within its rendering container. A value of `1.0` (the default) indicates that the image fits the container according to the layout rules, while higher values allow the user to "zoom in" on specific details of the pixel data.
+The `zoom` property sets the scale level for an `SPImage` inside its container. A value of `1.0` fits the image to the container. Higher values let you zoom in on specific pixel details.
 
-### Interactive Layout Context
+### Editing Images
 
-This property is a foundational element of the `SymbolPicker`'s interactive image editing capabilities. When combined with ``SymbolPicker/SPImage/offsetX`` and ``SymbolPicker/SPImage/offsetY``, the `zoom` property allows users to create a custom "crop" or "view" of an image asset without destructive editing of the source binary data.
+This property powers the interactive image editor in `SymbolPicker`. When you combine `zoom` with ``SymbolPicker/SPImage/offsetX`` and ``SymbolPicker/SPImage/offsetY``, you create a custom crop. This happens without changing the original image data.
 
-### Implementation Logic
+### Implementation
 
-The ``SymbolPicker/SPImageView`` utilizes the `zoom` property as a direct input for the SwiftUI `.scaleEffect()` modifier. The scaling is typically centered on the container, and the combined effect of the zoom and the offset creates a flexible and intuitive pan-and-zoom interface.
+The ``SymbolPicker/SPImageView`` passes this value to the SwiftUI `.scaleEffect()` modifier. Scaling happens from the center of the container. The result is an intuitive pan-and-zoom interface for your users.
 
-### Persistence
+### Saving State
 
-Because `zoom` is a `Codable` property, any adjustment made by the user is preserved when the `SPImage` is saved as part of an ``SymbolPicker/SPSelection``. This ensures that the user's specific view of an image is maintained across app launches.
+Since `zoom` conforms to `Codable`, the picker saves your adjustments automatically. Your specific view of the image persists across app launches as part of an ``SymbolPicker/SPSelection``.

@@ -18,11 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-An enumeration of UI components that can have their spacing and sizing customized.
+An enumeration of UI components for spacing and sizing customization.
 
 ## Overview
 
-The `Component` enum identifies the specific area of the `SymbolPicker` that a spacing configuration should apply to.
+The `Component` enum identifies which part of the `SymbolPicker` you want to customize. Use these cases to target specific areas for layout changes.
+
+### Customization Targets
+
+You can modify the color picker, the main asset grid, or the selection preview. Identifying the component ensures your spacing rules apply only to the intended part of the interface. This modular approach lets you build a unique layout by adjusting each component individually.
 
 ## Topics
 

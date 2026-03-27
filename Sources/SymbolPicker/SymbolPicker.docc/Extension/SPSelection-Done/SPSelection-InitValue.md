@@ -19,15 +19,12 @@ Initializes a selection with a pure color value.
 
 ## Overview
 
-This initializer creates a color-only selection, allowing the ``SymbolPicker`` to act as a pure color picker.
+Initialize a selection with a pure color. This initializer lets `SymbolPicker` act as a standalone color picker. 
 
 ### Selection State
 
-When using this initializer:
-- The ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/color``.
-- The ``SymbolPicker/SPSelection/color`` property is populated with the provided value.
-- Other asset properties (symbol, emoji, image) remain `nil`.
+When you use this initializer, it sets the selection ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/color``. It populates the ``SymbolPicker/SPSelection/color`` property with your value. Other asset properties, like symbols or emojis, stay `nil`.
 
-### Asset Logic
+### Rendering Behavior
 
-Because this is a pure color selection, the ``SymbolPicker/SPSelection/asView()`` method will render this selection as a simple circular fill using the provided color.
+Because this is a pure color selection, the ``SymbolPicker/SPSelection/asView()`` method displays it as a circular fill. This ensures the selection remains visually distinct even without an associated icon or image.

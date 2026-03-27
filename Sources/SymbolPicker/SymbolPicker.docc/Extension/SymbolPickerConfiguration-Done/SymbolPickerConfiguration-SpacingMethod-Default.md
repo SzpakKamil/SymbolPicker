@@ -17,29 +17,28 @@
     @AutomaticSeeAlso(disabled)
 }
 
-
-Returns an array of ``SymbolPicker/SPSpacing`` objects defining the exact dimensions for different picker components.
+Returns an array of ``SymbolPicker/SPSpacing`` objects for picker components.
 
 - Returns: A collection of spacing rules.
 
 ## Overview
 
-The `spacingConfiguration()` method defines the size and padding of components based on the user's current `DynamicTypeSize`. This ensures that the picker remains accessible and visually balanced regardless of the user's font settings.
+The `spacingConfiguration()` method sets the size and padding of components based on the `DynamicTypeSize`. This ensures the picker remains readable and balanced regardless of the user's font settings.
 
 ### Component Spacings
 
-Spacings can be defined for:
-- **`.optionList`**: Controls the grid cell size and section paddings.
-- **`.colorPicker`**: Controls the size of the color swatches.
-- **`.previewSelection`**: Controls the dimensions of the hero selection preview.
+Define spacings for:
+- **`.optionList`**: Sets grid cell size and section padding.
+- **`.colorPicker`**: Sets the size of color swatches.
+- **`.previewSelection`**: Sets dimensions for the main selection preview.
 
 ### Customization
 
 ```swift
 func spacingConfiguration() -> [SPSpacing] {
     SPSpacing(component: .optionList) { typeSize in
-        // Return custom dimensions based on dynamic type size
-        return .init(width: 24 * 1.4, height: 30 * 1.25, horizontalPadding: 20, verticalPadding: 20)
+        // Custom dimensions based on dynamic type size
+        return .init(width: 33.6, height: 37.5, horizontalPadding: 20, verticalPadding: 20)
     }
 }
 ```

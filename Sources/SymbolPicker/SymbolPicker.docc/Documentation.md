@@ -1,6 +1,6 @@
 # ``SymbolPicker``
 
-Symbols, Evolved.
+Symbols for SwiftUI.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -23,9 +23,9 @@ Symbols, Evolved.
 
 ## Overview
 
-SymbolPicker offers a unified, modular interface for selecting SF Symbols, Emojis, Colors, and Images across all Apple platforms. It provides a highly customizable, platform-adaptive library that scales with your app's needs.
+SymbolPicker selects SF Symbols, Emojis, Colors, and Images. It works on all Apple platforms and adjusts to your layout.
 
-@Image(source: "SymbolPicker-Banner", alt: "SymbolPicker banner showing various symbols and icons.")
+@Image(source: "SymbolPicker-Banner", alt: "SymbolPicker banner showing symbols and icons.")
 
 ## Getting Started
 
@@ -54,6 +54,7 @@ SymbolPicker offers a unified, modular interface for selecting SF Symbols, Emoji
 
 ### Components
 - ``SymbolPicker/SymbolPicker``
+- ``SymbolPicker/SymbolPickerModifier``
 - ``SymbolPicker/SPSelectionView``
 - ``SymbolPicker/SPSelectionPreview``
 - ``SymbolPicker/SPSymbolView``
@@ -74,9 +75,8 @@ SymbolPicker offers a unified, modular interface for selecting SF Symbols, Emoji
 - ``SymbolPicker/SPImage``
 - ``SymbolPicker/SPDataAsset``
 - ``SymbolPicker/SPCategory``
-
-### Protocols
 - ``SymbolPicker/SPSelectionProtocol``
+
 
 ### Configuration
 - ``SymbolPicker/SymbolPickerConfiguration``
@@ -94,7 +94,6 @@ SymbolPicker offers a unified, modular interface for selecting SF Symbols, Emoji
 - ``SymbolPicker/SPSpacing``
 - ``SymbolPicker/SPSpacingBuilder``
 - ``SymbolPicker/SPInsetedViewBuilder``
-- ``SymbolPicker/SymbolPickerModifier``
 
 ### Utilities
 - ``SymbolPicker/SPDataManager``

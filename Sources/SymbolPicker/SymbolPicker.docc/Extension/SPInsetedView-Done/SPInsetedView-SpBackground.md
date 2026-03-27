@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets a custom background view for the inseted view and returns a modified instance.
+Sets a custom background for the inseted view.
 
-- Parameter background: A ViewBuilder closure that returns the view to be used as a background.
-- Returns: A new `SPInsetedView` instance with the specified background.
+- Parameter background: A ViewBuilder closure that returns the background view.
+- Returns: A modified `SPInsetedView` instance.
 
 ## Overview
 
-`spBackground(_:)` allows you to apply a custom visual style or background material to the inset area. This is useful for matching the picker's design or providing visual separation for specific controls.
+Use `spBackground(_:)` to apply visual styles or materials to the inset area. This helps match the picker's design or separate specific controls from the main grid.
 
-### Usage in Code
+### Example
 
 ```swift
 let customView = SPInsetedView(placement: .safeAreaBottom) {

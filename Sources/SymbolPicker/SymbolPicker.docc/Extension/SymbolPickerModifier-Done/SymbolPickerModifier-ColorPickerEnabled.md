@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets whether the integrated color picker is visible in the presented picker.
+Toggle the integrated color picker visibility.
 
 ## Overview
 
-Use this modifier to show or hide the color selection palette. When disabled, the picker presents only the asset grid without any color selection controls.
+Show or hide the color selection palette in the picker interface. If you disable the color picker, users see only the asset grid.
 
 ### Example
 
-Hide the color picker:
+Hide color selection controls:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Bool` | A Boolean value that indicates whether the color picker is shown. |
+| `value` | `Bool` | Toggle for color picker visibility. |

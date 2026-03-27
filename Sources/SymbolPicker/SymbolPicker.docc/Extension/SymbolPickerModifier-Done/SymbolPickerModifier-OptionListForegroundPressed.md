@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the foreground color for asset cells in the picker's grid while they are being pressed.
+Set the foreground color for asset cells during a press.
 
 ## Overview
 
-Use this modifier to customize the color of icons and emojis during the active press state, providing tactile visual feedback on tap.
+Provide tactile feedback by changing the icon or emoji color when users tap a cell. This modifier updates the cell appearance for the active press state.
 
 ### Example
 
-Set a custom pressed foreground color:
+Apply a gray foreground color when users press a cell:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The foreground color applied while a cell is being pressed. |
+| `value` | `Color` | The foreground color for the pressed state. |

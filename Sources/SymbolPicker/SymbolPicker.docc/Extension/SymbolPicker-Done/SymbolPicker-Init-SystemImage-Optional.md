@@ -22,7 +22,7 @@ Creates a picker bound to an optional SF Symbol name.
 
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+You use this initializer to link the picker to an optional string binding. When you select an SF Symbol, the picker updates the binding. If you change the binding value elsewhere in your code, the picker reflects that change immediately. This direct connection simplifies state management in your SwiftUI views.
 
 ### Parameters
 

@@ -17,16 +17,17 @@
     @AutomaticSeeAlso(disabled)
 }
 
-
-A convenience computed property that returns the main asset list configuration.
+Accesses the main asset list configuration.
 
 ## Overview
 
-The `optionList` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()``.
+The `optionList` property is a convenience shortcut for calling ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()``.
 
 ### Implementation
 
-It is defined as a simple wrapper:
+It works as a simple wrapper:
 ```swift
 var optionList: SPOptionListConfiguration { optionListConfiguration() }
 ```
+
+Use this property to read settings for the asset grid, such as item colors, padding, or corner radii.

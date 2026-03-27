@@ -13,19 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A wrapper for the system `DecodingError` that provides additional context about the asset type being decoded.
+Identifies JSON structure issues.
 
 - Parameters:
-    - type: The string representation of the asset type (e.g., "SPSymbol").
-    - error: The underlying `DecodingError` thrown by the `JSONDecoder`.
+    - type: The asset type, such as "SPSymbol".
+    - error: The `JSONDecoder` error.
 
 ## Overview
 
-The `decodingFailed` case is essential for identifying and debugging issues where the JSON resource file in the bundle does not match the expected Swift data structure. This can occur due to schema changes or malformed JSON data.
-
-### Troubleshooting
-
-When this error is encountered, it typically indicates that:
-- The JSON file format for the specified asset type is incorrect.
-- One or more required fields are missing from the JSON data.
-- There is a data type mismatch between the JSON values and the corresponding properties in the conforming ``SPDataAsset`` type.
+The `decodingFailed` error occurs when a JSON resource does not match the expected Swift structure. This usually points to malformed data or a schema change. Verify that all required fields and data types match the ``SPDataAsset`` requirements.

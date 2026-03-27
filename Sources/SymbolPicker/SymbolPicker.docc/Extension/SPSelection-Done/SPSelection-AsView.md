@@ -17,21 +17,12 @@ Converts the selection into a SwiftUI view for rendering.
 
 ## Overview
 
-The `asView()` method is the primary way to display an ``SymbolPicker/SPSelection`` in your UI. It handles the logic of switching between different asset types (symbols, emojis, images, and colors) and returns an `AnyView` that can be integrated into any SwiftUI layout.
+Convert a selection into a SwiftUI view for rendering. The `asView()` method is the standard way to show an ``SymbolPicker/SPSelection`` in your UI. 
 
 ### Dynamic Rendering
 
-The returned view is determined by the selection ``SymbolPicker/SPSelection/type``:
+The method returns an `AnyView` by switching between asset types. Symbols render via ``SymbolPicker/SPSymbolView``, while emojis use ``SymbolPicker/SPEmojiView``. Custom images use ``SymbolPicker/SPImageView``, and colors appear as circular fills.
 
-- **Symbol**: Renders the symbol using ``SymbolPicker/SPSymbolView``.
-- **Emoji**: Renders the emoji using ``SymbolPicker/SPEmojiView``.
-- **Image**: Renders the image using ``SymbolPicker/SPImageView``.
-- **Color**: Renders the color as a simple circular fill.
+### Thread Safety and Protocols
 
-### MainActor Requirement
-
-Because this method creates SwiftUI views, it is marked with `@MainActor`. This ensures that view creation always occurs on the main thread, preventing potential threading issues in your application's UI layer.
-
-### Protocol Conformance
-
-This method fulfills the requirements of the ``SymbolPicker/SPSelectionProtocol``, allowing the `SymbolPicker` library to render selections uniformly regardless of their underlying asset type.
+Because it creates UI components, this method requires the `@MainActor` attribute. It ensures view creation always occurs on the main thread. This method also fulfills the ``SymbolPicker/SPSelectionProtocol``, allowing uniform rendering across the entire library regardless of the underlying asset type.

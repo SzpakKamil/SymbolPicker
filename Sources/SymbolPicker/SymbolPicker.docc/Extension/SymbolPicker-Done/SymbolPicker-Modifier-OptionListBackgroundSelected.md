@@ -18,14 +18,14 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the background color for selected option list items.
+Set the background color for selected items in the option list.
 
 ## Overview
 
-Use this modifier to specify the background color of items within the option list when an item is in its selected state.
+Apply this modifier to highlight the active selection with a specific color. This creates a clear visual contrast between the chosen item and the rest of the list. You pass a `Color` to define the background for any item currently in its selected state.
 
 ### Parameters
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The selected background color to apply. |
+| `value` | `Color` | The color applied to the selected item's background. |

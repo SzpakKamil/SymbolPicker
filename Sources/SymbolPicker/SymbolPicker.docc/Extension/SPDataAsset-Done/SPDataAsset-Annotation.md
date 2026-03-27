@@ -13,20 +13,20 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A localized description or name for the data asset, supporting SF Symbols, Emojis, and custom icons.
+The localized name for data assets like SF Symbols and Emojis.
 
 ## Overview
 
-The `annotation` property provides a human-readable name for the asset, which is crucial for accessibility and searching. For example, a star symbol might have an annotation like "Star" or "Favorite".
+The `annotation` property stores the asset name for accessibility and search. A star symbol uses "Star" or "Favorite" as its annotation.
 
-### Role in Search
+### Search
 
-The ``SymbolPicker/SPDataAsset/matches(_:)`` method uses the `annotation` to determine if an asset should be returned in response to a user's search query. This is often the most direct way for users to find what they are looking for by name.
+Users locate items by name through the ``SymbolPicker/SPDataAsset/matches(_:)`` method. This property serves as the primary search key in the symbol picker.
 
 ### Accessibility
 
-When an asset is rendered in the UI, the `annotation` can serve as the primary source for accessibility labels (e.g., `accessibilityLabel(_:)` in SwiftUI). This ensures that the picker is fully usable for individuals relying on screen readers like VoiceOver.
+UI components read the `annotation` property for accessibility labels. This identifies symbols for screen readers like VoiceOver.
 
-### Consistency Across Locales
+### Localization
 
-Because `SPDataAsset` is `Codable`, the `annotation` is typically loaded from localized JSON files (e.g., `symbols_en.json`, `symbols_pl.json`). This allows the picker's metadata to automatically adapt to the user's system language, providing a seamless and intuitive experience globally.
+`SPDataAsset` conforms to `Codable` and loads annotations from localized JSON files like `symbols_en.json`. The metadata matches the system language automatically.

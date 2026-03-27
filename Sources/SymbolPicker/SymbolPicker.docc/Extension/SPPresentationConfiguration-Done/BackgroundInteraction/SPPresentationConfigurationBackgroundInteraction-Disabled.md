@@ -11,17 +11,17 @@
     @Available(swift, introduced: "5.7")
     @Available(Xcode, introduced: "14.3")
     @DocumentationExtension(mergeBehavior: override)
+    @DocumentationExtension(mergeBehavior: override)
 }
 
-Prevents interaction with views behind the presentation.
+Prevent interaction with views behind the presentation.
 
 ## Overview
 
-When set to `.disabled`, touches or clicks on the background view are blocked, preventing any interaction with the underlying content. This is the classic "modal" behavior, often accompanied by a dimming view or overlay to indicate that the user's focus should remain on the presentation.
+The system blocks all touches and clicks on the background view when you set interaction to `.disabled`. This creates a modal state. Users cannot interact with the underlying content while the picker remains on screen. A dimming overlay often appears to signal this focus shift.
 
-### Behavior
-- **Focus**: Effectively directs user attention solely to the symbol picker.
-- **Dismissal**: Tapping on the dimmed background usually dismisses the presentation (unless `isModal` or other restrictions are applied).
+### User Focus
+You direct the user's attention solely to the symbol library. This works best when selecting a symbol is a primary task that requires a full stop. If the user taps the dimmed area, the picker dismisses. You ensure the user finishes their selection or explicitly cancels before they return to the main application flow.
 
-### Use Case
-Use this mode when the picker's selection is a primary, blocking task that must be completed or cancelled before resuming interaction with the rest of the application.
+### Implementation
+Use this mode for standard sheet presentations where the picker covers most of the content. It simplifies the user experience by removing distractions. It also prevents accidental taps on buttons or links hidden behind the picker's frame.

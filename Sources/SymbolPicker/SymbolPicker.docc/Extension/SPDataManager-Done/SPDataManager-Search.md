@@ -13,27 +13,23 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Performs a filtered search across all assets of a specific type.
+Filters assets based on a query.
 
 - Parameters:
-    - type: The type of asset to search within (e.g., ``SPSymbol`` or any ``SPDataAsset``).
-    - text: The search query string.
-- Returns: An array of ``SPCategory`` objects containing the search results.
+    - type: The asset type to search, such as ``SPSymbol``.
+    - text: The query string.
+- Returns: An array of ``SPCategory`` objects containing matches.
 
 ## Overview
 
-The `search(_:for:)` method provides responsive, high-performance filtering of asset data. It uses the ``SymbolPicker/SPDataAsset/matches(_:)`` protocol requirement to determine which items correspond to the user's query.
+The `search(_:for:)` method provides fast filtering for the picker. It uses the ``SymbolPicker/SPDataAsset/matches(_:)`` protocol requirement to find items.
 
-### Performance & Responsiveness
+### Performance
 
-- **Non-isolated Filtering**: To prevent blocking the actor's mailbox during complex searches across large datasets (like thousands of emojis), the filtering logic is performed in a `nonisolated` context.
-- **Deduplication**: The search process automatically removes duplicate assets to ensure the results are clean and unique.
-- **Categorization**: Search results are wrapped in a special ``SPCategory`` with a localized "Search Results" description, maintaining UI consistency with the standard picker view.
+- **Non-isolated**: Filtering runs in a `nonisolated` context to avoid blocking the actor's mailbox during large searches.
+- **Deduplication**: The process removes duplicate assets to keep results unique.
+- **Categorization**: The method wraps results in a special ``SPCategory`` with a localized "Search Results" name.
 
-### Empty Query Behavior
+### Details
 
-If the search text is empty or contains only whitespace, the method falls back to returning all assets organized by their default categories, identical to a standard ``SymbolPicker/SPDataManager/fetch(type:)`` call.
-
-## Implementation Details
-
-The filtering logic utilizes properties defined in the ``SymbolPicker/SPDataAsset`` protocol, such as ``SymbolPicker/SPDataAsset/annotation``, ``SymbolPicker/SPDataAsset/category``, and ``SymbolPicker/SPDataAsset/tags``, to find matches.
+If the query is empty or contains only whitespace, the method returns all assets in their default categories. It checks properties like ``SymbolPicker/SPDataAsset/annotation`` and ``SymbolPicker/SPDataAsset/tags`` to find relevant icons.

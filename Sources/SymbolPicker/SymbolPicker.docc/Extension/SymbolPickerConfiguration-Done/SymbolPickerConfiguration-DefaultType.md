@@ -17,12 +17,11 @@
     @AutomaticSeeAlso(disabled)
 }
 
-
-The ``SymbolPicker/SPPageType`` asset type that is selected when the picker first opens.
+The page type selected when the picker opens.
 
 ## Overview
 
-The `defaultType` property defines which tab or asset type is initially displayed to the user. It must be one of the types defined in the ``SymbolPicker/SymbolPickerConfiguration/supportedTypes`` property.
+The `defaultType` property sets the initial tab or asset category the user sees. It must match one of the cases in ``SymbolPicker/SymbolPickerConfiguration/supportedTypes``.
 
 ### Customization
 

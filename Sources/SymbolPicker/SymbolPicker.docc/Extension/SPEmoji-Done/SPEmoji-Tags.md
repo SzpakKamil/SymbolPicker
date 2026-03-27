@@ -13,12 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-An array of keywords associated with the emoji to enhance searchability.
+Keywords for the emoji.
 
 ## Overview
 
-The `tags` property contains a list of localized keywords (e.g., `["happy", "joy", "smile"]` for a grinning emoji). These tags allow the search engine to map natural language queries to the correct emoji.
+The `tags` property lists localized keywords, such as `["happy", "joy", "smile"]`. These tags help the search engine find emojis based on natural language terms.
 
-### Search Optimization
+### Optimization
 
-By including synonyms and related concepts, tags ensure that the `SymbolPicker` search bar is both flexible and intuitive for the user.
+By using synonyms, tags make the search bar more flexible. Users can find the right emoji even if they do not know its exact name.

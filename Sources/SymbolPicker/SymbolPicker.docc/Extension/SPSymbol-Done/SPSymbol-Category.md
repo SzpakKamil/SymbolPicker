@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The top-level grouping used for organization in the picker.
+The primary group for the symbol.
 
 ## Overview
 
-The `category` property provides a high-level classification for the symbol (e.g., "Weather", "Objects", "Devices"). This metadata is used by the `SymbolPicker` to organize symbols into logical groups, making it easier for users to browse and discover relevant assets.
+The `category` property sets the broad classification for a symbol, such as "Weather," "Objects," or "Devices." SymbolPicker uses this metadata to organize icons into sections, making it easier for users to browse the library.
 
-### Organizational Role
+### Organization
 
-In the `SymbolPicker` UI, categories often correspond to sections or tabs, allowing for a structured navigation experience. While SF Symbols are provided by Apple in specific categories, this property allows the package to maintain that same organizational structure.
+In the UI, categories often appear as sections or tabs. While Apple provides categories for SF Symbols, this property allows the package to maintain that structure or define custom groups.
 
-### Optionality
+### Defaults
 
-This property is optional (`String?`). If a symbol does not belong to a specific category, it may be placed in a "General" or "Miscellaneous" group during the rendering process.
+This property is optional. If a symbol lacks a category, the system places it in a "General" or "Miscellaneous" group during rendering.

@@ -13,11 +13,11 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A large presentation detent.
+You expand the sheet to fill the screen.
 
 ## Overview
 
-When set to `.large`, the sheet expands to fill most of the available screen height, typically leaving only the status bar or a small portion of the parent view visible. This is the standard "full-height" sheet on iOS.
+The `.large` detent makes the sheet take up almost all available height. It typically hides everything except the status bar. 
 
 ### Use Case
-This is best for browsing large collections of symbols where maximum vertical space is beneficial for scanning the grid. It often serves as the "expanded" state when paired with `.medium`.
+Choose this for browsing the full symbol library. It maximizes the vertical space so users can scan through thousands of icons efficiently. You should often pair this with `.medium` to give users an expanded view option.

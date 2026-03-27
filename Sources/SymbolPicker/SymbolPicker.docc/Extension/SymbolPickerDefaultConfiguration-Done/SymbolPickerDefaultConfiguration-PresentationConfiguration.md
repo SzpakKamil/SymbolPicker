@@ -18,12 +18,12 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Resolves the presentation configuration by invoking the corresponding closure.
+Resolves the presentation strategy.
 
 ## Overview
 
-This method implements the ``SymbolPicker/SymbolPickerConfiguration/presentationConfiguration()`` protocol requirement by calling ``SymbolPicker/SymbolPickerDefaultConfiguration/currentPresentationConfiguration`` with the active ``SymbolPicker/SymbolPickerDefaultConfiguration/displayStyle``.
+This method fulfills the ``SymbolPicker/SymbolPickerConfiguration/presentationConfiguration()`` requirement. It calls the ``SymbolPicker/SymbolPickerDefaultConfiguration/currentPresentationConfiguration`` closure with the active style.
 
 ### Return Value
 
-Returns a ``SymbolPicker/SPPresentationConfiguration`` that dictates whether the picker appears as a sheet, popover, or full-screen cover.
+Returns an ``SymbolPicker/SPPresentationConfiguration`` that sets whether the picker appears as a sheet, popover, or full-screen cover.

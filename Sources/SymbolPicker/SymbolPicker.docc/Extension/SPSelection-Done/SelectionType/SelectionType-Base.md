@@ -18,22 +18,22 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-An enumeration defining the different types of assets that can be selected in a `SymbolPicker`.
+An enumeration for assets in SymbolPicker.
 
 ## Overview
 
-The `SelectionType` enum serves as the primary discriminator for an ``SymbolPicker/SPSelection`` object. It determines which underlying data property (symbol, emoji, image, or color) is currently active and how the selection should be rendered by the UI.
+The `SelectionType` enum tells an ``SymbolPicker/SPSelection`` object which asset is active. It controls whether the UI renders a symbol, emoji, image, or color.
 
 ### Supported Types
 
-- **Symbol**: Represents an asset defined by the generic `DataAsset` type (typically ``SymbolPicker/SPSymbol``).
-- **Emoji**: Represents a standard emoji character (``SymbolPicker/SPEmoji``).
-- **Image**: Represents a custom image asset (``SymbolPicker/SPImage``).
-- **Color**: Represents a solid color selection (`ColorKit/CKColor`).
+- **Symbol**: A vector asset, usually ``SymbolPicker/SPSymbol``.
+- **Emoji**: A native character via ``SymbolPicker/SPEmoji``.
+- **Image**: A custom photo via ``SymbolPicker/SPImage``.
+- **Color**: A solid color via `CKColor`.
 
 ### Data Integrity
 
-As `SPSelection` is a polymorphic structure, the `SelectionType` ensures that the logic for rendering, hashing, and equality is correctly scoped to the active asset type. It also guides the custom `Codable` implementation to ensure data is persisted and restored correctly.
+`SelectionType` scopes the logic for rendering and equality. It also tells the `Codable` implementation how to save and restore the selection.
 
 ## Topics
 

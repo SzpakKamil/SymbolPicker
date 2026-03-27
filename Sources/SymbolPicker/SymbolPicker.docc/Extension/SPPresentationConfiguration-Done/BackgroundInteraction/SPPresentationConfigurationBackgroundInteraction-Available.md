@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Allows background interaction up to a specific presentation detent.
+Enable background interaction up to a specific presentation detent.
 
 ## Overview
 
-This case provides dynamic interaction control based on the sheet's current expansion state. When the sheet is at or below the specified `upThrough` detent, users can interact with the background content. If the sheet is expanded beyond that detent, background interaction is disabled.
+You control when users can reach the content behind the picker. This case ties interaction availability to the sheet's expansion state. Users interact with background elements while the picker remains at or below your chosen `upThrough` detent. If the picker grows beyond that point, the system blocks background interaction to focus the user on their selection.
 
-### Use Case
-This is ideal for creating "drawer" style interfaces:
-- **Collapsed/Medium**: Acts as a floating tool panel or reference, allowing interaction with the main content.
-- **Expanded/Large**: Transitions into a focused, modal task where the user's attention is entirely on the symbol library.
+### Drawer Interfaces
+Use this setting to build drawer interfaces. 
+
+When you set the limit to `.medium`, users can still tap buttons or scroll lists in your main view while the picker sits at the bottom of the screen. As soon as the user pulls the picker up to the `.large` detent, the background dims or becomes unresponsive. This transition signals a shift from quick browsing to a dedicated selection task.
 
 ### Parameters
-- `upThrough`: The largest ``SymbolPicker/SPPresentationConfiguration/PresentationDents`` at which background interaction is allowed. For example, setting this to `.medium` means interaction is enabled when the sheet is at `.medium` or smaller, but disabled when it expands to `.large`.
+- `upThrough`: The largest ``SymbolPicker/SPPresentationConfiguration/PresentationDents`` that allows background interaction. If you choose `.medium`, interaction works at the medium height and any smaller custom heights. It stops working at any height larger than medium.

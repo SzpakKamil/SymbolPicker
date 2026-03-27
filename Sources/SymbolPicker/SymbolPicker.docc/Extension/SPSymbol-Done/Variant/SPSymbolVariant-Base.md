@@ -18,22 +18,22 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-An enumeration defining the visual style of an SF Symbol.
+Visual styles for SF Symbols.
 
 ## Overview
 
-The `Variant` enum allows developers to switch between the two primary visual styles supported by SF Symbols: filled and outlined. This abstraction provides a consistent way to manage icon styles throughout the library and the application's UI.
+The `Variant` enum switches between the two primary visual styles for SF Symbols: filled and outlined. This abstraction provides a consistent way to manage icon styles across the library and your UI.
 
-### Abstracting SF Symbol Naming
+### Logic
 
-Rather than manually appending `.fill` to system names, this enumeration encapsulates the visual state. This is particularly useful when:
-- **Global Styling**: Applying a consistent visual style across all icons in the picker.
-- **Dynamic Previews**: Allowing users to toggle between styles in real-time.
-- **Type Safety**: Ensuring that only valid visual states are requested from the `SPSymbol` instance.
+Instead of manually appending `.fill` to system names, this enumeration tracks the visual state. Use it to:
+- **Style Globally**: Apply a consistent look to all icons in the picker.
+- **Preview Styles**: Let users toggle between variants in real-time.
+- **Ensure Safety**: Request only valid visual states from an `SPSymbol` instance.
 
 ### Platform Support
 
-As an core component of the symbol management system, the `Variant` enum is available across all platforms supported by the package, ensuring a unified API for symbol style management on iOS, macOS, and beyond.
+As a core part of the symbol system, `Variant` works on every platform. It ensures a unified API for managing symbol styles on iOS, macOS, and visionOS.
 
 ## Topics
 

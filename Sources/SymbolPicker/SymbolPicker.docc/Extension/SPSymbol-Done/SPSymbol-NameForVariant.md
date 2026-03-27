@@ -13,22 +13,21 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Retrieves the SF Symbol system name for a specific visual variant.
+Resolves the system name for a visual variant.
+
+- Parameter variant: The desired ``SymbolPicker/SPSymbol/Variant``.
+- Returns: The SF Symbol name string.
 
 ## Overview
 
-The `name(for:)` method is a utility for resolving the appropriate system name string based on a provided ``SymbolPicker/SPSymbol/Variant``.
+The `name(for:)` method returns the correct system name based on the provided variant.
 
-### Selection Mapping
+### Mapping
 
-This method provides a direct mapping from a variant enum case to the corresponding string property:
-- `.filled`: Returns the value of `filledName`.
-- `.outlined`: Returns the value of `notFilled`.
+This method maps variant cases to their string properties:
+- **`.filled`**: Returns the `filledName` value.
+- **`.outlined`**: Returns the `notFilled` value.
 
-### Decoupling Logic
+### Benefits
 
-By using this method, the rest of the library (and any consumer code) is decoupled from the specific naming conventions of SF Symbols. Instead of manually appending or removing suffixes like `.fill`, developers can rely on this method to provide the correct string for the desired visual style.
-
-### Returns
-
-- A `String` representing the system name of the symbol for the requested variant.
+This utility decouples your code from SF Symbol naming conventions. Instead of manually adding or removing `.fill` suffixes, you use this method to get the correct string for any visual style.

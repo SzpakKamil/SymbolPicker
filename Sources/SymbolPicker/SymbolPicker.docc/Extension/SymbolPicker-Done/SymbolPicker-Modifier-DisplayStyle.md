@@ -18,25 +18,25 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the display style for the symbol picker, controlling its overall layout strategy.
+Sets the layout strategy for the symbol picker.
 
 ## Overview
 
-The display style dictates how the picker organizes its internal components, such as the asset grid, search bar, and color palette. This is particularly useful for tailoring the user interface to different platforms and screen sizes.
+The display style sets how the picker organizes the grid, search bar, and color palette. Use this to tailor the interface for different screen sizes and platforms.
 
 ### Available Styles
 
-- **`.compact`**: A modern, streamlined layout with floating elements. This is the default style on iOS 26+ and visionOS, focusing on maximizing the grid area while keeping controls easily accessible.
-- **`.detail`**: A classic sidebar or list-based layout, providing a more structured and hierarchical view. This is the default on macOS and older iOS versions.
-- **`.full`**: A maximized content layout that takes up as much space as possible, ideal for iPadOS in full-screen or large split-view configurations.
+- **`.compact`**: A streamlined layout with floating elements. This is the default for iOS 26+ and visionOS. It maximizes the grid area and keeps controls reachable.
+- **`.detail`**: A structured sidebar or list-based layout. This is the default for macOS and older iOS versions.
+- **`.full`**: A maximized layout that fills the screen. Use this for iPadOS in full-screen or large split-view modes.
 
 ### Platform Adaptation
 
-The picker automatically selects an appropriate default style based on the current platform, but this modifier allows you to override that behavior for specific use cases.
+SymbolPicker chooses a default style based on the platform. Use this modifier to override that choice.
 
 ### Example
 
-Force a compact display style regardless of the platform:
+Force the compact style on any device:
 
 ```swift
 SymbolPicker(systemImage: $symbolName)
@@ -45,6 +45,4 @@ SymbolPicker(systemImage: $symbolName)
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `style` | ``SymbolPicker/SPDisplayStyle`` | The desired display style. |
+- **style**: The ``SymbolPicker/SPDisplayStyle`` to use.

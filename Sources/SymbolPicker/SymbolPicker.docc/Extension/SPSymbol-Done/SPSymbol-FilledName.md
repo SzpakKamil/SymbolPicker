@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The system name for the filled version of the SF Symbol.
+The system name for the filled version of the symbol.
 
 ## Overview
 
-The `filledName` property stores the exact string required by `Image(systemName:)` to render the solid or filled variant of the symbol. This name is typically used when the symbol's variant is set to `.filled`.
+The `filledName` property stores the string required to render the solid variant of a symbol. The system uses this name when the symbol's variant is set to `.filled`.
 
-### Naming Conventions
+### Naming
 
-By convention in SF Symbols, filled variants usually include a `.fill` suffix (e.g., `"star.fill"`, `"heart.bubble.fill"`). This property allows the `SPSymbol` instance to switch between its two primary visual states without recalculating the system name dynamically.
+By convention, these names usually include a `.fill` suffix, such as `"star.fill"` or `"heart.bubble.fill"`. This property allows `SPSymbol` to switch between visual states without recalculating names at runtime.
 
-### Selection Logic
+### Highlighting
 
-When the picker needs to determine if a symbol is selected, it often compares a target system name against both `filledName` and `notFilled` to ensure a match regardless of the active variant.
+When the picker checks for selection, it compares target names against both `filledName` and `notFilled`. This ensures the correct icon highlights regardless of which variant is active.

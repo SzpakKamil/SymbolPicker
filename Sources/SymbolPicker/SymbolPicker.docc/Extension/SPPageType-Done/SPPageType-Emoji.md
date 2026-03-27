@@ -17,8 +17,8 @@ A browsing page for emojis.
 
 ## Overview
 
-The `emoji` case represents a page in the `SymbolPicker` where users can browse, search, and select standard system emoji characters.
+The `emoji` case sets the picker to show standard system emoji characters.
 
-### Browsing Interface
+### Browsing
 
-When the emoji page is active, the picker typically displays a grid of emojis organized by categories (e.g., Smileys, Nature, Food). It also supports skin tone selection for applicable emojis, providing a familiar and comprehensive emoji browsing experience.
+On this page, users see a grid of emojis sorted by category, such as Smileys or Food. The interface also supports skin tone selection for applicable emojis. SymbolPicker loads this content from JSON resources to ensure fast scrolling and search.

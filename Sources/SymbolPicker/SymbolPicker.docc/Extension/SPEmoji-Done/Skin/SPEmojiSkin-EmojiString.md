@@ -13,24 +13,24 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Returns the literal emoji character(s) represented by the skin variation's hexcode.
+Returns the emoji character for the skin variation.
 
 ## Overview
 
-The `emojiString()` method is the core mechanism for resolving the literal Unicode character (glyph) for a specific variation.
+The `emojiString()` method resolves the literal Unicode character from the variation's hexcode.
 
-### Glyph Resolution Logic
+### Logic
 
-The method resolves the emoji string directly from the ``SymbolPicker/SPEmoji/Skin/id`` (hexcode) of the variation. This hexcode represents the precise combination of scalars required for the modified glyph.
+The method uses the ``SymbolPicker/SPEmoji/Skin/id`` to find the scalars required for the modified glyph. It converts the hexcode string into scalar components and returns a Swift `String`.
 
-### Encoding Details
+### Components
 
-Under the hood, this method converts the hexcode string into its Unicode scalar components and returns a standard Swift `String`. This ensures that even complex multi-scalar emojis (like skin-toned gestures or gendered variations) are correctly reconstructed:
-- **Base Scalar**: The primary emoji glyph.
-- **Fitzpatrick Modifier**: The skin tone scalar (if applicable).
-- **Variation Selector**: Scalars that specify the presentation style (text vs. emoji).
-- **Zero Width Joiner (ZWJ)**: Scalars used to combine multiple emojis into a single glyph (e.g., family groups).
+This process handles various Unicode scalars:
+- **Base**: The primary emoji.
+- **Modifier**: Skin tone scalars.
+- **Selector**: Presentation style scalars.
+- **Joiner**: Scalars that combine emojis into one glyph, like family groups.
 
 ### Performance
 
-This method is highly optimized for performance, enabling the `SymbolPicker` to render thousands of emoji variations in a smooth, scrolling grid. The conversion process is fast and efficient, ensuring zero impact on the UI responsiveness.
+SymbolPicker uses an optimized conversion process. This allows the grid to render thousands of variations without lagging.

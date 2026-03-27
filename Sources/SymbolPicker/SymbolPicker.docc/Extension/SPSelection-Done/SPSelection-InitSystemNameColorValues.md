@@ -21,14 +21,12 @@ Initializes a selection with a system symbol name and an array of color componen
 
 ## Overview
 
-This initializer provides a way to create a symbol selection when color data is stored as raw numeric values, common in persistence layers or network responses.
+Initialize a symbol selection using an SF Symbol name and numeric color components. This initializer is useful when color data comes from persistence layers as raw numeric values.
 
 ### Color Reconstruction
 
-The provided `colorValues` array is converted into a `ColorKit/CKColor`:
-- If 4 values are provided, they are interpreted as Red, Green, Blue, and Alpha.
-- If 3 values are provided, they are interpreted as Red, Green, and Blue.
+The `colorValues` array converts to a `ColorKit/CKColor`. Four values represent RGBA (Red, Green, Blue, Alpha), while three represent RGB. This ensures that your stored numeric data becomes a usable tint for the SF Symbol.
 
 ### Fallback Behavior
 
-If the provided array is empty or does not have a valid length (3 or 4), the selection is created with the symbol only and no tint color is applied.
+If the array is empty or an invalid length, the library creates the selection with the symbol only. No tint is applied in this case. This allows for resilient data loading even when color information is missing or corrupted in your data source.

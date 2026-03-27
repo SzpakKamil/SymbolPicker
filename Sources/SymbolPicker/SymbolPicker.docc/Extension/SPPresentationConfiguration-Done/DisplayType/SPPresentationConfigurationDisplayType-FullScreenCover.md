@@ -13,15 +13,15 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Presents the picker as a full-screen cover.
+You hide the entire screen behind the picker.
 
 ## Overview
 
-When set to `.fullScreenCover`, the `SymbolPicker` completely obscures the underlying content. This presentation style removes the context of the parent view entirely, focusing the user solely on the symbol selection task.
+The `.fullScreenCover` style removes all context. The `SymbolPicker` covers every pixel of the underlying app, forcing the user to focus only on their selection.
 
 ### Behavior
-- **Dismissal**: Unlike sheets or popovers, a full-screen cover typically does not support swipe-to-dismiss. You must provide an explicit dismissal mechanism (e.g., a "Done" or "Cancel" button).
-- **Transitions**: Uses a distinct transition animation (usually sliding up from the bottom).
+- **Dismissal**: Users cannot swipe this away. You must provide a "Done" or "Cancel" button to close the picker.
+- **Transitions**: The view typically slides up from the bottom, replacing the current screen entirely.
 
 ### Use Case
-Best for highly immersive workflows or complex, multi-step symbol configuration tasks where distractions should be minimized.
+Choose this for immersive workflows. It works best when you need the user to configure a symbol through several steps without any background distractions.

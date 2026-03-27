@@ -21,12 +21,12 @@ Initializes a selection with a system symbol name and an optional SwiftUI color.
 
 ## Overview
 
-This initializer provides a convenient way to create a symbol selection using standard SF Symbol names and SwiftUI colors.
+Initialize a selection using an SF Symbol name and an optional SwiftUI color. This provides a fast way to build symbol selections with standard names.
 
-### Automatic Asset Creation
+### Asset Creation
 
-When this initializer is called, the library creates a new ``SymbolPicker/SPSymbol`` instance with identical filled and outlined names based on the provided `systemName`.
+This initializer creates an ``SymbolPicker/SPSymbol`` instance with identical filled and outlined names based on your `systemName`. It sets the selection type to symbol and prepares the asset for rendering.
 
 ### Color Conversion
 
-The provided SwiftUI `Color` is automatically converted into a `ColorKit/CKColor` for storage within the selection. This ensures that the color is compatible with all platforms supported by the library.
+The library converts the SwiftUI `Color` into a `ColorKit/CKColor` for storage. This ensures platform compatibility and allows the selection to work seamlessly across iOS, macOS, and watchOS.

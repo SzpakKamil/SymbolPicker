@@ -18,22 +18,21 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A high-performance asynchronous view for rendering custom pixel-based image assets with advanced transformation support.
+A view for rendering image assets with transformation support.
 
 ## Overview
 
-`SPImageView` is a specialized rendering component designed for custom images within the ``SymbolPicker`` package. It uses the `AsyncImage` API to efficiently load and render pixel-based assets from local URLs, while providing sophisticated control over how the image is positioned and scaled within its container.
+`SPImageView` renders images in the ``SymbolPicker`` package. It uses `AsyncImage` to load assets from URLs and provides controls to position and scale the image.
 
 ### Usage
 
-To use `SPImageView`, initialize it with an instance of ``SymbolPicker/SPImage``:
+Initialize `SPImageView` with an ``SymbolPicker/SPImage``:
 
 ```swift
 import SwiftUI
 import SymbolPicker
 
 struct MyImagePreview: View {
-    // Using the system symbol initializer
     let image = SPImage(systemName: "photo.artframe")
 
     var body: some View {
@@ -46,28 +45,28 @@ struct MyImagePreview: View {
 }
 ```
 
-### Advanced Transformation Logic
+### Transformation Logic
 
-The view incorporates a complex layout engine that calculates the image's final appearance based on several factors:
-- **Aspect Ratio Maintenance**: Automatically calculates the image's original aspect ratio using its width and height to ensure that it is never distorted.
-- **Dynamic Zooming**: Supports a `zoom` factor that scales the image while maintaining its centered focus within the container.
-- **Precision Offsets**: Provides `offsetX` and `offsetY` controls that allow the user to precisely position the image within its frame, taking into account the scaled dimensions.
-- **Intelligent Scaling**: Uses a combination of `.resizable()` and `.scaledToFill()` with custom offsets and scale effects to provide a high-fidelity rendering.
+The view calculates the final look using several factors:
+- **Aspect Ratio**: Uses width and height to prevent distortion.
+- **Zoom**: Scales the image while keeping it centered.
+- **Offsets**: Uses `offsetX` and `offsetY` to position the image.
+- **Scaling**: Combines `.resizable()` and `.scaledToFill()` with custom effects.
 
-### Performance and Reliability
+### Performance
 
-`SPImageView` is built for performance and reliability:
-- **Asynchronous Loading**: Uses `AsyncImage` to ensure that the UI thread remains responsive while images are being loaded from disk.
-- **Error Handling**: Provides an automatic fallback to a standard "photo" system icon if the image fails to load or if the provided URL is invalid.
-- **Dynamic Identification**: Automatically re-renders when the underlying ``SymbolPicker/SPImage/id`` changes, ensuring that the view always matches the current state.
+`SPImageView` keeps the UI responsive:
+- **Background Loading**: `AsyncImage` loads images without blocking the main thread.
+- **Fallbacks**: Shows a "photo" icon if loading fails or the URL is invalid.
+- **Re-rendering**: Updates automatically when the ``SymbolPicker/SPImage/id`` changes.
 
 ### Accessibility
 
-The view automatically applies appropriate accessibility labels (via ``SymbolPicker/SPPageType/image``) and traits, ensuring that custom images are navigable and identifiable within the picker interface.
+The view applies labels and traits via ``SymbolPicker/SPPageType/image``. Users can identify and navigate images within the picker.
 
-### Rendering Performance
+### Rendering
 
-Because custom images can be resource-intensive, `SPImageView` combines asynchronous loading with the `.drawingGroup()` modifier. This ensures that the main thread stays clear for user interactions while the GPU handles the complex image transformations and final composition.
+The view uses the `.drawingGroup()` modifier. This lets the GPU handle transformations and composition, leaving the main thread free for interaction.
 
 ## Topics
 

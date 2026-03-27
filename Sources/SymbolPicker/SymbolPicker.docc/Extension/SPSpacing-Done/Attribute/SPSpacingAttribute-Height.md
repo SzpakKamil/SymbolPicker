@@ -13,22 +13,21 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The height of the component.
+The height of a component.
 
 ## Overview
 
-The `height` attribute is a fundamental layout property that defines the vertical size of a target component within the `SymbolPicker`.
+The `height` attribute defines the vertical size of a target component within `SymbolPicker`.
 
 ### Layout Role
 
-This attribute is primarily used by:
-- **`SPSymbolView` and `SPEmojiView`**: Controls the vertical frame size, ensuring that icons are rendered at a consistent height within lists or grids.
-- **Color Cells**: Determines the vertical space each color swatch consumes in the color picker grid.
+- **`SPSymbolView` and `SPEmojiView`**: This attribute sets the vertical frame size to ensure icons match in height across lists or grids.
+- **Color Cells**: This attribute determines the vertical space each color swatch occupies in the color picker grid.
 
-### Dynamic Resolution
+### Resolution
 
-When a `SPSpacing` configuration is queried, the `height` value is resolved based on the provided ``SymbolPicker/SPSpacing/Sizing`` object. If no specific height is set, the picker will automatically resolve to its platform-specific default height for the current dynamic type size.
+The picker resolves the `height` value based on the ``SymbolPicker/SPSpacing/Sizing`` object. If you do not specify a height, the system uses the default height for the current dynamic type size and platform.
 
 ### Technical Context
 
-Height is typically applied as a `maxWidth: .infinity` or a fixed frame depending on the component's internal layout logic (e.g., within a `VStack` or `LazyVGrid`).
+The layout engine applies height as a fixed frame or within a `VStack` or `LazyVGrid` depending on the component requirements.

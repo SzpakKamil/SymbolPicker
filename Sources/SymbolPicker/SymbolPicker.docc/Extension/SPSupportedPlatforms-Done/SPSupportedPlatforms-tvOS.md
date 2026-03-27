@@ -6,8 +6,8 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The tvOS platform with an optional version number.
+The tvOS platform with an optional version.
 
 ## Overview
 
-The `tvOS` case represents the Apple TV platform. It can store an optional integer representing the major OS version (e.g., 15, 16, 17), allowing for platform-specific adaptation in the `SymbolPicker`.
+The `tvOS` case represents the Apple TV platform. It stores an optional integer for the major OS version, such as 15 or 17. Use this data to tailor the picker for focus-based interactions on tvOS.

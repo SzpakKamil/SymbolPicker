@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a new image view with a provided image model.
+Creates an image view with an image model.
 
 ## Overview
 
-The `init(image:)` initializer creates a reactive rendering component for a specific pixel-based image asset.
+The `init(image:)` initializer builds a rendering component for an image asset.
 
-### Parameter Configuration
+### Parameters
 
-- **`image`**: The ``SymbolPicker/SPImage`` data model containing the image's URL, dimensions, and transformation rules.
+- **`image`**: The ``SymbolPicker/SPImage`` model with the URL, dimensions, and transformations.
 
-### Initialization Process
+### Process
 
-Upon initialization, the view stores the provided ``SymbolPicker/SPImage`` model. All complex rendering logic—including asynchronous loading via `AsyncImage`, calculating render dimensions from ``SymbolPicker/SPImage/width`` and ``SymbolPicker/SPImage/height``, and applying zoom and offset transformations—is handled during the view's layout phase.
+The view stores the ``SymbolPicker/SPImage`` model. It handles loading through `AsyncImage` and calculates dimensions from ``SymbolPicker/SPImage/width`` and ``SymbolPicker/SPImage/height``. The view applies zoom and offset transformations during the layout phase.

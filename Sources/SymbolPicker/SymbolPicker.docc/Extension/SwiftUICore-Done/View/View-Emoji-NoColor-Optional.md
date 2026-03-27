@@ -1,6 +1,5 @@
 # ``SwiftUICore/View/symbolPicker(isPresented:emoji:configuration:)-(_,Binding<SPEmoji?>,_)``
 
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -19,9 +18,11 @@
 }
 
 ## Overview
-Presents a symbol picker that allows the user to select an emoji, which is synchronized with the provided binding. The emoji binding is optional.
 
-## Example Usage
+Presents a symbol picker for selecting an emoji. This version binds to an optional emoji object.
+
+### Example Usage
+
 ```swift
 struct MyView: View {
     @State private var isPresented = false
@@ -38,3 +39,7 @@ struct MyView: View {
     }
 }
 ```
+
+### Details
+
+This modifier lets you include an emoji picker in your view hierarchy. It uses an optional binding, so the user can clear the current selection, setting the bound value to `nil`.

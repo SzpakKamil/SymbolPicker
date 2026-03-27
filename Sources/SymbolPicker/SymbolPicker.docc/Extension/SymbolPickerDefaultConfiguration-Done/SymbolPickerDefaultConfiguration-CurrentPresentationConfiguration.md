@@ -18,25 +18,23 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A closure that returns the presentation style for the picker.
+A closure for resolving the picker's presentation style.
 
 ## Overview
 
-The `currentPresentationConfiguration` property is a closure that resolves the presentation strategy (sheet, full screen cover, or popover) based on the active ``SymbolPicker/SPDisplayStyle``.
+The `currentPresentationConfiguration` property resolves the modal strategy—sheet, full-screen cover, or popover—based on the active ``SymbolPicker/SPDisplayStyle``.
 
 ### Behavior
 
-By default, the closure invokes the ``SymbolPicker/SPPresentationConfiguration/init()`` initializer, which uses platform-aware defaults.
+By default, the closure uses platform-aware settings from the ``SymbolPicker/SPPresentationConfiguration`` initializer.
 
 ### Customization
-
-You can provide a custom closure to dynamically override the presentation behavior based on the active display style.
 
 ```swift
 var config = SymbolPickerDefaultConfiguration()
 config.currentPresentationConfiguration = { style in
     var pConfig = SPPresentationConfiguration(style: style)
-    pConfig.type = .sheet // Always use a sheet
+    pConfig.type = .sheet // Force a sheet layout
     return pConfig
 }
 ```

@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the available colors in the integrated color picker using an array of `CKColor` objects.
+Define available colors for the integrated color picker with an array.
 
 ## Overview
 
-Use this modifier to provide a predefined set of colors for the user to choose from by providing an array of color options.
+Provide a predefined color set by passing an array of color options. This modifier determines the colors users can choose from when the picker is active.
 
 ### Example
 
-Provide an array of brand colors:
+Apply brand colors to the picker:
 
 ```swift
 let brandColors: [CKColor] = [.red, .blue, .green]
@@ -40,4 +40,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `colors` | `[CKColor]` | An array of colors to display in the palette. |
+| `colors` | `[CKColor]` | An array of colors for the palette. |

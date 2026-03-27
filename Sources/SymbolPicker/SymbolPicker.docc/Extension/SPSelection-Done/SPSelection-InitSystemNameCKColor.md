@@ -21,12 +21,12 @@ Initializes a selection with a system symbol name and an optional platform-agnos
 
 ## Overview
 
-This initializer provides a direct way to create a symbol selection with a pre-configured `ColorKit/CKColor`.
+Initialize a symbol selection with an SF Symbol name and a platform-agnostic color. This method provides a direct path to symbol selections with pre-configured colors.
 
-### Internal asset generation
+### Asset Creation
 
-When this initializer is called, the library creates a new ``SymbolPicker/SPSymbol`` instance with identical filled and outlined names based on the provided `systemName`.
+This initializer creates an ``SymbolPicker/SPSymbol`` instance with identical filled and outlined names based on your `systemName`. It prepares the asset for use within the picker's modular architecture.
 
-### Platform Agnostic Color
+### Color Readiness
 
-By using `ColorKit/CKColor` directly, this initializer ensures that the selection's color state is ready for use across all supported platforms without further conversion.
+By using `ColorKit/CKColor` directly, you ensure the color state is ready for every supported platform. This eliminates the overhead of SwiftUI `Color` conversion during selection rendering on macOS or watchOS.

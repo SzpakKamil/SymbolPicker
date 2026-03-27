@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the background color for pressed items and returns the modified configuration.
+Sets the background color for pressed items.
 
-- Parameter value: The new color.
-- Returns: The updated configuration instance.
+- Parameter value: The background color.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spOptionListBackgroundPressed(_:)` is a chainable method used to update the ``SymbolPicker/SPOptionListConfiguration/optionListBackgroundPressed`` property.
+The `spOptionListBackgroundPressed(_:)` method updates the ``SymbolPicker/SPOptionListConfiguration/optionListBackgroundPressed`` property. Use this to provide visual feedback during touch or click interactions.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

@@ -13,12 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A unique identifier for the page type, ensuring it conforms to the `Identifiable` protocol.
+A unique identifier for the page type.
 
 ## Overview
 
-The `id` property is used by SwiftUI to uniquely identify pages when they are presented in a tab view or page picker. This ensures that the UI can correctly track and animate transitions between different content pages.
+SwiftUI uses the `id` property to track pages in tab views or pickers. It allows the system to animate transitions between different content pages.
 
-### Data Format
+### Format
 
-The `id` property returns the raw string value of the `SPPageType` enum (e.g., `"Symbol"`, `"Emoji"`, or `"Image"`).
+The property returns the raw string value of the enum case, such as `"Symbol"`, `"Emoji"`, or `"Image"`.

@@ -13,20 +13,20 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Retrieves the custom image data associated with the current selection.
+Gets the custom image data for the selection.
 
-- Returns: An ``SymbolPicker/SPImage`` if the selection contains a custom photo; otherwise, `nil`.
+- Returns: An ``SymbolPicker/SPImage`` if the selection contains a photo. Otherwise, returns `nil`.
 
 ## Overview
 
-The `getImage()` method provides access to any custom photo data that the user has selected via the system's PhotosPicker. It is only applicable when the selection type represents a user-provided image rather than a system symbol or emoji.
+The `getImage()` method provides access to photos users select via the system's `PhotosPicker`. It only applies when the user chooses an image rather than a symbol or emoji.
 
 ### Data Structure
 
-The returned ``SymbolPicker/SPImage`` object contains the raw image data along with metadata like file name, dimensions, and user-defined zoom and offset values. This detailed information allows the package to correctly render and crop the image for display.
+The returned ``SymbolPicker/SPImage`` object contains the raw data and metadata like dimensions, zoom, and offset. This information lets the library crop and render the photo correctly.
 
 ### Use Cases
 
-- **Image Preview**: Used by ``SymbolPicker/SPImageView`` to display the selected photo within the picker's UI.
-- **Image Editing**: Used by components that allow users to adjust the zoom and position of their selected photos.
-- **Persistence**: Can be used by hosting applications to extract and save the raw data of the user's custom photo selection.
+- **Previews**: ``SymbolPicker/SPImageView`` uses this to show the photo in the picker.
+- **Editing**: Use this to let users adjust the zoom and position of their photos.
+- **Persistence**: Host apps use this to extract and save user photo data.

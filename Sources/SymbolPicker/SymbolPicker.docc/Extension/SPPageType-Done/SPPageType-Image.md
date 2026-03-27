@@ -8,24 +8,22 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A browsing page for custom images from the Photos library.
+A browsing page for custom photos.
 
 ## Overview
 
-The `image` case represents a page in the `SymbolPicker` where users can select personal photos or custom assets. It provides a rich interface for integration with the system Photos library on supported platforms.
+The `image` case sets the picker to show personal photos or custom assets. It uses the system Photos library on supported platforms.
 
-### Photos Library Integration
+### Integration
 
-When active, this page utilizes `PhotosUI` to allow users to securely pick images from their device. This is ideal for:
-- **Personalization**: Letting users use their own photos as app icons or category markers.
-- **Custom Assets**: Bridging the gap between system symbols and user-provided content.
+This page uses `PhotosUI` to let users pick images securely. This helps users personalize the app by using their own photos as markers or icons.
 
-### User Adjustments
+### User Controls
 
-The picker provides a specialized interface for fine-tuning the selected image:
-- **Scale**: Users can zoom in or out to focus on a specific part of the image.
-- **Offset**: Users can adjust the X and Y positions to center the desired content perfectly within the selection frame.
+The picker includes tools for adjusting the selected image:
+- **Scale**: Users zoom the image to focus on a subject.
+- **Offset**: Users move the image to center it within the selection frame.
 
-### Automatic Color Synchronization
+### Color Sync
 
-Selecting an image from the Photos library triggers an automatic color update. The library calculates the **average color** of the chosen image and applies it to the selection's color property. This ensures that UI elements derived from the selection color (like backgrounds or accents) remain visually harmonious with the new image.
+When a user picks a photo, the library calculates its average color. It then applies this color to the selection tint. This keeps your UI's backgrounds and accents consistent with the new image.

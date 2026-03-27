@@ -1,6 +1,6 @@
 # ``SymbolPicker/SymbolPicker/init(systemImage:ckColor:configuration:)-(Binding<String?>,_,_)``
 
-Creates a picker bound to an optional SF Symbol name and a ColorKit color.
+Initialize a picker bound to an optional SF Symbol name and a ColorKit color.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,10 +22,10 @@ Creates a picker bound to an optional SF Symbol name and a ColorKit color.
 
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+You create a `SymbolPicker` by passing bindings to an optional `String` for the symbol name and a `CKColor` for the tint. This setup allows your state to start as `nil` when no symbol is selected. The picker automatically synchronizes its internal state with your bindings, updating them as soon as the user makes a selection. Use the `configuration` parameter to customize the picker's appearance.
 
 ### Parameters
 
-- **systemImage**: A binding to the SF Symbol name string.
-- **ckColor**: A binding to a `CKColor` for representing the selection's tint.
-- **configuration**: The visual configuration for the picker.
+- **systemImage**: The binding to your optional SF Symbol name.
+- **ckColor**: The binding to your `CKColor` state.
+- **configuration**: Settings that define the picker's layout and style.

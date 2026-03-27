@@ -18,14 +18,14 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the default foreground color for the option list items.
+Set the default foreground color for option list items.
 
 ## Overview
 
-Use this modifier to specify the primary color for text and icons within the option list when they are in their default state.
+Apply this modifier to define the primary color for text and icons in the list. You pass a `Color` to set the appearance for items in their neutral state. This ensures your list content remains legible and consistent with your app's theme.
 
 ### Parameters
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The foreground color to apply. |
+| `value` | `Color` | The color applied to the item's text and icons. |

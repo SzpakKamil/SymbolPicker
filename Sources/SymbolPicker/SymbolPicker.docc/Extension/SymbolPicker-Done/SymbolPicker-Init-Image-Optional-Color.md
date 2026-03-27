@@ -1,7 +1,5 @@
 # ``SymbolPicker/SymbolPicker/init(image:color:configuration:)-(Binding<SPImage?>,_,_)``
 
-Creates a picker bound to an optional custom image and a SwiftUI color.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "16.0")
@@ -17,12 +15,18 @@ Creates a picker bound to an optional custom image and a SwiftUI color.
     @AutomaticArticleSubheading(disabled)
 }
 
+Creates a picker for an optional custom image and a SwiftUI color.
+
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+This initializer binds the picker to an optional image and a color. It synchronizes the picker's internal state with your source of truth.
 
 ### Parameters
 
-- **image**: A binding to the custom image object.
-- **color**: A binding to a SwiftUI `Color` for representing the selection's tint.
-- **configuration**: The visual configuration for the picker.
+- **image**: A binding to the optional ``SymbolPicker/SPImage`` object.
+- **color**: A binding to a SwiftUI `Color` for the selection tint.
+- **configuration**: The layout and style settings for the picker.
+
+### Usage
+
+Use this initializer when you need to store both a custom photo and its associated tint color in your app's state. The picker automatically updates these bindings when the user makes a selection or changes the tint.

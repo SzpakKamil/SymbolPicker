@@ -1,7 +1,5 @@
 # ``SymbolPicker/SymbolPicker/init(selection:configuration:)-(Binding<SPSelection<DataAsset>>,_)``
 
-Creates a picker bound to a generic selection object.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,11 +18,17 @@ Creates a picker bound to a generic selection object.
     @AutomaticArticleSubheading(disabled)
 }
 
+Creates a picker bound to a selection object.
+
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+This initializer binds the picker to an ``SymbolPicker/SPSelection`` instance. It synchronizes the picker's state with your source of truth.
 
 ### Parameters
 
 - **selection**: A binding to the selection state.
-- **configuration**: The visual configuration for the picker.
+- **configuration**: The layout and style settings for the picker.
+
+### Usage
+
+Use this initializer when you need full control over the selection data, including the asset type and its associated tint color. The picker updates the binding automatically when the user makes a choice.

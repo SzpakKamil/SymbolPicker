@@ -13,14 +13,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Returns the custom image asset for the selection.
+Gets the image asset for the selection.
 
-- Returns: The ``SymbolPicker/SPImage`` assigned to the selection, or `nil` if the selection type is not `.image`.
+- Returns: The ``SymbolPicker/SPImage`` if the type is `.image`. Otherwise, returns `nil`.
 
 ## Overview
 
-The `getImage()` method provides safe access to the underlying image data. It ensures that you only receive an image asset if the selection ``SymbolPicker/SPSelection/type`` is currently set to `.image`.
+The `getImage()` method accesses the underlying image data. It only returns an asset if the selection ``SymbolPicker/SPSelection/type`` is `.image`.
 
-### Usage in Custom Rendering
+### Custom Rendering
 
-This method is useful when you want to handle the rendering of a selected image manually, for example by applying custom filters or animations that are specific to your app's design.
+Use this method to render a selected image manually. It allows you to apply filters or animations that match your app's design.

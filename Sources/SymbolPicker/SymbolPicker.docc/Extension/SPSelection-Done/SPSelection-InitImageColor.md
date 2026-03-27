@@ -21,14 +21,12 @@ Initializes a selection with a custom image and an optional SwiftUI color.
 
 ## Overview
 
-This initializer provides a way to create an image selection with an optional SwiftUI color applied as a tint or background color.
+Initialize a selection with a custom image and an optional SwiftUI color. This initializer lets you apply a tint or background color to an image selection.
 
 ### Selection State
 
-When using this initializer:
-- The ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/image``.
-- The ``SymbolPicker/SPSelection/image`` property is populated with the provided asset.
+This method sets the selection ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/image``. It also populates the ``SymbolPicker/SPSelection/image`` property with your custom asset.
 
 ### Color Handling
 
-The provided SwiftUI `Color` is automatically converted into a `ColorKit/CKColor` for storage. This color is typically used as a tint or background fill for the image selection.
+The library automatically converts the SwiftUI `Color` into a `ColorKit/CKColor` for storage. This color often serves as a tint or background fill, ensuring cross-platform compatibility and visual consistency.

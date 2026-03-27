@@ -13,12 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Returns the major OS version number stored in the platform case.
+The major OS version number for the platform.
 
 ## Overview
 
-The `majorVersion` property allows you to extract the integer version number from any `SPSupportedPlatforms` instance.
+The `majorVersion` property extracts the integer version from an `SPSupportedPlatforms` case.
 
-### Data Access
+### Usage
 
-This property switches over the enum cases and returns the associated version value if it exists. This is useful for performing more granular version checks (e.g., "Is the current version 17 or higher?") within the picker's logic.
+The property switches over the enum cases and returns the associated version value. Use this for version-specific logic, such as checking if the current system is version 17 or higher to enable modern effects.

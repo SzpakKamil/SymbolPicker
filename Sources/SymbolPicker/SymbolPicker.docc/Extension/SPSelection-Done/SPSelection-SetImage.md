@@ -19,16 +19,12 @@ Updates the selection to a custom image asset.
 
 ## Overview
 
-The `setImage(_:)` method switches the current ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/image`` and updates the underlying image data.
+Update the selection to a custom image asset. The `setImage(_:)` method switches the selection ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/image`` and refreshes the image data.
 
 ### Mutating State
 
-When this method is called:
-- The ``SymbolPicker/SPSelection/type`` is set to `.image`.
-- The ``SymbolPicker/SPSelection/image`` property is updated with the new asset.
-- Any existing symbol or emoji data is cleared by setting those properties to `nil`.
-- **Automatic Color Overwrite**: If the provided image has an average color available, the ``SymbolPicker/SPSelection/color`` property is automatically updated to this value, replacing any previously selected color.
+Calling this method clears any existing symbol or emoji data by setting those properties to `nil`. This maintains the integrity of the selection as a structure that represents only one type of content at a time.
 
-### Asset Transitions
+### Automatic Color Overwrite
 
-By clearing the other asset properties, `SPSelection` maintains its integrity as a polymorphic structure that only represents one type of content at a time. This ensures that the rendered view (via ``SymbolPicker/SPSelection/asView()``) always matches the intended selection.
+If the new image includes an average color, the method automatically updates the ``SymbolPicker/SPSelection/color`` property with this value. This replaces any previously selected tint, ensuring the rendered view (via ``SymbolPicker/SPSelection/asView()``) matches the new asset's visual characteristics.

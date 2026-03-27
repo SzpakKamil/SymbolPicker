@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the foreground color for asset cells in the picker's grid when they are focused.
+Set the foreground color for asset cells during focus.
 
 ## Overview
 
-Use this modifier to customize the color of icons and emojis when a cell receives focus, such as when navigating with a keyboard or game controller.
+Change the color of icons and emojis when a cell receives focus. This modifier helps users track their navigation through the grid using a keyboard or game controller.
 
 ### Example
 
-Set a custom focused foreground color:
+Apply a white foreground color to focused cells:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The foreground color applied when a cell is focused. |
+| `value` | `Color` | The foreground color for focused cells. |

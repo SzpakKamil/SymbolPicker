@@ -21,15 +21,12 @@ Initializes a selection with a symbol asset and an optional tint color.
 
 ## Overview
 
-This is the primary initializer used when you already have an ``SymbolPicker/SPSymbol`` or another asset conforming to ``SymbolPicker/SPDataAsset``.
+Initialize a selection with a symbol asset and an optional tint color. Use this primary initializer when you have an ``SymbolPicker/SPSymbol`` or another asset that conforms to ``SymbolPicker/SPDataAsset``.
 
 ### Selection State
 
-When using this initializer:
-- The ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/symbol``.
-- The ``SymbolPicker/SPSelection/symbol`` property is populated with the provided asset.
-- The ``SymbolPicker/SPSelection/color`` property is set to the provided tint color.
+This method sets the selection ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/symbol``. It populates the ``SymbolPicker/SPSelection/symbol`` property with the provided asset and the ``SymbolPicker/SPSelection/color`` property with the tint color.
 
 ### Custom Assets
 
-Because `SPSelection` is generic, this initializer supports any custom symbol type provided by the developer, as long as it conforms to the `SPDataAsset` protocol.
+Because `SPSelection` is generic, this initializer supports any custom symbol type you provide. This flexibility allows developers to extend the library with their own asset models while maintaining compatibility with the standard selection logic.

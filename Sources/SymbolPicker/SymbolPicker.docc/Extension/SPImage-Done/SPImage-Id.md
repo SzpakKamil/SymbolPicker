@@ -13,18 +13,18 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A unique identifier for the image asset, essential for persistence and list stability.
+A unique identifier for the image asset.
 
 ## Overview
 
-The `id` property is a `UUID` generated during the instantiation of a new `SPImage`. It serves as the canonical identity for the asset, ensuring it remains unique within the `SymbolPicker` ecosystem.
+The `id` property is a `UUID` that the app creates when you instantiate a new `SPImage`. It identifies the asset within the `SymbolPicker` ecosystem.
 
-### Architectural Purpose
+### Purpose
 
-The identifier is the primary mechanism for decoupling a light model instance from its heavy binary data:
-- **Disk Identification**: The binary image data is stored on disk using this ID as the filename (e.g., `\(id.uuidString).data`). This ensures that even if two images have the same ``SymbolPicker/SPImage/fileName``, they will never collide on the file system.
-- **SwiftUI List Stability**: The `id` provides a stable key for the `Identifiable` protocol, allowing SwiftUI's diffing algorithm to correctly track and animate image cells within a grid or list during sorting or filtering operations.
+This identifier connects the model to its binary data:
+- **Disk Storage**: The app saves image data on disk using this ID as the filename. This prevents collisions even if two images share the same ``SymbolPicker/SPImage/fileName``.
+- **UI Stability**: The `id` provides a stable key for SwiftUI lists. It helps the diffing algorithm track and animate image cells correctly during sorting or filtering.
 
-### Life Cycle
+### Lifecycle
 
-The `id` is immutable once an asset is created. When an `SPImage` is encoded or decoded via its `Codable` implementation, this identifier is used to resolve the correct source or destination path on the local file system.
+The `id` remains fixed once you create an asset. The `Codable` implementation uses this identifier to find the correct file path on your local system.

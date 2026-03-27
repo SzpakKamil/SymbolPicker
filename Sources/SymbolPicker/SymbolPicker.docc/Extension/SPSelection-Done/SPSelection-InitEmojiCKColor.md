@@ -21,14 +21,12 @@ Initializes a selection with an emoji and an optional platform-agnostic color.
 
 ## Overview
 
-This initializer provides a direct way to create an emoji selection with a pre-configured `ColorKit/CKColor`.
+Initialize an emoji selection with a platform-agnostic color. Use this initializer to create an emoji selection using a `ColorKit/CKColor` directly. 
 
 ### Selection State
 
-When using this initializer:
-- The ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/emoji``.
-- The ``SymbolPicker/SPSelection/emoji`` property is populated with the provided character data.
+This method sets the selection ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/emoji``. It populates the ``SymbolPicker/SPSelection/emoji`` property with the provided character data.
 
-### Direct Color Storage
+### Direct Storage
 
-By using `ColorKit/CKColor` directly, this initializer ensures that the selection's color state is ready for use across all supported platforms without further conversion.
+Direct `ColorKit/CKColor` storage keeps the selection's color state ready for all platforms. This avoids the need for runtime conversion from SwiftUI `Color`, ensuring your emoji tints and backgrounds render correctly on every supported OS.

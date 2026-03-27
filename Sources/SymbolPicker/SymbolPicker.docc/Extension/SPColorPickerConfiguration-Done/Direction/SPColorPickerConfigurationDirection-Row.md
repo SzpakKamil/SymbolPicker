@@ -13,15 +13,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Displays color cells in a single horizontal row.
+Displays colors in a horizontal row.
 
 ## Overview
 
-When set to `.row`, the color picker presents its selection in a single, horizontally scrollable row. This layout consumes minimal vertical space, making it perfect for compact presentations or toolbars.
+In `.row` mode, the color picker uses a scrollable horizontal row. This layout saves vertical space.
 
 ### Characteristics
-- **Space Efficiency**: Occupies the minimum vertical height required by a color cell.
-- **Navigation**: Supports standard horizontal scrolling if the number of colors exceeds the available width.
+
+- **Space Efficiency**: Uses the height of a single color cell.
+- **Navigation**: Supports scrolling when the palette exceeds the view width.
 
 ### Use Case
-Ideal for compact sheets, popovers, or as an inline control within a larger interface.
+
+Use this for toolbars, compact sheets, and inline controls.

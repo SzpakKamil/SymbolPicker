@@ -20,7 +20,11 @@ Initializes a dynamic spacing configuration that responds to system accessibilit
 
 ## Overview
 
-Use this initializer for creating highly adaptive layouts. The provided closure is called whenever the system's dynamic type size changes, allowing you to return scaled dimensions for the specified component.
+Initialize a dynamic spacing configuration to respond to system accessibility changes.
+
+### Adaptive Layouts
+
+The closure provides the current `DynamicTypeSize`, allowing you to return a ``SymbolPicker/SPSpacing/Sizing`` object with scaled dimensions. This ensures your layout stays usable when users change their font size. Use this for adaptive components like the color picker, where cell size should increase alongside text to maintain accessibility.
 
 ### Usage in Code
 

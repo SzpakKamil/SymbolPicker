@@ -1,7 +1,5 @@
 # ``SymbolPicker/SPInsetedView``
 
-A container view for injecting custom UI elements into predefined slots within the `SymbolPicker`.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,24 +18,24 @@ A container view for injecting custom UI elements into predefined slots within t
     @AutomaticArticleSubheading(disabled)
 }
 
+A container for custom UI elements in SymbolPicker.
+
 ## Overview
 
-`SPInsetedView` is a core part of the `SymbolPicker` extensibility model. It allows developers to place any SwiftUI view into specific "safe area" or "toolbar" locations, such as at the top of the picker, at the bottom, or in platform-specific toolbar slots.
+`SPInsetedView` lets you place any SwiftUI view into predefined slots in the picker, such as the top, bottom, or toolbar.
 
-By using the `spInsetedViews` modifier on a `SymbolPicker`, you can provide an array of these containers to add headers, footers, or additional interactive controls.
+Use the `spInsetedViews` modifier on a `SymbolPicker` to provide an array of these containers. They allow you to add headers, footers, or extra controls to the interface.
 
-### Key Aspects
+### Key Features
 
-- **Placement Awareness**: Each `SPInsetedView` is associated with a ``SymbolPicker/SPInsetedView/Placement``, which determines where it appears in the hierarchy.
-- **Adaptive Layout**: The picker automatically adjusts its internal spacing and scroll insets to accommodate these views.
-- **Generic Content**: It can wrap any type of SwiftUI view.
+- **Placement Awareness**: Each view uses an ``SymbolPicker/SPInsetedView/Placement`` to set its location.
+- **Adaptive Layout**: SymbolPicker adjusts its internal spacing and scroll insets to fit these views.
+- **Generic Content**: The container can wrap any SwiftUI view.
 
 ## Topics
 
 ### Initializers
-
 - ``SymbolPicker/SPInsetedView/init(placement:spacing:view:)``
 
 ### Enumerations
-
 - ``SymbolPicker/SPInsetedView/Placement``

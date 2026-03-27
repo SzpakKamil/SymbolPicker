@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the corner radius multiplier for the selection preview card in the presented picker.
+Set the corner radius multiplier for the selection preview card.
 
 ## Overview
 
-Use this modifier to customize the roundness of the preview card that displays the currently selected icon or emoji.
+Customize the roundness of the card that displays the selected icon or emoji. This factor adjusts the base corner radius to fit your app's visual style.
 
 ### Example
 
-Make the preview card more rounded:
+Increase the roundness of the preview card:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `CGFloat` | The multiplier for the preview card's corner radius. |
+| `value` | `CGFloat` | The multiplier for the preview card corner radius. |

@@ -12,27 +12,25 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a new inseted view with a specific placement and content.
+Initializes an inseted view.
 
-- Parameter placement: The location where the inseted view should be displayed (e.g., top or bottom bar).
-- Parameter spacing: Optional vertical spacing between items within the view's content (only applicable on platforms other than watchOS).
-- Parameter view: A ViewBuilder closure that returns the view content to be displayed in the inseted area.
+- Parameter placement: The location for the view, such as top or bottom bar.
+- Parameter spacing: Optional vertical spacing between items.
+- Parameter view: A ViewBuilder closure that returns the content.
 
 ## Overview
 
-Use this initializer to create custom content that will be injected into the picker's interface at the specified ``SymbolPicker/SPInsetedView/Placement``.
+The `init(placement:spacing:view:)` initializer creates content for specific ``SymbolPicker/SPInsetedView/Placement`` slots in the picker.
 
+### Platform Behavior
 
-### Platform Specific Behavior
+- **watchOS**: Renders the view as-is.
+- **Other Platforms**: Wraps the content in a `VStack` with the provided spacing for a consistent layout.
 
-- **watchOS**: The view is rendered as-is without a containing vertical stack or spacing.
-- **Other Platforms**: The content is automatically wrapped in a `VStack` with the provided spacing to ensure consistent layout behavior.
-
-### Usage in Code
+### Example
 
 ```swift
 let customTopBar = SPInsetedView(placement: .safeAreaTop, spacing: 8) {
-    Text("Custom Header")
-        .font(.headline)
+    Text("Custom Header").font(.headline)
 }
 ```

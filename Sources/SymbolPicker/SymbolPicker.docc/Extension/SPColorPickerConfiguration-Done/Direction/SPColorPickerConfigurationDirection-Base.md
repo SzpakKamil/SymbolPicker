@@ -18,15 +18,14 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Defines the layout arrangement of color cells within the color picker.
+Layout arrangements for color cells.
 
 ## Overview
 
-The `Direction` enum controls how colors are presented to the user. Depending on the available screen space and the desired aesthetic, you can choose between a compact row or an expansive grid.
+The `Direction` enum sets how colors appear in the picker. Choose a compact row or a grid based on your screen space needs.
 
 ## Topics
 
 ### Layout Modes
-
 - ``SymbolPicker/SPColorPickerConfiguration/Direction/grid``
 - ``SymbolPicker/SPColorPickerConfiguration/Direction/row``

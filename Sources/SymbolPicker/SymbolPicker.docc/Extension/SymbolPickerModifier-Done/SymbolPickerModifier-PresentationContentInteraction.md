@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the content interaction behavior for the presented picker's surface.
+Configure content interaction for the presented picker surface.
 
 ## Overview
 
-Use this modifier to control whether the picker's content should scroll internally or expand the sheet when the user interacts with it.
+Use this modifier to decide if the picker content scrolls internally or expands the sheet during user interaction.
 
 ### Example
 
-Force the content to scroll rather than expanding the sheet:
+Force the content to scroll instead of expanding the sheet:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | ``SymbolPicker/SPPresentationConfiguration/ContentInteraction`` | The desired content interaction behavior. |
+| `value` | ``SymbolPicker/SPPresentationConfiguration/ContentInteraction`` | The content interaction behavior. |

@@ -16,9 +16,9 @@ The foreground color for selected list items.
 
 ## Overview
 
-The `optionListForegroundSelected` property determines the color of an asset cell when it has been chosen by the user.
+The `optionListForegroundSelected` property sets the color of an asset cell after the user selects it.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

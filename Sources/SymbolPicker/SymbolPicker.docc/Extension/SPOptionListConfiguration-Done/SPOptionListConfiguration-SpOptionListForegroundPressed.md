@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the foreground color for pressed items and returns the modified configuration.
+Sets the foreground color for pressed items.
 
-- Parameter value: The new color.
-- Returns: The updated configuration instance.
+- Parameter value: The foreground color.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spOptionListForegroundPressed(_:)` is a chainable method used to update the ``SymbolPicker/SPOptionListConfiguration/optionListForegroundPressed`` property.
+The `spOptionListForegroundPressed(_:)` method updates the ``SymbolPicker/SPOptionListConfiguration/optionListForegroundPressed`` property. This sets the color of text and icons when a user presses an item in the grid.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

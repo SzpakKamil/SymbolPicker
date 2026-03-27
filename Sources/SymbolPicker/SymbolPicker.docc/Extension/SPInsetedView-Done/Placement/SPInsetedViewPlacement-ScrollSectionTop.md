@@ -17,7 +17,8 @@ Placement at the top of a scrollable section.
 
 ## Overview
 
-When set to `.scrollSectionTop`, the inset view is placed at the top of an individual section within the scroll view. This placement is particularly useful for section headers or additional context within categorized results.
+The `.scrollSectionTop` case puts the inset view at the start of an individual section. Use this for section headers or context within categorized results.
 
 ### Use Case
-Ideal for dynamic section headers that need to scroll alongside a specific category of symbols.
+
+Ideal for headers that scroll alongside a specific category of symbols.

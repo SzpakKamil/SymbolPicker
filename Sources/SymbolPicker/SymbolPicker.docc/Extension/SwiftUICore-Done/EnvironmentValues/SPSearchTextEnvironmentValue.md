@@ -1,7 +1,5 @@
 #  ``SwiftUICore/EnvironmentValues/spSearchText``
 
-A `String` value that determines the current search query in the picker.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,12 +18,14 @@ A `String` value that determines the current search query in the picker.
     @AutomaticArticleSubheading(disabled)
 }
 
+The current search query in the picker.
+
 ## Overview
 
-Use this property to integrate search functionality in custom **``SymbolPicker/SPInsetedView``**, enabling programmatic filtering of the picker's content.
+The `spSearchText` property stores the string users type into the search bar. Use it in custom **``SymbolPicker/SPInsetedView``** components to filter content or react to user input.
 
-> Warning: Avoid manual overrides on the standard ``SymbolPicker/SymbolPicker`` to prevent state inconsistencies between the input field and the displayed results.
+> Warning: Do not manually overwrite this property on the standard ``SymbolPicker/SymbolPicker``. Doing so creates a mismatch between the text field and the displayed results.
 
-### End User Impact
+### Usage
 
-Enables pre-filling the search query when the picker appears or monitoring the search text in real-time. It's a direct way to programmatically filter the picker's content.
+This property lets you pre-fill the search field when the picker opens. You can also monitor the query in real-time to update other parts of your interface based on the user's search.

@@ -12,17 +12,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A factor that determines the corner radius of the selection preview area.
+A multiplier for the selection preview's corner radius.
 
 ## Overview
 
-The `selectionPreviewCornerRadiusFactor` property allows for customizing the shape of the large preview at the top of the picker. The final corner radius is calculated as `previewWidth * factor`.
+The `selectionPreviewCornerRadiusFactor` property sets the shape of the large preview. The system calculates the final corner radius as `previewWidth * factor`.
 
-- **1.0**: Perfect circle.
-- **0.5**: Standard rounded appearance.
-- **0.0**: Sharp square corners.
+- **1.0**: Forms a circle.
+- **0.5**: Forms a standard rounded rectangle.
+- **0.0**: Forms sharp corners.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPSelectionPreviewConfiguration()

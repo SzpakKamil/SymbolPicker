@@ -1,6 +1,6 @@
 # ``SymbolPicker/SymbolPickerModifier``
 
-A SwiftUI `ViewModifier` that manages the configuration and appearance of a `SymbolPicker` when presented via a view extension.
+Manage the configuration and appearance of a `SymbolPicker` during presentation.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,17 +22,17 @@ A SwiftUI `ViewModifier` that manages the configuration and appearance of a `Sym
 
 ## Overview
 
-`SymbolPickerModifier` is the underlying engine for the `.symbolPicker(...)` view extensions. It encapsulates a ``SymbolPicker/SymbolPickerConfiguration`` and provides a fluent API for customizing the picker's behavior and style before it is presented to the user.
+`SymbolPickerModifier` powers the `.symbolPicker(...)` view extensions. It contains a ``SymbolPicker/SymbolPickerConfiguration`` and offers an API to customize picker behavior and style.
 
 ### Fluent API
 
-The modifier provides a wide range of methods that mirror those found on the ``SymbolPicker/SymbolPicker`` struct itself. This allows you to chain customization calls directly on the presentation modifier, ensuring a clean and readable implementation.
+The modifier provides methods that match those on the ``SymbolPicker/SymbolPicker`` struct. You chain these calls on the presentation modifier to configure the picker.
 
 ```swift
 Text("Select Icon")
     .symbolPicker(isPresented: $isPresented, systemImage: $symbolName)
     .spDisplayStyle(.compact)
-    .spSymbolsVariant(.hierarchical)
+    .spSymbolsVariant(.outlined)
     .spColorPickerEnabled(true)
 ```
 
@@ -68,7 +68,7 @@ Text("Select Icon")
 - ``SymbolPicker/SymbolPickerModifier/spOptionListBackgroundPressed(_:)``
 
 ### Presentation Modifiers
-These modifiers specifically control the sheet or popover that contains the picker.
+Control the sheet or popover that contains the picker.
 
 - ``SymbolPicker/SymbolPickerModifier/spPresentationType(_:)``
 - ``SymbolPicker/SymbolPickerModifier/spPresentationCornerRadius(_:)``

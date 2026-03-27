@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Configures the supported asset categories and the default selected category using a variadic list.
+Configure asset categories and the default selection using a variadic list.
 
 ## Overview
 
-Use this modifier to restrict the presented picker to specific types of assets, such as only SF Symbols or only Emojis.
+Restrict the picker to specific asset types like SF Symbols or Emojis. This modifier also determines which category users see first when the picker appears.
 
 ### Example
 
-Restrict the picker to Symbols and Emojis:
+Limit the picker to Symbols and Emojis, starting on Symbols:
 
 ```swift
 Text("Select Icon")
@@ -38,5 +38,5 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `types` | `SPPageType...` | A variadic list of supported page types. |
-| `defaultType` | ``SymbolPicker/SPPageType`` | The page type to display initially. |
+| `types` | `SPPageType...` | A list of supported page types. |
+| `defaultType` | ``SymbolPicker/SPPageType`` | The initial page type. |

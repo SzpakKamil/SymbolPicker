@@ -13,15 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Allows interaction with views behind the presentation.
+Enable interaction with views behind the presentation.
 
 ## Overview
 
-When set to `.enabled`, users can freely interact with the views behind the presentation (e.g., tap buttons, scroll lists, or select text) while the sheet or popover remains visible. This effectively transforms the presentation into a non-modal overlay, allowing for a continuous workflow.
+Users tap buttons, scroll lists, and select text in the background while the picker remains on screen. This mode turns the picker into a non-modal tool. You provide a continuous workflow where the user manages both the main content and their symbol selections at the same time.
 
-### Considerations
-- **Non-Modal Feel**: This mode is ideal for utility panels, floating palettes, or reference sheets where the user needs to work on the underlying content simultaneously.
-- **Scrolling Conflicts**: Be mindful of potential gesture conflicts if both the presentation and the background view are scrollable in the same direction.
+### Continuous Workflow
+Use this setting for floating palettes and utility panels. 
 
-### Example
-A symbol picker used as a floating "inspector" panel for a text editor, allowing the user to insert symbols while keeping the document editable.
+If you build a text editor, you can keep the symbol picker open at the bottom of the screen. The user continues typing or formatting their document above the picker. When they need a symbol, they tap one and immediately see it appear in their text without losing focus on the editor.
+
+### Gesture Management
+Watch for gesture conflicts when both the background and the picker scroll in the same direction. If the user drags a list in the background, ensure the system doesn't accidentally move the picker instead. Clear visual boundaries help users understand which area they are currently controlling.

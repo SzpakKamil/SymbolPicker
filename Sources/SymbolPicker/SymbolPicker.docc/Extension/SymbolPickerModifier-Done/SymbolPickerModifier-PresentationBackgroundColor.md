@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the background color for the presented picker's surface.
+Set the background color for the presented picker surface.
 
 ## Overview
 
-Use this modifier to customize the background color of the sheet, popover, or full-screen cover that contains the symbol picker.
+Customize the background color of the sheet, popover, or full-screen cover that holds the symbol picker.
 
 ### Example
 
-Set the picker's background color to blue:
+Apply a light blue background to the picker:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The desired background color for the presentation surface. |
+| `value` | `Color` | The background color for the presentation surface. |

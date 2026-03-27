@@ -6,8 +6,8 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The visionOS platform with an optional version number.
+The visionOS platform with an optional version.
 
 ## Overview
 
-The `visionOS` case represents the Apple spatial computing platform. It can store an optional integer representing the major OS version (e.g., 1, 26), which allows for specialized adaptation within the `SymbolPicker` for visionOS environments.
+The `visionOS` case represents Apple's spatial computing platform. It stores an optional integer for the major OS version, such as 1 or 26. This data helps the picker adapt to spatial environments.

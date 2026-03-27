@@ -1,6 +1,6 @@
 # ``SymbolPicker/SymbolPicker/init(systemImage:color:configuration:)-(Binding<String>,_,_)``
 
-Creates a picker bound to a non-optional SF Symbol name and a SwiftUI color.
+Initialize a picker bound to a required SF Symbol name and a SwiftUI color.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,10 +22,10 @@ Creates a picker bound to a non-optional SF Symbol name and a SwiftUI color.
 
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+You create a `SymbolPicker` by passing bindings to a `String` for the symbol name and a SwiftUI `Color` for the tint. This setup keeps the picker in sync with your data model. When a user picks a symbol or changes the color, the bindings update immediately. Use the `configuration` parameter to customize the picker's layout and style.
 
 ### Parameters
 
-- **systemImage**: A binding to the SF Symbol name string.
-- **color**: A binding to a SwiftUI `Color` for representing the selection's tint.
-- **configuration**: The visual configuration for the picker.
+- **systemImage**: The binding to your SF Symbol name state.
+- **color**: The binding to your SwiftUI `Color` for the tint.
+- **configuration**: Settings that define the picker's layout and behavior.

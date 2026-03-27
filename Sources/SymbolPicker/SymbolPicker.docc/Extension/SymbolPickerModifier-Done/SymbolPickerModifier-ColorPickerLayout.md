@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the orientation and spacing of the integrated color picker palette.
+Set the orientation and spacing of the integrated color picker palette.
 
 ## Overview
 
-Use this modifier to control whether the color palette is displayed horizontally or vertically and to adjust the spacing between color swatches.
+Control whether the color palette appears horizontally or vertically. You can also adjust the space between color swatches to fit your design.
 
 ### Example
 
-Force a vertical color palette with custom spacing:
+Force a vertical palette with 10-point spacing:
 
 ```swift
 Text("Select Icon")
@@ -38,5 +38,5 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `type` | ``SymbolPicker/SPColorPickerConfiguration/Direction`` | The orientation of the palette (`.horizontal` or `.vertical`). |
-| `spacing` | `CGFloat?` | The spacing between color swatches. |
+| `type` | ``SymbolPicker/SPColorPickerConfiguration/Direction`` | The palette orientation (`.horizontal` or `.vertical`). |
+| `spacing` | `CGFloat?` | The space between color swatches. |

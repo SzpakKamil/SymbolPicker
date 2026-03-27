@@ -18,14 +18,16 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the corner radius factor for the option list items.
+Sets the corner radius factor for the list items.
 
 ## Overview
 
-Use this modifier to adjust the rounded corners of individual items within the option list.
+Use this modifier to round the corners of items in the option list.
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `value` | `CGFloat` | The corner radius factor to apply. |
+- **value**: The corner radius factor to use.
+
+### Details
+
+The factor multiplies the standard item size to calculate the final corner radius. This ensures consistent rounding as the grid scales.

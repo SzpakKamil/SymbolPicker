@@ -1,6 +1,6 @@
 # ``SymbolPicker/SymbolPicker/init(emoji:colorValues:configuration:)-(Binding<SPEmoji>,_,_)``
 
-Creates a picker bound to a non-optional emoji and raw RGBA color values.
+Initialize a picker bound to a required emoji and raw RGBA color values.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,10 +22,10 @@ Creates a picker bound to a non-optional emoji and raw RGBA color values.
 
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+You create a `SymbolPicker` by passing bindings to an `SPEmoji` and an array of `Double` values representing RGBA components. This ensures the picker directly updates your data model's color components. When you choose a new emoji or adjust the color, the picker syncs the changes to your bindings immediately. Use the `configuration` parameter to define the picker's style.
 
 ### Parameters
 
-- **emoji**: A binding to the emoji object.
-- **colorValues**: A binding to an array of doubles representing RGBA components.
-- **configuration**: The visual configuration for the picker.
+- **emoji**: The binding to your emoji state.
+- **colorValues**: The binding to your RGBA color component array.
+- **configuration**: Settings that define the picker's layout and style.

@@ -18,21 +18,21 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Enables or disables the search functionality within the picker.
+Enables or disables search in the picker.
 
 ## Overview
 
-When enabled, a search bar is provided to filter symbols by name. This search bar is integrated into the picker's toolbar or navigation system depending on the current platform and display style.
+When enabled, a search bar filters symbols by name. The bar integrates into the picker's toolbar or navigation system based on the platform and display style.
 
 ### Search Behavior
 
-- **Dynamic Filtering**: The grid of assets updates in real-time as the user types.
-- **Localized Search**: Searching is performed against the localized names of SF Symbols and Emojis.
-- **Platform Integration**: On iOS 26+, the search bar uses the modern `toolbarPrincipal` placement for better visibility and a cleaner look.
+- **Live Filtering**: The asset grid updates as you type.
+- **Localized Search**: The system checks localized names for SF Symbols and Emojis.
+- **Platform Integration**: On iOS 26+, the search bar uses the `toolbarPrincipal` placement for better visibility.
 
 ### Example
 
-You can conditionally enable searching based on the user's current settings or the picker's context.
+Enable searching for a symbol picker:
 
 ```swift
 SymbolPicker(systemImage: $symbolName)
@@ -41,6 +41,4 @@ SymbolPicker(systemImage: $symbolName)
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `condition` | `Bool` | A boolean value that indicates whether searching is allowed. |
+- **condition**: Set to `true` to allow searching.

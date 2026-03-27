@@ -12,14 +12,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the presentation type and returns the modified configuration.
+You choose whether the picker shows as a sheet or a popover and get the updated configuration.
 
-- Parameter value: The new presentation type (e.g., `.sheet`, `.popover`).
+- Parameter value: The new presentation type.
 - Returns: The updated configuration instance.
 
 ## Overview
 
-`spPresentationType(_:)` is a chainable method used to update the ``SymbolPicker/SPPresentationConfiguration/presentationType`` property.
+`spPresentationType(_:)` is the primary way to set the container style. This chainable method updates the ``SymbolPicker/SPPresentationConfiguration/presentationType`` property. It handles the internal logic of swapping between different presentation modes like sheets and popovers.
 
 ### Usage in Code
 

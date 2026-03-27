@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Adjusts the vertical or horizontal gaps between the presented picker's main layout blocks.
+Adjust gaps between the main layout blocks in the picker.
 
 ## Overview
 
-Use this modifier to customize the spacing between elements like the search bar, category switcher, and the asset grid.
+Customize vertical or horizontal spacing between elements like the search bar, category switcher, and asset grid.
 
 ### Example
 
-Increase the vertical spacing between the search bar and the grid:
+Increase vertical spacing between elements:
 
 ```swift
 Text("Select Icon")
@@ -40,4 +40,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `content` | `() -> [SPSpacing]` | A closure that returns the custom spacing definitions. |
+| `content` | `() -> [SPSpacing]` | A closure that defines custom spacing. |

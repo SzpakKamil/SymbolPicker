@@ -18,21 +18,21 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Enables or disables the integrated color picker interface.
+Show or hide the integrated color picker.
 
 ## Overview
 
-When enabled, a color selection palette is displayed, allowing users to choose a custom color for the selected symbol, emoji, or image. This interface can be further customized using related color picker modifiers to control the palette, layout, and advanced features like opacity.
+Enable this toggle to display a color selection palette. Users can then choose custom colors for symbols, emojis, or images. You can further refine the palette, layout, and opacity settings using other color picker modifiers.
 
 ### Behavior
 
-- **Global Toggle**: This is the primary control for showing the `SPColorPicker` component within the symbol picker.
-- **Dynamic Presence**: You can dynamically show or hide the color picker based on the user's current selection or application state.
-- **Integration**: The color picker automatically updates the bound color (e.g., `CKColor` or SwiftUI `Color`) provided in the picker's initializer.
+- **Toggle Control**: Use this as the primary switch for the `SPColorPicker` component.
+- **Dynamic Updates**: Show or hide the picker based on the user's current selection or the state of your application.
+- **Syncing**: The color picker automatically updates the `CKColor` or `Color` binding you provided during initialization.
 
 ### Example
 
-Explicitly enable the color picker for a symbol selection:
+Force the color picker to appear for symbol selection:
 
 ```swift
 SymbolPicker(systemImage: $symbolName, color: $iconColor)
@@ -43,4 +43,4 @@ SymbolPicker(systemImage: $symbolName, color: $iconColor)
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Bool` | A boolean value that indicates whether the color picker is enabled. |
+| `value` | `Bool` | Set to `true` to show the color picker; `false` to hide it. |

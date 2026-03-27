@@ -18,11 +18,11 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A structure that holds the specific layout dimensions for a component.
+A structure that holds the layout dimensions for a component.
 
 ## Overview
 
-`Sizing` is a data container used within the ``SymbolPicker/SPSpacing`` configuration closure to return multiple dimensions simultaneously. It supports optional values for each attribute, allowing you to only override specific dimensions while letting the rest use their defaults.
+`Sizing` is a data container you use within the ``SymbolPicker/SPSpacing`` configuration closure to return multiple dimensions at once. It supports optional values for every attribute. This lets you override specific dimensions while the rest of the layout uses default values.
 
 ## Topics
 

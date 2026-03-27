@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The localized name of the category, used as a header in the user interface.
+The localized name of the category.
 
 ## Overview
 
-The `category` property holds the human-readable, localized name for the group of assets. This string is what users see when browsing the picker's categories.
+The `category` property stores the name you see in the picker headers.
 
 ### Localization
 
-The value of this property is determined during the fetching process. The ``SymbolPicker/SPDataManager`` maps raw category IDs from asset data to their corresponding localized strings using the app's localization resources.
+``SymbolPicker/SPDataManager`` converts raw category IDs into localized text when it fetches assets. It uses the strings from your app's localization files. This ensures users see category names in their own language.
 
 ### Sorting
 
-By default, categories are sorted alphabetically based on this property to ensure a predictable and easy-to-navigate user interface.
+SymbolPicker sorts categories alphabetically by this name. This makes finding items easier and more predictable.

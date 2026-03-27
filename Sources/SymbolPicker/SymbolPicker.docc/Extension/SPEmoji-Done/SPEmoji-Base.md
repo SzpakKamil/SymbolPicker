@@ -18,21 +18,22 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A data-driven model representing a Unicode emoji with metadata, skin tone variants, and platform-aware availability checks.
+A model for Unicode emojis with metadata and skin tone support.
 
 ## Overview
 
-`SPEmoji` is the foundational structure used to manage and render emojis within the `SymbolPicker` package. It conforms to ``SymbolPicker/SPDataAsset``, allowing it to be managed by ``SymbolPicker/SPDataManager`` and displayed alongside symbols in a unified picker experience.
+`SPEmoji` manages and renders emojis in SymbolPicker. It follows the ``SymbolPicker/SPDataAsset`` protocol, so it works alongside symbols in the unified picker.
 
-Beyond storing a hexcode identifier, `SPEmoji` provides a robust system for:
-- **Tone Variants**: Supports skin tone selections via the ``SymbolPicker/SPEmoji/skins`` array and the current ``SymbolPicker/SPEmoji/tone`` index.
-- **Platform Safety**: Validates emoji support at runtime using OS version and renderability checks to avoid missing glyphs.
-- **Searchability**: Includes localized annotations and tags for semantic search (e.g., searching "smile" finds the correct emoji).
-- **Localization**: Loads translated metadata from locale-specific JSON resources.
+### Features
+
+- **Skin Tones**: Uses the ``SymbolPicker/SPEmoji/skins`` array and the ``SymbolPicker/SPEmoji/tone`` index to show variations.
+- **Platform Safety**: Checks OS versions and font support at runtime to prevent broken glyphs.
+- **Search**: Includes localized labels and tags for finding assets by name.
+- **Localization**: Loads metadata from locale-specific JSON files.
 
 ### Data Management
 
-Emojis are loaded from localized JSON files bundled with the package. The static ``SymbolPicker/SPEmoji/fetchAssets(locale:)`` method resolves the correct resource and filters the results by availability.
+The system loads emojis from JSON resources bundled with the app. The ``SymbolPicker/SPEmoji/fetchAssets(locale:)`` method handles this process and filters the results for the current device.
 
 ## Topics
 

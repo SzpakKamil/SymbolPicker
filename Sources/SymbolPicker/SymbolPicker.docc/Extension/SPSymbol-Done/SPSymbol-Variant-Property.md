@@ -13,20 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The currently active visual style for this symbol instance.
+The active visual style for the symbol.
 
 ## Overview
 
-The `variant` property allows for the dynamic selection of the symbol's rendering style. By changing this property, you can switch between a filled and an outlined appearance for the SF Symbol.
+The `variant` property controls the rendering style. You use it to switch between filled and outlined versions of an SF Symbol.
 
-### Behavior and Defaults
+### Behavior
 
-If `variant` is set to `nil`, the library typically defaults to the `.outlined` state. However, it is often set globally via a `SymbolPickerConfiguration` to maintain consistency throughout the entire picker interface.
+If you set `variant` to `nil`, the library defaults to the `.outlined` state. You can also set this property globally through a `SymbolPickerConfiguration` to keep the entire interface consistent.
 
-### UI Integration
+### Usage
 
-When a symbol is rendered (e.g., via the `asView()` method), this property determines which system name—`filledName` or `notFilled`—is actually used for the system image initialization.
-
-### Reactivity
-
-In a SwiftUI context, changes to the variant property on an observable symbol instance will cause the corresponding views to re-render, providing an interactive way to preview different styles.
+When the symbol renders via `asView()`, this property determines which system name—`filledName` or `notFilled`—the system uses to initialize the image. Changes to this property in a SwiftUI context cause the view to re-render, giving users an interactive way to see different styles.

@@ -11,14 +11,16 @@
 
 Placement at the leading edge of the bottom toolbar.
 
-> Important: This placement is not intended for iOS use. While it is technically available for compatibility, it is primarily designed for use on **watchOS**.
+> Important: This placement is primarily for **watchOS**. Use other placements for standard iOS layouts.
 
 ## Overview
 
-When set to `.toolbarBottomLeading`, the inset view is placed at the leading edge (left for LTR languages) of the bottom toolbar. This is a common location for secondary actions or information displays.
+The `.toolbarBottomLeading` case puts the inset view at the leading edge of the bottom toolbar. This is a standard location for secondary actions or info displays on watchOS.
 
 ### Availability
-This placement is available on both **iOS** and **watchOS**.
+
+This placement works on **iOS** and **watchOS**.
 
 ### Use Case
-Ideal for secondary action buttons at the bottom-left of the picker interface.
+
+Ideal for secondary buttons, such as a "Cancel" or "Info" button, at the bottom-left of the picker.

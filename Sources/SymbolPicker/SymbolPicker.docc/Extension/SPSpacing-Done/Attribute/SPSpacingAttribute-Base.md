@@ -18,11 +18,11 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-An enumeration of layout dimensions that can be configured for a component.
+Configure layout dimensions for a component.
 
 ## Overview
 
-The `Attribute` enum specifies which aspect of a component's layout is being queried or configured. This is primarily used internally by the `SymbolPicker`'s layout engine to resolve final dimensions based on the current environment.
+The `Attribute` enum specifies which layout aspect you are configuring. The `SymbolPicker` layout engine uses these attributes to resolve final dimensions for the current environment.
 
 ## Topics
 

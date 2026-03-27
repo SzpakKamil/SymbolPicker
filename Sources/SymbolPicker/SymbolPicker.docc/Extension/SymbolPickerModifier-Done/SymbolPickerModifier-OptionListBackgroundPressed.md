@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the background color for asset cells in the picker's grid while they are being pressed.
+Set the background color for asset cells during a press.
 
 ## Overview
 
-Use this modifier to provide visual feedback during a tap by applying a custom background color to a cell in its active press state.
+Provide visual feedback when users tap a cell. This modifier applies a background color to the cell active press state.
 
 ### Example
 
-Set a custom pressed background color:
+Apply a custom pressed background color:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The background color applied while a cell is being pressed. |
+| `value` | `Color` | The background color for the pressed state. |

@@ -1,7 +1,5 @@
 # ``SymbolPicker/SPSelectionProtocol``
 
-A foundational protocol that defines the common interface for user selections within the SymbolPicker, abstracting symbols, emojis, custom images, and colors.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,39 +18,35 @@ A foundational protocol that defines the common interface for user selections wi
     @AutomaticArticleSubheading(disabled)
 }
 
+A protocol defining the interface for user selections.
+
 ## Overview
 
-`SPSelectionProtocol` is the core abstraction for any type of content selected by a user via the ``SymbolPicker/SymbolPicker``. It ensures that regardless of whether the user chose a symbol, an emoji, a custom photo, or a specific color, the rest of the application can interact with that selection through a unified set of methods and properties.
+`SPSelectionProtocol` abstracts symbols, emojis, images, and colors. It ensures the rest of your app can interact with any user choice through a unified set of methods.
 
 The protocol provides:
-- **Unified Data Access**: Retrieve or update the color (``SymbolPicker/SPSelectionProtocol/getColor()`` / ``SymbolPicker/SPSelectionProtocol/setColor(_:)``) or custom image (``SymbolPicker/SPSelectionProtocol/getImage()`` / ``SymbolPicker/SPSelectionProtocol/setImage(_:)``) regardless of the underlying storage model.
-- **Availability Checking**: The ``SymbolPicker/SPSelectionProtocol/isContentAvailable()`` method allows the system to verify if the selected content is supported on the current platform before attempting to render it.
-- **Visual Representation**: The ``SymbolPicker/SPSelectionProtocol/asView()`` method allows the selection to render itself as a SwiftUI `AnyView`, enabling generic preview components to display any selection type correctly.
+- **Data Access**: Get or set the color (``SymbolPicker/SPSelectionProtocol/getColor()``) or custom image (``SymbolPicker/SPSelectionProtocol/getImage()``) regardless of the storage model.
+- **Status**: Use ``SymbolPicker/SPSelectionProtocol/isContentAvailable()`` to verify the current platform supports the selection.
+- **Rendering**: Use ``SymbolPicker/SPSelectionProtocol/asView()`` to render the selection as a SwiftUI view.
 
 ### Implementation
 
-The primary implementation of this protocol is the generic ``SymbolPicker/SPSelection`` struct. This struct uses an internal enumeration to manage the different selection states while conforming to `SPSelectionProtocol` to provide a consistent external API.
+The generic ``SymbolPicker/SPSelection`` struct is the primary implementation. It uses an internal enum to manage states while following `SPSelectionProtocol` for its public API.
 
 ### Type Erasure
 
-In many parts of the `SymbolPicker` package, `SPSelectionProtocol` is used with type erasure (`any SPSelectionProtocol`). This is particularly important for the ``SymbolPicker/SymbolPicker`` and environment values, where the system needs to handle selections without knowing the specific `DataAsset` type at compile time.
+The library often uses this protocol with type erasure (`any SPSelectionProtocol`). This lets the ``SymbolPicker/SymbolPicker`` and environment values handle selections without knowing the asset type at compile time.
 
 ## Topics
 
-### Data Access & Modification
-Methods for retrieving and updating the content of the selection.
-
+### Data Access
 - ``SymbolPicker/SPSelectionProtocol/getColor()``
 - ``SymbolPicker/SPSelectionProtocol/setColor(_:)``
 - ``SymbolPicker/SPSelectionProtocol/getImage()``
 - ``SymbolPicker/SPSelectionProtocol/setImage(_:)``
 
-### Availability & Status
-Methods for checking the current state of the selection's content.
-
+### Status
 - ``SymbolPicker/SPSelectionProtocol/isContentAvailable()``
 
 ### UI Representation
-Methods for rendering the selection in the user interface.
-
 - ``SymbolPicker/SPSelectionProtocol/asView()``

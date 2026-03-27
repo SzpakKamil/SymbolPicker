@@ -17,12 +17,12 @@ The custom image asset for the selection.
 
 ## Overview
 
-When the selection ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/image``, this property holds the current custom image asset (via ``SymbolPicker/SPImage``).
+The `image` property holds the custom asset for a selection. This property is active when the selection `type` is `.image`. 
 
 ### Data Access
 
-This property is private(set), so all updates to it must be made through the ``SymbolPicker/SPSelection/setImage(_:)`` method. This ensures that the selection type is updated to `.image` correctly.
+Because this property is `private(set)`, you must use ``SymbolPicker/SPSelection/setImage(_:)`` to update it. This method ensures the selection type matches the asset and triggers any necessary UI updates.
 
-### Encoding and Decoding
+### Persistence
 
-The image data is encoded into the `image` key during persistence. The encoding logic typically saves the unique identifier or the underlying data for the image, allowing for consistent restoration between application sessions.
+The library encodes the image's unique identifier or data to the `image` key during persistence. This allows for consistent restoration between application sessions, ensuring users don't lose their custom selections.

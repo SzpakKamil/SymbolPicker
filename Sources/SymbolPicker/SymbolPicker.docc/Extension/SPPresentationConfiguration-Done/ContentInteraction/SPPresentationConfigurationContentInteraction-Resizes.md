@@ -13,16 +13,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Content resizes during a drag gesture.
+You make the sheet resize immediately as you drag it.
 
 ## Overview
 
-When set to `.resizes`, the presentation's content actively participates in the resizing animation. This means that as the user drags the sheet to a new height, the content's layout is continuously invalidated and recalculated.
+The `.resizes` setting forces the presentation to update its height during any drag gesture. As you move your finger, the picker recalculates its layout to fill the changing space.
+
+This mode creates a fluid transition between different sheet sizes. It works well when you want the symbol grid to expand and show more rows as the user pulls the sheet up. 
 
 ### Performance & Layout
-- **Responsiveness**: This mode is visually seamless for content that needs to adapt its layout (e.g., reflowing text or resizing grids) to fit the available space dynamically.
-- **Cost**: Be aware that continuous layout invalidation can be performance-intensive for complex view hierarchies.
+- **Responsiveness**: The picker adapts its layout instantly. It reflows the grid or text to match the new dimensions.
+- **Cost**: Complex view hierarchies might lag because the system constantly redraws the content.
 
 ### Use Case
-Ideal for dynamic forms or content that must always fill the available vertical space without scrolling.
-
+Choose this for forms or grids that must always fill the available vertical space.

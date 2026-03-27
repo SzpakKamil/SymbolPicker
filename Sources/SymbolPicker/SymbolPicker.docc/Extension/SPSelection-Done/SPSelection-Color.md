@@ -13,23 +13,23 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The color associated with the current selection.
+The color for the current selection.
 
 ## Overview
 
-The `color` property serves two purposes depending on the selection ``SymbolPicker/SPSelection/type``:
+The `color` property changes behavior based on the selection ``SymbolPicker/SPSelection/type``.
 
-1. **Active Content**: When the type is ``SymbolPicker/SPSelection/SelectionType/color``, this property *is* the selection.
-2. **Tint/Foreground**: When the type is `symbol`, `emoji`, or `image`, this property acts as a tint or foreground color applied to that asset during rendering.
+1. **Active Content**: When the type is ``SymbolPicker/SPSelection/SelectionType/color``, this property holds the selection itself.
+2. **Tint and Foreground**: When the type is `symbol`, `emoji`, or `image`, this property tints the asset.
 
 ### Data Format
 
-This property uses `ColorKit/CKColor`, a platform-agnostic color type that provides consistent rendering on iOS, macOS, and other platforms.
+The property uses `CKColor` from ColorKit. This type ensures colors render the same way on iOS, macOS, and other Apple platforms.
 
 ### Data Access
 
-This property is private(set), so all modifications must go through the ``SymbolPicker/SPSelection/setColor(_:)`` method. This ensures that the state is managed predictably across the library.
+The property is `private(set)`. Change its value through the ``SymbolPicker/SPSelection/setColor(_:)` method to keep the state predictable.
 
 ### Codable Logic
 
-When encoded, this property is stored under the `color` key if the selection type is `.color`, or the `tint` key if the selection type is anything else. This allows the decoder to correctly apply the color during restoration.
+SymbolPicker stores this property under the `color` key for `.color` types. For other types, it uses the `tint` key. The decoder uses these keys to restore the color correctly.

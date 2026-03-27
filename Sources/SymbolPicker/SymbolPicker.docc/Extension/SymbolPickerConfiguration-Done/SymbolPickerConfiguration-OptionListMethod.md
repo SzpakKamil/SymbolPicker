@@ -17,20 +17,19 @@
     @AutomaticSeeAlso(disabled)
 }
 
+Returns an ``SymbolPicker/SPOptionListConfiguration`` for styling the asset grid.
 
-Returns an ``SymbolPicker/SPOptionListConfiguration`` which governs the styling of the main ``SymbolPicker/SPOptionList`` grid.
-
-- Returns: A configuration object for the main symbol/emoji list.
+- Returns: A configuration object for the main symbol and emoji list.
 
 ## Overview
 
-The `optionListConfiguration()` method provides granular control over the ``SymbolPicker/SPOptionList``. It defines the appearance of individual items in their various states: normal, selected, focused, and pressed.
+The `optionListConfiguration()` method sets the look of individual items in the ``SymbolPicker/SPOptionList``. It controls their appearance in normal, selected, focused, and pressed states.
 
 ### Styling Options
 
-- **Corner Radius**: Adjust the corner radius of individual grid items.
-- **Padding**: Control the inner padding within each item.
-- **State Colors**: Customize the foreground and background colors for each interaction state.
+- **Corner Radius**: Set the rounding for grid items.
+- **Padding**: Adjust the space inside each item.
+- **State Colors**: Set foreground and background colors for interaction states.
 
 ### Customization
 

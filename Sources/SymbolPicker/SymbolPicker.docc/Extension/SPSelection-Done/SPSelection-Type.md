@@ -17,12 +17,12 @@ The discriminator that defines the current category of the selection.
 
 ## Overview
 
-The `type` property determines which asset category (symbol, emoji, image, or color) is currently active. Changing this value tells the ``SymbolPicker/SPSelection`` how to handle rendering, persistence, and data access.
+The `type` property defines which asset category is active. It identifies the selection as a symbol, emoji, image, or color.
 
 ### Asset Discrimination
 
-The ``SymbolPicker/SPSelection/SelectionType`` enum ensures that only one asset type is active at any given time. When the type is changed, the picker's logic switches to using the corresponding data property.
+This property tells ``SymbolPicker/SPSelection`` how to handle rendering, persistence, and data access. The ``SymbolPicker/SPSelection/SelectionType`` enum ensures only one category is active at a time. When the type changes, the picker's logic switches to the corresponding data property for all UI operations.
 
-### Codable and Persistence
+### Persistence
 
-This property is a key part of the selection's `Codable` implementation. It is encoded as a string to the `type` key, allowing the decoder to correctly identify which asset data it needs to reconstruct from the persisted JSON or dictionary.
+This property is a core part of the selection's `Codable` implementation. The library encodes it as a string to the `type` key. This allows the decoder to identify which asset data it needs to reconstruct from JSON or dictionaries, ensuring your user's choice survives application restarts.

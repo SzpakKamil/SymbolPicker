@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A unique identifier for the emoji, typically its primary Unicode hexcode.
+A unique identifier for the emoji.
 
 ## Overview
 
-The `id` property serves as the unique identifier for the `SPEmoji` instance, ensuring stability when the emoji is used in SwiftUI collections like `List` or `LazyVGrid`.
+The `id` property uniquely identifies an `SPEmoji` instance. It keeps the state stable when you use emojis in SwiftUI `List` or `LazyVGrid` containers.
 
-### Format and Generation
+### Format
 
-The identifier follows the standard Unicode hexcode format (e.g., `"1F600"` for Grinning Face). For complex emojis consisting of multiple scalars, the components are joined by hyphens (e.g., `"1F1F5-1F1F1"` for the flag of Poland).
+The property uses the standard Unicode hexcode, such as `"1F600"` for a grinning face. For emojis with multiple scalars, hyphens join the hexcodes, like `"1F1F5-1F1F1"` for the Polish flag.
 
 ### Usage
 
-Beyond fulfilling the `Identifiable` protocol, the `id` is the primary source for resolving the actual emoji character via ``SymbolPicker/SPEmoji/emojiString()``. It is also used as the key when persisting user selections.
+The `id` is the source for the character via ``SymbolPicker/SPEmoji/emojiString()``. It also serves as the key for saving and restoring user selections.

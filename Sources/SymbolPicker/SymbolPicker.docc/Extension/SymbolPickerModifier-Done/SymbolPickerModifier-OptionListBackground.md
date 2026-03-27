@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the background color for the asset cells in the presented picker's grid.
+Set the background color for asset cells in the picker grid.
 
 ## Overview
 
-Use this modifier to customize the background color of each icon and emoji cell in the grid.
+Customize the background color for each icon and emoji cell. This modifier updates the visual appearance of the grid items to match your app theme.
 
 ### Example
 
-Set a custom background color for the asset cells:
+Apply a semi-transparent secondary color to asset cells:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The desired background color. |
+| `value` | `Color` | The background color for asset cells. |

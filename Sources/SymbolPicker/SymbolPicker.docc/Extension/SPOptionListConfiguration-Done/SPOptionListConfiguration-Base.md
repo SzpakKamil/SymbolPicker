@@ -1,7 +1,5 @@
 # ``SymbolPicker/SPOptionListConfiguration``
 
-A struct that defines the visual styling and layout for the option list in the SymbolPicker.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,22 +18,24 @@ A struct that defines the visual styling and layout for the option list in the S
     @AutomaticArticleSubheading(disabled)
 }
 
+Configures the look and layout of the asset grid.
+
 ## Overview
 
-`SPOptionListConfiguration` provides detailed control over the look and feel of the list items within the SymbolPicker. This includes corner radius, padding factors, and color settings for various states (selected, focused, pressed).
+`SPOptionListConfiguration` sets the appearance of items in the SymbolPicker. It controls rounding, padding, and colors for interaction states.
 
-### View Integration
+### Integration
 
-This configuration is primarily used by the ``SymbolPicker/SPOptionList`` and its individual asset cells (symbols and emojis).
+The ``SymbolPicker/SPOptionList`` uses this configuration to render symbols and emojis.
 
-- **Grid Appearance**: The ``optionListCornerRadiusFactor`` and ``optionListInnerPaddingFactor`` determine the shape and spacing of each item in the picker's main scrollable grid. These factors are relative to the overall item size.
-- **State Feedback**: You can define distinct background and foreground colors for four different interaction states:
-    - **Default**: The standard state for non-selected items.
-    - **Selected**: Highlight for the item currently chosen by the user.
-    - **Focused**: Visual feedback for keyboard or remote focus (especially on tvOS).
-    - **Pressed**: Feedback for active touch or click interactions.
+- **Grid Appearance**: Properties like ``optionListCornerRadiusFactor`` and ``optionListInnerPaddingFactor`` set the shape and spacing of each item. These values scale with the overall item size.
+- **Interactions**: You can set unique background and foreground colors for four states:
+    - **Default**: The standard look for unselected items.
+    - **Selected**: The highlight for the user's choice.
+    - **Focused**: Feedback for keyboard or remote focus.
+    - **Pressed**: Feedback for active touch or click.
 
-### Usage Example
+### Example
 
 ```swift
 let configuration = SPOptionListConfiguration()
@@ -47,30 +47,22 @@ let configuration = SPOptionListConfiguration()
 ## Topics
 
 ### Sizing & Layout
-Properties that control the shape and padding of list items.
-
 - ``SymbolPicker/SPOptionListConfiguration/optionListCornerRadiusFactor``
 - ``SymbolPicker/SPOptionListConfiguration/optionListInnerPaddingFactor``
 
 ### Foreground Colors
-Color settings for text and icons in different interaction states.
-
 - ``SymbolPicker/SPOptionListConfiguration/optionListForeground``
 - ``SymbolPicker/SPOptionListConfiguration/optionListForegroundSelected``
 - ``SymbolPicker/SPOptionListConfiguration/optionListForegroundFocused``
 - ``SymbolPicker/SPOptionListConfiguration/optionListForegroundPressed``
 
 ### Background Colors
-Color settings for list item backgrounds in different interaction states.
-
 - ``SymbolPicker/SPOptionListConfiguration/optionListBackground``
 - ``SymbolPicker/SPOptionListConfiguration/optionListBackgroundSelected``
 - ``SymbolPicker/SPOptionListConfiguration/optionListBackgroundFocused``
 - ``SymbolPicker/SPOptionListConfiguration/optionListBackgroundPressed``
 
 ### Modification Methods
-Chainable methods for updating configuration properties.
-
 - ``SymbolPicker/SPOptionListConfiguration/spOptionListCornerRadiusFactor(_:)``
 - ``SymbolPicker/SPOptionListConfiguration/spOptionListInnerPaddingFactor(_:)``
 - ``SymbolPicker/SPOptionListConfiguration/spOptionListForeground(_:)``

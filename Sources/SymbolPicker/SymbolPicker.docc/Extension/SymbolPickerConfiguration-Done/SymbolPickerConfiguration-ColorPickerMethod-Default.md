@@ -17,10 +17,9 @@
     @AutomaticSeeAlso(disabled)
 }
 
+Returns an optional ``SymbolPicker/SPColorPickerConfiguration`` for the color picker.
 
-Returns an optional ``SymbolPicker/SPColorPickerConfiguration`` for the integrated ``SymbolPicker/SPColorPicker`` view.
-
-- Returns: An ``SymbolPicker/SPColorPickerConfiguration`` if color selection is enabled; otherwise, `nil`.
+- Returns: A configuration object if color selection is active. Otherwise, returns `nil`.
 
 ## Default Implementation
 
@@ -28,15 +27,15 @@ Returns an optional ``SymbolPicker/SPColorPickerConfiguration`` for the integrat
 func colorPickerConfiguration() -> SPColorPickerConfiguration? { return .init(style: displayStyle) }
 ```
 
-The `colorPickerConfiguration()` method controls the availability and setup of the color picker tool. If this method returns `nil`, the ``SymbolPicker/SPColorPicker`` will be completely disabled within the picker UI.
+The `colorPickerConfiguration()` method sets up the color selection tool. Returning `nil` disables the ``SymbolPicker/SPColorPicker`` in the picker UI.
 
-### Configuration Options
+### Options
 
-The configuration object allows you to customize:
-- **Enabled State**: Toggle the picker's visibility.
-- **Color Palette**: Provide a custom list of colors for the grid.
-- **Layout**: Choose between a standard grid or a horizontal list.
-- **Advanced Features**: Toggle support for opacity adjustments and custom color selection via a system picker.
+Use the configuration object to:
+- **Toggle Visibility**: Show or hide the picker.
+- **Set Palette**: Provide a custom color list for the grid.
+- **Choose Layout**: Switch between a grid or a horizontal row.
+- **Enable Features**: Add support for opacity or the system eyedropper.
 
 ### Customization
 
@@ -49,7 +48,3 @@ func colorPickerConfiguration() -> SPColorPickerConfiguration? {
         .spColorPickerColors([.red, .orange, .yellow, .green, .blue, .purple])
 }
 ```
-
-### Convenience Accessor
-
-For cleaner internal syntax, the configuration provides an `internal` computed property `colorPicker` which acts as a direct wrapper for this method, reducing repetitive function call syntax throughout the codebase.

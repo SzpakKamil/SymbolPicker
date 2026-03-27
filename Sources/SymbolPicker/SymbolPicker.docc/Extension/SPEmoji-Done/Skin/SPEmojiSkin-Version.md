@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The Unicode version where this specific variation was introduced.
+The Unicode version that introduced this variation.
 
 ## Overview
 
-The `version` property is a numeric representation of the Unicode standard release that first defined this variation (e.g., `12.0`, `14.0`, `15.0`).
+The `version` property stores the Unicode release number for the variation, such as `12.0` or `15.0`.
 
-### Role in Compatibility
+### Compatibility
 
-This property is the foundation for the ``SymbolPicker/SPEmoji/Skin/isAvailable()`` method. Because different operating systems support different Unicode releases, the `version` property allows the picker to dynamically filter and hide variations that cannot be correctly rendered on the current device.
+This property powers the ``SymbolPicker/SPEmoji/Skin/isAvailable()`` method. Since operating systems support different Unicode releases, `version` lets the picker filter out variations the device cannot render.
 
-### Granularity
+### Precision
 
-The `version` for a skin variation can be different from the version of the parent emoji. For example, a base emoji may have been introduced in Unicode 12.0, while a specific skin tone variation for that emoji might have been added in Unicode 14.0. This granular tracking ensures the most accurate availability status for each glyph.
+A skin variation can have a different version than its parent emoji. An emoji might appear in Unicode 12.0, while its skin tones arrive in Unicode 14.0. This property tracks those differences to ensure accurate availability checks.

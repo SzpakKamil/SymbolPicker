@@ -18,31 +18,25 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Defines the target locations for inset views within the symbol picker.
+Target locations for inset views.
 
 ## Overview
 
-The `Placement` enum specifies where an ``SymbolPicker/SPInsetedView`` will be rendered. These placements range from standard safe areas to platform-specific toolbar locations.
+The `Placement` enum sets where an ``SymbolPicker/SPInsetedView`` appears in the picker. Placements include fixed safe areas, scrollable content slots, and platform-specific toolbars.
 
 ## Topics
 
 ### Safe Area Placements
-Placements relative to the picker's main container boundaries.
-
 - ``SymbolPicker/SPInsetedView/Placement/safeAreaTop``
 - ``SymbolPicker/SPInsetedView/Placement/safeAreaBottom``
 
 ### Scroll Content Placements
-Placements relative to the scrollable area of the picker.
-
 - ``SymbolPicker/SPInsetedView/Placement/scrollContentTop``
 - ``SymbolPicker/SPInsetedView/Placement/scrollContentBottom``
 - ``SymbolPicker/SPInsetedView/Placement/scrollSectionTop``
 - ``SymbolPicker/SPInsetedView/Placement/scrollSectionBottom``
 
 ### Toolbar Placements
-Placements within platform-native toolbars (where supported).
-
 - ``SymbolPicker/SPInsetedView/Placement/toolbarTopLeading``
 - ``SymbolPicker/SPInsetedView/Placement/toolbarTopTralling``
 - ``SymbolPicker/SPInsetedView/Placement/toolbarBottomLeading``
@@ -50,7 +44,5 @@ Placements within platform-native toolbars (where supported).
 - ``SymbolPicker/SPInsetedView/Placement/toolbarBottomTralling``
 
 ### Identification and Initialization
-Properties and methods for working with raw values.
-
 - ``SymbolPicker/SPInsetedView/Placement/id``
 - ``SymbolPicker/SPInsetedView/Placement/init(rawValue:)``

@@ -18,14 +18,16 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Configures a custom offset calculation for the selection preview based on scroll geometry.
+Sets a custom offset calculation for the selection preview.
 
 ## Overview
 
-Use this modifier to dynamically adjust the position of the selection preview as the user scrolls through the picker.
+Use this modifier to change the position of the selection preview based on scroll geometry.
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `closure` | `(ScrollGeometry) -> CGFloat` | A closure that calculates the offset based on the current scroll geometry. |
+- **closure**: A closure that returns the offset based on current scroll data.
+
+### Details
+
+The closure receives the `ScrollGeometry` and returns a `CGFloat` for the offset. This allows the preview to move dynamically as the user scrolls through the picker.

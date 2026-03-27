@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the multiplier for the inner padding of asset cells within the presented picker's grid.
+Set the multiplier for the inner padding of asset cells in the picker grid.
 
 ## Overview
 
-Use this modifier to adjust how much space is left between the asset icon and the edges of its grid cell.
+Adjust the space between the asset icon and the cell edges. This modifier helps you control the visual density of the picker.
 
 ### Example
 
-Increase the padding inside each asset cell:
+Increase padding inside each asset cell:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `CGFloat` | The multiplier for the cell's inner padding. |
+| `value` | `CGFloat` | The multiplier for the cell inner padding. |

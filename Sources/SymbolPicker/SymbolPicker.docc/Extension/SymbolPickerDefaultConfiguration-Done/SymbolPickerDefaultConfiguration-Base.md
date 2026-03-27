@@ -1,7 +1,5 @@
 # ``SymbolPicker/SymbolPickerDefaultConfiguration``
 
-The default implementation of the ``SymbolPicker/SymbolPickerConfiguration`` protocol, providing a balanced and platform-aware starting point for customization.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,25 +18,25 @@ The default implementation of the ``SymbolPicker/SymbolPickerConfiguration`` pro
     @AutomaticArticleSubheading(disabled)
 }
 
+The default settings for SymbolPicker.
+
 ## Overview
 
-`SymbolPickerDefaultConfiguration` is designed to provide a high-quality, "out-of-the-box" experience that automatically adapts to the current platform and system version. It serves as the foundation for the picker's default behavior when no custom configuration is specified.
+`SymbolPickerDefaultConfiguration` provides a platform-aware starting point for customization. It serves as the foundation for picker behavior when you do not provide a custom configuration.
 
-### Platform-Aware Defaults
+### Features
 
-One of the key strengths of the default configuration is its ability to adjust its properties based on the environment:
+- **Adaptive Styles**: Automatically chooses between `.compact` (iOS 26+, visionOS) and `.detail` (macOS, older iOS).
+- **Native Search**: Configures the search bar with the best toolbar placement for each OS.
+- **Responsive Layout**: Sets ``SymbolPicker/SPInsetedView`` and ``SymbolPicker/SPSpacing`` values that scale with dynamic type.
 
-- **Display Style**: Automatically chooses between ``SymbolPicker/SPDisplayStyle/compact`` (for modern OS versions like iOS 26+ and visionOS) and ``SymbolPicker/SPDisplayStyle/detail`` (for older versions and macOS).
-- **Modern Search**: On supported platforms, it configures the search bar to use the most appropriate toolbar placement and styling.
-- **Adaptive Layout**: Provides a default set of ``SymbolPicker/SPInsetedView`` components and ``SymbolPicker/SPSpacing`` values that scale with dynamic type.
+### Customization
 
-### Usage as a Base
-
-While you can use `SymbolPickerDefaultConfiguration` directly, it is also designed to be a flexible base for your own custom configurations. Because it implements the protocol using a closure-based architecture for its component methods, you can easily wrap or override specific behaviors while retaining the rest of the defaults.
+Use `SymbolPickerDefaultConfiguration` as a base for your own setups. Because it uses closures to resolve component styles, you can override specific behaviors while keeping the defaults.
 
 ```swift
 var myConfig = SymbolPickerDefaultConfiguration()
-myConfig.symbolVariant = .hierarchical
+myConfig.symbolVariant = .outlined
 myConfig.allowSearching = false
 ```
 
@@ -47,18 +45,14 @@ myConfig.allowSearching = false
 ### Initializers
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/init()``
 
-### Properties
-
-#### Global State
+### Global State
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/displayStyle``
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/symbolVariant``
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/supportedTypes``
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/defaultType``
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/allowSearching``
 
-#### Component Configuration Closures
-The default configuration uses closures to resolve sub-component styles, allowing for dynamic behavior based on the current state.
-
+### Component Closures
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/currentPresentationConfiguration``
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/currentColorPickerConfiguration``
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/currentOptionListConfiguration``
@@ -66,11 +60,7 @@ The default configuration uses closures to resolve sub-component styles, allowin
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/currentInsetViewConfiguration``
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/currentSpacingConfiguration``
 
-### Methods
-
-#### Configuration Resolution
-These methods implement the protocol requirements by invoking the corresponding closure properties.
-
+### Resolution Methods
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/presentationConfiguration()``
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/colorPickerConfiguration()``
 - ``SymbolPicker/SymbolPickerDefaultConfiguration/optionListConfiguration()``

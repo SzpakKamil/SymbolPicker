@@ -1,7 +1,5 @@
 #  ``SwiftUICore/EnvironmentValues/``
 
-Public environment properties to control and observe the SymbolPicker state.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,12 +18,13 @@ Public environment properties to control and observe the SymbolPicker state.
     @AutomaticArticleSubheading(disabled)
 }
 
+Public environment properties for SymbolPicker.
 
 ## Overview
 
-Environment properties to control and observe the ``SymbolPicker/SymbolPicker`` state.
+Use these environment keys to read or observe the state of ``SymbolPicker/SymbolPicker``.
 
-> Warning: These properties are primarily intended for reading state or styling within custom **Inset Views**. Manually overwriting these keys on the standard ``SymbolPicker/SymbolPicker`` view is strictly discouraged as it breaks internal cross-view synchronization and communication.
+> Warning: These properties help you style and manage custom **Inset Views**. Do not manually overwrite these keys on the standard picker view. Overwriting them breaks internal communication and view synchronization.
 
 ## Topics
 

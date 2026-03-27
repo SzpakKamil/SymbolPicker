@@ -13,27 +13,25 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The type of view that represents the asset in the UI, supporting SF Symbols, Emojis, and custom icons.
+The view type for the asset.
 
 ## Overview
 
-The `Body` associated type is a requirement of the ``SymbolPicker/SPDataAsset`` protocol that specifies the concrete SwiftUI `View` type returned by the ``SymbolPicker/SPDataAsset/asView()`` method.
+The `Body` associated type defines the SwiftUI `View` returned by ``SymbolPicker/SPDataAsset/asView()``.
 
-### Generic Programming
+### Generics
 
-By using an associated type, the ``SPDataAsset`` protocol allows each conforming type (e.g., ``SPSymbol``, ``SPEmoji``) to define its own specific view representation while still allowing the system to work with assets generically.
+This type lets each model, like ``SPSymbol`` or ``SPEmoji``, define its own view while the system handles assets generically.
 
-### Implementation
-
-When a type conforms to ``SPDataAsset``, it must provide a concrete `Body` type. For example:
-- For **SPSymbol**, the `Body` is ``SPSymbolView``.
-- For **SPEmoji**, the `Body` is ``SPEmojiView``.
-- For **SPImage**, the `Body` is ``SPImageView``.
+### Implementations
+- **SPSymbol**: Uses ``SPSymbolView``.
+- **SPEmoji**: Uses ``SPEmojiView``.
+- **SPImage**: Uses ``SPImageView``.
 
 ### SwiftUI Compatibility
 
-The `Body` associated type must conform to the `View` protocol, ensuring that the returned object is a valid SwiftUI component that can be rendered in the picker's grid or list layouts.
+`Body` follows the `View` protocol. This ensures the picker's grid or list can render the component.
 
-### Main Actor Decoration
+### Thread Safety
 
-Because the `Body` type represents a SwiftUI view, any logic used to generate or configure it within ``asView()`` should be performed on the main actor to maintain UI thread safety.
+Configure the `Body` on the main actor to keep the UI thread safe.

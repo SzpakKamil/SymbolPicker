@@ -18,25 +18,25 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A data-driven model representing an Apple SF Symbol with enhanced metadata, variant support, and platform-specific availability logic.
+A model for SF Symbols with metadata and variant support.
 
 ## Overview
 
-`SPSymbol` is the foundational structure used to manage and render SF Symbols within the `SymbolPicker` package. It conforms to ``SymbolPicker/SPDataAsset``, allowing it to be managed by ``SymbolPicker/SPDataManager`` and displayed in a grid.
+`SPSymbol` manages and renders SF Symbols in the SymbolPicker package. It follows the ``SymbolPicker/SPDataAsset`` protocol, so ``SymbolPicker/SPDataManager`` can organize and show it in the asset grid.
 
-Beyond being a simple wrapper for a system name string, `SPSymbol` provides a robust architectural solution for:
-- **Variant Consistency**: Tracks corresponding "filled" and "outlined" icons, ensuring that users can switch styles globally while maintaining their current selection.
-- **Platform Safety**: Verifies symbol existence at runtime to prevent crashes or empty placeholders on older OS versions.
-- **Searchability**: Includes localized annotations and tags for semantic search (e.g., searching "love" finds "heart").
-- **Localization**: Supports fetching translated metadata based on the user's locale.
+`SPSymbol` does more than wrap a system name string. It handles:
+- **Variants**: Tracks matching "filled" and "outlined" icons. Users can switch styles globally while keeping their selection.
+- **Safety**: Verifies if a symbol exists at runtime. This prevents missing icons on older OS versions.
+- **Search**: Includes localized annotations and tags. Searching for "love" finds the "heart" symbol.
+- **Localization**: Loads translated metadata based on the user's locale.
 
 ### Data Management
 
-Symbols are typically loaded from localized JSON resources included in the package bundle. The static ``SymbolPicker/SPSymbol/fetchAssets(locale:)`` method orchestrates this process, including resource resolution and automatic availability filtering.
+The system loads symbols from localized JSON files in the package bundle. The ``SymbolPicker/SPSymbol/fetchAssets(locale:)`` method handles resource resolution and availability filtering.
 
-### Integration with SPSelection
+### Selection
 
-When a user interacts with the `SymbolPicker`, the `SPSymbol` is typically wrapped in an ``SymbolPicker/SPSelection`` object. Because `SPSymbol` is `Codable`, selections can be easily persisted to `UserDefaults` or other storage.
+SymbolPicker wraps `SPSymbol` in an ``SymbolPicker/SPSelection`` object during user interaction. Since the model is `Codable`, you can save selections to `UserDefaults` or other storage.
 
 ## Topics
 

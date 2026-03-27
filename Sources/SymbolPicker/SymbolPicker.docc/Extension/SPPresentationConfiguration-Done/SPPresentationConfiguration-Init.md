@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Creates a default presentation configuration.
+You create a new configuration with standard settings.
 
 ## Overview
 
-The default initializer creates a `SPPresentationConfiguration` with standard system settings.
+The default initializer provides an `SPPresentationConfiguration` with standard system values. These defaults ensure your picker feels familiar to users immediately.
 
-- **Presentation Type**: `.default` (typically a sheet).
-- **Drag Indicator**: `.visible`.
-- **Dents**: Platform-dependent defaults (e.g., `[.large]` on standard iOS, `[.medium, .large]` on compact iOS views).
-- **Background Color**: `.clear` or standard system background.
+- **Presentation Type**: You start with `.default`, which typically shows a sheet on iPhone.
+- **Drag Indicator**: You get a visible handle at the top of the sheet.
+- **Dents**: You get platform-standard heights, such as full-screen on iPhone.
+- **Background Color**: You start with a clear background that adopts system colors.
 
 ### Usage in Code
 

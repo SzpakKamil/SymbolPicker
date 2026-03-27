@@ -13,13 +13,13 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Returns a system icon name for the page type.
+The system icon name for the page type.
 
 ## Overview
 
-The `systemName` property provides an SF Symbol name representing each page category. This is used by the `SymbolPicker` to display appropriate icons in tabs or selection buttons.
+The `systemName` property returns an SF Symbol name for each page category. SymbolPicker uses these icons in tabs and selection buttons.
 
-### Default Icons
+### Icons
 
 - **Symbol**: Returns `"star.fill"`.
 - **Emoji**: Returns `"hand.thumbsup.fill"`.

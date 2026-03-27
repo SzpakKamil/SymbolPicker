@@ -1,7 +1,5 @@
 # ``Swift/Sequence``
 
-Convenience methods on sequences of spacing values.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,11 +18,11 @@ Convenience methods on sequences of spacing values.
     @AutomaticArticleSubheading(disabled)
 }
 
+Extensions for sequences of spacing values.
+
 ## Overview
 
-When working with collections of ``SPSpacing`` values, this extension provides a direct way to query a specific spacing measurement without manually searching through the sequence.
-
-The extension is constrained to sequences where `Element` is ``SPSpacing``, giving you type-safe access to component-specific spacing attributes that adapt to the current Dynamic Type size.
+When you work with collections of ``SPSpacing``, use these methods to query specific measurements without searching the sequence manually. This extension applies to any sequence where the element is ``SPSpacing``. It provides type-safe access to component spacing that adapts to the user's Dynamic Type settings.
 
 ## Topics
 

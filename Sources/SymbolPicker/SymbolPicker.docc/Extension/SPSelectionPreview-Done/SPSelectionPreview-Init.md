@@ -13,20 +13,20 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a new selection preview instance.
+Initializes a selection preview.
 
 ## Overview
 
-The `init()` initializer creates an `SPSelectionPreview` that is fully reactive to the `SymbolPicker` environmental state.
+The `init()` initializer builds an `SPSelectionPreview` that responds to the picker's environment.
 
-### Dependency Context
+### Environment Dependencies
 
-The initialized preview resolves its rendering state from several environment properties:
-1. **Selection Context**: Binds to the shared ``SwiftUICore/EnvironmentValues/spSelection`` environment property to determine which asset to render.
-2. **Layout Context**: Utilizes the current ``SymbolPicker/SPSelectionPreviewConfiguration`` to determine its size, corner radius, and transformation rules.
-3. **Visual Environment**: Accesses `colorScheme` (dark/light mode) and `dynamicTypeSize` to adapt its aesthetic.
-4. **Scroll Geometry (iOS 26+)**: Automatically integrates with ``SymbolPicker/SPSelectionPreviewConfiguration/spSelectionPreviewCalculateScale(_:)`` and ``SymbolPicker/SPSelectionPreviewConfiguration/spSelectionPreviewCalculateOffset(_:)`` to handle dynamic parallax effects when scrolling.
+The preview resolves its state from several keys:
+1. **Selection**: Reads ``SwiftUICore/EnvironmentValues/spSelection`` to find the asset to render.
+2. **Layout**: Uses ``SymbolPicker/SPSelectionPreviewConfiguration`` for its size and corner radius.
+3. **Visuals**: Adapts to the current `colorScheme` and `dynamicTypeSize`.
+4. **Scrolling (iOS 26+)**: Integrates with scroll geometry closures to apply dynamic parallax and scaling.
 
-### Usage in Custom Layouts
+### Usage
 
-`SPSelectionPreview` is designed to be highly modular. While primarily used within the standard `SymbolPicker` structure, it can be integrated into custom layouts wherever high-fidelity asset previews are needed.
+`SPSelectionPreview` is a modular component. Use it in custom layouts where you need high-fidelity asset previews that match the picker's aesthetic.

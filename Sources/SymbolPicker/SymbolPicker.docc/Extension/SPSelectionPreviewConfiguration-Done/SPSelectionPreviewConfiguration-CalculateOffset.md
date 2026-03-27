@@ -12,15 +12,13 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A closure that calculates the dynamic vertical offset of the selection preview based on scroll geometry.
+A closure for calculating the vertical offset of the preview.
 
 ## Overview
 
-The `calculateOffset` property is a `@Sendable` closure that takes `ScrollGeometry` as an input and returns a `CGFloat` representing the vertical offset for the preview area.
+The `calculateOffset` property is a `@Sendable` closure that takes `ScrollGeometry` and returns a `CGFloat`. Use this to move the preview area as the user scrolls through assets.
 
-By implementing this closure, you can create "sticky" or parallax effects for the selection preview as the user scrolls the picker's asset grid.
-
-### Example Implementation
+### Example
 
 ```swift
 let config = SPSelectionPreviewConfiguration()

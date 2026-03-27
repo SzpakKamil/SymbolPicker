@@ -16,14 +16,13 @@ Creates a default color picker configuration.
 
 ## Overview
 
-The default initializer sets up the color picker with a standard palette and behavior.
+The default initializer sets up a standard palette:
+- **Colors**: Includes system colors from red to brown.
+- **Layout**: Uses a horizontal row.
+- **Custom Selection**: Enabled.
+- **Opacity**: Disabled.
 
-- **Colors**: A predefined set of system colors (red, orange, yellow, green, mint, teal, blue, indigo, purple, pink, brown).
-- **Layout**: `.row` (horizontal scroll).
-- **Custom Color Support**: `true` (enabled).
-- **Opacity Support**: `false` (disabled).
-
-### Usage in Code
+### Example
 
 ```swift
 let config = SPColorPickerConfiguration()

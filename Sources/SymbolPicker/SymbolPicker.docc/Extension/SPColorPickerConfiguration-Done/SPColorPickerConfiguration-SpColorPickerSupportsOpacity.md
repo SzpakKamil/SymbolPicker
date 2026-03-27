@@ -12,16 +12,20 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets whether opacity is supported and returns the modified configuration.
+Toggles alpha adjustments in the color picker.
 
-- Parameter value: `true` to enable opacity adjustment, `false` to disable.
-- Returns: The updated configuration instance.
+- Parameter value: Set `true` to show the opacity slider.
+- Returns: Your updated configuration.
 
 ## Overview
 
-`spColorPickerSupportsOpacity(_:)` is a chainable method used to update the ``SymbolPicker/SPColorPickerConfiguration/supportOpacity`` property.
+Use `spColorPickerSupportsOpacity(_:)` to let users change the transparency of their selected colors. Setting this to `true` displays an opacity slider. The method updates the `supportOpacity` property and returns the modified configuration for chaining.
 
-### Usage in Code
+### Usage
+
+This setting helps when your app requires solid colors or when you want to give users control over the alpha channel. The slider fits into the color selection area and works across all layout types.
+
+### Example
 
 ```swift
 let config = SPColorPickerConfiguration()

@@ -21,14 +21,12 @@ Initializes a selection with a custom image and an optional platform-agnostic co
 
 ## Overview
 
-This initializer provides a direct way to create an image selection with a pre-configured `ColorKit/CKColor`.
+Initialize a selection with a custom image and a platform-agnostic color. This initializer lets you create an image selection with a pre-configured `ColorKit/CKColor`.
 
 ### Selection State
 
-When using this initializer:
-- The ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/image``.
-- The ``SymbolPicker/SPSelection/image`` property is populated with the provided asset.
+This method sets the selection ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/image``. It populates the ``SymbolPicker/SPSelection/image`` property with your custom asset.
 
-### Direct Color Storage
+### Platform Compatibility
 
-By using `ColorKit/CKColor` directly, this initializer ensures that the selection's color state is ready for use across all supported platforms without further conversion.
+By using `ColorKit/CKColor` directly, you ensure the selection's color state works across all supported platforms without further conversion. This is ideal for multi-platform apps where you want consistent color rendering on iOS, macOS, and watchOS.

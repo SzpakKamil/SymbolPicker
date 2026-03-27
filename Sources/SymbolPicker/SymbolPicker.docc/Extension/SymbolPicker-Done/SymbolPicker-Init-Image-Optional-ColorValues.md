@@ -19,7 +19,7 @@ Creates a picker bound to an optional custom image and raw RGBA color values.
 
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+This initializer binds the picker to a custom image object and RGBA color values. You handle non-system images through the `SPImage` type. The picker updates the image and color bindings based on your selection. Use this for highly customized asset pickers that require fine-grained color control.
 
 ### Parameters
 

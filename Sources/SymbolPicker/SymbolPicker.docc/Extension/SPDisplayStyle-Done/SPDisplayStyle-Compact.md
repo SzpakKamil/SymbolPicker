@@ -13,12 +13,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A streamlined presentation style for the `SymbolPicker`.
+A streamlined style for the `SymbolPicker`.
 
 ## Overview
 
-The `compact` style is designed for quick selection of icons or colors. It maximizes information density by reducing padding and simplifying the UI elements, making it ideal for:
+Choose the `compact` style for quick icon or color selection. It reduces padding and simplifies UI elements to pack more information into less space. This style excels on smaller devices like iPhone or Apple Watch.
 
-- **Secondary Selection**: Choosing an icon for a tag or a simple category label.
-- **Small Screens**: Displaying the picker on iPhone or Apple Watch where space is limited.
-- **Contextual Menus**: Presenting the picker as part of a smaller popover or sheet.
+### Best Scenarios
+
+- **Secondary Selection**: You need an icon for a tag or a simple category.
+- **Small Screens**: You display the picker where screen space is tight.
+- **Contextual Menus**: You show the picker in a small popover or sheet.

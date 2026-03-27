@@ -13,23 +13,23 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The primary classification group for the asset, supporting SF Symbols, Emojis, and custom icons.
+You group your assets into high-level categories.
 
 ## Overview
 
-The `category` property provides a high-level grouping mechanism that the ``SymbolPicker/SPOptionList`` uses to organize assets into meaningful sections. For example, in a symbols picker, a category could be "Nature", "Objects", or "People".
+The `category` property provides high-level grouping for your icons. ``SymbolPicker/SPOptionList`` reads this value to organize assets into logical sections like "Nature" or "People."
 
-### Role in UI Organization
+### UI Organization
 
-When loading assets, the ``SymbolPicker/SPDataManager`` uses the `category` to group individual assets into ``SymbolPicker/SPCategory`` objects. These categories are then used to:
-- Generate section headers in grid and list views.
-- Provide a structured navigation experience within the ``SymbolPicker/SPOptionList``.
-- Allow users to quickly filter down to a subset of related assets.
+``SymbolPicker/SPDataManager`` uses this property to build ``SymbolPicker/SPCategory`` objects. These objects:
+- Build the section headers you see in the UI.
+- Structure the navigation inside the ``SymbolPicker/SPOptionList``.
+- Allow users to filter through related icons quickly.
 
 ### Localization
 
-Categories are typically localized through the same JSON resource files as the assets themselves. This ensures that the organization of the picker remains consistent and understandable across different languages.
+The picker reads localized categories from JSON resource files. This ensures your organization matches the user's language settings.
 
-### Implementation Detail
+### Implementation
 
-When a type conforms to ``SPDataAsset``, it must define how it handles categories. For ``SymbolPicker/SPSymbol``, categories are pre-defined by the system metadata, while for ``SymbolPicker/SPEmoji``, they follow standard Unicode category classifications.
+Each asset type defines its own category logic. ``SymbolPicker/SPSymbol`` uses SF Symbol metadata, while ``SymbolPicker/SPEmoji`` follows standard Unicode classifications.

@@ -18,46 +18,23 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-The primary data model representing a user's chosen asset within the `SymbolPicker` ecosystem.
+The primary data model for user choices in SymbolPicker.
 
 ## Overview
 
-`SPSelection` is a generic struct that encapsulates the state of a selected item in the `SymbolPicker`. It is designed to be flexible, supporting multiple types of content including SF Symbols, Emojis, Custom Images, and pure Colors.
+The `SPSelection` struct is the main data model for user choices in the `SymbolPicker` ecosystem. This generic struct stores the state of a selected item, including SF Symbols, Emojis, Custom Images, and Colors.
 
-It conforms to ``SymbolPicker/SPSelectionProtocol``, ensuring a consistent interface for rendering and data access across the library. Most commonly, `SPSelection` is used with `SPSymbol` as its generic `DataAsset` type (i.e., `SPSelection<SPSymbol>`).
+### Usage in Library
 
-### Usage in SymbolPicker
+`SPSelection` is the source of truth for the `SymbolPicker` view. When you initialize a picker, you bind a selection object to it. The picker updates this binding whenever a user selects a new item. `SPSelection` handles the transition between different asset types internally, keeping your binding stable.
 
-`SPSelection` is the source of truth for the `SymbolPicker` view. When initializing a picker, you bind a selection object to it:
+### Content Types
 
-```swift
-@State private var selection = SPSelection(systemName: "star.fill")
+The struct can represent four content types, defined by the ``SymbolPicker/SPSelection/SelectionType`` enum: symbols, emojis, images, and colors. It conforms to ``SymbolPicker/SPSelectionProtocol`` to provide a consistent interface for rendering and data access.
 
-var body: some View {
-    SymbolPicker(selection: $selection)
-}
-```
+### System Integration
 
-The picker updates this binding whenever a user selects a new item. The `SPSelection` struct handles the complexity of different item types (e.g., switching from a symbol to an emoji) internally, so your binding remains stable.
-
-### Selection Types
-
-The `SPSelection` struct can represent four distinct types of content, defined by the ``SymbolPicker/SPSelection/SelectionType`` enum:
-
-- **Symbol**: An custom symbol (by default represented by `SPSymbol`).
-- **Emoji**: A standard emoji character (represented by `SPEmoji`).
-- **Image**: A custom image asset (represented by `SPImage`).
-- **Color**: A solid color value (represented by `CKColor`).
-
-### Protocol Conformance
-
-`SPSelection` conforms to several key protocols to ensure it integrates seamlessly with SwiftUI and data persistence layers.
-
-- `Identifiable`: Uses a stable ID based on the content type and value.
-- `Codable`: Supports encoding and decoding for persistence (e.g., in `UserDefaults`).
-- `Equatable`: Allows for efficient view updates.
-- `Hashable`: Enables usage in sets and as dictionary keys.
-- `Sendable`: Safe to pass across concurrency domains.
+`SPSelection` conforms to several key protocols for SwiftUI and persistence. It is `Identifiable` for use in lists and `Codable` for storage in `UserDefaults` or databases. It also implements `Equatable`, `Hashable`, and `Sendable` to work efficiently in modern Swift applications.
 
 ## Topics
 

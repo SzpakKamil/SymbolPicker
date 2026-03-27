@@ -13,20 +13,20 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a new search bar instance.
+Creates a search bar.
 
 ## Overview
 
-The `init()` initializer creates an `SPSearchBar` that is fully reactive to the `SymbolPicker` environmental context.
+The `init()` initializer builds an `SPSearchBar` that responds to the picker's environment.
 
-### Reactive Search Bindings
+### Dependencies
 
-When initialized, the search bar resolves its functionality from several environmental dependencies:
-1. **Search Text**: Binds to the shared `spSearchText` environment property.
-2. **Dynamic Context**: Accesses the current `spPageType` to determine the appropriate placeholder (prompt).
-3. **Style Rules**: Uses the current `SymbolPickerStyle` to determine if searching should be allowed and what background materials to apply.
-4. **Adaptive Spacing**: Integrates with the `dynamicTypeSize` to calculate appropriate padding and sizing.
+The search bar uses these values:
+1. **Search Text**: Binds to the `spSearchText` property.
+2. **Context**: Checks `spPageType` to set the placeholder text.
+3. **Style**: Uses `SymbolPickerStyle` to set background materials and search rules.
+4. **Spacing**: Adjusts padding based on the user's `dynamicTypeSize`.
 
-### Layout Integration
+### Layout
 
-While `SPSearchBar` can be placed anywhere in a view hierarchy, it is most effective when used with the `asInsetView()` helper method to ensure correct positioning within the `SymbolPicker` grid.
+Place `SPSearchBar` anywhere in your view. Use the `asInsetView()` method to position it correctly within the picker grid.

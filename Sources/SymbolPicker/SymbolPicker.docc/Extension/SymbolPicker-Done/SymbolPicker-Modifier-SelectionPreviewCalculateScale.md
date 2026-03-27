@@ -18,14 +18,16 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Configures a custom scale calculation for the selection preview based on scroll geometry.
+Sets a custom scale calculation for the selection preview.
 
 ## Overview
 
-Use this modifier to dynamically adjust the scale of the selection preview as the user scrolls through the picker.
+Use this modifier to change the scale of the selection preview based on scroll geometry.
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `closure` | `(ScrollGeometry) -> CGFloat` | A closure that calculates the scale based on the current scroll geometry. |
+- **closure**: A closure that returns the scale based on current scroll data.
+
+### Details
+
+The closure receives the `ScrollGeometry` and returns a `CGFloat` for the scale. This allows the preview to shrink or grow dynamically as the user scrolls through the picker.

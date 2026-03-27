@@ -16,13 +16,11 @@ Creates a default selection preview configuration.
 
 ## Overview
 
-The default initializer sets up the visual properties for the selection preview area.
+The default initializer sets up the visual properties for the selection preview:
+- **Corner Radius Factor**: Sets to `0.5` on iOS and `1.0` on watchOS.
+- **Scale and Offset**: Defaults to `nil` (uses standard system logic).
 
-- **Corner Radius Factor**: Varies by platform (e.g., `0.5` on standard iOS, `1.0` on watchOS).
-- **Calculated Scale**: `nil` (uses default system scaling logic if applicable).
-- **Calculated Offset**: `nil` (uses default system offset logic if applicable).
-
-### Usage in Code
+### Example
 
 ```swift
 let config = SPSelectionPreviewConfiguration()

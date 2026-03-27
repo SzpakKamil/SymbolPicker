@@ -1,6 +1,5 @@
 # ``SwiftUICore/View/symbolPicker(isPresented:emoji:colorValues:configuration:)-(_,Binding<SPEmoji>,_,_)``
 
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -19,9 +18,11 @@
 }
 
 ## Overview
-Presents a symbol picker that allows the user to select an emoji and a color, which are synchronized with the provided bindings. This overload synchronizes with an array of color values (`[Double]`).
 
-## Example Usage
+Presents a symbol picker for selecting an emoji and a color. This version binds to a required emoji and an array of RGBA doubles (`[Double]`).
+
+### Example Usage
+
 ```swift
 struct MyView: View {
     @State private var isPresented = false
@@ -40,3 +41,7 @@ struct MyView: View {
     }
 }
 ```
+
+### Details
+
+This modifier requires a non-optional `SPEmoji` instance. It updates the color values in the array whenever the user chooses a new tint in the picker. Use this version when your data model stores color components as raw numbers.

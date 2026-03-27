@@ -13,12 +13,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Determines how the user can interact with the view behind a presentation.
+You decide if the user can touch the app behind the picker.
 
 ## Overview
 
-The `presentationBackgroundInteraction` property allows you to specify whether touches outside the presented view should be blocked or passed through to the underlying content. It uses the ``SymbolPicker/SPPresentationConfiguration/BackgroundInteraction`` enum.
+The `presentationBackgroundInteraction` property sets whether the picker blocks touches to the background. You use the ``SymbolPicker/SPPresentationConfiguration/BackgroundInteraction`` enum to configure this.
+
+Enabling background interaction lets users see the results of their symbol choice instantly. For example, they can tap a "Preview" button in the background while the picker stays open.
 
 ### Default Value
 
-The default value is `.disabled` (standard modal behavior).
+The default value is `.disabled`, which blocks all background interaction until you close the picker.

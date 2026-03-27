@@ -13,19 +13,19 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a new page picker instance.
+You create a navigation control to switch between asset types.
 
 ## Overview
 
-The `init()` initializer creates an `SPPagePicker` that is fully reactive to the `SymbolPicker` environmental state.
+The `init()` initializer creates an `SPPagePicker` that listens to your app's environment. It connects directly to the settings you define for the broader `SymbolPicker`.
 
 ### Dependency Context
 
-When initialized, the picker resolves its behavior from the following environment properties:
-1. **Selection Binding**: Binds to the shared `spPageType` environment property.
-2. **Allowed Types**: Accesses `spAllowedPageTypes` to determine which segments should be presented.
-3. **Style Context**: Utilizes the current `SymbolPickerStyle` for platform-specific layout rules.
+The picker resolves its behavior from these environmental properties:
+1. **Selection Binding**: It binds to the shared `spPageType` to track which category you are viewing.
+2. **Allowed Types**: It reads `spAllowedPageTypes` to decide which segments to show, such as Symbols or Emojis.
+3. **Style Context**: It uses the current `SymbolPickerStyle` to apply the right layout rules for your device.
 
 ### Use in Custom Layouts
 
-`SPPagePicker` is designed to be highly modular. While primarily intended for use within the standard `SymbolPicker` body, it can be integrated into custom picker layouts wherever navigation between asset categories is required.
+`SPPagePicker` is modular. You can use it inside the standard picker or integrate it into your own custom layouts where you need to switch between asset categories.

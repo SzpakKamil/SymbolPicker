@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the display style of the presented picker.
+Configure the display style for the presented picker.
 
 ## Overview
 
-Use this modifier to control how the symbol grid is laid out — for example, whether symbols are shown in a compact list or a spacious grid.
+Choose between a compact list or a spacious grid for the symbol layout. This modifier controls the arrangement of items in the picker.
 
 ### Example
 
-Present the picker in compact mode:
+Use compact mode for the picker:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `style` | ``SymbolPicker/SPDisplayStyle`` | The desired display style for the picker. |
+| `style` | ``SymbolPicker/SPDisplayStyle`` | The display style for the picker. |

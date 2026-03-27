@@ -13,17 +13,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Returns the literal emoji character(s) represented by the emoji's hexcode and current tone selection.
+Returns the emoji character for the current tone.
 
 ## Overview
 
-The `emojiString()` method is responsible for resolving the literal Unicode character (glyph) to be displayed to the user. This resolution depends on the ``SymbolPicker/SPEmoji/tone`` index.
+The `emojiString()` method resolves the literal Unicode character based on the ``SymbolPicker/SPEmoji/tone`` index.
 
-### Glyph Resolution Logic
+### Resolution
 
-1. **Default Tone (`0`)**: If the current tone index is `0`, the method resolves the emoji string directly from the base ``SymbolPicker/SPEmoji/id`` (hexcode). This is typically the default (e.g., yellow) version of an emoji.
-2. **Skin Variations (`1` to `n`)**: If the current tone index is greater than `0`, the method attempts to resolve the glyph from the corresponding ``SymbolPicker/SPEmoji/Skin`` in the ``SymbolPicker/SPEmoji/skins`` array. If the index is within bounds, the hexcode of that skin is used.
+1. **Default (`0`)**: Resolves the string from the base ``SymbolPicker/SPEmoji/id``. This usually returns the default yellow version.
+2. **Variations (`1` to `n`)**: Resolves the glyph from the matching ``SymbolPicker/SPEmoji/Skin`` in the ``SymbolPicker/SPEmoji/skins`` array.
 
-### Encoding Details
+### Details
 
-Under the hood, this method converts the hexcode string (e.g., `"1F600"`) into its Unicode scalar components and returns a standard Swift `String`. This ensures that even complex multi-scalar emojis (like flags or skin-toned gestures) are correctly reconstructed.
+The method converts the hexcode string into Unicode scalar components. This ensures complex emojis, like flags or gestures with skin tones, reconstruct correctly into a Swift `String`.

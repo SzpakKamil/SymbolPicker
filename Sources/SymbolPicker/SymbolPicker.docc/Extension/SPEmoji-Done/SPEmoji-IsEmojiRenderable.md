@@ -13,19 +13,19 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Verifies if the system's emoji font can render a specific string.
+Checks if the system font can display a string.
 
 ## Overview
 
-The `isEmojiRenderable(_:)` method is a static utility that performs a deep inspection of the system's emoji font.
+The `isEmojiRenderable(_:)` static utility inspects the system's emoji font.
 
 ### Core Logic
 
-Using the `CoreText` framework, the method:
-1. Creates an attributed string with the "AppleColorEmoji" font.
-2. Resolves the `CTLine` and its component `CTRun` objects for the string.
-3. Inspects the glyphs for the string. If any component is a missing glyph (index `0`), the emoji is considered non-renderable.
+The method uses the `CoreText` framework to perform these steps:
+1. It builds an attributed string with the "AppleColorEmoji" font.
+2. It finds the `CTLine` and `CTRun` objects for that string.
+3. It checks the glyph indices. If any component uses index `0` (the missing glyph symbol), the method marks the emoji as non-renderable.
 
-### Caching
+### Performance Caching
 
-To ensure smooth performance when the `SymbolPicker` is displaying thousands of emojis, this method uses an internal `NSCache` (`availabilityCache`) to store results. Subsequent checks for the same string are fulfilled in constant time.
+Checking font glyphs takes time. To keep SymbolPicker fast, this method stores results in an `NSCache`. If the system asks for the same string again, it returns the cached result instantly. This ensures the picker remains responsive even with thousands of assets.

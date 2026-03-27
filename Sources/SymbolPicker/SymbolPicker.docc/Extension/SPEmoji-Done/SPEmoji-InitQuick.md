@@ -13,25 +13,25 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Creates a new emoji instance from a literal string or hexcode.
+Creates an emoji from a string or hexcode.
 
 ## Overview
 
-The `init(_:)` initializer provides a quick and flexible way to create an `SPEmoji` wrapper from a string. It can handle both literal emoji characters and their hexcode representations.
+The `init(_:)` initializer builds an `SPEmoji` wrapper. It accepts literal emoji characters or hexcode strings.
 
-### Input Handling
+### Handling Inputs
 
-1. **Hexcode Strings**: If the input string matches a hexcode pattern (e.g., `"1F600"`), it is used directly as the ``SymbolPicker/SPEmoji/id``.
-2. **Literal Emojis**: If the input is a literal emoji character (e.g., `"🍎"`), the initializer converts its underlying Unicode scalars into a hyphenated hexcode string for the identifier.
+1. **Hexcodes**: If you pass a hexcode string like `"1F600"`, the initializer uses it as the ``SymbolPicker/SPEmoji/id``.
+2. **Literals**: If you pass a character like `"🍎"`, the system converts its Unicode scalars into a hyphenated hexcode string.
 
-### Defaults
+### Default Values
 
-When created via this initializer:
-- **``SymbolPicker/SPEmoji/version``**: Defaults to `1.0`.
-- **Metadata (Annotation, Tags, Categories)**: Initialized as `nil`.
-- **Variations (Skins)**: Initialized as `nil`.
-- **Current Tone**: Defaults to `0`.
+This initializer sets standard defaults:
+- **Version**: Sets to `1.0`.
+- **Metadata**: Sets annotation, tags, and categories to `nil`.
+- **Variations**: Sets the skins array to `nil`.
+- **Tone**: Sets the index to `0`.
 
 ### Usage
 
-This initializer is ideal for ad-hoc emoji creation in code where full catalog metadata is not required.
+Use this method for quick emoji creation when you do not need full catalog metadata.

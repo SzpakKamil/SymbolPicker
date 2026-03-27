@@ -12,17 +12,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The set of detents (height levels) available for the sheet presentation.
+You set the different heights the picker sheet can reach.
 
 ## Overview
 
-The `presentationDents` property defines the various heights at which the picker's sheet can rest. This allows for resizable sheets that can expand or shrink as the user interacts with them.
+The `presentationDents` property defines the heights (detents) where the picker's sheet can rest. These detents act as magnetic snap points. Users can pull the sheet to a half-way point or expand it to cover the screen.
 
 ### Supported Detents
 
-- **medium**: The sheet covers approximately half of the screen.
-- **large**: The sheet covers the full screen.
-- **custom**: Custom heights defined by the developer.
+- **medium**: The sheet snaps to approximately half the screen height.
+- **large**: The sheet snaps to cover the full screen.
+- **custom**: You define specific pixel or fractional heights.
 
 ### Usage in Code
 

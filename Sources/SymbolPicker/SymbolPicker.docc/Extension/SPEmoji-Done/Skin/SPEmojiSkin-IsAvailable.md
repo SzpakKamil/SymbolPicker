@@ -13,22 +13,18 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Performs a runtime check to verify if the skin variation is supported on the current device.
+Verifies if the device supports the skin variation.
 
 ## Overview
 
-The `isAvailable()` method is a critical safety feature that prevents the application from attempting to render specific Unicode emoji variations that are not supported by the host operating system or the system's emoji font.
+The `isAvailable()` method prevents the app from rendering Unicode emoji variations that the operating system or system font does not support.
 
-### Dynamic Verification
+### Verification Logic
 
-Because the set of available emoji variations is tied to Unicode releases and OS-specific rendering updates, a simple static check is insufficient. Instead, this method leverages the base ``SymbolPicker/SPEmoji``'s static verification logic:
-1. **Unicode Version Check**: Verifies the variation's ``SymbolPicker/SPEmoji/Skin/version`` against the current OS's Unicode support map. This is essential for variations introduced in later Unicode versions (e.g., Emoji 15.0).
-2. **Render Capability Check**: Uses the static ``SymbolPicker/SPEmoji/isEmojiRenderable(_:)`` method to perform a CoreText inspection of the glyph. This ensures that the system's "AppleColorEmoji" font contains valid glyphs for the specific variation scalars.
+Availability depends on Unicode releases and OS updates. The method performs two checks:
+1. **Unicode Version**: It compares the ``SymbolPicker/SPEmoji/Skin/version`` against the system's Unicode support map.
+2. **Render Capability**: It uses CoreText to inspect the glyph. This ensures the "AppleColorEmoji" font contains the correct scalars for the variation.
 
-### Granular Status
+### Details
 
-A skin variation's availability is independent of its base emoji. For example, a base emoji introduced in Unicode 12.0 might be available, while a specific skin tone variation introduced in Unicode 14.0 for that same emoji would return `false` on older operating systems. This granularity ensures the `SymbolPicker` only presents valid options to the user.
-
-### Impact on User Experience
-
-This method is used by the `SymbolPicker` to filter the variation selector interface. By excluding unsupported skin tones, the picker prevents users from selecting an emoji that would result in a broken "tofu" glyph (missing glyph placeholder), maintaining a polished and reliable user interface.
+A skin variation's status is independent of the base emoji. If an emoji exists but a specific tone variation was added in a later Unicode version, this method returns `false` on older systems. The picker uses this logic to filter the skin tone selector and avoid showing broken "tofu" placeholders.

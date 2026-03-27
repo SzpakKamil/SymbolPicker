@@ -17,31 +17,31 @@ Creates a persistent image asset from an Apple SF Symbol.
 
 ## Overview
 
-This failable initializer allows you to convert any system SF Symbol into a static, pixel-based `SPImage` asset. This is particularly useful in workflows where symbols must be treated as standard image files or when they require the precise layout transformations (zoom and offset) provided by the `SPImage` model.
+Use this failable initializer to convert an SF Symbol into a static, pixel-based `SPImage`. This helps when you need to treat symbols as standard images or apply precise layout changes like zoom and offset.
 
-### Internal Logic and Rendering
+### Rendering and Storage
 
-1. **Platform-Native Rendering**: 
-   - On **iOS/iPadOS/tvOS/visionOS**: It uses `UIImage(systemName:)` with a specific `SymbolConfiguration` (point size 100, regular weight) and renders it with a standard black tint.
-   - On **macOS**: It uses `NSImage(systemSymbolName:)` and extracts the `cgImage` to ensure a consistent coordinate system.
-2. **PNG Encoding**: The resulting vector symbol is flattened into a high-resolution PNG data stream.
-3. **Automatic Sizing**: The intrinsic size of the symbol is captured and stored as the image's width and height.
-4. **Local Persistence**: The PNG data is written to the user's `Application Support` directory.
+1. **Native Rendering**: 
+   - On **iOS, iPadOS, tvOS, and visionOS**: The app uses `UIImage(systemName:)` with a 100-point regular weight configuration.
+   - On **macOS**: The app uses `NSImage(systemSymbolName:)` and extracts the `cgImage` for a consistent coordinate system.
+2. **PNG Encoding**: The system flattens the vector symbol into a high-resolution PNG data stream.
+3. **Sizing**: The initializer captures the symbol's intrinsic size and stores it as the image's width and height.
+4. **Persistence**: The app writes the PNG data to your `Application Support` directory.
 
-### Why use SPImage for Symbols?
+### Advantages of SPImage Symbols
 
-While SF Symbols are typically used as vectors, converting them to an `SPImage` provides:
-- **Consistent Layout**: Applies the same zoom and pan mechanics to symbols as to photographs.
-- **Side-by-Side Unified Management**: Allows symbols to be managed in the same database or file system hierarchy as custom user images.
-- **Exportability**: Easily share or export a symbol as a standard pixel-based PNG file.
+Converting symbols to `SPImage` offers several benefits:
+- **Unified Layout**: You apply the same zoom and pan mechanics to symbols and photos.
+- **Simplified Management**: You store symbols and custom images in the same database or folder.
+- **Easy Export**: You share or export symbols as standard PNG files.
 
 ### Parameters
 
-- **`systemName`**: The identifier for the SF Symbol (e.g., `"star.bubble.fill"`).
+- **`systemName`**: The SF Symbol identifier, such as `"star.bubble.fill"`.
 
-### Failure Cases
+### Failure Conditions
 
 The initializer returns `nil` if:
-- The `systemName` is not supported on the current operating system version.
-- The image rendering context fails to generate valid pixel data.
+- The current OS version does not support the `systemName`.
+- The rendering context fails to create pixel data.
 - PNG encoding fails.

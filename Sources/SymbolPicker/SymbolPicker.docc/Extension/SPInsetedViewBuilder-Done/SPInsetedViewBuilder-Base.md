@@ -18,17 +18,17 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A custom result builder that enables a declarative syntax for defining an array of inseted views.
+Define an array of inseted views using a declarative syntax.
 
 ## Overview
 
-`SPInsetedViewBuilder` is a DSL component that allows developers to define multiple ``SymbolPicker/SPInsetedView`` objects using a clean, SwiftUI-like syntax. It handles the aggregation of inset views that are injected into the symbol picker at various placements.
+`SPInsetedViewBuilder` provides a DSL for defining multiple ``SymbolPicker/SPInsetedView`` objects. It aggregates views for injection into the symbol picker at specific placements.
 
 ### Usage
 
-This builder is most commonly used when defining custom `insetViews` within a ``SymbolPicker/SymbolPickerConfiguration``. It supports complex logic, including platform-specific checks (`#if os(...)`) and version checks (`if #available(...)`), enabling highly adaptive picker layouts.
+You use this builder when defining custom `insetViews` in a ``SymbolPicker/SymbolPickerConfiguration``. It supports platform checks with `#if os(...)` and version checks with `if #available(...)` to adapt layouts to the environment.
 
-### Example: Complex Adaptive Layout
+### Example: Adaptive Layout
 
 ```swift
 @SPInsetedViewBuilder
@@ -51,4 +51,4 @@ func customInsetViews() -> [SPInsetedView] {
 ## Topics
 
 ### Result Builder Methods
-The underlying methods used to support the declarative syntax (internal documentation only).
+Underlying methods for the declarative syntax.

@@ -22,7 +22,7 @@ Creates a picker bound to an optional emoji and a ColorKit color.
 
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+This initializer connects the picker to an emoji binding and a `CKColor` binding. You manage both the selected emoji and its associated color through these two sources of truth. The picker updates both bindings as you interact with the UI. Use this initializer when your app relies on ColorKit for color management.
 
 ### Parameters
 

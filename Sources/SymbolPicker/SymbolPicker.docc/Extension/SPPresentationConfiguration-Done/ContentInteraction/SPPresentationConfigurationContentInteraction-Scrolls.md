@@ -13,13 +13,13 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Content scrolls during a drag gesture if possible.
+You prioritize scrolling through symbols over resizing the sheet.
 
 ## Overview
 
-When set to `.scrolls`, the system prioritizes scrolling the content within the sheet over resizing the sheet itself. If the content view contains a scroll view (like a `List` or `ScrollView`), vertical drag gestures will typically scroll the content unless:
-1.  The scroll view is already at the top edge (allowing pull-to-dismiss or drag-to-resize downward).
-2.  The scroll view is at the bottom edge (allowing drag-to-resize upward).
+When you set this to `.scrolls`, the system focuses on moving your content. Dragging inside the sheet will move the symbol grid instead of changing the sheet's height. 
+
+Vertical gestures will scroll the symbols unless you reach the very top or bottom of the list. At those boundaries, the system permits a pull-to-dismiss or a resize. This prevents users from accidentally collapsing the picker while they search for a specific icon.
 
 ### Use Case
-Use this mode when the primary content of your sheet is a long, scrollable list (e.g., a symbol grid) and you want to ensure that users can navigate the content easily without accidentally triggering a sheet resize.
+Apply this mode when your sheet features a long list or grid. It ensures users navigate the library without the container moving unexpectedly.

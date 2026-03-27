@@ -12,8 +12,8 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A unique identifier for the placement.
+The unique identifier for the placement.
 
 ## Overview
 
-The `id` property returns the underlying integer raw value of the placement, conforming to the `Identifiable` protocol. This is primarily used for identifying and distinguishing between different placement types in collection-based operations.
+The `id` property returns the integer raw value of the placement. It fulfills the `Identifiable` protocol, letting you distinguish between placements in collections or loops.

@@ -13,11 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Placement at the bottom of the scrollable content.
+Placement at the bottom of the scrollable area.
 
 ## Overview
 
-When set to `.scrollContentBottom`, the inset view is placed at the end of the scrollable area. The user will see this view only after scrolling to the bottom of the current collection of symbols or emojis.
+The `.scrollContentBottom` case puts the inset view at the end of the scrollable area. You see this view only after scrolling to the bottom of the asset collection.
 
 ### Use Case
-Use this for "Load More" controls or for branding at the end of a long list of assets.
+
+Use this for "Load More" buttons or branding at the end of a long list.

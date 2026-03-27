@@ -18,13 +18,13 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Defines the size of a sheet presentation.
+You control the height and resizability of the picker sheet.
 
 ## Overview
 
-The `PresentationDents` enum allows you to define the initial and allowed sizes for a sheet presentation. By providing a set of these detents, you enable the user to resize the sheet by dragging the grabber. This type directly maps to SwiftUI's `PresentationDetent`, offering a consistent API across different iOS versions.
+The `PresentationDents` enum sets the allowed sizes for your sheet. By providing a list of these detents, you let users resize the picker by dragging the grabber. 
 
-You can combine multiple detents (e.g., `[.medium, .large]`) to give users flexibility in how much screen space the picker consumes.
+This type directly maps to SwiftUI's native presentation detents. You can mix and match styles—like combining `.medium` and `.large`—to give users flexibility in how much screen space they want to use for browsing icons.
 
 ## Topics
 

@@ -19,8 +19,8 @@ Returns the emoji character data for the selection.
 
 ## Overview
 
-The `getEmoji()` method provides safe access to the underlying emoji character and skin tone data. It ensures that you only receive an emoji asset if the selection ``SymbolPicker/SPSelection/type`` is currently set to `.emoji`.
+Get the emoji data for a selection. The `getEmoji()` method returns an ``SymbolPicker/SPEmoji`` or `nil` if the selection type is not `.emoji`. 
 
-### Usage in Custom Rendering
+### Manual Rendering
 
-This method is useful when you want to handle the rendering of a selected emoji manually, for example by applying custom fonts or animations that are specific to your app's design.
+This method provides safe access to the character and its skin tone variation. Use it when you need to render the selected emoji manually. For example, you might want to apply custom fonts, animations, or specialized modifiers that aren't part of the standard ``SymbolPicker/SPEmojiView``. It ensures you have the raw data needed for custom SwiftUI components.

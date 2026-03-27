@@ -18,14 +18,16 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the foreground color for pressed option list items.
+Sets the foreground color for pressed list items.
 
 ## Overview
 
-Use this modifier to specify the color for text and icons within the option list when an item is being pressed.
+Use this modifier to set the color for text and icons in the option list during a press interaction.
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `value` | `Color` | The pressed foreground color to apply. |
+- **value**: The foreground color for the pressed state.
+
+### Details
+
+Changing the foreground color during a press provides immediate feedback to the user. It ensures that icons and text remain visible against the pressed background color.

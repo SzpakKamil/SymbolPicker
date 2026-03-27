@@ -13,19 +13,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Represents the standard stroked or outlined version of an SF Symbol.
+The standard stroked version of an SF Symbol.
 
 ## Overview
 
-The `outlined` case corresponds to the standard, non-filled system names (e.g., `"heart"`). This is the default visual style for most symbols in the library.
+The `outlined` case maps to standard system names like `"heart"`. This is the default style for most icons in the library.
 
-### Visual Appearance
+### Appearance
 
-Outlined symbols have a lighter, more minimalist visual presence. They are commonly used in:
-- **Inactive States**: Representing a tab or an option that is currently not selected.
-- **Low-Emphasis Contexts**: Providing iconographic support without distracting from primary content.
-- **Information Density**: Allowing for more complex layouts by reducing visual weight.
+Outlined symbols have a minimalist visual presence. They work best for:
+- **Inactive States**: Representing a tab or option that is not selected.
+- **Low Emphasis**: Providing icons that do not distract from primary content.
+- **Dense Layouts**: Reducing visual weight in complex interfaces.
 
-### Selection Resolution
-
-When this case is applied to an `SPSymbol` instance, the library resolves the system name string using the `notFilled` property, ensuring that the stroked variant is correctly displayed.
+When you apply this case to an `SPSymbol`, the library uses the `notFilled` property to display the stroked variant.

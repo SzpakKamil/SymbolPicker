@@ -13,17 +13,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-An index representing the currently selected skin variation.
+The index of the selected skin variation.
 
 ## Overview
 
-The `tone` property tracks the active variation of the emoji.
+The `tone` property tracks the active variation for an emoji.
 
-### Index Mapping
+### Index Values
 
-- **Value `0`**: Represents the default variation (usually the yellow-skinned version).
-- **Values `1` through `n`**: Corresponds to the elements in the ``SymbolPicker/SPEmoji/skins`` array.
+- **`0`**: The default version, usually yellow.
+- **`1` to `n`**: Items in the ``SymbolPicker/SPEmoji/skins`` array.
 
 ### Persistence
 
-Because `tone` is a standard `Int` property of the `Codable` `SPEmoji` struct, any selection made by the user is automatically preserved when the `SPSelection` object is saved.
+Since `tone` is an `Int` in the `Codable` emoji struct, the system saves your selection automatically when you store an `SPSelection` object.

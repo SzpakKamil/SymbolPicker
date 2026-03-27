@@ -16,9 +16,9 @@ The default foreground color for list items.
 
 ## Overview
 
-The `optionListForeground` property defines the color used for symbols and emoji annotations in their standard, non-selected state.
+The `optionListForeground` property sets the color for symbols and emoji labels in their unselected state.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

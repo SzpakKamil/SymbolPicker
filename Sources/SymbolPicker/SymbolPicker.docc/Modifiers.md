@@ -1,7 +1,5 @@
 # Modifiers
 
-Reference for the available `SymbolPicker` modifiers.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,13 +18,15 @@ Reference for the available `SymbolPicker` modifiers.
     @AutomaticArticleSubheading(disabled)
 }
 
+Customization tools for SymbolPicker.
+
 ## Overview
 
-`SymbolPicker` provides a vast collection of modifiers that allow you to customize its visual style, layout, and functionality. These modifiers can be applied directly to a ``SymbolPicker/SymbolPicker`` instance or to the `.symbolPicker()` SwiftUI View extension.
+SymbolPicker offers modifiers to change visual styles, layouts, and features. Apply these directly to a ``SymbolPicker/SymbolPicker`` instance or through the `.symbolPicker()` View extension.
 
-## Modifier Categories
+## Categories
 
-### Display and Behavior Modifiers
+### Display and Behavior
 - ``SymbolPicker/SymbolPicker/spDisplayStyle(_:)``
 - ``SymbolPicker/SymbolPicker/spSymbolsVariant(_:)``
 - ``SymbolPicker/SymbolPicker/spAllowSearching(_:)``
@@ -35,7 +35,7 @@ Reference for the available `SymbolPicker` modifiers.
 - ``SymbolPicker/SymbolPicker/spInsetedViews(replaceDefaults:views:)``
 - ``SymbolPicker/SymbolPicker/spSpacing(_:)``
 
-### Color Picker Modifiers
+### Color Picker
 - ``SymbolPicker/SymbolPicker/spColorPickerEnabled(_:)``
 - ``SymbolPicker/SymbolPicker/spColorPickerColors(_:)-([CKColor])``
 - ``SymbolPicker/SymbolPicker/spColorPickerColors(_:)-(CKColor...)``
@@ -43,7 +43,7 @@ Reference for the available `SymbolPicker` modifiers.
 - ``SymbolPicker/SymbolPicker/spColorPickerSupportsOpacity(_:)``
 - ``SymbolPicker/SymbolPicker/spColorPickerSupportsCustomColor(_:)``
 
-### Option List Appearance Modifiers
+### Option List Appearance
 - ``SymbolPicker/SymbolPicker/spOptionListCornerRadiusFactor(_:)``
 - ``SymbolPicker/SymbolPicker/spOptionListInnerPaddingFactor(_:)``
 - ``SymbolPicker/SymbolPicker/spOptionListForeground(_:)``
@@ -55,7 +55,7 @@ Reference for the available `SymbolPicker` modifiers.
 - ``SymbolPicker/SymbolPicker/spOptionListBackgroundSelected(_:)``
 - ``SymbolPicker/SymbolPicker/spOptionListBackgroundPressed(_:)``
 
-### Selection Preview Modifiers
+### Selection Preview
 - ``SymbolPicker/SymbolPicker/spSelectionPreviewCornerRadiusFactor(_:)``
 - ``SymbolPicker/SymbolPicker/spSelectionPreviewCalculateOffset(_:)``
 - ``SymbolPicker/SymbolPicker/spSelectionPreviewCalculateScale(_:)``

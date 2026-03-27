@@ -18,15 +18,17 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Configures the layout of the color picker.
+Sets the direction and spacing for the color picker.
 
 ## Overview
 
-Use this modifier to set the direction and spacing of the color picker's elements.
+Use this modifier to control the color picker's layout.
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `type` | `SPColorPickerConfiguration.Direction` | The layout direction (horizontal or vertical). |
-| `spacing` | `CGFloat?` | The optional spacing between color items. |
+- **type**: The layout direction—horizontal or vertical.
+- **spacing**: The space between color items.
+
+### Layout Options
+
+The `type` parameter accepts `SPColorPickerConfiguration.Direction` values like `.grid` or `.row`. Spacing uses a `CGFloat` value to set the gap between cells.

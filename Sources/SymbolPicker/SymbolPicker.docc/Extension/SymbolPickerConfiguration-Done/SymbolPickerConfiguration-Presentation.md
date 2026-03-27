@@ -17,16 +17,17 @@
     @AutomaticSeeAlso(disabled)
 }
 
-
-A convenience computed property that returns the presentation configuration.
+Accesses the presentation configuration.
 
 ## Overview
 
-The `presentation` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/presentationConfiguration()``.
+The `presentation` property is a convenience shortcut for calling ``SymbolPicker/SymbolPickerConfiguration/presentationConfiguration()``.
 
 ### Implementation
 
-It is defined as a simple wrapper:
+It works as a simple wrapper:
 ```swift
 var presentation: SPPresentationConfiguration { presentationConfiguration() }
 ```
+
+Use this property to read settings for the picker's modal "shell," such as its background color, corner radius, or sheet behavior.

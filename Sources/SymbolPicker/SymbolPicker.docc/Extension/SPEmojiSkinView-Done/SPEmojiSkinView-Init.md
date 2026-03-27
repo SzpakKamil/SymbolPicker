@@ -17,12 +17,12 @@ Initializes a new emoji skin view with a provided skin model.
 
 ## Overview
 
-The `init(skin:)` initializer creates a rendering component for a specific emoji skin tone variation.
+Initialize an emoji skin view with a skin model. The `init(skin:)` method creates a component to render a specific emoji variation.
 
 ### Parameter Configuration
 
-- **`skin`**: The ``SymbolPicker/SPEmoji/Skin`` data model containing the specific hexcode for the skin tone variation.
+- **`skin`**: The ``SymbolPicker/SPEmoji/Skin`` data model containing the hexcode for the skin tone variation.
 
 ### Initialization Process
 
-Upon initialization, the view simply stores the provided ``SymbolPicker/SPEmoji/Skin`` model. The logic for resolving the emoji string and checking platform availability is handled dynamically within the view's body property.
+The view stores the provided ``SymbolPicker/SPEmoji/Skin`` model during initialization. It resolves the emoji string and checks platform availability dynamically when rendering its body. This ensures the correct variant appears on every supported OS.

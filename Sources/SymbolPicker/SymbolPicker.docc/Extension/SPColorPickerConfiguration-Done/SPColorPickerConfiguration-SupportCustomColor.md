@@ -12,13 +12,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Enables or disables the selection of custom colors from the system color picker.
+Toggles the system color spectrum and eyedropper.
 
 ## Overview
 
-The `supportCustomColor` property determines if a special cell is included in the color picker, allowing the user to choose any color from the operating system's standard color spectrum/eyedropper.
+The `supportCustomColor` property adds a cell to your picker that opens the system color selection tool. Users can pick any hue or use the eyedropper to grab colors from the screen.
 
-### Usage in Code
+### Functionality
+
+Enable this when your predefined color list does not meet every user need. It links your curated palette to the full range of colors available on the device. Users can find exact shades without typing hex codes.
+
+### Example
 
 ```swift
 let config = SPColorPickerConfiguration()

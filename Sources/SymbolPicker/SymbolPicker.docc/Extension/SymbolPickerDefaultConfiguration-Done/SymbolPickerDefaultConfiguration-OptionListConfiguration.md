@@ -22,8 +22,8 @@ Resolves the configuration for the asset grid.
 
 ## Overview
 
-This method implements the ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()`` protocol requirement by calling ``SymbolPicker/SymbolPickerDefaultConfiguration/currentOptionListConfiguration`` with the active ``SymbolPicker/SymbolPickerDefaultConfiguration/displayStyle``.
+This method fulfills the ``SymbolPicker/SymbolPickerConfiguration/optionListConfiguration()`` requirement. It calls the ``SymbolPicker/SymbolPickerDefaultConfiguration/currentOptionListConfiguration`` closure with the active style.
 
 ### Return Value
 
-Returns an ``SymbolPicker/SPOptionListConfiguration`` that defines the grid's cell spacing, padding, and interactive styling.
+Returns an ``SymbolPicker/SPOptionListConfiguration`` that defines the grid's cell rounding, padding, and interactive colors.

@@ -1,6 +1,6 @@
 # ``SymbolPicker/SymbolPicker/init(image:colorValues:configuration:)-(Binding<SPImage>,_,_)``
 
-Creates a picker bound to a non-optional custom image and raw RGBA color values.
+Initialize a picker with a required custom image and raw RGBA color values.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -19,10 +19,10 @@ Creates a picker bound to a non-optional custom image and raw RGBA color values.
 
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+You create a `SymbolPicker` by passing bindings to an `SPImage` and an array of `Double` values for RGBA components. This ensures your data model stays in sync as the user chooses new images or adjusts colors. The picker updates your source of truth immediately upon any selection. Use the `configuration` parameter to control the picker's appearance and behavior.
 
 ### Parameters
 
-- **image**: A binding to the custom image object.
-- **colorValues**: A binding to an array of doubles representing RGBA components.
-- **configuration**: The visual configuration for the picker.
+- **image**: The binding to your custom image selection.
+- **colorValues**: The binding to your RGBA color component array.
+- **configuration**: Settings that define the picker's layout and style.

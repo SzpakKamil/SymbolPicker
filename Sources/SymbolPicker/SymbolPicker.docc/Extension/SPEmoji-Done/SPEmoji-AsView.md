@@ -13,25 +13,25 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Returns a SwiftUI view that renders the emoji.
+Returns a SwiftUI view for the emoji.
 
 ## Overview
 
-The `asView()` method is a `@MainActor` `@ViewBuilder` that returns the appropriate SwiftUI view for the current emoji's state.
+The `asView()` method uses `@ViewBuilder` to return the correct view for the emoji's current state.
 
-### Rendering Logic
+### Logic
 
-The view is resolved based on the current ``SymbolPicker/SPEmoji/tone`` index:
-- **Default Tone (`0`)**: Returns an ``SymbolPicker/SPEmojiView`` initialized with the current `SPEmoji` instance.
-- **Skin Variations (`1` to `n`)**: Returns an ``SymbolPicker/SPEmojiSkinView`` initialized with the corresponding ``SymbolPicker/SPEmoji/Skin`` from the ``SymbolPicker/SPEmoji/skins`` array.
+The method checks the ``SymbolPicker/SPEmoji/tone`` index:
+- **Default (`0`)**: Returns an ``SymbolPicker/SPEmojiView`` using the base emoji.
+- **Variations (`1` to `n`)**: Returns an ``SymbolPicker/SPEmojiSkinView`` using the skin from the ``SymbolPicker/SPEmoji/skins`` array.
 
-### View Composition
+### View Settings
 
-The resulting view handles:
-- **Scaling**: Emojis are rendered as standard SwiftUI `Text` elements with dynamic scaling and a fixed font size that fills the available container.
-- **Accessibility**: Applies localized annotations as accessibility labels.
-- **Drawing Group**: Uses `drawingGroup()` for optimized rendering in lists and grids.
+The returned view handles these tasks:
+- **Sizing**: Uses standard `Text` elements that scale to fill their container.
+- **Accessibility**: Sets the localized annotation as the accessibility label.
+- **Optimization**: Applies `drawingGroup()` to keep the grid smooth during scrolling.
 
-### Performance
+### Usage
 
-This method is designed to be called within SwiftUI's `ForEach` and other collection containers. The underlying views are lightweight and leverage caching to maintain high performance during scrolling.
+SwiftUI collection views call this method to populate their cells. The views are lightweight and use internal caching to maintain high frame rates in the picker.

@@ -17,12 +17,12 @@ The UI component that this spacing configuration applies to.
 
 ## Overview
 
-The `component` property serves as the unique identifier for a spacing configuration. It ensures that the sizing and padding rules defined within an ``SymbolPicker/SPSpacing`` object are applied only to the intended part of the `SymbolPicker` user interface.
+The `component` property identifies which part of the interface a spacing configuration targets. It ensures `SymbolPicker` applies your sizing and padding rules only to the correct view.
 
 ### Targeting Logic
 
-When the `SymbolPicker` renders its various views, it queries the current ``SymbolPicker/SymbolPickerConfiguration/spacings`` collection. It looks for a spacing object whose `component` property matches the view currently being laid out (e.g., ``SymbolPicker/SPSpacing/Component/colorPicker``).
+When rendering views, `SymbolPicker` queries the ``SymbolPicker/SymbolPickerConfiguration/spacings`` collection. It looks for a spacing object with a `component` property that matches the view currently being laid out, such as the color picker or the asset grid.
 
-### Uniqueness
+### Layout Predictability
 
-In a standard configuration array, each ``SymbolPicker/SPSpacing/Component`` should ideally have only one corresponding spacing object. This clear mapping prevents layout conflicts and ensures that the picker's appearance is predictable across different screens and platforms.
+Each ``SymbolPicker/SPSpacing/Component`` should have only one corresponding spacing object in your configuration array. This direct mapping prevents layout conflicts and keeps the picker's appearance predictable across different screens and platforms.

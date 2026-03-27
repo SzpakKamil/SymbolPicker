@@ -13,21 +13,21 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Checks if the content of the selection (symbol, emoji, or image) is available on the current platform.
+Checks if the platform supports the selection.
 
-- Returns: `true` if the content is available; otherwise, `false`.
+- Returns: `true` if supported. Otherwise, returns `false`.
 
 ## Overview
 
-The `isContentAvailable()` method is a crucial check for ensuring that the `SymbolPicker` only attempts to render valid and supported assets. This is especially important when dealing with SF Symbols that may be version-specific or custom images that may have been moved or deleted.
+The `isContentAvailable()` method prevents SymbolPicker from rendering unsupported assets. This is vital for version-specific SF Symbols or custom images that have been moved.
 
-### Platform Availability
+### Availability Checks
 
-This method leverages platform-specific APIs to verify availability:
-- **SPSymbol**: For symbols, it uses `UIImage(systemName:)` on iOS and `NSImage(systemSymbolName:)` on macOS to check if the symbol's name is recognized by the operating system.
-- **SPEmoji**: For emojis, it performs a check to see if the Unicode sequence is renderable by the current font system.
-- **SPImage**: For custom images, it ensures that the raw data is present and can be converted into a valid platform-native image.
+The method uses native APIs:
+- **Symbols**: Uses `UIImage(systemName:)` or `NSImage(systemSymbolName:)` to verify the OS recognizes the icon.
+- **Emojis**: Checks if the system font can render the Unicode sequence.
+- **Images**: Ensures the raw data exists and converts to a native image.
 
-### Usage in Filtering
+### Usage
 
-The `SymbolPicker` uses this method to filter the data it displays to the user. Assets that return `false` from `isContentAvailable()` are excluded from the grid and search results, preventing a broken user experience.
+SymbolPicker uses this check to filter data. Assets that return `false` do not appear in the grid or search results.

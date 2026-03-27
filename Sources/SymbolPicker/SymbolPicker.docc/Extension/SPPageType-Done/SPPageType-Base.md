@@ -18,27 +18,27 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-An enumeration representing the different browsing pages available in a `SymbolPicker`.
+An enumeration for browsing pages in SymbolPicker.
 
 ## Overview
 
-The `SPPageType` enum defines the content categories that a user can browse within the picker. It allows for a tabbed interface where users can switch between different types of assets.
+The `SPPageType` enum sets the content categories users browse. It enables a tabbed interface for switching between different assets.
 
-### Page Categories
+### Categories
 
-- **Symbol**: Browsing SF Symbols or custom vector icons.
-- **Emoji**: Browsing standard system emoji characters.
-- **Image**: Browsing custom bitmapped images (Availability depends on platform and OS version).
+- **Symbol**: SF Symbols or custom vector icons.
+- **Emoji**: Standard emoji characters.
+- **Image**: Custom photos (Availability depends on the OS).
 
-### Library Integration
+### Usage
 
-The `SPPageType` enum is used across the library to manage content navigation and configuration:
-- **SymbolPickerConfiguration**: Developers use `SPPageType` to define which pages should be visible in the picker, allowing for custom configurations that only show symbols, emojis, or specific combinations.
-- **SPPagePicker**: This component uses the enum cases to render the actual navigation bar ensuring users can switch between different asset browsers seamlessly.
+The library uses this enum to manage navigation:
+- **SymbolPickerConfiguration**: Defines which pages appear in the picker.
+- **SPPagePicker**: Renders the navigation bar so users can switch browsers.
 
-### Dynamic Availability
+### Availability
 
-The `SPPageType` enum includes logic to determine which pages are available based on the current platform and OS version. This ensures that the picker only offers features supported by the host device.
+The enum checks the current platform and OS version to hide unsupported pages. This ensures the picker only shows features the device can render.
 
 ## Topics
 

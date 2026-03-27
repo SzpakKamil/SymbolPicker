@@ -22,10 +22,12 @@ Sets the corner radius factor for the selection preview.
 
 ## Overview
 
-Use this modifier to adjust the rounded corners of the preview area that displays the currently selected symbol.
+Use this modifier to round the corners of the preview area that shows the selected symbol.
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `value` | `CGFloat` | The corner radius factor to apply. |
+- **value**: The corner radius factor to use.
+
+### Details
+
+The factor multiplies the preview's width to calculate the final corner radius. This keeps the rounding proportional as the preview area changes size.

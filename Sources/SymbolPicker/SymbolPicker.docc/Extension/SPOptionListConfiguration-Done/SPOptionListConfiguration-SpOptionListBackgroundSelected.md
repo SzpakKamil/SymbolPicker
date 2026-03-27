@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the background color for selected items and returns the modified configuration.
+Sets the background color for selected items.
 
-- Parameter value: The new color.
-- Returns: The updated configuration instance.
+- Parameter value: The background color.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spOptionListBackgroundSelected(_:)` is a chainable method used to update the ``SymbolPicker/SPOptionListConfiguration/optionListBackgroundSelected`` property.
+The `spOptionListBackgroundSelected(_:)` method updates the ``SymbolPicker/SPOptionListConfiguration/optionListBackgroundSelected`` property. It sets the highlight color for the item the user has chosen.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

@@ -18,25 +18,21 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A closure that returns the configuration for the asset grid.
+A closure for resolving the asset grid look.
 
 ## Overview
 
-The `currentOptionListConfiguration` property is a closure that resolves the visual style and behavior of the main grid (``SymbolPicker/SPOptionList``) where icons and emojis are displayed.
-
-### Behavior
-
-By default, the closure invokes the ``SymbolPicker/SPOptionListConfiguration/init()`` initializer, providing default values for corner radius multipliers, cell padding, and foreground/background colors for various interaction states (focused, pressed, selected).
+The `currentOptionListConfiguration` property resolves the visual style of the main asset grid (``SymbolPicker/SPOptionList``).
 
 ### Customization
 
-Provide a custom closure to dynamically change the grid's appearance (e.g., cell corner radius) based on the active display style.
+Use this closure to change the grid's appearance based on the active style.
 
 ```swift
 var config = SymbolPickerDefaultConfiguration()
 config.currentOptionListConfiguration = { style in
     var oConfig = SPOptionListConfiguration(style: style)
-    oConfig.cornerRadiusFactor = 2.0 // More rounded cells
+    oConfig.cornerRadiusFactor = 0.5 // Round the cells
     return oConfig
 }
 ```

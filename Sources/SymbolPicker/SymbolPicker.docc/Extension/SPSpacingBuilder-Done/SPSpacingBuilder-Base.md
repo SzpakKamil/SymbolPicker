@@ -18,22 +18,22 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A custom result builder that enables a declarative syntax for defining an array of spacing configurations.
+Define an array of spacing configurations using a declarative syntax.
 
 ## Overview
 
-`SPSpacingBuilder` is a DSL (Domain-Specific Language) component that simplifies the creation of multiple ``SymbolPicker/SPSpacing`` objects. It is used within ``SymbolPicker/SymbolPickerConfiguration`` to provide a clean, readable way to define how different components of the picker should scale across various dynamic type sizes and platforms.
+`SPSpacingBuilder` acts as a domain-specific language for creating multiple ``SymbolPicker/SPSpacing` objects. You use this builder within a ``SymbolPicker/SymbolPickerConfiguration`` to define how picker components scale across dynamic type sizes and platforms.
 
 ### Usage
 
-The builder is typically applied to functions or properties that return an array of ``SymbolPicker/SPSpacing``. It supports standard control flow statements like `if`, `else`, and `switch`, allowing for complex, platform-aware configurations.
+Apply this builder to functions or properties that return an array of ``SymbolPicker/SPSpacing``. It supports control flow statements like `if`, `else`, and `switch` for platform-specific configurations.
 
-### Example: Declarative Spacing Configuration
+### Example: Spacing Configuration
 
 ```swift
 @SPSpacingBuilder
 func myCustomSpacing() -> [SPSpacing] {
-    // Define spacing for the color picker
+    // Define color picker spacing
     SPSpacing(component: .colorPicker) { typeSize in
         let base: CGFloat = 45
         #if os(macOS)
@@ -44,9 +44,8 @@ func myCustomSpacing() -> [SPSpacing] {
         return .init(width: base * factor, height: base * factor)
     }
 
-    // Define spacing for the option list
+    // Define option list spacing
     SPSpacing(component: .optionList) { typeSize in
-        // Switch logic based on typeSize...
         return .init(width: 24, height: 30)
     }
 }
@@ -55,4 +54,4 @@ func myCustomSpacing() -> [SPSpacing] {
 ## Topics
 
 ### Result Builder Methods
-The underlying methods used to support the declarative syntax (internal documentation only).
+Underlying methods for the declarative syntax.

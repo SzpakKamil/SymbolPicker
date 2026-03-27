@@ -13,32 +13,32 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Asynchronously fetches image data from a remote URL and initializes the instance.
+Fetches image data from a remote URL and initializes the instance.
 
 ## Overview
 
-This initializer provides a high-level way to ingest external image assets into the `SymbolPicker` library. It handles the entire lifecycle of fetching, processing, and persisting remote data while ensuring memory and disk efficiency.
+Use this initializer to pull external images into the `SymbolPicker` library. It manages the download, processing, and storage of remote data while keeping memory usage low.
 
-### Loading Pipeline
+### Loading Process
 
-1. **Network Request**: Uses `URLSession.shared.data(from:)` to asynchronously download the binary data from the provided `url`.
-2. **Status Validation**: Verifies that the server returns a successful HTTP status code (`200-299`).
-3. **Memory-Efficient Dimension Extraction**: Instead of fully decoding the image into memory, this method uses `CGImageSourceCreateWithData` and `CGImageSourceCopyPropertiesAtIndex` to resolve the pixel width and height. This keeps the initial footprint small while still providing the layout engine with necessary aspect ratio data.
-4. **Local Persistence**: Writes the downloaded data to the application's local `SymbolPicker/Images` directory using a unique `UUID` as the filename.
+1. **Download**: The app uses `URLSession.shared.data(from:)` to fetch binary data from the `url`.
+2. **Validation**: The system checks for a successful HTTP status code between 200 and 299.
+3. **Sizing**: `SPImage` uses `CGImageSourceCreateWithData` to read the image's width and height. This avoids loading the full image into memory but still gives the layout engine the data it needs.
+4. **Storage**: The app saves the data to the local `SymbolPicker/Images` folder. It uses a unique `UUID` for the filename.
 
-### Architectural Impact
+### Local Caching
 
-By persisting the downloaded image to disk immediately, `SPImage` ensures that the asset is available offline for all subsequent launches. The metadata is stored within the model, but the image is only loaded into the UI on demand via ``SymbolPicker/SPImageView``.
+By saving the image to disk immediately, `SPImage` makes the asset available offline. The model stores the metadata, but the UI only loads the actual image when needed through ``SymbolPicker/SPImageView``.
 
 ### Parameters
 
-- **`url`**: The source location of the image.
-- **`fileName`**: An optional name for the asset. If `nil`, the last path component of the URL is used.
-- **`zoom`**, **`offsetX`**, **`offsetY`**: Initial layout transformations.
+- **`url`**: The location of the remote image.
+- **`fileName`**: A name for the asset. If you leave this `nil`, the app uses the last part of the URL.
+- **`zoom`**, **`offsetX`**, **`offsetY`**: The starting layout settings.
 
-### Error Handling
+### Errors
 
 This initializer throws a `URLError` if:
-- The network request fails.
-- The server returns a bad status code.
-- The data is corrupted or not a valid image format.
+- The network connection fails.
+- The server returns an error code.
+- The downloaded data is not a valid image.

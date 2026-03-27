@@ -1,6 +1,5 @@
 # ``SwiftUICore/View/symbolPicker(isPresented:emoji:ckColor:configuration:)-(_,Binding<SPEmoji?>,_,_)``
 
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -19,9 +18,11 @@
 }
 
 ## Overview
-Presents a symbol picker that allows the user to select an emoji and a color, which are synchronized with the provided bindings. This overload specifically uses `CKColor` for precise color management. The emoji binding is optional.
 
-## Example Usage
+Presents a symbol picker for selecting an emoji and a color. This version binds to an optional emoji and a `CKColor` instance.
+
+### Example Usage
+
 ```swift
 struct MyView: View {
     @State private var isPresented = false
@@ -40,3 +41,7 @@ struct MyView: View {
     }
 }
 ```
+
+### Details
+
+This initializer works with `CKColor` for precise color control across platforms. The emoji binding supports `nil` values, allowing users to clear their selection.

@@ -12,17 +12,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets custom padding for specific edges of the inseted view and returns a modified instance.
+Sets custom padding for the inseted view.
 
-- Parameter edges: The set of edges to apply padding to.
-- Parameter value: The amount of padding to apply in points. If `nil`, standard platform padding is used.
-- Returns: A new `SPInsetedView` instance with the specified padding.
+- Parameter edges: The edges to pad.
+- Parameter value: The padding amount in points. If `nil`, the system uses standard platform padding.
+- Returns: A modified `SPInsetedView` instance.
 
 ## Overview
 
-`spPadding(_:value:)` provides precise control over the spacing around your custom inset view. This ensures that your view aligns correctly with the picker's internal components.
+Use `spPadding(_:value:)` to control the spacing around your custom inset view. This ensures your view aligns with the picker's internal elements and maintains a consistent layout.
 
-### Usage in Code
+### Example
 
 ```swift
 let paddedView = SPInsetedView(placement: .safeAreaTop) {

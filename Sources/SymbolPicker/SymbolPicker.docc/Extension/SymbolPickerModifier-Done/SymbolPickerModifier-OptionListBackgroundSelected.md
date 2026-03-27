@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the background color for the currently selected asset cell in the picker's grid.
+Set the background color for the selected asset cell in the picker grid.
 
 ## Overview
 
-Use this modifier to visually distinguish the active selection by applying a custom background color to the selected cell.
+Distinguish the active selection by applying a background color to the selected cell. This modifier updates the cell appearance to help users identify their current choice.
 
 ### Example
 
-Set a custom selected background color:
+Set the selected background color to the system accent color:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The background color applied to the currently selected cell. |
+| `value` | `Color` | The background color for the selected cell. |

@@ -18,21 +18,21 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets whether the integrated color picker supports opacity adjustments.
+Enables or disables opacity adjustments in the color picker.
 
 ## Overview
 
-When enabled, an opacity slider is provided within the color selection interface, allowing users to adjust the transparency of the selected color. This is useful for creating icons with varying levels of emphasis or depth.
+When active, an opacity slider appears in the color picker. Users can adjust the transparency of the selected color to create icons with depth or different emphasis levels.
 
 ### Features
 
-- **Granular Control**: Users can adjust the alpha component of the color using a precise slider.
-- **Visual Feedback**: The asset grid and selection preview update in real-time to reflect the current opacity setting.
-- **Persistence**: The opacity value is stored within the bound color object.
+- **Precise Control**: Adjust the color's alpha component with a slider.
+- **Live Updates**: The grid and preview update instantly as you change opacity.
+- **Persistence**: The system saves the opacity value in the bound color object.
 
 ### Example
 
-Enable opacity support for the color picker:
+Turn on opacity support:
 
 ```swift
 SymbolPicker(systemImage: $symbolName, color: $iconColor)
@@ -41,6 +41,4 @@ SymbolPicker(systemImage: $symbolName, color: $iconColor)
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `value` | `Bool` | A boolean value that indicates whether opacity support is enabled. |
+- **value**: Set to `true` to enable opacity support.

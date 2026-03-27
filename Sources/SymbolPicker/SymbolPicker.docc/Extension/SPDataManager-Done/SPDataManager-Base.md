@@ -1,7 +1,5 @@
 # ``SymbolPicker/SPDataManager``
 
-A public actor responsible for managing the lifecycle of ``SPDataAsset`` assets (Symbols, Emojis, and custom icons).
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,39 +18,29 @@ A public actor responsible for managing the lifecycle of ``SPDataAsset`` assets 
     @AutomaticArticleSubheading(disabled)
 }
 
+An actor that manages asset lifecycles.
+
 ## Overview
 
-`SPDataManager` handles efficient fetching, localized resource resolution, advanced caching, and searching of assets. It acts as the central hub for retrieving assets from the app bundle, providing high-performance search capabilities across different asset types.
+`SPDataManager` fetches, caches, and searches assets. It retrieves icons from the app bundle and provides high-performance filtering for the unified picker.
 
-### Key Responsibilities
+### Responsibilities
 
-- **Asset Coordinator**: Acts as the central hub for retrieving assets from the app bundle.
-- **Search Engine**: Provides high-performance search capabilities across different asset types.
-- **Cache Provider**: Ensures that expensive disk I/O and JSON decoding operations are performed only once per asset type and locale.
-- **Locale Resolver**: Automatically detects and falls back to appropriate localizations based on the user's system settings.
+- **Coordination**: Acts as the central hub for bundle asset retrieval.
+- **Search**: Filters large datasets without lagging.
+- **Caching**: Performs disk I/O and decoding once per asset type.
+- **Localization**: Resolves which JSON file to load based on system settings.
 
-### How it Works
+### Mechanics
 
-#### 1. Advanced Caching (Thread-Safe)
-As an actor, `SPDataManager` ensures that its internal cache is accessed safely across different threads. It prevents "thundering herd" issues by ensuring that multiple simultaneous requests for the same asset type await the same background task.
-
-#### 2. Localized Resource Resolution
-The data manager dynamically resolves which JSON file to load based on the user's system settings:
-1.  **Full Match**: Checks for a full locale match (e.g., `fr_CA`).
-2.  **Language Match**: Falls back to the language identifier (e.g., `fr`).
-3.  **Fuzzy Match**: Attempts to match other regions (e.g., `fr_FR` for a `fr_CA` user).
-4.  **Default Fallback**: Finally, it falls back to English (`en`).
-
-#### 3. Categorization & Grouping
-The manager processes flat lists of assets into organized structures used by the UI. It maintains the order in which categories first appear, which directly maps to sections in SwiftUI.
-
-#### 4. Search Execution
-Search is performed in a `nonisolated` context when possible to avoid blocking the actor's main mailbox while filtering large datasets (like thousands of emojis). It also ensures that duplicate assets are removed from search results.
+- **Caching**: As an actor, `SPDataManager` keeps its cache safe across threads. It prevents redundant background tasks for the same resource.
+- **Resolution**: The manager searches for full locale matches (e.g., `fr_CA`), language matches (`fr`), or falls back to English (`en`).
+- **Grouping**: It organizes assets into categories for the UI, maintaining the order defined in the data files.
+- **Search**: Filtering runs in a `nonisolated` context to keep the actor responsive while processing thousands of entries.
 
 ## Topics
 
-### Management Methods & Types
-
+### Management Methods
 - ``SymbolPicker/SPDataManager/Error``
 - ``SymbolPicker/SPDataManager/fetch(type:)``
 - ``SymbolPicker/SPDataManager/search(_:for:)``

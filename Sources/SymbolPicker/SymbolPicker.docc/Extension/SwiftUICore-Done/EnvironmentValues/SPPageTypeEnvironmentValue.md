@@ -1,7 +1,5 @@
 #  ``SwiftUICore/EnvironmentValues/spPageType``
 
-A ``SPPageType`` value that determines the currently active category of data being displayed.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,14 +18,14 @@ A ``SPPageType`` value that determines the currently active category of data bei
     @AutomaticArticleSubheading(disabled)
 }
 
+The active asset category in the picker.
+
 ## Overview
 
-A ``SPPageType`` represents the type of content (image, emoji, or symbol) that can be displayed in the ``SymbolPicker``.
+The `spPageType` property tracks which content type—image, emoji, or symbol—the picker currently shows. Use this value in custom **``SymbolPicker/SPInsetedView``** components to observe or change categories.
 
-Use this property to observe or switch categories within custom **``SymbolPicker/SPInsetedView``**.
+> Warning: Overwriting this value on the standard ``SymbolPicker/SymbolPicker`` breaks synchronization between the search bar and the item list.
 
-> Warning: Never overwrite this value manually on the standard ``SymbolPicker/SymbolPicker`` as it disrupts the synchronization between the search bar, category picker, and item list.
+### Usage
 
-### End User Impact
-
-It allows you to programmatically switch between the symbol, emoji, and color pickers. You can also observe this binding to react when the user manually switches pages.
+This property lets you switch between pickers programmatically. You can also react when users manually change pages to update your app's layout or state.

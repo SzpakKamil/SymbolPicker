@@ -12,26 +12,26 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets a conditional visibility condition for the inseted view and returns a modified instance.
+Sets a visibility condition for the inseted view.
 
-- Parameter action: A closure that takes current `EnvironmentValues` and returns a Boolean indicating whether the view should be displayed.
-- Returns: A new `SPInsetedView` instance with the specified visibility condition.
+- Parameter action: A closure that returns `true` if the view should appear.
+- Returns: A modified `SPInsetedView` instance.
 
 ## Overview
 
-`spIsDisplayed(when:)` provides a mechanism for showing or hiding the inset view based on the state of the picker. This is highly reactive to environmental changes within the `SymbolPicker`.
+Use `spIsDisplayed(when:)` to show or hide inset views based on the picker's state. The condition responds to changes in the environment.
 
 ### Dynamic Visibility
 
-You can use this method to only show specific information when a search is active, when a color has been selected, or for certain asset types.
+You can show information only when users search for items, pick a color, or browse specific asset types.
 
-### Usage in Code
+### Example
 
 ```swift
 let dynamicHeader = SPInsetedView(placement: .safeAreaTop) {
     Text("Search Active")
 }
-.spIsDisplayed { environment in
-    !environment.spSearchText.isEmpty
+.spIsDisplayed { env in
+    !env.spSearchText.isEmpty
 }
 ```

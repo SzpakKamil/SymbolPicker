@@ -13,12 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-An array containing all available cases of the page type.
+The list of available page types.
 
 ## Overview
 
-The `allCases` static property provides a list of all `SPPageType` cases that are available on the current platform and OS version.
+The `allCases` property returns all `SPPageType` cases supported by the current device and OS.
 
-### Dynamic Filtering
+### Logic
 
-This property uses conditional compilation and runtime availability checks to filter out cases that are not supported by the system. For example, the `.image` case is excluded on older OS versions, ensuring that the picker does not offer features that cannot be rendered.
+The property filters out unsupported cases using availability checks. For example, it excludes `.image` on older OS versions. This ensures the picker navigation only shows pages the system can render correctly.

@@ -18,17 +18,17 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-An enumeration defining the visual presentation style of a `SymbolPicker`.
+An enumeration that sets the visual style for a `SymbolPicker`.
 
 ## Overview
 
-The `SPDisplayStyle` enum allows developers to choose how the picker is presented to the user. Each style offers a different balance of information density and visual complexity, enabling the picker to adapt to various UI contexts.
+You use `SPDisplayStyle` to choose how the picker appears to users. Each style balances information density and visual complexity. This allows the picker to fit into different parts of your app's interface.
 
-### Display Options
+### Styles
 
-- **Compact**: A streamlined view focused on quick selection.
-- **Detail**: A more comprehensive view providing previews, suitable for primary selection interfaces.
-- **Plain**: A simple, unstyled view that can be more easily integrated into custom layouts or lists.
+- **Compact**: A lean view for fast selection.
+- **Detail**: A full-featured view with previews for primary selection tasks.
+- **Plain**: A basic, unstyled view for custom lists or layouts.
 
 ## Topics
 

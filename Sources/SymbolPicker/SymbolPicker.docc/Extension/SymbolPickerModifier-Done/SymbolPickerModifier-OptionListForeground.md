@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the foreground color for the asset cells in the presented picker's grid.
+Set the foreground color for asset cells in the picker grid.
 
 ## Overview
 
-Use this modifier to customize the base color of the icons and emojis displayed in the grid.
+Customize the base color for icons and emojis. This modifier updates the visual appearance of all items in the symbol grid.
 
 ### Example
 
-Set the asset icons to a custom color:
+Apply a blue foreground color to all assets:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The desired foreground color. |
+| `value` | `Color` | The foreground color for asset cells. |

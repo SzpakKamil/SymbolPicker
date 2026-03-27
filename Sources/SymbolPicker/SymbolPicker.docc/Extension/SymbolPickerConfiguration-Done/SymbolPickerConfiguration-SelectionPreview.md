@@ -17,16 +17,17 @@
     @AutomaticSeeAlso(disabled)
 }
 
-
-A convenience computed property that returns the selection preview configuration.
+Accesses the selection preview configuration.
 
 ## Overview
 
-The `selectionPreview` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/selectionPreviewConfiguration()``.
+The `selectionPreview` property is a convenience shortcut for calling ``SymbolPicker/SymbolPickerConfiguration/selectionPreviewConfiguration()``.
 
 ### Implementation
 
-It is defined as a simple wrapper:
+It works as a simple wrapper:
 ```swift
 var selectionPreview: SPSelectionPreviewConfiguration { selectionPreviewConfiguration() }
 ```
+
+Use this property to quickly read or check the settings for the selection preview area, such as its corner radius or scaling behavior.

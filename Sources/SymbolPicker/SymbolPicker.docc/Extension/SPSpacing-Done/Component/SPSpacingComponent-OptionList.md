@@ -17,15 +17,12 @@ The main list or grid of symbols and emojis.
 
 ## Overview
 
-Selecting `.optionList` as the target component allows you to customize the core navigation experience within the `SymbolPicker`.
+Targeting `.optionList` lets you change the layout of the main asset grid in `SymbolPicker`.
 
 ### Visual Impact
 
-Modifying spacing for this component affects:
-- **Grid Layout**: Adjusts the size of the symbol or emoji cells, which directly impacts the number of items shown per row.
-- **Scrolling Experience**: Changes to padding around each cell can significantly influence the "density" of the picker, making it feel more open or more content-rich.
-- **Section Spacing**: Adjusting the vertical and horizontal padding around the list can help align the main content with other UI elements like the search bar or category picker.
+Modifying this component changes how users browse assets. You can set the size of symbol cells, which determines how many items fit in a row. Adjusting the padding around cells changes the density of the grid. This makes the picker feel either open and airy or dense and content-rich.
 
 ### Platform Adaptation
 
-The `.optionList` is the most sensitive area to platform changes. For example, macOS requires more compact spacing than iOS. By using `SPSpacing`, you can specify these differences to ensure a platform-native feel.
+The asset grid needs different spacing on different devices. macOS works best with compact layouts, while iOS requires larger touch targets. Use `SPSpacing` to define these platform differences. This ensures the scrolling experience feels native whether the user is on a phone or a computer.

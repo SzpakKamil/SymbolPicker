@@ -8,14 +8,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Placement at the leading edge of the top toolbar (iOS only).
+Placement at the leading edge of the top toolbar.
 
 ## Overview
 
-When set to `.toolbarTopLeading`, the inset view is placed at the leading edge (left for LTR languages) of the picker's top toolbar. This is a common location for dismiss or back buttons.
+The `.toolbarTopLeading` case puts the inset view at the leading edge of the top toolbar. Use this location for dismiss or back buttons.
 
 ### Availability
-This placement is only available on **iOS**.
+
+This placement is only for **iOS**.
 
 ### Use Case
-Ideal for a custom "Close" or "Cancel" button at the top-left of the picker interface.
+
+Ideal for a "Close" or "Cancel" button at the top-left of the picker.

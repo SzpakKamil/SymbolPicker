@@ -18,25 +18,23 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A closure that returns the configuration for the integrated color picker.
+A closure for the integrated color picker settings.
 
 ## Overview
 
-The `currentColorPickerConfiguration` property is a closure that resolves the settings for the color selection palette based on the active ``SymbolPicker/SPDisplayStyle``.
+The `currentColorPickerConfiguration` property resolves the palette, layout, and features for the color selection tool based on the active style.
 
 ### Behavior
 
-By default, the closure invokes the ``SymbolPicker/SPColorPickerConfiguration/init()`` initializer. If it returns `nil`, the color picker interface is entirely hidden.
+By default, the closure calls the ``SymbolPicker/SPColorPickerConfiguration/init()`` initializer. If it returns `nil`, the picker hides the color selection tool.
 
 ### Customization
-
-Provide a custom closure to dynamically control the color palette, opacity support, and layout based on the active display style.
 
 ```swift
 var config = SymbolPickerDefaultConfiguration()
 config.currentColorPickerConfiguration = { style in
     var cConfig = SPColorPickerConfiguration(style: style)
-    cConfig.supportsOpacity = true // Enable opacity slider
+    cConfig.supportsOpacity = true // Enable the opacity slider
     return cConfig
 }
 ```

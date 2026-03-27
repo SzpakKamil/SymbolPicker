@@ -13,14 +13,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A custom height presentation detent.
+You set the sheet to a fixed pixel height.
 
 ## Overview
 
-When set to `.height(_:)`, the sheet snaps to a specific vertical height in points. This allows you to precisely control how much screen real estate the picker consumes, regardless of the screen's size or resolution.
+The `.height(_:)` setting snaps the sheet to a specific vertical point. This gives you precise control over the picker's size, regardless of the device's screen resolution.
 
 ### Parameters
-- `height`: The fixed height of the sheet.
+- `height`: You pass the fixed height in points.
 
 ### Use Case
-Best for interfaces where the picker has a known, fixed-height content (like a single row of symbols or a compact toolset) that doesn't benefit from resizing.
+Use this when you have a known, fixed-size UI. If your picker only contains a small number of symbols, locking the height prevents the user from dragging it into an unnecessarily large or empty state.

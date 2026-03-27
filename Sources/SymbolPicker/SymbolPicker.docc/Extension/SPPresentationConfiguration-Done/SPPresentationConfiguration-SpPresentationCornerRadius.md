@@ -12,14 +12,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the corner radius for the presentation and returns the modified configuration.
+You adjust how rounded the picker's corners are and get the updated configuration.
 
 - Parameter value: The new corner radius value.
 - Returns: The updated configuration instance.
 
 ## Overview
 
-`spPresentationCornerRadius(_:)` is a chainable method used to update the ``SymbolPicker/SPPresentationConfiguration/presentationCornerRadius`` property.
+`spPresentationCornerRadius(_:)` updates the ``SymbolPicker/SPPresentationConfiguration/presentationCornerRadius`` property. You use this chainable method to make the picker feel integrated with your app's specific style. 
 
 ### Usage in Code
 

@@ -12,14 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the background interaction behavior for the presentation and returns the modified configuration.
+You control if the app stays interactive while the picker is open and get the updated configuration.
 
 - Parameter value: The background interaction mode.
 - Returns: The updated configuration instance.
 
 ## Overview
 
-`spPresentationBackgroundInteraction(_:)` is a chainable method used to update the ``SymbolPicker/SPPresentationConfiguration/presentationBackgroundInteraction`` property, allowing you to define if and how the user can interact with views behind the picker.
+`spPresentationBackgroundInteraction(_:)` updates the ``SymbolPicker/SPPresentationConfiguration/presentationBackgroundInteraction`` property. 
+
+This method lets you set specific height points (detents) where interaction is allowed. For instance, you can allow users to touch the background when the sheet is small, but block them when it expands to full screen.
 
 ### Usage in Code
 

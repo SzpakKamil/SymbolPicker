@@ -18,14 +18,16 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Configures the spacing between various components in the picker.
+Sets the spacing for picker components.
 
 ## Overview
 
-Use this modifier to fine-tune the layout by defining spacing for specific components using a builder closure.
+Use this modifier to fine-tune the layout by defining spacing for specific components through a builder closure.
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `content` | `() -> [SPSpacing]` | A builder closure providing the spacing configurations. |
+- **content**: A builder closure that returns spacing configurations.
+
+### Usage
+
+The closure uses `SPSpacing` objects to set gaps between elements like the search bar, asset grid, and color picker. This allows for precise layout control across different platforms.

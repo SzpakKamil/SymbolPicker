@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the default background color and returns the modified configuration.
+Sets the default background color for list items.
 
 - Parameter value: The new color.
-- Returns: The updated configuration instance.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spOptionListBackground(_:)` is a chainable method used to update the ``SymbolPicker/SPOptionListConfiguration/optionListBackground`` property.
+The `spOptionListBackground(_:)` method updates the ``SymbolPicker/SPOptionListConfiguration/optionListBackground`` property. Use this to set the base color for grid cells.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

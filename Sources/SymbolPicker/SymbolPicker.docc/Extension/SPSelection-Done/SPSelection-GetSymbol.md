@@ -19,8 +19,8 @@ Returns the symbol asset for the selection.
 
 ## Overview
 
-The `getSymbol()` method provides safe access to the underlying symbol data. It ensures that you only receive a symbol asset if the selection ``SymbolPicker/SPSelection/type`` is currently set to `.symbol`.
+Access the symbol asset for a selection. The `getSymbol()` method returns the underlying symbol data if the selection ``SymbolPicker/SPSelection/type`` is `.symbol`. 
 
-### Generic Return Type
+### Safe Data Access
 
-Since `SPSelection` is generic over its asset data, this method returns a value of the `DataAsset` type, which is typically ``SymbolPicker/SPSymbol``. This ensures type safety throughout your codebase.
+This method ensures you only receive a symbol asset when the selection type matches. If the selection is an emoji or a color, it returns `nil`. Because `SPSelection` is generic, the method returns the `DataAsset` type (usually ``SymbolPicker/SPSymbol``), ensuring type safety throughout your project.

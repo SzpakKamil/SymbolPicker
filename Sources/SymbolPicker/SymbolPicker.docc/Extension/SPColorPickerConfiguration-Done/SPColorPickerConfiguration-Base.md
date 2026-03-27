@@ -1,7 +1,5 @@
 # ``SymbolPicker/SPColorPickerConfiguration``
 
-A struct that configures the color picker component within the SymbolPicker.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,19 +18,21 @@ A struct that configures the color picker component within the SymbolPicker.
     @AutomaticArticleSubheading(disabled)
 }
 
+Configures the color picker.
+
 ## Overview
 
-`SPColorPickerConfiguration` provides settings for the embedded color picker, allowing for customization of colors, layout, and support for advanced features like opacity and custom colors.
+`SPColorPickerConfiguration` sets the colors, layout, and features for the embedded color picker.
 
-### View Integration
+### Integration
 
-This configuration is primarily used by the ``SymbolPicker/SPColorPicker`` view and its supporting subviews, such as color cells.
+The ``SymbolPicker/SPColorPicker`` view uses this configuration to render the interface.
 
-- **Palette Control**: The ``colors`` property defines the array of colors available for the user to select.
-- **Layout Styles**: The color picker can be displayed as a single horizontal row or a multi-line grid via the ``type`` property. This is often automatically adjusted based on whether the picker is in "compact" or "detail" mode.
-- **Advanced Selection**: Enable or disable the system's color spectrum/eyedropper with ``supportCustomColor``, and toggle an opacity slider with ``supportOpacity``.
+- **Palette**: The ``colors`` property sets the list of choices.
+- **Layouts**: Switch between rows and grids with the ``type`` property.
+- **Features**: Use ``supportCustomColor`` for the system eyedropper and ``supportOpacity`` for transparency controls.
 
-### Usage Example
+### Example
 
 ```swift
 let configuration = SPColorPickerConfiguration()
@@ -45,21 +45,15 @@ let configuration = SPColorPickerConfiguration()
 ## Topics
 
 ### Core Properties
-Essential settings for the color picker.
-
 - ``SymbolPicker/SPColorPickerConfiguration/colors``
 - ``SymbolPicker/SPColorPickerConfiguration/type``
 - ``SymbolPicker/SPColorPickerConfiguration/spacing``
 
 ### Support Features
-Enable or disable advanced color selection options.
-
 - ``SymbolPicker/SPColorPickerConfiguration/supportCustomColor``
 - ``SymbolPicker/SPColorPickerConfiguration/supportOpacity``
 
 ### Modification Methods
-Chainable methods for updating configuration properties.
-
 - ``SymbolPicker/SPColorPickerConfiguration/spColorPickerEnabled(_:)``
 - ``SymbolPicker/SPColorPickerConfiguration/spColorPickerColors(_:)-([CKColor])``
 - ``SymbolPicker/SPColorPickerConfiguration/spColorPickerColors(_:)-(CKColor...)``
@@ -68,6 +62,4 @@ Chainable methods for updating configuration properties.
 - ``SymbolPicker/SPColorPickerConfiguration/spColorPickerSupportsCustomColor(_:)``
 
 ### Nested Types
-Helper types used for color picker configuration.
-
 - ``SymbolPicker/SPColorPickerConfiguration/Direction``

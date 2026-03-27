@@ -13,25 +13,25 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The "Full" initializer used for ingesting catalog data with all metadata.
+Creates a symbol with all metadata.
 
 - Parameters:
-  - filledName: The system name for the filled variant of the symbol.
-  - notFilled: The system name for the outlined (not filled) variant of the symbol.
-  - version: The SF Symbols version this symbol was introduced in. Defaults to `1.0`.
-  - variant: The preferred initial variant for the symbol. Defaults to `nil`.
-  - annotation: A localized descriptive name for the symbol. Defaults to `nil`.
-  - category: The primary category for the symbol. Defaults to `nil`.
-  - subcategory: A more specific subcategory for the symbol. Defaults to `nil`.
+  - filledName: The name for the filled variant.
+  - notFilled: The name for the outlined variant.
+  - version: The SF Symbols version. Defaults to `1.0`.
+  - variant: The initial variant. Defaults to `nil`.
+  - annotation: A localized descriptive name. Defaults to `nil`.
+  - category: The primary category. Defaults to `nil`.
+  - subcategory: A specific subcategory. Defaults to `nil`.
   - tags: An array of search keywords. Defaults to `nil`.
 
 ## Overview
 
-This is the primary initializer used when loading symbol data from JSON resources. It allows for the full specification of all `SPSymbol` properties, enabling rich search and organizational features.
+This is the main initializer for loading symbol data from JSON resources. It sets every `SPSymbol` property to enable deep search and categorization.
 
-### Composite ID Generation
+### Identifier
 
-Unlike the quick initializer, this initializer automatically generates a composite `id` using the following pattern:
+Unlike the quick initializer, this method builds a composite `id`:
 `filledName + notFilled + category`
 
-This ensures that the symbol remains unique even if other symbols share the same name but exist in different categories or have different variant mappings.
+This makes the symbol unique even if other icons share the same name in different categories.

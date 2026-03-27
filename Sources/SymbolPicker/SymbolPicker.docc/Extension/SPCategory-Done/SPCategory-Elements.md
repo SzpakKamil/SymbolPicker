@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-An array containing all the ``SymbolPicker/SPDataAsset`` objects belonging to this category.
+The list of assets in this category.
 
 ## Overview
 
-The `elements` property holds the actual content that is displayed in each category's section in the picker. Each element in this array must conform to the ``SymbolPicker/SPDataAsset`` protocol.
+The `elements` property holds all assets for a specific category section. Every item in the list must follow the ``SymbolPicker/SPDataAsset`` protocol.
 
 ### Sorting and Filtering
 
-The assets within this array are typically pre-filtered by the ``SymbolPicker/SPDataManager`` before being added to a category. This ensures that only available and relevant assets (based on searching or category grouping) are present.
+``SymbolPicker/SPDataManager`` cleans and sorts these assets before putting them in a category. This ensures you only see relevant results when searching or browsing.
 
 ### Rendering
 
-During the rendering process in components like ``SymbolPicker/SPOptionList``, the `elements` array is used to populate the grid or list for each category header. Each asset's visual representation is obtained by calling its ``SymbolPicker/SPDataAsset/asView()`` method.
+The ``SymbolPicker/SPOptionList`` component uses this array to build the grid. Each asset displays itself using its ``SymbolPicker/SPDataAsset/asView()`` method.

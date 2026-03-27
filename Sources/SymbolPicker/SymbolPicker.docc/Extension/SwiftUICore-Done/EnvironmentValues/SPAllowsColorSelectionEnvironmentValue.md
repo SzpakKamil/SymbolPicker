@@ -1,7 +1,5 @@
 # ``SwiftUICore/EnvironmentValues/spAllowsColorSelection``
 
-A `Boolean` value that determines whether the color picker is available for the selected symbol or emoji.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,14 +18,16 @@ A `Boolean` value that determines whether the color picker is available for the 
     @AutomaticArticleSubheading(disabled)
 }
 
+Toggles the color picker for symbols and emojis.
+
 ## Overview
 
-When set to `true`, users can select a color for the chosen asset. When `false`, the color selection interface is hidden.
+When `true`, users can pick a color for their selected asset. Setting this to `false` hides the color selection interface.
 
-This property takes effect when you use the ``SymbolPicker/SymbolPicker`` initializers or ``SwiftUICore/View`` view modifiers that do not require an ``SPSelection`` type. It serves as a mechanism for the ``SymbolPicker/SymbolPicker`` to enforce a specific presentation and appearance without overriding the ``SymbolPickerConfiguration`` implementations.
+Initializers or view modifiers that do not use ``SPSelection`` use this property to enforce a specific look. It controls the picker's appearance without changing your ``SymbolPickerConfiguration``.
 
-> Important: This property is read-only within the picker's view hierarchy. For customization of the picker's behavior and appearance, it is recommended to use the properties available in ``SymbolPickerConfiguration``.
+> Important: This property is read-only. To customize the picker's behavior, use ``SymbolPickerConfiguration``.
 
-### End User Impact
+### Details
 
-This provides developers with control over whether users can apply custom colors to symbols or emojis, ensuring that the selected assets adhere to the design constraints of the application.
+This property ensures selected assets match your app's design rules. You can lock colors or allow customization based on the user's current task.

@@ -13,11 +13,13 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The system's default content interaction behavior.
+You let the system manage how the content reacts to gestures.
 
 ## Overview
 
-When set to `.automatic`, the platform intelligently decides whether to resize or scroll based on the content hierarchy and context. This is generally the safest option for standard list-based views, as it preserves the native behavior that users expect (e.g., pulling down to dismiss or scrolling content naturally).
+The `.automatic` setting lets the platform choose between resizing and scrolling. It looks at your content hierarchy to preserve expected behaviors like pulling down to dismiss. 
+
+You should use this mode as your starting point. It handles the native feel for standard lists, allowing users to scroll through symbols and expand the sheet naturally. Only change this if you notice gesture conflicts where the sheet resizes when you intended to scroll.
 
 ### Use Case
-Use this mode unless you encounter specific gesture conflicts or require specialized layout behavior during presentation resizing.
+Start with this mode for standard symbol grids. It maintains the platform's default gesture logic.

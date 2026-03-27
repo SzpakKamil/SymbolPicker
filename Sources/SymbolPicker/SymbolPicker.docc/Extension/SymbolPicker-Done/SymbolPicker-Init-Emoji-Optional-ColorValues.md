@@ -22,7 +22,7 @@ Creates a picker bound to an optional emoji and raw RGBA color values.
 
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+Link the picker to an emoji binding and an array of RGBA color values. You receive the selected emoji and its color as raw doubles. This approach works well for apps that store colors in databases or transfer them over a network. The picker synchronizes the UI state with your provided bindings.
 
 ### Parameters
 

@@ -18,26 +18,26 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A standardized, platform-adaptive button for dismissing the `SymbolPicker` interface.
+You use this button to close the picker on any platform.
 
 ## Overview
 
-`SPDismissButton` provides a consistent way to close the picker. It automatically resolves the appropriate system icon, localization, and dismissal action based on the host platform and operating system version.
+`SPDismissButton` provides a consistent way to close the interface. It handles system icons, localization, and dismissal logic automatically.
 
 ### Adaptive Visual Style
 
-The button's appearance is automatically optimized:
-- **iOS 26+**: Renders as a modern glass button with a circular border using the `.glass` button style.
-- **Legacy iOS**: Falls back to the system's `xmark.circle.fill` icon with a hierarchical rendering mode for improved contrast.
-- **macOS/watchOS**: Standardizes on the appropriate system-provided button title ("Close" or localized equivalent).
+The button optimizes its look for the device:
+- **iOS 26+**: You see a modern glass circle button.
+- **Legacy iOS**: You get a standard `xmark.circle.fill` icon with high-contrast colors.
+- **macOS/watchOS**: You see the localized system "Close" button.
 
 ### Automated Localization
 
-The button's title and accessibility labels are automatically localized using the `SPTranslation.Close` key, ensuring that the button is accessible and understandable to users in all supported languages.
+The button translates its title and accessibility labels using the `SPTranslation.Close` key. This ensures your users understand the button in any supported language.
 
 ### Integration and Action
 
-The button is integrated with the SwiftUI `dismiss` environment action. When tapped, it triggers the dismissal of the current presentation context (e.g., sheet, full-screen cover, or popover).
+The button connects to the SwiftUI `dismiss` action. Tapping it closes the current sheet, popover, or full-screen cover instantly.
 
 ```swift
 SPDismissButton()

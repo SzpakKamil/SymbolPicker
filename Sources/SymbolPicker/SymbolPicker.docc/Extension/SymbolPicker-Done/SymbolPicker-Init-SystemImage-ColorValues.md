@@ -1,7 +1,5 @@
 # ``SymbolPicker/SymbolPicker/init(systemImage:colorValues:configuration:)-(Binding<String>,_,_)``
 
-Creates a picker bound to a non-optional SF Symbol name and raw RGBA color values.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,12 +18,18 @@ Creates a picker bound to a non-optional SF Symbol name and raw RGBA color value
     @AutomaticArticleSubheading(disabled)
 }
 
+Creates a picker for a required SF Symbol name and RGBA color values.
+
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+This initializer binds the picker to a symbol name and raw color components. It ensures the picker state stays in sync with your source of truth.
 
 ### Parameters
 
 - **systemImage**: A binding to the SF Symbol name string.
-- **colorValues**: A binding to an array of doubles representing RGBA components.
-- **configuration**: The visual configuration for the picker.
+- **colorValues**: A binding to an array of doubles for RGBA components.
+- **configuration**: The layout and style settings for the picker.
+
+### Usage
+
+Use this initializer when your data model stores colors as raw values rather than SwiftUI `Color` objects. The picker updates the doubles in the array as the user selects new tints.

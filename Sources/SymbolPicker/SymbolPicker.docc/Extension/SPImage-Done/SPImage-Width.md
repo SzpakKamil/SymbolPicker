@@ -13,22 +13,22 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The intrinsic pixel width of the image asset.
+The pixel width of the image asset.
 
 ## Overview
 
-The `width` property stores the original pixel width of the binary image data. 
+The `width` property stores the original width of the image data in pixels. 
 
-### Automated Resolution
+### Efficiency
 
-This property is typically calculated during the model's initialization phase. By using `CGImageSource`, `SPImage` resolves the actual width from the binary image stream (JPEG, PNG, HEIC) without fully decoding the pixel data into memory. This provides the UI with the necessary layout metadata with minimal memory overhead.
+The app finds this value during initialization. `SPImage` uses `CGImageSource` to read the width from the file header (JPEG, PNG, or HEIC) without loading the whole image. This provides the layout engine with metadata while using minimal memory.
 
-### Role in Layout and Aspect Ratio
+### Rendering and Aspect Ratio
 
-Along with ``SymbolPicker/SPImage/height``, this property is critical for the ``SymbolPicker/SPImageView`` rendering pipeline. It allows the view to:
-1. **Maintain Aspect Ratio**: Prevent image distortion by calculating the correct scaling factor for the rendering container.
-2. **Optimize Rendering**: Determine the initial fit (aspect fill vs aspect fit) based on the image's orientation (landscape, portrait, or square).
+The ``SymbolPicker/SPImageView`` needs this property and the ``SymbolPicker/SPImage/height`` to:
+1. **Prevent Distortion**: The view calculates the correct scaling factor to keep the original aspect ratio.
+2. **Choose Fit**: The view determines if the image is landscape, portrait, or square to optimize the display.
 
 ### Immutability
 
-The intrinsic `width` is a core property of the binary data and remains immutable for the life of the asset.
+The `width` property represents the source data and never changes.

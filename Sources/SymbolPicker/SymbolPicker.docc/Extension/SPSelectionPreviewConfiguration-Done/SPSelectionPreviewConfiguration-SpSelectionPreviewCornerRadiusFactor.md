@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the corner radius factor for the selection preview and returns the modified configuration.
+Sets the corner radius factor for the preview.
 
-- Parameter value: The new corner radius factor (0.0 to 1.0).
-- Returns: The updated configuration instance.
+- Parameter value: The new multiplier (0.0 to 1.0).
+- Returns: The updated configuration.
 
 ## Overview
 
-`spSelectionPreviewCornerRadiusFactor(_:)` is a chainable method used to update the ``SymbolPicker/SPSelectionPreviewConfiguration/selectionPreviewCornerRadiusFactor`` property.
+The `spSelectionPreviewCornerRadiusFactor(_:)` method updates the ``SymbolPicker/SPSelectionPreviewConfiguration/selectionPreviewCornerRadiusFactor`` property.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPSelectionPreviewConfiguration()

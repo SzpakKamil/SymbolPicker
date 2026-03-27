@@ -18,12 +18,12 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Resolves the vertical and horizontal spacings for the picker's layout.
+Resolves the layout spacings for the picker.
 
 ## Overview
 
-This method implements the ``SymbolPicker/SymbolPickerConfiguration/spacingConfiguration()`` protocol requirement by calling ``SymbolPicker/SymbolPickerDefaultConfiguration/currentSpacingConfiguration`` with the active ``SymbolPicker/SymbolPickerDefaultConfiguration/displayStyle``.
+This method fulfills the ``SymbolPicker/SymbolPickerConfiguration/spacingConfiguration()`` requirement. It calls the ``SymbolPicker/SymbolPickerDefaultConfiguration/currentSpacingConfiguration`` closure with the active ``SymbolPicker/SymbolPickerDefaultConfiguration/displayStyle``.
 
 ### Return Value
 
-Returns an array of ``SymbolPicker/SPSpacing`` objects that define the gaps between the picker's major visual blocks.
+Returns an array of ``SymbolPicker/SPSpacing`` objects. These objects set the gaps between the picker's visual blocks, ensuring a balanced layout.

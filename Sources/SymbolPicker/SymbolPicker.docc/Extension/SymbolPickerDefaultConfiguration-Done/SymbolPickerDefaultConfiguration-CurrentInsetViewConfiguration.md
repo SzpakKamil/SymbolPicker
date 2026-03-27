@@ -18,29 +18,23 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A closure that returns the set of custom inseted views for the picker.
+A closure for resolving custom inset views.
 
 ## Overview
 
-The `currentInsetViewConfiguration` property is a closure that resolves the custom SwiftUI views (``SymbolPicker/SPInsetedView``) that should be placed into predefined "safe area" or "toolbar" slots.
+The `currentInsetViewConfiguration` property resolves the custom SwiftUI views (``SymbolPicker/SPInsetedView``) for predefined slots like toolbars or safe areas.
 
 ### Parameters
 
-The closure receives the active ``SymbolPicker/SPDisplayStyle`` and the optional ``SymbolPicker/SPColorPickerConfiguration``. This allows you to dynamically inject views based on whether the color picker is active or whether the picker is in compact vs. detail mode.
-
-### Behavior
-
-By default, the closure invokes the static ``SymbolPicker/SymbolPickerDefaultConfiguration/defaultInsetViews(for:colorPicker:)`` method, which provides standard components like the selection preview and close buttons.
+The closure receives the active display style and the optional color picker settings. Use these to inject views dynamically based on the picker's state.
 
 ### Customization
-
-Provide a custom closure to inject your own views (e.g., a "Confirm" button) into the picker's interface.
 
 ```swift
 var config = SymbolPickerDefaultConfiguration()
 config.currentInsetViewConfiguration = { style, colorPicker in
     var views = SymbolPickerDefaultConfiguration.defaultInsetViews(for: style, colorPicker: colorPicker)
-    views.append(SPInsetedView(placement: .bottomBar) {
+    views.append(SPInsetedView(placement: .safeAreaBottom) {
         Button("Custom Action") { /* ... */ }
     })
     return views

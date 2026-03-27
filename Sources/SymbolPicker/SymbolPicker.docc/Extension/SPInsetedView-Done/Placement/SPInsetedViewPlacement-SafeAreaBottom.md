@@ -13,11 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Placement at the bottom safe area of the picker container.
+Placement at the bottom safe area.
 
 ## Overview
 
-When set to `.safeAreaBottom`, the inset view is pinned to the bottom of the picker's main container. This ensures that the view remains anchored at the bottom of the interface, even as the user scrolls through symbols or emojis.
+The `.safeAreaBottom` case pins the inset view to the bottom of the picker container. This anchors the view at the bottom of the interface, ensuring it stays accessible as you scroll through assets.
 
 ### Use Case
-Ideal for "Selection Previews" or "Action Buttons" that need to be always accessible at the bottom of the picker.
+
+Ideal for selection previews or action buttons that must remain reachable at the base of the picker.

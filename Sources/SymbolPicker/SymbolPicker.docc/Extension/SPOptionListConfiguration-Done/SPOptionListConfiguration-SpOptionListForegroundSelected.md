@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the foreground color for selected items and returns the modified configuration.
+Sets the foreground color for selected items.
 
-- Parameter value: The new color.
-- Returns: The updated configuration instance.
+- Parameter value: The foreground color.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spOptionListForegroundSelected(_:)` is a chainable method used to update the ``SymbolPicker/SPOptionListConfiguration/optionListForegroundSelected`` property.
+The `spOptionListForegroundSelected(_:)` method updates the ``SymbolPicker/SPOptionListConfiguration/optionListForegroundSelected`` property. This sets the color of text and icons for the item the user has chosen.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

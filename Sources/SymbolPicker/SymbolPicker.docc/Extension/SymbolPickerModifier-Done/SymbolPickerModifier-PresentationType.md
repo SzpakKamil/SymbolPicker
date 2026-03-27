@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets how the picker is presented — as a sheet, a popover, or a full-screen cover.
+Choose the presentation style for the picker.
 
 ## Overview
 
-Use this modifier to choose the presentation style that best fits your app's context. On iPhone, a sheet is common; on iPad or macOS, a popover is often more appropriate.
+Select a sheet, popover, or full-screen cover to match your app context. iPhone apps typically use sheets, while iPad and macOS apps often use popovers.
 
 ### Example
 
-Present the picker as a popover:
+Present the picker in a popover:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | ``SymbolPicker/SPPresentationConfiguration/DisplayType`` | The desired presentation style. |
+| `value` | ``SymbolPicker/SPPresentationConfiguration/DisplayType`` | The presentation style. |

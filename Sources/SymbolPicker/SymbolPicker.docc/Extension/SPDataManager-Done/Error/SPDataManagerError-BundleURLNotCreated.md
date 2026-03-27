@@ -13,17 +13,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A low-level error indicating that a URL for a file in the bundle could not be constructed.
+An error for failed resource URL construction.
 
-- Parameter fileName: The name of the file for which the URL construction failed.
+- Parameter fileName: The name of the missing resource.
 
 ## Overview
 
-The `bundleURLNotCreated` error occurs when `Bundle.module.url(forResource:withExtension:)` returns nil for a resource file that is expected to exist.
+The `bundleURLNotCreated` error occurs when `Bundle.module.url(forResource:withExtension:)` returns `nil` for an expected resource.
 
-### Significance
+### Causes
 
-This error is primarily diagnostic, indicating issues with:
-- Asset bundling during the build process.
-- Incorrect file naming conventions.
-- Resource management in the package's `Sources/Resources` directory.
+This diagnostic error indicates:
+- Build process failures that omitted assets from the bundle.
+- Incorrect file name definitions in the module.
+- Mismanaged resource directories in the package structure.

@@ -18,47 +18,45 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A high-fidelity preview component that displays the currently selected symbol, emoji, or image.
+A high-fidelity component that displays the selected symbol, emoji, or image.
 
 ## Overview
 
-`SPSelectionPreview` is a reactive component designed to give users immediate visual feedback as they interact with the `SymbolPicker`. It dynamically resolves and renders the active selection, taking into account current variant styles and color tints.
+`SPSelectionPreview` gives users immediate visual feedback. It resolves the active selection and applies styles based on current variants and colors.
 
-### Intelligent Rendering
+### Rendering Logic
 
-The preview component is more than just a static display; it incorporates sophisticated layout and color logic:
-- **Color Contrast Optimization**: When a custom tint color is selected, the preview automatically calculates the color's luminance. It then intelligently switches the icon's foreground color (e.g., to black or white) to maintain maximum readability against the tinted background.
-- **Source-Aware Layout**: Automatically handles the rendering differences between vector symbols, text-based emojis, and pixel-based images.
-- **Aesthetic Depth**: Utilizes linear gradients, shadows, and rounded corners to provide a modern, tactile feel to the selected asset.
+The preview uses sophisticated layout and color rules:
+- **Contrast**: When you pick a tint, the preview calculates luminance and switches the icon color to black or white for readability.
+- **Source Awareness**: The component handles differences between vector symbols, emojis, and photos automatically.
+- **Depth**: It applies gradients, shadows, and rounding for a modern, tactile feel.
 
-### Platform-Native Experiences
+### Platform Adaptation
 
-The component adapts its visual language to fit each platform's unique characteristics:
-- **iOS/visionOS**: On supported modern versions (iOS 26+), the preview integrates with scroll geometry to provide dynamic scaling and vertical parallax offsets.
-- **watchOS**: Renders as a circular preview, optimized for the small form factor.
-- **tvOS**: Becomes a focusable element that provides visual feedback (scaling and animations) when highlighted via the Siri Remote.
+The view changes its behavior for each system:
+- **iOS and visionOS**: On iOS 26+, it uses scroll geometry for dynamic scaling and parallax.
+- **watchOS**: Renders as a circle optimized for small screens.
+- **tvOS**: Becomes focusable and provides feedback when highlighted via remote.
 
 ### Integration
 
-To include the selection preview, simply add it to your `SymbolPicker` body. It will automatically resolve the current selection from the environment.
+Add the preview to your `SymbolPicker` body. It finds the selection in the environment.
 
 ```swift
 SPSelectionPreview()
 ```
 
-### Inset helper
+### Inset Helper
 
-The `asInsetView()` method provides a pre-configured ``SymbolPicker/SPInsetedView`` wrapper. 
-- On **iOS/macOS/visionOS/tvOS 26+**: Positions the preview at ``SymbolPicker/SPInsetedView/Placement/safeAreaTop`.
-- On **iOS/macOS/visionOS/tvOS pre 26**: Positions the preview at ``SymbolPicker/SPInsetedView/Placement/scrollContentTop`.
-- On **watchOS**: Places the preview in the ``SymbolPicker/SPInsetedView/Placement/toolbarBottomTralling``.
+The `asInsetView()` method returns a pre-configured ``SymbolPicker/SPInsetedView``:
+- **iOS/macOS/visionOS/tvOS 26+**: Uses the ``SymbolPicker/SPInsetedView/Placement/safeAreaTop`` placement.
+- **Older Systems**: Uses the ``SymbolPicker/SPInsetedView/Placement/scrollContentTop`` placement.
+- **watchOS**: Uses the ``SymbolPicker/SPInsetedView/Placement/toolbarBottomTralling`` placement.
 
 ## Topics
 
 ### Initialization
-
 - ``SymbolPicker/SPSelectionPreview/init()``
 
 ### Supporting Types
-
 - ``SymbolPicker/SPSelectionPreviewConfiguration``

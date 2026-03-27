@@ -18,28 +18,28 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A segmented control or toggle for switching between different asset types (Symbols, Emojis, or Images).
+You switch between Symbols, Emojis, and Images with this control.
 
 ## Overview
 
-`SPPagePicker` is the primary top-level navigation component of the `SymbolPicker`. It enables users to toggle between broad data categories, such as switching from the SF Symbols library to the Emoji library.
+`SPPagePicker` provides the top-level navigation for the `SymbolPicker`. It lets you toggle between library categories, like moving from SF Symbols to the Emoji grid.
 
 ### Adaptive Segment Management
 
-The picker is fully driven by the `SymbolPickerStyle`. It automatically resolves its segments based on the `spAllowedPageTypes` environment property. 
-- **Auto-Hiding**: If only one page type is allowed (e.g., only Symbols), the `SPPagePicker` automatically hides itself to maximize screen space.
-- **Dynamic Content**: If the style specifies specific page types (through `supportedTypes`), the picker will prioritize and display those specific categories.
+The picker follows your `SymbolPickerStyle` and reads the `spAllowedPageTypes` environment property.
+- **Auto-Hiding**: If you only allow one asset type, the `SPPagePicker` hides itself to save screen space.
+- **Dynamic Content**: If you specify certain page types in your style, the picker only displays those categories.
 
 ### Native Platform Experiences
 
-The `SPPagePicker` transforms its appearance to align with each platform's design guidelines:
-- **iOS/visionOS**: Renders as a standard SwiftUI `.segmented` Picker, utilizing appropriate padding and corner radii. On iOS 26+, it integrates with capsule-shaped glass containers.
-- **watchOS**: To conserve screen real-estate, the picker presents as a simple toggle button with an icon and text label for the alternative page type.
-- **macOS/tvOS**: Features specialized spacing and text alignment for improved readability and focus-based interaction.
+The `SPPagePicker` changes its look to match the device:
+- **iOS/visionOS**: You see a standard segmented picker. On modern visionOS versions, it integrates into a floating glass capsule.
+- **watchOS**: You get a simple toggle button with an icon and label to save space.
+- **macOS/tvOS**: You see a layout with specialized spacing and alignment for mouse or remote focus.
 
 ### State Integration
 
-The picker is bound directly to the `spPageType` environment property. When a user selects a new segment, the entire `SymbolPicker` context updates to load the corresponding asset category.
+The picker binds to the `spPageType` environment property. When you select a new segment, the entire `SymbolPicker` instantly loads the new asset category.
 
 ## Topics
 

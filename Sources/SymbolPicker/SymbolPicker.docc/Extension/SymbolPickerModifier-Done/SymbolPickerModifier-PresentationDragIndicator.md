@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the visibility of the drag indicator on the presented picker's surface.
+Toggle the drag indicator on the presented picker surface.
 
 ## Overview
 
-Use this modifier to show or hide the grabber (drag indicator) at the top of the sheet when the picker is presented.
+Show or hide the grabber at the top of the sheet. This indicator helps users understand that they can swipe to dismiss or resize the picker.
 
 ### Example
 
-Explicitly show the drag indicator:
+Show the drag indicator:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Visibility` | The desired visibility of the drag indicator. |
+| `value` | `Visibility` | Toggle for drag indicator visibility. |

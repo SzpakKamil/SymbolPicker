@@ -18,22 +18,21 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-
-Sets the available colors in the color picker using an array of `CKColor` objects.
+Sets the available colors in the color picker.
 
 ## Overview
 
-Use this modifier to provide a predefined palette of colors for the user to choose from. This is useful for maintaining a consistent color scheme within your application.
+Use this modifier to provide a palette of colors for the user. It helps maintain a consistent color scheme in your app.
 
 ### Custom Palette
 
-- **Predefined Options**: You can provide any number of colors to the palette.
-- **ColorKit Integration**: Uses the `CKColor` type for advanced color manipulation and platform-agnostic color definitions.
-- **Dynamic Updates**: The palette can be updated dynamically if the array changes.
+- **Predefined Options**: Provide any number of colors to the palette.
+- **ColorKit Integration**: Uses `CKColor` for platform-agnostic definitions.
+- **Dynamic Updates**: The palette updates if the array changes.
 
 ### Example
 
-Provide a custom set of brand colors to the color picker:
+Set brand colors for the picker:
 
 ```swift
 let brandColors: [CKColor] = [.red, .blue, .green, .yellow]
@@ -44,6 +43,4 @@ SymbolPicker(systemImage: $symbolName, color: $iconColor)
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `colors` | `[CKColor]` | An array of colors to display in the palette. |
+- **colors**: An array of `CKColor` objects to show in the palette.

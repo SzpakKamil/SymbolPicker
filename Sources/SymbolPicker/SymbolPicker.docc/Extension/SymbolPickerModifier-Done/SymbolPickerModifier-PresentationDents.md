@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Configures the sheet detents for the presented picker's surface.
+Configure allowed sheet detents for the presented picker.
 
 ## Overview
 
-Use this modifier to set the allowed sizes (detents) for the sheet that contains the symbol picker.
+Set the supported sizes for the sheet containing the symbol picker. This modifier controls the heights the sheet can occupy during presentation.
 
 ### Example
 
-Support medium and large detents:
+Enable medium and large detents for the picker:
 
 ```swift
 Text("Select Icon")

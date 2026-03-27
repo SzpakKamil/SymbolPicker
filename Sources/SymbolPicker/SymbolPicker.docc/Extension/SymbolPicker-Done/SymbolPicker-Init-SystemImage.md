@@ -1,7 +1,5 @@
 # ``SymbolPicker/SymbolPicker/init(systemImage:configuration:)-(Binding<String>,_)``
 
-Creates a picker bound to a non-optional SF Symbol name.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,11 +18,17 @@ Creates a picker bound to a non-optional SF Symbol name.
     @AutomaticArticleSubheading(disabled)
 }
 
+Creates a picker for a required SF Symbol name.
+
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+This initializer binds the picker to a symbol name string. It ensures the selection state stays in sync with your data.
 
 ### Parameters
 
 - **systemImage**: A binding to the SF Symbol name string.
-- **configuration**: The visual configuration for the picker.
+- **configuration**: The layout and style settings for the picker.
+
+### Behavior
+
+The picker updates the provided binding whenever the user selects a new symbol from the grid. This version is ideal for views that require a valid symbol at all times.

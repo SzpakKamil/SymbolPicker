@@ -13,19 +13,18 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Indicates that the selection is an SF Symbol or a custom vector asset.
+A selection type for SF Symbols and vector assets.
 
 ## Overview
 
-When the `type` of an ``SymbolPicker/SPSelection`` is set to `.symbol`, the selection logic focuses on the ``SymbolPicker/SPSelection/symbol`` property. This is the most common selection type in the `SymbolPicker`.
+Setting the `type` of an ``SymbolPicker/SPSelection`` to `.symbol` activates the ``SymbolPicker/SPSelection/symbol`` property. This is the standard selection type for most use cases.
 
 ### Data Handling
 
-In this state:
-- The `symbol` property contains the active asset (e.g., ``SymbolPicker/SPSymbol``).
-- The `asView()` method renders the symbol using its specialized view (e.g., ``SymbolPicker/SPSymbolView``).
-- Persistence logic encodes the symbol's data alongside the selection type.
+- The `symbol` property holds the ``SymbolPicker/SPSymbol`` asset.
+- The `asView()` method uses ``SymbolPicker/SPSymbolView`` for rendering.
+- The system encodes the symbol data with the selection type for persistence.
 
 ### UI Integration
 
-The `SymbolPicker` displays a symbol browser when this type is active, allowing users to search and select from thousands of available SF Symbols.
+SymbolPicker displays the symbol browser for this type. Users search and select from thousands of SF Symbols.

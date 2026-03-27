@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the foreground color for the currently selected asset cell in the picker's grid.
+Set the foreground color for the selected asset cell in the picker grid.
 
 ## Overview
 
-Use this modifier to highlight the active selection with a distinct foreground color, making it visually clear which symbol or emoji the user has chosen.
+Highlight the active selection with a distinct foreground color. This modifier makes it clear which symbol or emoji the user has chosen.
 
 ### Example
 
-Set a custom selected foreground color:
+Apply a white foreground color to the selected asset:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The foreground color applied to the currently selected cell. |
+| `value` | `Color` | The foreground color for the selected cell. |

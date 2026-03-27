@@ -13,18 +13,18 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Loads and filters the emoji library for the specified locale.
+Loads and filters emojis for a locale.
 
 ## Overview
 
-The `fetchAssets(locale:)` method is the primary pipeline for building the emoji library used by the `SymbolPicker`. It is an asynchronous, error-prone method that orchestrates data loading, decoding, and compatibility filtering.
+The `fetchAssets(locale:)` method builds the emoji library for SymbolPicker. This asynchronous process handles loading, decoding, and filtering.
 
-### Loading Pipeline
+### Pipeline Steps
 
-1. **Resource Resolution**: Attempts to find a JSON file in the bundle matching the naming convention `emojis_[locale].json`. If the requested locale is missing, it falls back to English (`"en"`).
-2. **Decoding**: Reads the file's data and decodes it into an array of `SPEmoji` objects.
-3. **Availability Filtering**: After decoding, the method iterates through the entire array and executes ``SymbolPicker/SPEmoji/isAvailable()`` on each instance. Only emojis that are compatible with the current device are included in the final result.
+1. **Resolution**: Searches the bundle for a JSON file like `emojis_[locale].json`. If the locale is missing, it uses English (`"en"`) as a fallback.
+2. **Decoding**: Converts the file data into an array of `SPEmoji` objects.
+3. **Filtering**: Runs ``SymbolPicker/SPEmoji/isAvailable()`` on every item. The method removes any emoji the current device cannot render.
 
-### Usage
+### Implementation
 
-This method is typically called by the ``SymbolPicker/SPDataManager`` when initializing or switching the picker's language.
+``SymbolPicker/SPDataManager`` calls this method when initializing or changing the picker language. Because it runs in the background, your app's UI stays responsive during the load.

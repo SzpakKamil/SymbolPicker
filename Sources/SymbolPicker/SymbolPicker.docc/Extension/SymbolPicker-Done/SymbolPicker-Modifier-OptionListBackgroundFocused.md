@@ -18,14 +18,16 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the background color for focused option list items.
+Sets the background color for focused list items.
 
 ## Overview
 
-Use this modifier to specify the background color of items within the option list when an item has focus.
+Use this modifier to set the background color of items in the option list when they have focus.
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `value` | `Color` | The focused background color to apply. |
+- **value**: The background color for the focused state.
+
+### Details
+
+This color provides visual feedback as users navigate the picker using a keyboard or game controller. It ensures the focused item stands out clearly from the rest of the grid.

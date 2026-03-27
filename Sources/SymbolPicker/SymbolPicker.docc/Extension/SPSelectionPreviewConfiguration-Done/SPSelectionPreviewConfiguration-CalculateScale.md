@@ -12,15 +12,13 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A closure that calculates the dynamic scale of the selection preview based on scroll geometry.
+A closure for calculating the dynamic scale of the selection preview.
 
 ## Overview
 
-The `calculateScale` property is a `@Sendable` closure that takes `ScrollGeometry` as an input and returns a `CGFloat` representing the desired scale factor for the preview area.
+The `calculateScale` property is a `@Sendable` closure that takes `ScrollGeometry` and returns a `CGFloat`. Use this to shrink or grow the preview as the user scrolls through the picker's asset grid. This creates an interactive, responsive experience.
 
-This allows the preview to shrink or grow as the user scrolls through the picker's content, creating a modern, interactive experience.
-
-### Example Implementation
+### Example
 
 ```swift
 let config = SPSelectionPreviewConfiguration()

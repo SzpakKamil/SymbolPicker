@@ -12,17 +12,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A factor that determines the corner radius of list items, relative to their width.
+A multiplier for the list item corner radius.
 
 ## Overview
 
-The `optionListCornerRadiusFactor` property allows for flexible styling of the asset cells in the picker's grid. The final corner radius is calculated by multiplying the item's width by this factor.
+The `optionListCornerRadiusFactor` property sets the shape of the asset cells in the picker grid. The system calculates the final corner radius by multiplying the item's width by this factor.
 
-- **0.0**: Square corners.
-- **0.5**: Fully rounded corners (capsule or circle).
-- **Default**: Typically varies by platform (e.g., 0.25).
+- **0.0**: Creates square corners.
+- **0.5**: Creates fully rounded corners (circles).
+- **Default**: Varies by platform, typically `0.25`.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

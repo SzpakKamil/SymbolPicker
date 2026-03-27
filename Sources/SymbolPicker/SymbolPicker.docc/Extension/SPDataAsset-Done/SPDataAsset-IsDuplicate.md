@@ -13,27 +13,27 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Checks if the asset is semantically the same as another, supporting SF Symbols, Emojis, and custom icons.
+Checks if two assets match semantically.
 
 - Parameter other: Another asset of the same type.
-- Returns: `true` if they are semantically identical; otherwise, `false`.
+- Returns: `true` if they match; otherwise, `false`.
 
 ## Overview
 
-The `isDuplicate(of:)` method provides a way to identify assets that are essentially the same, even if they have different unique identifiers.
+The `isDuplicate(of:)` method identifies identical assets, even if they have different unique identifiers.
 
-### Data Deduplication
+### Deduplication
 
-During the process of loading and searching for assets, the ``SymbolPicker/SPDataManager`` uses `isDuplicate(of:)` to filter out any redundant assets. This ensures that the user is not presented with multiple identical choices in the picker interface.
+``SymbolPicker/SPDataManager`` uses this method to filter out extra assets when loading and searching. This prevents duplicate choices in the UI.
 
-### Default Implementation
+### Default Logic
 
-The default implementation provided by the protocol extension uses the `==` operator for comparison. This is sufficient for most types where `Equatable` conformance is based on the asset's core properties.
+The default implementation uses the `==` operator. This works for most types that follow `Equatable`.
 
 ### Customization
 
-Conforming types can override this method to provide more specialized deduplication logic. For example, a symbols picker might want to consider two symbols duplicates if they have the same system name, even if they have different metadata (e.g., tags).
+You can provide your own logic. A symbol picker might treat two symbols as duplicates if they share the same system name, regardless of their tags.
 
-### Usage in SPDataManager
+### Search
 
-The `isDuplicate(of:)` method is called during the `performSearch` phase of the data manager to ensure that the search results are clean and focused.
+The search phase calls this method to clean up results.

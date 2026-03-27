@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the closure for calculating the dynamic scale of the selection preview and returns the modified configuration.
+Sets the scale calculation for the selection preview.
 
-- Parameter closure: A `@Sendable` closure that takes `ScrollGeometry` and returns a `CGFloat` scale.
-- Returns: The updated configuration instance.
+- Parameter closure: A `@Sendable` closure that takes `ScrollGeometry` and returns a `CGFloat`.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spSelectionPreviewCalculateScale(_:)` is a chainable method used to update the ``SymbolPicker/SPSelectionPreviewConfiguration/calculateScale`` property.
+The `spSelectionPreviewCalculateScale(_:)` method updates the ``SymbolPicker/SPSelectionPreviewConfiguration/calculateScale`` property. Use it to shrink or grow the preview as the user scrolls.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPSelectionPreviewConfiguration()

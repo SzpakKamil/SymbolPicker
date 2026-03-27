@@ -13,20 +13,20 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A localized descriptive name used for searching and accessibility.
+A descriptive name for search and accessibility.
 
 ## Overview
 
-The `annotation` property provides a human-readable, localized string that describes the visual concept of the symbol. This metadata is essential for both the search functionality within the picker and for providing a high-quality accessibility experience.
+The `annotation` property provides a localized string that describes the symbol's concept. This metadata powers the search engine and provides a high-quality experience for users of assistive technology.
 
-### Search Integration
+### Search
 
-When a user types into the search bar, the ``SymbolPicker/SPDataManager`` queries this field across the loaded symbol collection. Because it is localized, users can search for symbols using terms in their native language, significantly improving the discoverability of specific icons.
+When you type in the search bar, the system queries this field across the symbol library. Because the strings are localized, you can search for icons in your native language.
 
 ### Accessibility
 
-Beyond search, the annotation serves as the default accessibility label. When VoiceOver is active, this string is read to the user, ensuring that the interface remains navigable for everyone. It is recommended to keep these strings concise yet descriptive.
+The annotation serves as the default accessibility label. VoiceOver reads this string to the user, ensuring the picker remains navigable for everyone.
 
-### Data Source
+### Source
 
-These strings are typically loaded from localized JSON resources within the package bundle, ensuring that the UI remains consistent with the user's system language settings.
+The system loads these strings from JSON resources in the package bundle to match the user's system language.

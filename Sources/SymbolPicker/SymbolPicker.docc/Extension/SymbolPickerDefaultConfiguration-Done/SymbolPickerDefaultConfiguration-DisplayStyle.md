@@ -18,18 +18,20 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-The layout strategy that the picker uses to organize its components.
+The layout strategy for the picker.
 
 ## Overview
 
-The `displayStyle` property determines the overall visual structure of the picker. By default, it is platform-aware and adapts to the current system version:
+The `displayStyle` property sets how the picker organizes its interface. By default, it adapts to your platform and system version.
 
-- **`.compact`**: Used by default on iOS 26+, visionOS 26+, tvOS 26+, and watchOS 26+. This style focuses on a modern, streamlined look with floating toolbars and a clean grid area.
-- **`.detail`**: Used by default on macOS and older versions of iOS and other platforms. This style provides a more classic, structured sidebar or list-based layout.
+### Default Logic
+
+- **`.compact`**: The system uses this for iOS 26+, visionOS, tvOS 26+, and watchOS 26+. It provides a modern layout with floating toolbars and a clean grid.
+- **`.detail`**: The system uses this for macOS and older iOS versions. It provides a structured sidebar or list-based layout.
 
 ### Customization
 
-While the default value is platform-dependent, you can manually set it to force a specific layout regardless of the environment.
+Override the default by manually setting the style in your configuration. This forces a specific layout regardless of the environment.
 
 ```swift
 var config = SymbolPickerDefaultConfiguration()

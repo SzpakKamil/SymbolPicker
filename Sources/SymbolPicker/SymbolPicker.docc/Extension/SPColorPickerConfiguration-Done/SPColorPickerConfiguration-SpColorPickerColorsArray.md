@@ -12,16 +12,20 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the array of colors available in the color picker from an array and returns the modified configuration.
+Sets picker colors from an array.
 
 - Parameter colors: An array of `CKColor` objects.
-- Returns: The updated configuration instance.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spColorPickerColors(_:)` is a chainable method used to update the ``SymbolPicker/SPColorPickerConfiguration/colors`` property, accepting an array of colors.
+The `spColorPickerColors(_:)` method updates the ``SymbolPicker/SPColorPickerConfiguration/colors`` property using the provided array.
 
-### Usage in Code
+### Details
+
+This method helps you set a predefined color palette from a data source or app settings. It returns the configuration for easy setup.
+
+### Example
 
 ```swift
 let colors: [CKColor] = [.red, .blue, .green]

@@ -13,24 +13,24 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The horizontal translation applied to the image.
+The horizontal shift for the image.
 
 ## Overview
 
-The `offsetX` property defines the horizontal offset of the image asset within its rendering container.
+The `offsetX` property sets the horizontal position of an image within its container. 
 
-### Interactive Layout Role
+### Panning and Zooming
 
-The `offsetX` property, along with ``SymbolPicker/SPImage/offsetY`` and ``SymbolPicker/SPImage/zoom``, forms the basis of the `SymbolPicker`'s "pan and zoom" layout system. These properties allow the user to precisely align or "crop" an image asset for optimal presentation.
+This property works with ``SymbolPicker/SPImage/offsetY`` and ``SymbolPicker/SPImage/zoom`` to enable the "pan and zoom" system. You use these values to align or crop an image exactly how you want it.
 
-### Coordinate System
+### Coordinates
 
-The `offsetX` is measured in points and represents the translation from the container's center. 
+You measure `offsetX` in points. It represents the distance from the center of the container.
 
-### Implementation Logic
+### User Interaction
 
-The ``SymbolPicker/SPImageView`` utilizes the `offsetX` property to set the horizontal position of the image within its container. This property is modified as the user interacts with the image via pan gestures, allowing for real-time adjustments that are saved as part of the asset metadata.
+The ``SymbolPicker/SPImageView`` uses this property to position the image. As you drag the image, the picker updates this value in real time. The app then saves these adjustments into the asset's metadata.
 
-### Persistence and State
+### Persistence
 
-Because `offsetX` is a `Codable` property, user-specified alignment is maintained across app sessions, ensuring a consistent visual experience.
+The `Codable` nature of `offsetX` ensures your alignment settings stay consistent. The picker restores these values every time you open the app.

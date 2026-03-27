@@ -13,27 +13,23 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Checks if the current asset matches the one currently selected in the picker, supporting SF Symbols, Emojis, and custom icons.
+Checks if the asset matches the current selection.
 
-- Parameter symbol: An asset to compare against.
-- Returns: `true` if the current asset is the same as the selection; otherwise, `false`.
+- Parameter symbol: The asset to compare.
+- Returns: `true` if identical to the selection; otherwise, `false`.
 
 ## Overview
 
-The `isSelection(of:)` method is primarily used in the UI layer of the ``SymbolPicker`` package. It helps the system determine which asset in the grid or list should be highlighted as "selected".
+The `isSelection(of:)` method helps the UI layer highlight the selected asset in the grid or list.
 
-### Highlighting Selection
+### UI Highlighting
 
-When rendering each cell in the picker, the ``SymbolPicker/SPOptionList`` calls `isSelection(of:)` on the asset. If the method returns `true`, the cell's view can be updated with a specific selection indicator (e.g., a checkmark or a background color).
+``SymbolPicker/SPOptionList`` calls this method when it renders cells. If it returns `true`, the cell shows a selection indicator like a checkmark.
 
-### Default Implementation
+### Default Logic
 
-The default implementation provided by the protocol extension uses the `==` operator for comparison. This is the most common behavior for most asset types.
+The default implementation uses the `==` operator.
 
-### Specialized Comparison
+### Specialized Logic
 
-Some asset types require more sophisticated selection logic. For instance, **SPSymbol** overrides `isSelection(of:)` to consider an asset selected if its current variant (filled or outlined) matches either the filled or outlined name of the provided symbol. This allows the picker to correctly highlight symbols even when the variant is toggled.
-
-### UI State Management
-
-The `isSelection(of:)` method is a key component in maintaining a consistent and responsive selection state within the picker's view hierarchy.
+Some types require custom logic. **SPSymbol** overrides this method to check if the current variant (filled or outlined) matches the provided symbol. This ensures the correct item highlights even when you switch variants.

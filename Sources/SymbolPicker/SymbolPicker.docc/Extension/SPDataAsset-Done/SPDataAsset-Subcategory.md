@@ -13,25 +13,25 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A more specific classification within the primary category, supporting SF Symbols, Emojis, and custom icons.
+A specific classification within the primary category.
 
 ## Overview
 
-The `subcategory` property provides a secondary level of classification for an asset, enabling more precise organization and filtering than the primary ``SymbolPicker/SPDataAsset/category`` alone.
+The `subcategory` property offers a second level of organization beyond the primary ``SymbolPicker/SPDataAsset/category``.
 
-### Granular Organization
+### Organization
 
-Within a category like "Nature", subcategories can be used to further refine the grouping:
+Inside a "Nature" category, you might use subcategories like:
 - "Animals"
 - "Weather"
 - "Plants"
 
-This property allows the user to find assets more quickly by drilling down through a hierarchical structure, which is especially useful when a single category contains a large number of assets.
+Subcategories help you find assets faster when navigating large collections.
 
-### Search Refinement
+### Search
 
-The `subcategory` property is included in the default implementation of ``SymbolPicker/SPDataAsset/matches(_:)``. If a user's search query matches a subcategory name, all assets within that subcategory will be returned.
+The default `matches(_:)` implementation checks the `subcategory`. Search results include all assets in a subcategory if the query matches the subcategory name.
 
 ### Implementation
 
-While the `subcategory` is optional, it is a powerful tool for building a more structured and professional picker experience. In types like ``SymbolPicker/SPSymbol``, the subcategory is often derived from the symbol's name or its associated system metadata.
+Subcategories create a more structured experience. In ``SymbolPicker/SPSymbol``, the subcategory often comes from system metadata.

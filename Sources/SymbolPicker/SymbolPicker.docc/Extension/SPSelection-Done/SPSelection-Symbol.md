@@ -17,16 +17,12 @@ The underlying asset of the generic `DataAsset` type (typically ``SymbolPicker/S
 
 ## Overview
 
-When the selection ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/symbol``, this property contains the active asset data.
+The `symbol` property contains the active asset data when the selection ``SymbolPicker/SPSelection/type`` is `.symbol`. 
 
 ### Generic Asset Support
 
-`SPSelection` is generic over any type that conforms to `SPDataAsset`. In most scenarios, this will be ``SymbolPicker/SPSymbol``. This allows developers to use custom symbol types if necessary while maintaining all picker functionality.
+`SPSelection` is generic, so this property typically holds an ``SymbolPicker/SPSymbol``. However, it supports any type conforming to ``SymbolPicker/SPDataAsset``. This flexibility lets you use custom symbol models while keeping the picker's core features.
 
-### Data Access
+### Data Access and Rendering
 
-While this property can be accessed directly, it is often better to use the ``SymbolPicker/SPSelection/getSymbol()`` method for a consistent interface that works alongside other asset types.
-
-### Interaction with Color
-
-If a custom color is set via ``SymbolPicker/SPSelection/color``, it will be applied to the symbol during rendering (e.g., as a tint or foreground color).
+While you can access this property directly, ``SymbolPicker/SPSelection/getSymbol()`` provides a more consistent interface. If you set a custom ``SymbolPicker/SPSelection/color``, the library applies it as a tint or foreground color when rendering the symbol. This ensures your chosen style carries over to the UI.

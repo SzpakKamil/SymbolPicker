@@ -17,16 +17,17 @@
     @AutomaticSeeAlso(disabled)
 }
 
-
-A convenience computed property that returns the collection of inseted views.
+Accesses the collection of inseted views.
 
 ## Overview
 
-The `insetViews` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/insetViewsConfiguration()``.
+The `insetViews` property is a convenience shortcut for calling ``SymbolPicker/SymbolPickerConfiguration/insetViewsConfiguration()``.
 
 ### Implementation
 
-It is defined as a simple wrapper:
+It works as a simple wrapper:
 ```swift
 var insetViews: [SPInsetedView] { insetViewsConfiguration() }
 ```
+
+Use this property to read the list of custom views, such as headers or search bars, that populate the picker's layout slots.

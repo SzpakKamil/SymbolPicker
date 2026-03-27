@@ -13,11 +13,11 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Checks if another platform matches the type of the current instance.
+Checks if another platform matches this type.
 
-- Parameter other: The `SPSupportedPlatforms` instance to compare against.
-- Returns: `true` if the platforms are of the same type (e.g., both are `.iOS`), regardless of their version numbers.
+- Parameter other: The platform to compare.
+- Returns: `true` if the platforms are the same type, such as both being `.iOS`.
 
 ## Overview
 
-The `isSamePlatform(as:)` method allows you to compare two platform instances while ignoring their version numbers. This is useful for high-level platform detection where only the OS type (iOS, macOS, etc.) matters.
+The `isSamePlatform(as:)` method compares two platform instances while ignoring their version numbers. Use this for high-level platform detection where only the OS type (iOS, macOS, etc.) matters.

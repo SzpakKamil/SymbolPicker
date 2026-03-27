@@ -18,12 +18,12 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Resolves the configuration for the color selection palette.
+Resolves the configuration for the color palette.
 
 ## Overview
 
-This method implements the ``SymbolPicker/SymbolPickerConfiguration/colorPickerConfiguration()`` protocol requirement by calling ``SymbolPicker/SymbolPickerDefaultConfiguration/currentColorPickerConfiguration`` with the active ``SymbolPicker/SymbolPickerDefaultConfiguration/displayStyle``.
+This method fulfills the ``SymbolPicker/SymbolPickerConfiguration/colorPickerConfiguration()`` requirement. It calls the ``SymbolPicker/SymbolPickerDefaultConfiguration/currentColorPickerConfiguration`` closure with the active ``SymbolPicker/SymbolPickerDefaultConfiguration/displayStyle``.
 
 ### Return Value
 
-Returns a ``SymbolPicker/SPColorPickerConfiguration`` or `nil` if the color picker should be hidden.
+Returns an ``SymbolPicker/SPColorPickerConfiguration`` or `nil` if the picker should hide the color tool.

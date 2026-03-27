@@ -12,19 +12,18 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the foreground color for focused items and returns the modified configuration.
+Sets the foreground color for focused items.
 
-- Parameter value: The new color.
-- Returns: The updated configuration instance.
+- Parameter value: The foreground color.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spOptionListForegroundFocused(_:)` is a chainable method used to update the ``SymbolPicker/SPOptionListConfiguration/optionListForegroundFocused`` property.
+The `spOptionListForegroundFocused(_:)` method updates the ``SymbolPicker/SPOptionListConfiguration/optionListForegroundFocused`` property. This sets the color of icons and labels when an item has focus.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()
     .spOptionListForegroundFocused(.white)
 ```
-   

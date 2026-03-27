@@ -13,19 +13,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Represents the solid or filled version of an SF Symbol.
+The solid version of an SF Symbol.
 
 ## Overview
 
-The `filled` case corresponds to the system names that are typically suffixed with `.fill` (e.g., `"heart.fill"`).
+The `filled` case maps to system names that end in `.fill`, such as `"heart.fill"`.
 
-### Visual Appearance
+### Appearance
 
-Filled symbols have a stronger visual presence than their outlined counterparts. They are often used in:
-- **Active States**: Indicating a selected tab or a toggle that is turned on.
-- **High-Emphasis Contexts**: Drawing attention to a specific action or status.
-- **Complex Backgrounds**: Improving legibility on varied or textured backgrounds where thin strokes might be lost.
+Filled symbols have a stronger visual presence. They work well for:
+- **Active States**: Showing a selected tab or an active toggle.
+- **Emphasis**: Drawing attention to a specific status.
+- **Legibility**: Improving visibility on textured backgrounds where thin lines might disappear.
 
-### Selection Resolution
-
-When this case is applied to an `SPSymbol` instance, the library resolves the system name string using the `filledName` property, ensuring that the solid variant is correctly displayed to the user.
+When you apply this case, the library uses the `filledName` property to display the solid variant.

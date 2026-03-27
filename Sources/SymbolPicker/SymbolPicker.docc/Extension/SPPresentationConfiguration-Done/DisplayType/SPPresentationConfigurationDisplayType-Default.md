@@ -13,14 +13,15 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The platform-default presentation style.
+You use the standard presentation style for each device.
 
 ## Overview
 
-When set to `.default`, the `SymbolPicker` adapts its presentation style based on the running device and context:
-- **iPhone**: Typically presents as a bottom sheet.
-- **iPad**: May present as a sheet or a centered modal depending on split-screen status.
-- **macOS**: Typically presents as a popover anchored to the triggering element.
+The `.default` setting adjusts the picker to fit the current device. It follows platform conventions so your users feel at home.
+
+- **iPhone**: You see a bottom sheet that users can swipe to dismiss.
+- **iPad**: You get a sheet or a centered modal, depending on whether you are using split-screen.
+- **macOS**: The picker appears as a popover anchored to your triggering element.
 
 ### Use Case
-This is the recommended setting for most applications, as it allows the system to enforce standard platform conventions.
+Choose this for most apps. It lets the system enforce familiar behaviors and ensures accessibility features work correctly.

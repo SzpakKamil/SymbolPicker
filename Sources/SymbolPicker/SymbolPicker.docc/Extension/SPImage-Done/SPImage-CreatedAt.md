@@ -13,17 +13,18 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The timestamp indicating when the image asset was created or first processed.
+The timestamp of the asset's creation.
 
 ## Overview
 
-The `createdAt` property captures the `Date` when the `SPImage` instance was initialized. This timestamp provides chronological context for the asset, enabling developers and users to track the history of the asset's presence in the `SymbolPicker` library.
+The `createdAt` property records the `Date` you initialize an `SPImage`. You use this timestamp to track when an asset entered your library.
 
-### Architectural Usage
+### Sort and Sync
 
-- **Chronological Sorting**: The `SPDataManager` can utilize this property to sort image collections, allowing the `SymbolPicker` to present the user's most recent imports at the top of the grid.
-- **Asset Auditing**: For applications that sync images across multiple devices, the `createdAt` timestamp is essential for conflict resolution and history tracking.
+The `SPDataManager` uses these timestamps to organize your collection. You can sort by `createdAt` to put recent imports at the top of the grid, helping you find new items quickly.
 
-### Immutable Lifecycle
+Syncing across devices requires this date. It helps you resolve conflicts by comparing when the asset first appeared on each device.
 
-The `createdAt` property is set at the moment of initialization and remains immutable for the life of the asset instance. When an `SPImage` is encoded or decoded, this timestamp is preserved, ensuring the asset's history is maintained across app launches and storage media.
+### Immutability
+
+The system sets this property once and preserves it through encoding and decoding. Your asset's history remains intact across app launches and storage media. This ensures that a photo you imported today stays marked as today's photo even after you restart the application.

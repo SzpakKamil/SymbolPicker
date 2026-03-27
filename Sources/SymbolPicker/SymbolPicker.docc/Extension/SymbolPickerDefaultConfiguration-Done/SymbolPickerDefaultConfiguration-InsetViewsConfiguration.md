@@ -18,12 +18,12 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Resolves the custom inseted views for the picker.
+Resolves the custom inset views for the picker.
 
 ## Overview
 
-This method implements the ``SymbolPicker/SymbolPickerConfiguration/insetViewsConfiguration()`` protocol requirement by calling ``SymbolPicker/SymbolPickerDefaultConfiguration/currentInsetViewConfiguration`` with the active ``SymbolPicker/SymbolPickerDefaultConfiguration/displayStyle`` and ``SymbolPicker/SymbolPickerConfiguration/colorPicker``.
+This method fulfills the ``SymbolPicker/SymbolPickerConfiguration/insetViewsConfiguration()`` requirement. It calls the ``SymbolPicker/SymbolPickerDefaultConfiguration/currentInsetViewConfiguration`` closure using the active style and color picker settings.
 
 ### Return Value
 
-Returns an array of ``SymbolPicker/SPInsetedView`` objects that are placed into predefined toolbar or safe area slots.
+Returns an array of ``SymbolPicker/SPInsetedView`` objects. The picker places these into specific toolbar or safe area slots.

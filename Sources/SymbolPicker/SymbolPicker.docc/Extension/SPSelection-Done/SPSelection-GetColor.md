@@ -19,8 +19,8 @@ Returns the color currently associated with the selection.
 
 ## Overview
 
-The `getColor()` method provides access to the selection's color property. Depending on the selection type, this color may represent the primary selection itself (for `.color` type) or a tint applied to another asset (for `symbol`, `emoji`, or `image`).
+Get the color assigned to a selection. The `getColor()` method returns a `ColorKit/CKColor` or `nil` if no color is set. 
 
-### Usage in Custom Views
+### Contextual Color
 
-This method is useful when you need to access the selection's color for your own custom rendering logic, ensuring that you always have the correct color value regardless of the asset type.
+This color represents the main selection for `.color` types or a tint for symbols, emojis, and images. Use this method in custom views to ensure your rendering logic uses the correct color value regardless of the asset type. It provides a safe way to extract color data for persistence or custom UI elements.

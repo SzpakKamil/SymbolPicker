@@ -18,15 +18,17 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Configures the supported page types and the default selected page using a variadic list.
+Sets the available page types and the default page.
 
 ## Overview
 
-Use this modifier to define which categories of symbols (e.g., system icons, custom icons) are available in the picker and which one is shown by default.
+Use this modifier to choose which asset categories appear in the picker. You also set which category the picker shows first.
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `types` | `SPPageType...` | A variadic list of supported page types. |
-| `defaultType` | `SPPageType` | The page type to display initially. |
+- **types**: A variadic list of ``SymbolPicker/SPPageType`` values like `.symbol` or `.emoji`.
+- **defaultType**: The page type to show when the picker opens.
+
+### Details
+
+This modifier lets you restrict the picker to specific content. For example, you can create a picker that only shows symbols and emojis while hiding the color and image options.

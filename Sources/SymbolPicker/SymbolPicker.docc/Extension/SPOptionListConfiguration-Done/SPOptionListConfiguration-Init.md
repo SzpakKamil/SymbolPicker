@@ -16,14 +16,12 @@ Creates a default option list configuration.
 
 ## Overview
 
-The default initializer configures the option list with platform-appropriate styling values.
+The default initializer sets up platform-appropriate styling:
+- **Corner Radius Factor**: Sets to `0.25` on iOS and macOS, or `0.45` on watchOS and visionOS.
+- **Padding Factor**: Sets to `0.30`.
+- **Colors**: Uses `.primary` for the foreground and `.clear` for the background.
 
-- **Corner Radius Factor**: Varies by platform (e.g., `0.25` on iOS/macOS, `0.45` on watchOS/visionOS).
-- **Padding Factor**: `0.30`.
-- **Foreground Color**: `.primary`.
-- **Background Color**: `.clear` (with state-specific opacities for selection/focus).
-
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

@@ -17,7 +17,8 @@ Placement at the bottom of a scrollable section.
 
 ## Overview
 
-When set to `.scrollSectionBottom`, the inset view is placed at the end of an individual section within the scroll view. This is suitable for section footers or summaries.
+The `.scrollSectionBottom` case puts the inset view at the end of a section in the scroll view.
 
 ### Use Case
-Use this for footers providing extra information or related links at the end of a category of symbols.
+
+Use this placement for section footers, such as providing summaries or related links after a specific category of symbols. The view scrolls with the section content.

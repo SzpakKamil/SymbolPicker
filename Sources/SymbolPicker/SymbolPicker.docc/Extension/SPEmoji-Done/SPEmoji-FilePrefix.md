@@ -13,12 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The prefix used to identify the emoji data files.
+The identifier for emoji data files.
 
 ## Overview
 
-The `filePrefix` static property instructs the ``SymbolPicker/SPDataManager`` to search for localizable JSON resources with filenames starting with `"emojis"`.
+The `filePrefix` static property tells ``SymbolPicker/SPDataManager`` to look for JSON files starting with `"emojis"`.
 
-### Naming Convention
+### File Naming
 
-The data manager combines this prefix with the user's locale to resolve the correct catalog (e.g., `emojis_pl.json` for Polish users).
+The data manager joins this prefix with your app's locale to find the right catalog. For example, it searches for `emojis_en.json` or `emojis_pl.json`. This organization keeps emoji data separate from other assets like symbols.

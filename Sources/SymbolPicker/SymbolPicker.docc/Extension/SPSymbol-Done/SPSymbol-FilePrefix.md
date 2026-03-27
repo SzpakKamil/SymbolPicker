@@ -13,16 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A static property used by `SPDataManager` to locate localized JSON files.
+The prefix for localized JSON files.
 
 ## Overview
 
-The `filePrefix` static property defines the base name for the JSON resource files that contain the symbol data (e.g., "symbols").
+The `filePrefix` static property sets the base name for the JSON resources containing symbol data. It defaults to `"symbols"`.
 
-### Resource Resolution
+### Usage
 
-When ``SymbolPicker/SPSymbol/fetchAssets(locale:)`` is called, it uses this prefix to construct the full filename of the resource to load, such as `symbols_en.json`. This allows the package to support multiple languages and regions by simply adding new JSON files with the appropriate suffix.
-
-### Consistency
-
-By centralizing the file naming convention in this property, the package ensures that the data loading logic remains consistent and easy to maintain, even if the underlying resource names need to be changed in the future.
+When you call ``SymbolPicker/SPSymbol/fetchAssets(locale:)``, the system uses this prefix to build the filename. For example, it searches for `symbols_en.json`. This naming convention allows the package to support new languages by adding JSON files with the correct suffix. Centralizing this name ensures the loading logic remains consistent and easy to update.

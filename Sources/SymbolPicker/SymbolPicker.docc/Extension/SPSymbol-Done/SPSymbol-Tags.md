@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-An array of keywords used by the search engine for semantic discovery.
+Keywords for semantic discovery.
 
 ## Overview
 
-The `tags` property contains an array of strings that describe the symbol's appearance, meaning, or common uses. For example, a `paperplane` symbol might have tags such as `["send", "mail", "message", "fly"]`.
+The `tags` property holds an array of strings describing the symbol's appearance and use. A `paperplane` symbol includes tags like `["send", "mail", "message", "fly"]`.
 
 ### Semantic Search
 
-These tags are crucial for the `SymbolPicker`'s search functionality. Instead of relying solely on the symbol's name (which might be obscure), the search engine matches user queries against these tags to provide relevant results. This enables "semantic discovery," where users can find the right icon based on the concept they are looking for.
+These tags power the search logic in SymbolPicker. Many system names are obscure, so the search engine matches user queries against these tags instead. This allows you to find icons based on concepts rather than exact names.
 
 ### Implementation
 
-When a user types in the search bar, the ``SymbolPicker/SPDataManager`` or the search logic iterates through the symbols and checks if the query matches any of the keywords in the `tags` array, ensuring a robust and user-friendly search experience.
+When you type in the search bar, the system iterates through the symbol library. It checks if your query matches any keyword in the `tags` array. This process ensures the search remains fast and finds relevant results even with thousands of assets.

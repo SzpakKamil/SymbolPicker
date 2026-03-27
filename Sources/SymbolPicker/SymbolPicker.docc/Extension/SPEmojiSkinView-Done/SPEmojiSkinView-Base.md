@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A specialized view for rendering specific emoji skin tone variations with support for dynamic scaling and availability fallbacks.
+A specialized view for rendering emoji skin tone variations.
 
 ## Overview
 
-`SPEmojiSkinView` is a text-based rendering component designed to display specific skin tone variants of an emoji within the ``SymbolPicker`` package. It is used primarily when a user selects a specific tone from an ``SymbolPicker/SPEmoji`` that supports multiple variations.
+`SPEmojiSkinView` renders specific emoji skin tone variations. It supports dynamic scaling and handles availability fallbacks. You use this view when a user selects a tone from an ``SymbolPicker/SPEmoji`` that supports multiple variants.
 
 ### Usage
 
-To use `SPEmojiSkinView`, initialize it with an instance of ``SymbolPicker/SPEmoji/Skin``:
+To display a tone, initialize the view with an instance of ``SymbolPicker/SPEmoji/Skin``:
 
 ```swift
 import SwiftUI
@@ -49,23 +49,15 @@ struct MySkinTonePreview: View {
 
 ### High-Fidelity Rendering
 
-Similar to ``SymbolPicker/SPEmojiView``, this view optimizes the rendering of emoji characters:
-- **Maximum Scale**: The view is initialized with a high base font size (e.g., `300`). 
-- **Dynamic Scaling**: It uses `.minimumScaleFactor(0.01)` to ensure that the skin tone variation automatically scales down to fit within its containing frame.
-- **Single-Line Layout**: Enforces a single-line limit to maintain visual consistency.
+The view optimizes emoji rendering by using a high base font size and a minimum scale factor. This ensures the emoji fits its frame while staying sharp. It also enforces a single-line layout to keep the UI consistent.
 
 ### Platform and OS Awareness
 
-Skin tone variations are also subject to OS-level support:
-- **Automatic Fallback**: If an ``SymbolPicker/SPEmoji/Skin`` is flagged as unavailable on the current system (via ``SymbolPicker/SPEmoji/Skin/isAvailable()``), the view automatically displays a standardized "question mark" symbol instead.
+If a skin tone is unavailable on the current OS, the view displays a placeholder. It checks availability via ``SymbolPicker/SPEmoji/Skin/isAvailable()`` before rendering. 
 
-### Accessibility
+### Performance and Accessibility
 
-`SPEmojiSkinView` inherits accessibility behavior from the underlying emoji model. While it does not explicitly define its own accessibility label (as it is typically used within a larger component like ``SymbolPicker/SPEmojiView`` or a picker cell), it maintains the visual integrity required for high-contrast and large-text accessibility modes.
-
-### Rendering Performance
-
-To maintain a high frame rate when rendering many skin tone variations, `SPEmojiSkinView` uses the `.drawingGroup()` modifier. This leverages GPU-accelerated rendering, ensuring smooth performance even during complex scrolling or layout transitions.
+GPU-accelerated rendering through `.drawingGroup()` keeps performance smooth during scrolling, even with many variants on screen. The view inherits accessibility behavior from the underlying emoji model, ensuring it works with high-contrast and large-text modes.
 
 ## Topics
 

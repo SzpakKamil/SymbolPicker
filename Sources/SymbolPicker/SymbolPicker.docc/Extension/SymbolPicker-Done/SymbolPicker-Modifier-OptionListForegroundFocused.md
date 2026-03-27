@@ -18,14 +18,14 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the foreground color for focused option list items.
+Define the foreground color for focused items in the option list.
 
 ## Overview
 
-Use this modifier to specify the color for text and icons within the option list when an item has focus (e.g., during keyboard navigation).
+Apply this modifier to change how text and icons appear when you highlight an item. This helps users track their selection during keyboard navigation or when using a crown on watchOS. You pass a `Color` to set a clear visual state for the active element.
 
 ### Parameters
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The focused foreground color to apply. |
+| `value` | `Color` | The color applied to the focused item's foreground. |

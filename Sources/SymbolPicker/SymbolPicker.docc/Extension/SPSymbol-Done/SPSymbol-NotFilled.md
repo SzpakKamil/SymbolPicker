@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The system name for the outlined or standard version of the SF Symbol.
+The system name for the outlined version of the symbol.
 
 ## Overview
 
-The `notFilled` property stores the base system name for the SF Symbol, which typically corresponds to its outlined (stroked) appearance. This name is used when the symbol's variant is set to `.outlined`.
+The `notFilled` property stores the base SF Symbol name. The system uses this name when the symbol's variant is set to `.outlined`.
 
-### Naming Conventions
+### Naming
 
-Unlike the filled variant, the `notFilled` string usually represents the "root" name of the symbol without any fill-related suffixes (e.g., `"star"`, `"heart.bubble"`). 
+This string represents the "root" name without fill-related suffixes, such as `"star"` or `"heart.bubble"`.
 
-### Use Cases
+### Usage
 
-This property is the default representation for symbols in many UI contexts, especially where a lighter, more minimalist visual style is preferred. It is also used by the library to perform a baseline availability check on the current operating system.
+This property provides the default look for symbols in many interfaces. The library also uses it to perform baseline availability checks on the current OS.

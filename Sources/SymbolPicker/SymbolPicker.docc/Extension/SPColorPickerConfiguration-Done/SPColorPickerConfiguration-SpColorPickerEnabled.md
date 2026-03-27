@@ -12,23 +12,19 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Conditionally enables or disables the color picker in the configuration chain.
+Toggles the color picker in the configuration chain.
 
-- Parameter value: A Boolean value that determines whether to include the color picker.
-- Returns: The current configuration instance if `value` is `true`, or `nil` if `value` is `false`.
+- Parameter value: Set to `true` to include the picker.
+- Returns: The configuration if `value` is `true`. Otherwise, returns `nil`.
 
 ## Overview
 
-`spColorPickerEnabled(_:)` is a specialized control method designed for building dynamic configuration chains. It allows you to conditionally include the color picker component within the ``SymbolPicker/SymbolPickerConfiguration``.
+Use `spColorPickerEnabled(_:)` to show or hide the picker based on app state. If you pass `false`, SymbolPicker removes the component from the layout.
 
-### Dynamic Configuration
-
-This method is particularly useful when the visibility of the color picker depends on a user preference or a specific application state. If `false` is passed, the method returns `nil`, which effectively removes the color picker from the overall configuration.
-
-### Usage in Code
+### Example
 
 ```swift
-let isColorAllowed = true // Determined at runtime
+let isColorAllowed = true 
 
 let config = SymbolPickerConfiguration()
     .spColorPicker(

@@ -1,7 +1,5 @@
 # ``SwiftUICore/EnvironmentValues/spAllowedPageTypes``
 
-An array of ``SPPageType`` that specifies which pages (e.g., symbols, emojis) are available to the user.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,16 +18,18 @@ An array of ``SPPageType`` that specifies which pages (e.g., symbols, emojis) ar
     @AutomaticArticleSubheading(disabled)
 }
 
+An array of ``SPPageType`` that sets available pages like symbols or emojis.
+
 ## Overview
 
-A ``SPPageType`` represents the type of content (image, emoji, or symbol) that can be displayed in the ``SymbolPicker``.
+An ``SPPageType`` defines content like images, emojis, or symbols in SymbolPicker.
 
-Use this property to dynamically control which data categories are accessible within the symbol picker. For example, you can limit the picker to only show symbols by setting this value to `[.symbol]`.
+Use this property to control which data categories users can access. For example, setting this value to `[.symbol]` limits the picker to only show symbols.
 
-This property takes effect when you use the ``SymbolPicker/SymbolPicker`` initializers or ``SwiftUICore/View`` view modifiers that do not require an ``SPSelection`` type. It serves as a mechanism for the ``SymbolPicker/SymbolPicker`` to enforce a specific presentation and appearance without overriding the ``SymbolPickerConfiguration`` implementations.
+This property works with SymbolPicker initializers or view modifiers that do not require an ``SPSelection`` type. It enforces a specific look without overriding ``SymbolPickerConfiguration``.
 
-> Important: This property is read-only within the picker's view hierarchy. For customization of the picker's behavior and appearance, it is recommended to use the properties available in ``SymbolPickerConfiguration``.
+> Important: This property is read-only within the picker's hierarchy. Use ``SymbolPickerConfiguration`` to change behavior and appearance.
 
-### End User Impact
+### Impact
 
-This allows developers to customize the picker to only show relevant categories of items, simplifying the interface for the end user based on the context of their task.
+You can restrict the picker to relevant categories. This simplifies the interface for users based on their current task.

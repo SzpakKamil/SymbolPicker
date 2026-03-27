@@ -18,13 +18,13 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Defines the visual style of the presentation.
+You set how the picker appears to the user.
 
 ## Overview
 
-The `DisplayType` enum acts as a high-level configuration for the `SymbolPicker`'s presentation. Instead of manually applying `.sheet`, `.popover`, or `.fullScreenCover` modifiers in your SwiftUI code, you can simply set this property, and the internal bridging layer will apply the correct presentation logic.
+The `DisplayType` enum simplifies cross-platform UI. You choose a single style, and the library maps it to the correct SwiftUI modifier for each device. This saves you from writing manual logic for sheets, popovers, or full-screen covers.
 
-This abstraction ensures that the picker looks and behaves correctly across different platforms (iOS, macOS, iPadOS) and screen sizes.
+Using this abstraction ensures the picker feels native everywhere. It handles the subtle differences between how a sheet behaves on an iPhone versus how it looks on a Mac window.
 
 ## Topics
 

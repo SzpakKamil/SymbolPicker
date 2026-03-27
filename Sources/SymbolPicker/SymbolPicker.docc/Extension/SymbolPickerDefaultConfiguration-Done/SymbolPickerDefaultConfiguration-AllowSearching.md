@@ -18,21 +18,21 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A boolean value that indicates whether searching is permitted within the picker.
+Toggles search in the picker.
 
 ## Overview
 
-By default, this property is set to `true`, allowing users to use a search bar to filter the displayed visual assets by name.
+This property defaults to `true`, giving users a search bar to filter assets by name.
 
 ### Search Behavior
 
-When enabled, the picker integrates with the platform's standard search system. On modern platforms like iOS 26+, it uses enhanced styling and placement within the navigation bar for a more cohesive experience.
+When active, the picker uses the platform's standard search system. On iOS 26+, it integrates into the navigation bar for a native feel.
 
 ### Customization
 
-If your use case only involves a small, predefined set of assets where searching would be redundant, you can disable it.
+Disable search if you provide a small, fixed set of assets.
 
 ```swift
 var config = SymbolPickerDefaultConfiguration()
-config.allowSearching = false // Disable search functionality
+config.allowSearching = false
 ```

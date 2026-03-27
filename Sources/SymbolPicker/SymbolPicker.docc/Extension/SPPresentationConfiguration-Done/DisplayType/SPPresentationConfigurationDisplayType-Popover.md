@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Presents the picker as a popover.
+You show the picker as a floating panel.
 
 ## Overview
 
-When set to `.popover`, the `SymbolPicker` is presented as a floating panel anchored to a specific view. This style typically includes an arrow pointing to the source of the presentation (e.g., a button or a selected symbol).
+The `.popover` style anchors the picker to a specific view. You'll see an arrow pointing to the button or symbol that triggered the presentation. This keeps the picker in context with the element you are modifying.
 
 ### Behavior
-- **iPadOS**: Standard popover behavior; taps outside usually dismiss the popover.
-- **iOS (iPhone)**: Popovers may automatically adapt to sheets in compact environments unless forced.
-- **macOS**: The standard, lightweight presentation style for auxiliary controls.
+- **iPadOS**: You get a standard floating panel. Tapping outside usually dismisses it.
+- **iOS (iPhone)**: The system may turn the popover into a sheet unless you force the style.
+- **macOS**: This is the lightweight default for auxiliary controls.
 
 ### Use Case
-Best for context-specific pickers where the user is modifying a particular element on the screen, rather than performing a global action.
+Use this for pickers that modify a specific on-screen element, like changing an icon in a toolbar.

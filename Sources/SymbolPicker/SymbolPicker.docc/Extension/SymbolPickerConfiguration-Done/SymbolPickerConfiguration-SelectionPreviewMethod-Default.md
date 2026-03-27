@@ -17,10 +17,9 @@
     @AutomaticSeeAlso(disabled)
 }
 
+Returns an ``SymbolPicker/SPSelectionPreviewConfiguration`` for the selection preview.
 
-Returns an ``SymbolPicker/SPSelectionPreviewConfiguration`` for the ``SymbolPicker/SPSelectionPreview`` component.
-
-- Returns: A configuration object for the selection preview component.
+- Returns: A configuration object for the preview component.
 
 ## Default Implementation
 
@@ -28,12 +27,12 @@ Returns an ``SymbolPicker/SPSelectionPreviewConfiguration`` for the ``SymbolPick
 func selectionPreviewConfiguration() -> SPSelectionPreviewConfiguration { return .init() }
 ```
 
-The `selectionPreviewConfiguration()` method defines the appearance and dynamic animation behaviors of the ``SymbolPicker/SPSelectionPreview`` that displays the currently selected asset.
+The `selectionPreviewConfiguration()` method sets the look and animation for the ``SymbolPicker/SPSelectionPreview``. This view shows the user's current choice.
 
 ### Features
 
-- **Corner Radius**: Control the rounding of the preview item.
-- **Scroll Geometry Animations**: On iOS 18+, use ``SPSelectionPreviewConfiguration/calculateOffset`` and ``SPSelectionPreviewConfiguration/calculateScale`` closures to define custom animations driven by scroll movement.
+- **Corner Radius**: Set the rounding for the preview item.
+- **Scroll Animations**: On iOS 18+, use `calculateOffset` and `calculateScale` closures to animate the preview based on scroll movement.
 
 ### Customization
 
@@ -42,7 +41,6 @@ func selectionPreviewConfiguration() -> SPSelectionPreviewConfiguration {
     SPSelectionPreviewConfiguration()
         .spSelectionPreviewCornerRadiusFactor(0.2)
         .spSelectionPreviewCalculateScale { geometry in
-             // Custom scale logic based on scroll geometry
              return 1.2
         }
 }

@@ -12,11 +12,11 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a placement from a raw integer value.
+Creates a placement from an integer.
 
-- Parameter rawValue: The integer value corresponding to a placement case.
-- Returns: A `Placement` instance if the raw value is valid, or `nil` otherwise.
+- Parameter rawValue: The integer for a placement case.
+- Returns: A `Placement` if the value is valid. Otherwise, returns `nil`.
 
 ## Overview
 
-The `init(rawValue:)` initializer allows for the creation of a `Placement` from its underlying integer representation. This is primarily used for persistence or when loading configuration from external data sources.
+The `init(rawValue:)` initializer builds a `Placement` from its integer value. Use this for saving configurations or loading settings from external data.

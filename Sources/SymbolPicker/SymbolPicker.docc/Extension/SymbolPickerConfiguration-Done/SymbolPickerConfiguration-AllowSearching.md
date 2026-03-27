@@ -17,30 +17,21 @@
     @AutomaticSeeAlso(disabled)
 }
 
-
-A boolean flag that enables or disables the search functionality in the picker.
+Toggles search functionality in the picker.
 
 ## Overview
 
-The `allowSearching` property determines whether the search bar is displayed to the user. The implementation of search varies depending on the platform version and the ``SymbolPicker/SPDisplayStyle``.
+The `allowSearching` property determines whether the picker shows a search bar. Behavior depends on the OS version and the ``SymbolPicker/SPDisplayStyle``.
 
-### Behavior by Version and Style
+### Behavior
 
-#### iOS 26.0 and Newer
-- **Compact Style (``SymbolPicker/SPDisplayStyle/compact``)**: If `allowSearching` is set to `false`, the native SwiftUI `.searchable()` modifier is removed from the view hierarchy. This ensures a clean, non-filtered interface.
-- **Detail Style (``SymbolPicker/SPDisplayStyle/detail``)**: Setting this to `false` prevents the ``SymbolPicker/SPSearchBar`` component from being added to the layout via the inset view system.
+#### iOS 26.0+
+- **Compact Style**: Setting this to `false` removes the native `.searchable()` modifier. This keeps the UI clean.
+- **Detail Style**: Setting this to `false` prevents the system from adding the ``SymbolPicker/SPSearchBar`` to the layout.
 
-#### Older OS Versions (Below iOS 26.0)
-Across all styles on older versions, `allowSearching = false` causes the configuration to omit the ``SymbolPicker/SPSearchBar`` from the `insetViewsConfiguration()`.
+#### Older OS Versions
+Across all styles on older systems, `allowSearching = false` causes the configuration to omit the search bar from the inset views.
 
-### Implementation Detail
+### Details
 
-The ``SymbolPicker/SymbolPicker`` view uses this property to dynamically adjust its `body`. For instance, in the native navigation stack integration:
-
-```swift
-if #available(iOS 26.0, *), style.displayStyle == .compact, style.allowSearching {
-    view().searchable(text: $searchText, ...)
-}
-```
-
-By toggling this flag, you can maintain consistent search behavior across all platforms and versions supported by the package.
+The picker view uses this property to adjust its body. For example, it checks this flag before applying the searchable modifier in a navigation stack. Toggling this flag maintains consistent search behavior across all platforms and versions.

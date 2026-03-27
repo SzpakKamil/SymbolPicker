@@ -17,12 +17,12 @@ The emoji character data for the selection.
 
 ## Overview
 
-When the selection ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/emoji``, this property holds the current emoji character and its skin tone configuration (via ``SymbolPicker/SPEmoji``).
+The `emoji` property holds the character data and skin tone configuration for a selection. This property is active when the selection ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/emoji``.
 
 ### Data Access
 
-This property is private(set), ensuring that mutations go through the appropriate ``SymbolPicker/SPSelection/setEmoji(_:)`` method. This ensures that the selection type and other related states are updated correctly.
+Because this property is `private(set)`, you must use ``SymbolPicker/SPSelection/setEmoji(_:)`` to update it. This ensures the selection type and related states stay in sync. Mutations to this property trigger the appropriate UI updates in the picker and your application.
 
 ### Encoding and Decoding
 
-Emoji data is encoded into the `emoji` key during persistence. This allows the emoji to be reconstructed accurately, including any skin tone modifiers applied by the user in the picker interface.
+The library encodes the emoji and its modifiers to the `emoji` key during persistence. This allows for accurate restoration of the user's choice, including any specific skin tone configuration they selected in the picker interface.

@@ -13,21 +13,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Performs a runtime check to verify if the emoji is supported on the current device.
+Checks if the device supports the emoji.
 
 ## Overview
 
-The `isAvailable()` method is a critical safety feature that prevents the application from attempting to render Unicode emojis that are not supported by the device's operating system or the system's emoji font.
+The `isAvailable()` method prevents SymbolPicker from showing Unicode emojis that the operating system or system font cannot render.
 
-### Two-Stage Verification
+### Verification Steps
 
-1. **Unicode Version Check**: This stage compares the emoji's ``SymbolPicker/SPEmoji/version`` against a hardcoded map of OS releases. For example, emojis introduced in Unicode 15.0 require iOS 16.4 or later. This is a fast, preliminary check.
-2. **Render Capability Check**: If the version check passes, the method then uses ``SymbolPicker/SPEmoji/isEmojiRenderable(_:)`` to verify that the system's "AppleColorEmoji" font actually contains valid glyphs for the specific emoji character. This prevents "tofu" boxes (missing glyph placeholders).
+1. **Unicode Version**: Compares the emoji's ``SymbolPicker/SPEmoji/version`` against a map of OS releases. For example, Unicode 15.0 assets require iOS 16.4.
+2. **Render Capability**: If the version check passes, the system uses ``SymbolPicker/SPEmoji/isEmojiRenderable(_:)`` to verify the font contains the glyph. This avoids "tofu" boxes in the UI.
 
-### Combined Status
+### Impact
 
-An emoji is only considered available if both the version check and the render check succeed.
-
-### Filtering Impact
-
-This method is extensively used by the ``SymbolPicker/SPDataManager`` during the asset loading process. By excluding unsupported emojis early, the picker avoids displaying broken or missing glyphs, maintaining a polished user interface across all supported platforms.
+An emoji is available only if both checks pass. SymbolPicker uses this method during loading to remove unsupported assets. This ensures users only see valid icons on their specific platform and OS version.

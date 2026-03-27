@@ -1,6 +1,4 @@
-# ``SymbolPicker/SPDataAsset``
-
-A protocol that defines the requirements for assets that can be displayed and selected within the SymbolPicker, supporting SF Symbols, Emojis, and custom icons.
+# ``SymbolPicker/SPDataAsset-Done/SPDataAsset-Base``
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -15,54 +13,24 @@ A protocol that defines the requirements for assets that can be displayed and se
     @DocumentationExtension(mergeBehavior: override)
 }
 
-@Options {
-    @AutomaticSeeAlso(disabled)
-    @AutomaticArticleSubheading(disabled)
-}
+The foundation for all SymbolPicker assets.
 
 ## Overview
 
-The `SPDataAsset` protocol serves as the fundamental abstraction for all selectable assets within the SymbolPicker package. It provides a standardized interface that allows the system to treat disparate types—such as SF Symbols, Emojis, and custom icons—uniformly for fetching, searching, and UI rendering.
+The `SPDataAsset` protocol defines the core requirements for any asset shown in SymbolPicker. It standardizes how the system fetches, searches, and renders symbols, emojis, and images.
 
-By conforming to `SPDataAsset`, a type integrates into the package's core architecture, enabling:
-- **Generic Fetching**: The ``SymbolPicker/SPDataManager`` can load assets from localized JSON resources in the app bundle using the ``SymbolPicker/SPDataAsset/filePrefix`` and ``SymbolPicker/SPDataAsset/fetchAssets(locale:)`` requirements.
-- **Unified Search**: Search logic is standardized through the ``SymbolPicker/SPDataAsset/matches(_:)`` method, which utilizes properties like ``annotation``, ``category``, and ``tags`` to provide a responsive and relevant user experience.
-- **Availability Checking**: The ``SymbolPicker/SPDataAsset/isAvailable()`` method ensures that the UI only displays assets that are supported by the user's current operating system and hardware.
-- **Visual Representation**: The ``SymbolPicker/SPDataAsset/asView()`` method allows each asset type to define its own SwiftUI rendering logic while remaining compatible with generic grid and list layouts.
+### Key Requirements
+
+- **Metadata**: Every asset has an annotation, category, and tags for search.
+- **Loading**: Assets load from bundle JSON files using a specific file prefix.
+- **Platform Support**: The system checks if an asset works on the current OS before showing it.
+- **SwiftUI**: Each asset must provide a view for the picker grid.
 
 ### Conformance
 
-To implement `SPDataAsset`, a type must be `Sendable`, `Hashable`, `Equatable`, `Identifiable`, and `Codable`. This ensures that assets can be safely passed between threads (especially important for background fetching in ``SPDataManager``), uniquely identified in SwiftUI collections, and persisted or transmitted as needed.
+To follow `SPDataAsset`, a type must be `Sendable`, `Hashable`, `Equatable`, `Identifiable`, and `Codable`. This ensures the data is safe, unique, and easy to save.
 
-Existing conformances include:
-- ``SymbolPicker/SPSymbol``: Represents Apple's SF Symbols.
-- ``SymbolPicker/SPEmoji``: Represents Unicode emojis with support for skin tone variants.
-
-> Note: While ``SymbolPicker/SPImage`` shares many properties with `SPDataAsset`, it is handled separately as it represents user-selected photos from the library (via PhotosPicker) rather than bundle-provided resources.
-
-## Topics
-
-### Filtering & Categorization Properties
-Metadata properties used for grouping and searching assets.
-
-- ``SymbolPicker/SPDataAsset/annotation``
-- ``SymbolPicker/SPDataAsset/category``
-- ``SymbolPicker/SPDataAsset/subcategory``
-- ``SymbolPicker/SPDataAsset/tags``
-
-### Fetching Properties & Methods
-Static requirements and methods for loading assets from resources.
-
-- ``SymbolPicker/SPDataAsset/filePrefix``
-- ``SymbolPicker/SPDataAsset/fetchAssets(locale:)``
-- ``SymbolPicker/SPDataAsset/matches(_:)``
-- ``SymbolPicker/SPDataAsset/isAvailable()``
-- ``SymbolPicker/SPDataAsset/isDuplicate(of:)``
-- ``SymbolPicker/SPDataAsset/isSelection(of:)``
-
-
-### View Representation
-Requirements for rendering the asset in the user interface.
-
-- ``SymbolPicker/SPDataAsset/asView()``
-- ``SymbolPicker/SPDataAsset/Body``
+Existing models:
+- ``SymbolPicker/SPSymbol``: Apple's SF Symbols.
+- ``SymbolPicker/SPEmoji``: Unicode emojis with skin tone support.
+- ``SymbolPicker/SPImage``: Custom images.

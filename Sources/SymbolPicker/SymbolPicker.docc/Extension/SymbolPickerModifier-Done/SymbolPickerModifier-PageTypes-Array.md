@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Configures the supported asset categories and the default selected category using an array.
+Configure asset categories and the default selection using an array.
 
 ## Overview
 
-Use this modifier to restrict the presented picker to specific types of assets by providing an array of supported categories.
+Restrict the picker to specific asset categories by providing an array of supported types. This modifier also sets the category the picker displays on launch.
 
 ### Example
 
-Restrict the picker to only Emojis:
+Limit the picker to Emojis only:
 
 ```swift
 Text("Select Icon")
@@ -39,4 +39,4 @@ Text("Select Icon")
 | Name | Type | Description |
 | :--- | :--- | :--- |
 | `types` | `[SPPageType]` | An array of supported page types. |
-| `defaultType` | ``SymbolPicker/SPPageType`` | The page type to display initially. |
+| `defaultType` | ``SymbolPicker/SPPageType`` | The initial page type. |

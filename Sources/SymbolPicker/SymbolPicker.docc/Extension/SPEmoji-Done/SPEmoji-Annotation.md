@@ -13,12 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A localized, descriptive name for the emoji.
+A descriptive name for the emoji.
 
 ## Overview
 
-The `annotation` property provides a human-readable label for the emoji (e.g., `"Grinning Face"` or `"Uśmiechnięta twarz"`). This description is loaded from locale-specific JSON resources and is a primary target for the search engine.
+The `annotation` property provides a localized label for the emoji, such as "Grinning Face." SymbolPicker loads these descriptions from JSON files and uses them for search queries.
 
 ### Accessibility
 
-This property is also used as the default accessibility label in ``SymbolPicker/SPEmojiView``, ensuring that the emoji is correctly described to users of assistive technologies like VoiceOver.
+The system uses this property as the default accessibility label in ``SymbolPicker/SPEmojiView``. This ensures VoiceOver correctly describes emojis to users.

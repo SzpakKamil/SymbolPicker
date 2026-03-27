@@ -13,17 +13,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The primary initializer for creating a fully-specified emoji instance.
+Creates an emoji instance.
 
 ## Overview
 
-The `init(id:version:...)` initializer provides complete control over all aspects of the `SPEmoji` model. It is primarily used by the `Codable` implementation when decoding the internal emoji catalogs.
+The `init(id:version:...)` initializer sets all properties for an `SPEmoji` model. The system uses this method when decoding the internal emoji catalogs.
 
-### Key Parameters
+### Parameters
 
 - **`id`**: The Unicode hexcode string.
-- **`version`**: The Unicode standard release.
-- **`category` & `subcategory`**: Organization properties for the picker interface.
-- **`annotation` & `tags`**: Searchable and descriptive metadata.
-- **`skins`**: A list of supported variations.
-- **`tone`**: The initial variation state.
+- **`version`**: The Unicode release version.
+- **`category` and `subcategory`**: Organization labels for the picker interface.
+- **`annotation` and `tags`**: Text metadata for search.
+- **`skins`**: A list of skin tone variations.
+- **`tone`**: The initial skin tone state.

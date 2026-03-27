@@ -12,17 +12,19 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The visibility of the sheet's drag indicator.
+You toggle the visibility of the sheet's drag handle.
 
 ## Overview
 
-The `presentationDragIndicator` property controls the small horizontal handle at the top of a sheet, which indicates that it can be resized or dismissed via a swipe. This setting is primarily applicable to iOS and iPadOS sheet presentations.
+Adjust `presentationDragIndicator` to show or hide the horizontal handle at the top of the sheet. This handle signals to you that the sheet is resizable or dismissible with a swipe. 
+
+While `.automatic` lets the system decide, you might hide the indicator for a more immersive, full-screen look. Conversely, showing it on a small sheet helps users understand they can expand the view to see more symbols at once.
 
 ### Values
 
-- **visible**: Always show the drag indicator.
-- **hidden**: Always hide the drag indicator.
-- **automatic**: Let the system decide when to show the indicator.
+- **visible**: You always show the drag indicator.
+- **hidden**: You always hide the drag indicator.
+- **automatic**: You let the system decide when to show the handle.
 
 ### Usage in Code
 

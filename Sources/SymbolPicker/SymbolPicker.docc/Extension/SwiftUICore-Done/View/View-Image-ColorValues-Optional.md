@@ -1,6 +1,5 @@
 # ``SwiftUICore/View/symbolPicker(isPresented:image:colorValues:configuration:)-(_,Binding<SPImage?>,_,_)``
 
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "16.0")
@@ -17,9 +16,11 @@
 }
 
 ## Overview
-Presents a symbol picker that allows the user to select a custom image and a color, which are synchronized with the provided bindings. This overload synchronizes with an array of color values (`[Double]`). The image binding is optional.
 
-## Example Usage
+Presents a symbol picker for selecting a custom image and a color. This version binds to an optional image and an array of RGBA doubles (`[Double]`).
+
+### Example Usage
+
 ```swift
 struct MyView: View {
     @State private var isPresented = false
@@ -38,3 +39,7 @@ struct MyView: View {
     }
 }
 ```
+
+### Details
+
+The `image` binding can be `nil`. The picker updates the `colorValues` array as users select new tints. This overload is ideal for data models that store color components as raw numbers.

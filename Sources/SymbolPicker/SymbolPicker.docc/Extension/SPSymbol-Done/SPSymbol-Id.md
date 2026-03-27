@@ -13,19 +13,19 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A unique composite identifier ensuring stability in SwiftUI lists and grids.
+A unique identifier for the symbol.
 
 ## Overview
 
-The `id` property is a unique string that identifies an ``SymbolPicker/SPSymbol`` instance. It is primarily used for conformance to the `Identifiable` protocol, which is essential for efficient rendering in SwiftUI collections like `List`, `LazyVGrid`, and `ForEach`.
+The `id` property identifies an ``SymbolPicker/SPSymbol`` instance. It allows SymbolPicker to use symbols in SwiftUI `List`, `LazyVGrid`, and `ForEach` containers efficiently.
 
-### Composite Construction
+### Construction
 
-To ensure uniqueness across the entire SF Symbols library, the identifier is constructed as a composite string in the full initializer:
+The system builds this identifier as a composite string in the full initializer:
 `filledName + notFilled + category`
 
-This combination guarantees that symbols with similar names but different categories or variant mappings are treated as distinct entities.
+This ensures every symbol is unique, even if symbols share names across different categories or variant mappings.
 
-### Stability and Performance
+### Performance
 
-By providing a stable and unique identifier, `SPSymbol` allows SwiftUI to track identity across updates, minimizing unnecessary view re-renders and ensuring smooth animations during filtering or searching.
+A stable ID lets SwiftUI track items during updates. This reduces re-renders and keeps animations smooth when you filter or search for icons.

@@ -6,8 +6,8 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The watchOS platform with an optional version number.
+The watchOS platform with an optional version.
 
 ## Overview
 
-The `watchOS` case represents the Apple Watch platform. It can store an optional integer representing the major OS version (e.g., 8, 9, 10), which allows the library to perform version-specific feature detection.
+The `watchOS` case represents the Apple Watch platform. It stores an optional integer for the major OS version, such as 8, 9, or 10. Use this data to perform version-specific feature detection within the library.

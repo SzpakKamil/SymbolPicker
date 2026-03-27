@@ -17,15 +17,17 @@
     @AutomaticSeeAlso(disabled)
 }
 
-A convenience computed property that returns the integrated color selection tool configuration.
+Accesses the color selection tool configuration.
 
 ## Overview
 
-The `colorPicker` property provides a shortened syntax for accessing the results of ``SymbolPicker/SymbolPickerConfiguration/colorPickerConfiguration()``.
+The `colorPicker` property offers a direct way to access results from ``SymbolPicker/SymbolPickerConfiguration/colorPickerConfiguration()``.
 
 ### Implementation
 
-It is defined as a simple wrapper:
+It works as a simple wrapper:
 ```swift
 var colorPicker: SPColorPickerConfiguration? { colorPickerConfiguration() }
 ```
+
+Use this property to check if the color picker is active or to read its current settings, such as the available color palette.

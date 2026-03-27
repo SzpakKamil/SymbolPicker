@@ -13,19 +13,18 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Indicates that the selection is a pure color value.
+A selection type for color values.
 
 ## Overview
 
-When the `type` of an ``SymbolPicker/SPSelection`` is set to `.color`, the selection logic uses the ``SymbolPicker/SPSelection/color`` property. This allows the picker to function as a pure color selection tool.
+Setting the `type` of an ``SymbolPicker/SPSelection`` to `.color` activates the ``SymbolPicker/SPSelection/color`` property. This turns the picker into a color selection tool.
 
 ### Data Handling
 
-In this state:
-- The `color` property contains the active color (e.g., `ColorKit/CKColor`).
-- The `asView()` method renders the color as a simple circular fill.
-- Pure color selections are encoded directly to ensure persistence.
+- The `color` property holds the active `CKColor`.
+- The `asView()` method renders the color as a circle.
+- The system encodes color selections directly for persistence.
 
 ### UI Integration
 
-The `SymbolPicker` provides a color selection interface when this type is active, allowing users to choose from predefined palettes or use a custom color picker.
+SymbolPicker displays a color selection interface for this type. Users choose from palettes or open a custom color picker.

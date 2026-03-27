@@ -13,12 +13,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A minimal presentation style for the `SymbolPicker`.
+A minimal style for the `SymbolPicker`.
 
 ## Overview
 
-The `plain` style is the most basic presentation option, stripping away most of the picker's custom styling to provide a clean and simple interface. It is ideal for:
+The `plain` style removes most custom decorations to provide a clean interface. It works well when you want to embed the picker in existing UI structures. You can drop this style into a SwiftUI `List` or `Grid` without clashing with your app's design.
 
-- **Custom Lists**: Integrating the picker directly into a SwiftUI list or grid without additional decorative elements.
-- **Embedded Pickers**: Placing the picker as a small component inside a larger, complex dashboard or settings screen.
-- **Developer Extensions**: Using the picker as a foundation for your own custom UI themes.
+### Ideal Uses
+
+- **Custom Lists**: You integrate the picker into a standard SwiftUI list.
+- **Embedded Components**: You place the picker inside a complex dashboard.
+- **Custom Themes**: You use the picker as a base for your own UI styling.

@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A granular grouping for further organizational detail within a category.
+A granular group within a main category.
 
 ## Overview
 
-The `subcategory` property offers a more specific classification than the top-level ``SymbolPicker/SPSymbol/category``. For example, within the "Weather" category, a symbol might have a subcategory like "Cloudy" or "Precipitation".
+The `subcategory` property provides a specific classification beyond the top-level ``SymbolPicker/SPSymbol/category``. For example, the "Weather" category uses subcategories like "Cloudy" or "Precipitation."
 
-### Fine-Grained Organization
+### Organization
 
-Subcategories allow the `SymbolPicker` to provide a deeper level of organization, which is particularly useful when dealing with a large number of symbols in a single category. It enables more precise filtering and a more refined browsing experience.
+Subcategories help you organize large numbers of symbols. They enable precise filtering and a refined browsing experience. The picker uses this metadata to group related icons, making it easier for users to navigate the library.
 
-### Metadata Enrichment
+### Metadata
 
-Together with `category` and `tags`, `subcategory` forms part of the rich metadata that makes `SPSymbol` more than just a simple wrapper around a system name.
+Combined with `category` and `tags`, `subcategory` builds the rich metadata for `SPSymbol`. This information turns a simple system name into a searchable and organized asset.

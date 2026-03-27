@@ -13,22 +13,21 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The width of the component.
+The width of a component.
 
 ## Overview
 
-The `width` attribute is a fundamental layout property that defines the horizontal size of a target component within the `SymbolPicker`.
+The `width` attribute defines the horizontal size of a target component within `SymbolPicker`.
 
 ### Layout Role
 
-This attribute is primarily used by:
-- **Symbol and Emoji Cells**: Controls the horizontal frame size, ensuring that icons are rendered at a consistent width within grid layouts.
-- **Color Picker Swatches**: Determines the width of individual color selection elements.
+- **Symbol and Emoji Cells**: This attribute sets the horizontal frame size to ensure icons match in width across grid layouts.
+- **Color Picker Swatches**: This attribute determines the width of individual color selection elements.
 
 ### Grid Calculation
 
-In the `SPColorPicker` and `SPOptionList`, the `width` attribute is used by the system to calculate how many columns can fit within the available screen width. Adjusting this value can effectively change the density of the grid.
+`SPColorPicker` and `SPOptionList` use the `width` attribute to calculate how many columns fit within the available screen width. You can change grid density by adjusting this value.
 
 ### Technical Context
 
-Width is typically applied using SwiftUI's `.frame(width: value)` modifier. If no width is specified in the configuration, the system defaults to a value that balances visibility with content density for the current dynamic type size.
+The system applies width using the SwiftUI `.frame(width: value)` modifier. If you omit a width, the picker balances visibility and density for the current dynamic type size.

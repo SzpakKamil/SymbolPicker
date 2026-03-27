@@ -13,19 +13,19 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Returns a SwiftUI view that renders the image asset.
+Returns a SwiftUI view that shows the image.
 
 ## Overview
 
-The `asView()` method is a `@MainActor` `@ViewBuilder` that resolves and returns the appropriate rendering component for the `SPImage` instance. It encapsulates the complex logic of asynchronous loading, aspect-ratio correction, and non-destructive transformations.
+The `asView()` method creates a rendering component for an `SPImage`. It handles background loading, keeps the correct aspect ratio, and applies your layout changes.
 
-### Rendering and Layout Workflow
+### Rendering Steps
 
-The method returns an ``SymbolPicker/SPImageView``, which orchestrates several key layout steps:
-1. **Asynchronous Disk Loading**: Uses `AsyncImage` to load the pixel data from the ``SymbolPicker/SPImage/localURL``. 
-2. **Container Scaling**: Utilizes `GeometryReader` to determine the available display area and calculates an optimal scale that fills the container without distorting the asset's intrinsic aspect ratio (derived from ``SymbolPicker/SPImage/width`` and ``SymbolPicker/SPImage/height``).
-3. **Interactive Transformations**: Applies the user-defined ``SymbolPicker/SPImage/zoom`` and ``SymbolPicker/SPImage/offsetX`` / ``SymbolPicker/SPImage/offsetY`` as SwiftUI offsets and scales. 
+The method returns an ``SymbolPicker/SPImageView`` that follows these steps:
+1. **Load from Disk**: The view uses `AsyncImage` to pull pixel data from the ``SymbolPicker/SPImage/localURL``. 
+2. **Scale to Fit**: `GeometryReader` finds the available space. The view then calculates a scale that fills the area without stretching the image. It uses the `width` and `height` properties to find the right ratio.
+3. **Apply Changes**: The view applies your ``SymbolPicker/SPImage/zoom`` and ``SymbolPicker/SPImage/offsetX`` / ``SymbolPicker/SPImage/offsetY`` settings.
 
-### Performance and Threading
+### Performance
 
-As a `@MainActor` method, `asView()` is safe for direct use in SwiftUI's body property. The underlying heavy lifting—specifically the image decoding and file I/O—is handled by system-level background threads within `AsyncImage`, ensuring that the `SymbolPicker` grid remains fluid and responsive.
+Since `asView()` runs on the `@MainActor`, you can use it directly in your SwiftUI `body`. The system handles heavy tasks like image decoding and file reading on background threads. This keeps the `SymbolPicker` grid smooth and responsive.

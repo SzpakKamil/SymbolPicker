@@ -17,17 +17,17 @@ Checks if the underlying asset is available for the current system.
 
 ## Overview
 
-The `isContentAvailable()` method performs a platform-specific check to ensure that the asset currently assigned to the selection can be rendered on the host device.
+Check if the selected asset is available on the current system. The `isContentAvailable()` method performs platform-specific checks to ensure the host device can render the asset.
 
 ### Availability Logic
 
-The check depends on the selection ``SymbolPicker/SPSelection/type``:
+The check varies by selection ``SymbolPicker/SPSelection/type``:
 
-- **Symbol**: Checks if the SF Symbol names are supported by the current OS version.
-- **Emoji**: Checks if the emoji character can be rendered on the system.
-- **Image**: Checks if the custom image asset exists and is accessible.
+- **Symbol**: Verifies OS support for the SF Symbol names.
+- **Emoji**: Checks if the system can render the character.
+- **Image**: Ensures the custom image asset exists and is accessible.
 - **Color**: Pure colors are always considered available.
 
-### Usage in SymbolPicker
+### Usage in Library
 
-This method is crucial for ensuring that the `SymbolPicker` does not display broken or unsupported content to the user. It allows the library to filter out assets that were added in newer OS versions but are being viewed on older devices.
+This check prevents `SymbolPicker` from showing broken content on older devices. It filters out assets that were added in newer OS versions but are being viewed on incompatible systems. This ensures a stable user experience across different generations of Apple hardware.

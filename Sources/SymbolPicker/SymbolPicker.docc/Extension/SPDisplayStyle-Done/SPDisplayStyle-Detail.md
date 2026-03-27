@@ -17,8 +17,10 @@ A comprehensive presentation style for the `SymbolPicker`.
 
 ## Overview
 
-The `detail` style offers a rich visual interface with larger previews and additional metadata where available. It is well-suited for situations where the choice of icon or color is a primary task, such as:
+The `detail` style shows large previews and metadata for each symbol. You should use this style when you want users to focus on visual nuances or branding. It fills the screen with rich UI elements that help users make informed choices. This style fits iPad and macOS apps perfectly because it takes advantage of the extra screen space.
 
-- **Profile Customization**: Selecting a main avatar icon or branding color.
-- **Large Displays**: Presenting the picker on iPad or macOS, where more space is available for rich UI elements.
-- **Onboarding Screens**: Guiding users through a series of significant visual choices.
+### Use Cases
+
+- **Profile Customization**: Users select main avatar icons or branding colors.
+- **Large Displays**: You present the picker on iPad or macOS.
+- **Onboarding Screens**: You guide users through significant visual choices.

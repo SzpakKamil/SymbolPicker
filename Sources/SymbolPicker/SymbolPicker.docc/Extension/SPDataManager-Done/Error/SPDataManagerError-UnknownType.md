@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Indicates that an operation was requested for a data type that the `SPDataManager` does not recognize or support.
+An error for unsupported data types.
 
-- Parameter type: The string name of the unrecognized type.
+- Parameter type: The name of the unrecognized type.
 
 ## Overview
 
-The `unknownType` error is used as a safety mechanism to prevent the system from attempting to load resources for asset types that have not been properly defined or registered within the system.
+The `unknownType` error acts as a safety tool. It stops the system from loading resources for asset types that lack a proper definition or registration.
 
-### When it occurs
+### Causes
 
-This error typically happens when:
-- A generic type is passed to ``SymbolPicker/SPDataManager/fetch(type:)`` or ``SymbolPicker/SPDataManager/search(_:for:)`` that does not have a valid ``SymbolPicker/SPDataAsset/filePrefix``.
-- A new asset type has been added to the package but its resource loading logic hasn't been fully implemented.
+This error happens when:
+- You pass a generic type to ``SymbolPicker/SPDataManager/fetch(type:)`` or ``SymbolPicker/SPDataManager/search(_:for:)`` that lacks a valid ``SymbolPicker/SPDataAsset/filePrefix``.
+- You add a new asset type but do not implement its resource loading logic.

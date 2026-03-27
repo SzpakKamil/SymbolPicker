@@ -13,15 +13,15 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A unique identifier for the category, used by SwiftUI to track changes in asset groups.
+A unique identifier for the category.
 
 ## Overview
 
-The `id` property is a requirement of the `Identifiable` protocol. In the case of `SPCategory`, it is a computed property that simply returns the value of the ``SymbolPicker/SPCategory/category`` name.
+The `id` property fulfills the `Identifiable` protocol. For `SPCategory`, this computed property returns the ``SymbolPicker/SPCategory/category`` name.
 
-### Importance for UI Performance
+### Performance
 
-Since `SPCategory` objects are often used within SwiftUI's `ForEach` and list components, having a stable and unique `id` is crucial for:
-- Efficient diffing and animated UI updates.
-- Maintaining scroll position in long lists.
-- Managing focus state in complex layouts.
+SwiftUI uses stable IDs to track asset groups in `ForEach` and list components. This enables:
+- Fast view updates and animations.
+- Steady scroll positions in long lists.
+- Reliable focus management in complex layouts.

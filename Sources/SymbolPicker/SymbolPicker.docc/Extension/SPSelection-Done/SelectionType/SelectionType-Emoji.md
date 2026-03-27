@@ -13,19 +13,18 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Indicates that the selection is a standard emoji character.
+A selection type for emoji characters.
 
 ## Overview
 
-When the `type` of an ``SymbolPicker/SPSelection`` is set to `.emoji`, the selection logic uses the ``SymbolPicker/SPSelection/emoji`` property. This type allows for including native emoji characters in the selection picker.
+Setting the `type` of an ``SymbolPicker/SPSelection`` to `.emoji` activates the ``SymbolPicker/SPSelection/emoji`` property. Use this type to include native emojis in the picker.
 
 ### Data Handling
 
-In this state:
-- The `emoji` property contains the active character and optional skin tone (e.g., ``SymbolPicker/SPEmoji``).
-- The `asView()` method renders the emoji using its specialized view (e.g., ``SymbolPicker/SPEmojiView``).
-- Emoji selections can be encoded and decoded while maintaining skin tone information.
+- The `emoji` property holds the character and skin tone via ``SymbolPicker/SPEmoji``.
+- The `asView()` method uses ``SymbolPicker/SPEmojiView`` for rendering.
+- The system preserves skin tone data during encoding and decoding.
 
 ### UI Integration
 
-The `SymbolPicker` provides an emoji browser when this type is active, presenting categories and skin tone options to the user.
+When this type is active, SymbolPicker shows the emoji browser. Users can navigate categories and pick skin tones through this view.

@@ -18,19 +18,17 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-The asset category that is initially displayed when the picker appears.
+The initial asset category.
 
 ## Overview
 
-The `defaultType` property determines the active page (category) when the picker is first presented. By default, it is set to ``SymbolPicker/SPPageType/symbol``, showcasing SF Symbols initially.
+The `defaultType` property sets the active page when the picker opens. By default, it uses ``SymbolPicker/SPPageType/symbol`` to show SF Symbols first.
 
-### Selection Logic
+### Logic
 
-If your picker is bound to a specific asset type (like ``SymbolPicker/SPEmoji``), the picker will automatically switch to the relevant category upon appearance, regardless of this default. However, for generic pickers, this property controls the starting category.
+If you bind the picker to a specific asset type like ``SymbolPicker/SPEmoji``, the interface switches to that category automatically. For generic pickers, this property controls the starting tab.
 
 ### Customization
-
-Change the default page to focus on a different asset type first.
 
 ```swift
 var config = SymbolPickerDefaultConfiguration()

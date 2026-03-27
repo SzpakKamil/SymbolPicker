@@ -17,17 +17,16 @@
     @AutomaticSeeAlso(disabled)
 }
 
-
-Defines the ``SymbolPicker/SPSymbol/Variant`` rendering variant used by default in the picker.
+The default rendering style for SF Symbols.
 
 ## Overview
 
-The `symbolVariant` property dictates whether SF Symbols are displayed in their filled or outlined form by default.
+The `symbolVariant` property sets whether SF Symbols appear in their filled or outlined form by default.
 
-### Available Variants
+### Variants
 
-- **``SymbolPicker/SPSymbol/Variant/filled``**: Uses the filled version of the SF Symbol (e.g., `star.fill`).
-- **``SymbolPicker/SPSymbol/Variant/outlined``**: Uses the standard outlined version of the SF Symbol (e.g., `star`).
+- **`.filled`**: Shows the solid version, such as `star.fill`.
+- **`.outlined`**: Shows the stroked version, such as `star`.
 
 ### Customization
 

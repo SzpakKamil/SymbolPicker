@@ -12,11 +12,13 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The corner radius of the SymbolPicker's presentation container.
+You set the roundness of the picker's corners.
 
 ## Overview
 
-The `presentationCornerRadius` property allows you to customize the rounded corners of the picker's sheet or popover. If set to `nil`, the system's default corner radius for that platform will be used.
+Use `presentationCornerRadius` to change the curve of the sheet or popover edges. This helps you match the SymbolPicker's look to your app's specific design language.
+
+If you pass `nil`, the system restores its default radius for the current platform. Setting a custom value like 24 creates a softer, more modern appearance, while a smaller value makes the container look sharper.
 
 ### Usage in Code
 

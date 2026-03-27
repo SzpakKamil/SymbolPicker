@@ -13,19 +13,19 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a new dismiss button instance.
+You create a button that closes the SymbolPicker.
 
 ## Overview
 
-The `init()` initializer creates an `SPDismissButton` that resolves its appearance and behavior from the environment.
+The `init()` initializer creates an `SPDismissButton` that handles its own appearance and logic based on the environment.
 
 ### Dismissal Binding
 
-Upon initialization, the button binds to the `dismiss` action provided by the SwiftUI environment. This ensures that the button correctly closes the current presentation context, regardless of how the `SymbolPicker` is presented (e.g., as a sheet, popover, or full-screen cover).
+The button automatically finds the `dismiss` action in the SwiftUI environment. It ensures the picker closes correctly whether you presented it as a sheet, popover, or full-screen cover.
 
 ### Automatic Style Resolution
 
-The button automatically determines the most appropriate visual representation based on the host platform and OS version. This includes:
-- **Style**: Using `.glass` on modern platforms or standard system buttons on legacy ones.
-- **Iconography**: Selecting the appropriate "Close" icon (e.g., `xmark` vs `xmark.circle.fill`).
-- **Labeling**: Applying localized strings for both the visual label and accessibility descriptions.
+The button chooses the best look for the current device and OS version:
+- **Style**: It uses modern glass styles on new platforms and standard buttons on older ones.
+- **Iconography**: It picks the right "Close" icon, like a circle-filled "X".
+- **Labeling**: It applies localized text for both visual labels and accessibility descriptions.

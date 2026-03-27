@@ -13,26 +13,26 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Returns a SwiftUI `AnyView` representation of the current selection.
+Returns a SwiftUI view for the selection.
 
-- Returns: A type-erased `AnyView` that renders the current symbol, emoji, image, or color.
+- Returns: An `AnyView` that renders the symbol, emoji, image, or color.
 
 ## Overview
 
-The `asView()` method is the primary way to render a selection within the `SymbolPicker` package. It abstracts the complexity of different selection types, allowing preview components like ``SymbolPicker/SPSelectionPreview`` to display any selection without knowing its specific type.
+The `asView()` method is the main rendering tool in the SymbolPicker package. It handles different selection types, letting components like ``SymbolPicker/SPSelectionPreview`` display user choices without knowing their underlying model.
 
-### UI Rendering Logic
+### Rendering Logic
 
-The implementation of `asView()` typically switches over the internal selection type to provide the appropriate visual representation:
-- **Symbols**: Renders the symbol using its own `asView()` method (e.g., ``SymbolPicker/SPSymbol/asView()``).
-- **Emojis**: Renders the emoji using an ``SymbolPicker/SPEmojiView``.
-- **Images**: Renders the custom photo using an ``SymbolPicker/SPImageView``.
-- **Colors**: Renders a simple `Circle` filled with the selection's color.
+The implementation switches over the selection type:
+- **Symbols**: Calls ``SymbolPicker/SPSymbol/asView()``.
+- **Emojis**: Initializes an ``SymbolPicker/SPEmojiView``.
+- **Images**: Initializes an ``SymbolPicker/SPImageView``.
+- **Colors**: Draws a `Circle` filled with the selection color.
 
-### Main Actor Safety
+### Thread Safety
 
-Because `asView()` creates SwiftUI views, it is decorated with `@MainActor`. This ensures that view creation always occurs on the main thread, maintaining UI thread safety and consistency.
+The method uses the `@MainActor` attribute. This ensures all view creation happens on the main thread for SwiftUI compatibility.
 
-### Usage in Previews
+### Usage
 
-This method is extensively used in the selection preview area of the picker. By calling `asView()` on the current selection, the preview component can dynamically update its content whenever the user makes a new choice, regardless of whether that choice is a symbol or a custom photo.
+The selection preview area calls this method whenever the user makes a choice. It allows the UI to update instantly, regardless of the asset type.

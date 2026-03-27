@@ -18,11 +18,11 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets whether the search bar is visible in the presented picker.
+Toggle the search bar visibility in the presented picker.
 
 ## Overview
 
-Use this modifier to show or hide the search bar. When disabled, users must browse the symbol grid without filtering by keyword.
+Show or hide the search bar. If you disable searching, users must browse the symbol grid without keyword filtering.
 
 ### Example
 
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `condition` | `Bool` | A Boolean value that indicates whether the search bar is shown. |
+| `condition` | `Bool` | Toggle for search bar visibility. |

@@ -13,12 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The top-level group to which the emoji belongs.
+The top-level group for the emoji.
 
 ## Overview
 
-The `category` property defines the primary grouping for the emoji (e.g., `"Smileys & Emotion"`, `"Animals & Nature"`, `"Travel & Places"`). It is used by the ``SymbolPicker/SPDataManager`` to organize the emoji library into logical sections for navigation.
+The `category` property sets the broad section for an emoji, such as `"Smileys & Emotion"`, `"Animals & Nature"`, or `"Travel & Places"`.
 
 ### Organization
 
-Categories allow the `SymbolPicker` to provide a tabbed or paginated interface where users can quickly switch between broad groups of emojis.
+``SymbolPicker/SPDataManager`` uses these categories to sort the library. This allows the picker to show a paginated layout where you can switch between sections. Each category appears as a distinct group in the navigation menu, making it easy to find assets without scrolling through the whole library.

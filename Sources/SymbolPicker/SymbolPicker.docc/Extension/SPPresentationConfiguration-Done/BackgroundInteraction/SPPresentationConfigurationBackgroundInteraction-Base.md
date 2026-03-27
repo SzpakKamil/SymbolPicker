@@ -18,13 +18,18 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Determines how the user can interact with the view behind a presentation.
+Control user interaction with the view behind a presentation.
 
 ## Overview
 
-The `BackgroundInteraction` enum defines the behavior of the background content when a sheet or popover is presented. It corresponds to SwiftUI's `PresentationBackgroundInteraction` type, providing a platform-agnostic way to configure interaction.
+The `BackgroundInteraction` enum governs how users reach the background when the picker appears. It mirrors SwiftUI's `PresentationBackgroundInteraction` while remaining platform-agnostic. 
 
-Use this configuration to allow users to interact with the underlying view while a presentation is active, or to restrict interaction to the presentation itself. This is particularly useful for creating non-modal experiences, such as a floating tool palette or a contextual inspector, where the user might need to reference or manipulate the content behind the sheet.
+You choose whether the picker blocks interaction or allows it. This choice transforms the user experience. A blocking interaction creates a focused selection task. Allowing interaction turns the picker into a tool palette. Users can scroll the main view, tap buttons, and edit content while the symbol library stays open for reference.
+
+### Non-modal Interfaces
+Use these settings for inspectors and tool panels. 
+
+When you allow background interaction, you create a seamless flow between the main content and the picker. The picker acts as a companion. This helps when the user needs to try different symbols quickly to see how they look in context.
 
 ## Topics
 

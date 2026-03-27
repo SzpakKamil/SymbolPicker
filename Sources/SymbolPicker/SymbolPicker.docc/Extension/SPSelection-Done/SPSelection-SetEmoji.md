@@ -19,15 +19,12 @@ Updates the selection to a standard emoji character.
 
 ## Overview
 
-The `setEmoji(_:)` method switches the current ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/emoji`` and updates the underlying emoji data.
+Update the current selection to an emoji character. The `setEmoji(_:)` method switches the selection ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/emoji`` and refreshes the underlying data.
 
 ### Mutating State
 
-When this method is called:
-- The ``SymbolPicker/SPSelection/type`` is set to `.emoji`.
-- The ``SymbolPicker/SPSelection/emoji`` property is updated with the new character and its skin tone configuration.
-- Any existing symbol or custom image data is cleared by setting those properties to `nil`.
+Calling this method clears any existing symbol or custom image data by setting those properties to `nil`. It updates the ``SymbolPicker/SPSelection/emoji`` property with the new character and its skin tone configuration.
 
 ### UI Feedback
 
-This method is commonly called by the `SymbolPicker` when a user interacts with the emoji browser, ensuring that the selection binding in your app is updated with the correct emoji character.
+`SymbolPicker` calls this method when a user picks an emoji from the browser. This ensures the selection binding in your app stays in sync with the user's choice.

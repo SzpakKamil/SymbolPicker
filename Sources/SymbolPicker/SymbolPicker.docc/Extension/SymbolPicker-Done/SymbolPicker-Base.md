@@ -1,6 +1,6 @@
 # ``SymbolPicker/SymbolPicker``
 
-A platform-agnostic, generic SwiftUI `View` designed for selecting visual assets (SF Symbols, Emojis, and custom Images).
+A platform-agnostic SwiftUI `View` for selecting SF Symbols, Emojis, and custom images.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -20,43 +20,43 @@ A platform-agnostic, generic SwiftUI `View` designed for selecting visual assets
     @AutomaticArticleSubheading(disabled)
 }
 
-`SymbolPicker` provides a unified interface for browsing and selecting high-quality icons and emojis. It leverages a configuration-driven approach to maintain consistency across platforms while allowing for deep customization.
+`SymbolPicker` provides a unified interface to browse and select high-quality icons. You use its configuration-driven design to maintain a consistent look across platforms while retaining deep control over individual components.
 
 ## Overview
 
-The picker is designed to be highly modular and extensible, supporting a wide range of asset types and visual styles through a flexible configuration system.
+The picker uses a modular architecture that supports various asset types and visual styles through a flexible configuration system.
 
 ### Architectural Design
 
-`SymbolPicker` is built around two primary generic type parameters that define its core behavior and data model:
+Two generic type parameters define the picker's behavior and data model:
 
-- **`DataAsset`**: Must conform to ``SymbolPicker/SPDataAsset``. This parameter determines the type of assets the picker displays (e.g., ``SymbolPicker/SPSymbol``, ``SymbolPicker/SPEmoji``, or ``SymbolPicker/SPImage``).
-- **`Configuration`**: Must conform to ``SymbolPicker/SymbolPickerConfiguration``. This dictates the visual style, layout strategy, and behavior of the picker's internal components.
+- **`DataAsset`**: Conforms to ``SymbolPicker/SPDataAsset``. This determines which assets you see, such as ``SymbolPicker/SPSymbol`` or ``SymbolPicker/SPEmoji``.
+- **`Configuration`**: Conforms to ``SymbolPicker/SymbolPickerConfiguration``. This dictates the visual style, layout, and component behavior.
 
-The picker maintains its own internal state, including the current selection, active page (category), and search query, while seamlessly integrating with the SwiftUI environment for state propagation.
+The picker manages its internal state—including selection, category, and search query—and syncs seamlessly with your SwiftUI environment.
 
 ### Key Features
 
-- **Generic Asset Support**: Browse and select from SF Symbols, Emojis, or custom bitmapped images within a single, unified interface.
-- **Adaptive UI**: The layout automatically adjusts based on the current platform, screen size, and dynamic type settings, ensuring an optimal user experience everywhere.
-- **Modern Search Integration**: Deep integration with SwiftUI's `.searchable` system, featuring enhanced styling and placement on modern OS versions (e.g., iOS 26+).
-- **Deep Customization**: Every visual aspect, from the color selection palette and asset grid to the selection preview card, can be customized via modifiers.
-- **Environment Driven**: Internal state is propagated through the SwiftUI environment, allowing custom child components to react to selection changes and search queries.
+- **Generic Assets**: You can browse SF Symbols, Emojis, and custom images in one interface.
+- **Adaptive Layout**: The UI automatically adjusts for different platforms, screen sizes, and dynamic type settings.
+- **Search Integration**: The picker integrates with SwiftUI's `.searchable` system and offers enhanced styling on modern OS versions.
+- **Deep Customization**: You can refine every visual detail, from the color palette to the selection preview card, using modifiers.
+- **Environment Support**: Internal state flows through the SwiftUI environment, letting custom child components react to your changes.
 
-### Core Internal State
+### Internal State
 
-The picker manages several key pieces of state to coordinate its modular components:
+The picker coordinates several pieces of state:
 
-- **Selection**: A binding to the currently selected asset, often wrapped in an ``SymbolPicker/SPSelection`` object.
-- **Page Type**: Tracks the currently active category (e.g., Symbols, Emojis, or Images).
-- **Search Text**: Stores the user's current search query to filter the displayed assets.
-- **Style**: The active configuration instance that governs the overall appearance.
+- **Selection**: A binding to the active asset, often wrapped in an ``SymbolPicker/SPSelection`` object.
+- **Page Type**: Tracks whether you are viewing Symbols, Emojis, or Images.
+- **Search Text**: Stores your current search query to filter assets.
+- **Style**: The configuration instance governing the overall appearance.
 
 ## Usage
 
-### Basic Usage
+### Basic Setup
 
-The simplest way to use `SymbolPicker` is by binding it to a `String` for an SF Symbol name and a `Color`.
+Bind the picker to a symbol name and a color for a quick implementation.
 
 ```swift
 struct MyIconPicker: View {
@@ -79,7 +79,7 @@ struct MyIconPicker: View {
 
 ### Advanced Customization
 
-You can use modifiers to deeply customize the picker's appearance and behavior.
+Apply modifiers to change the display style, variants, and color picker features.
 
 ```swift
 SymbolPicker(systemImage: $symbolName, color: $iconColor)

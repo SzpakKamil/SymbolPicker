@@ -21,16 +21,12 @@ Initializes a selection with a custom image and an array of color component valu
 
 ## Overview
 
-This initializer provides a way to create an image selection when color data is stored as raw numeric values, common in persistence layers or network responses.
+Initialize an image selection using numeric color components. This initializer is useful for data from persistence layers or network responses where colors are stored as raw values.
 
 ### Color Reconstruction
 
-The provided `colorValues` array is converted into a `ColorKit/CKColor`:
-- If 4 values are provided, they are interpreted as Red, Green, Blue, and Alpha.
-- If 3 values are provided, they are interpreted as Red, Green, and Blue.
+The `colorValues` array converts to a `ColorKit/CKColor`. Four values represent RGBA (Red, Green, Blue, Alpha), while three represent RGB. This conversion ensures that your stored numeric data becomes a usable SwiftUI color.
 
 ### Selection State
 
-When using this initializer:
-- The ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/image``.
-- The ``SymbolPicker/SPSelection/image`` property is populated with the provided asset.
+This method sets the selection ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/image``. It also populates the ``SymbolPicker/SPSelection/image`` property with the provided asset.

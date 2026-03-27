@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the available colors in the integrated color picker using a variadic list of `CKColor` objects.
+Define available colors for the integrated color picker with a variadic list.
 
 ## Overview
 
-Use this modifier to provide a predefined set of colors for the user to choose from when the picker is presented.
+Provide a set of predefined colors for users. This modifier sets the palette available when the picker appears.
 
 ### Example
 
-Provide a custom color palette:
+Set a palette with red, blue, and green:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `colors` | `CKColor...` | A variadic list of colors to display in the palette. |
+| `colors` | `CKColor...` | A list of colors for the palette. |

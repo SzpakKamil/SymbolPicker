@@ -17,12 +17,11 @@ A unique identifier for the selection, ensuring it conforms to the `Identifiable
 
 ## Overview
 
-The `id` property is computed dynamically based on the current selection ``SymbolPicker/SPSelection/type`` and its corresponding data. It is used by SwiftUI to uniquely identify selections in grids, lists, and for animation transitions.
+The `id` property uniquely identifies a selection for the `Identifiable` protocol. The library computes this ID dynamically based on the selection ``SymbolPicker/SPSelection/type`` and its data.
 
 ### ID Patterns
 
 The format of the ID string depends on the asset type:
-
 - **Symbol**: `"symbol:<hash_of_symbol_id>"`
 - **Emoji**: `"emoji:<emoji_id>:tone<skin_tone>"`
 - **Image**: `"image:<uuid>"`
@@ -30,4 +29,4 @@ The format of the ID string depends on the asset type:
 
 ### SwiftUI Integration
 
-Because the ID changes when the underlying asset type or value changes, SwiftUI can correctly track selection updates and perform smooth visual transitions between different icons or colors in the picker interface.
+SwiftUI uses these IDs to track updates in grids and lists. Because the ID changes when the underlying asset type or value changes, the system can perform smooth visual transitions and animations between different icons or colors in your interface.

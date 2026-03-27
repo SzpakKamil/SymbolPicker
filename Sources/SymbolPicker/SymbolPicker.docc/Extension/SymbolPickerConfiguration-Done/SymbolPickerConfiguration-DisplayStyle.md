@@ -17,17 +17,16 @@
     @AutomaticSeeAlso(disabled)
 }
 
-
-An ``SymbolPicker/SPDisplayStyle`` enum indicating the overall density and layout strategy of the picker.
+The layout strategy for the picker.
 
 ## Overview
 
-The `displayStyle` property determines the initial visual density of the picker. It can be set to either ``SymbolPicker/SPDisplayStyle/compact``, ``SymbolPicker/SPDisplayStyle/detail`` or ``SymbolPicker/SPDisplayStyle/plain``.
+The `displayStyle` property sets the initial visual density of the picker using the ``SymbolPicker/SPDisplayStyle`` enum.
 
-### Display Styles
+### Available Styles
 
-- **``SymbolPicker/SPDisplayStyle/compact``**: A dense grid focused on fitting more items on screen. Typically used for quick selections.
-- **``SymbolPicker/SPDisplayStyle/detail``**: A more informative layout, often including larger previews and labels. 
-- **``SymbolPicker/SPDisplayStyle/plain``**: A simple layout.
+- **`.compact`**: A dense grid that fits many items on screen. Use this for quick selections.
+- **`.detail`**: A structured layout with larger previews and labels. 
+- **`.plain`**: A simple, unstyled layout.
 
-This property is also passed to all configuration methods, allowing them to return different setups based on the current style.
+Configuration methods receive this property to adjust their setups based on the active style.

@@ -9,14 +9,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Placement at the trailing edge of the top toolbar (iOS and watchOS).
+Placement at the trailing edge of the top toolbar.
 
 ## Overview
 
-When set to `.toolbarTopTralling`, the inset view is placed at the trailing edge (right for LTR languages) of the top toolbar. This is a common location for "Done", "Add", or "Options" buttons.
+The `.toolbarTopTralling` case puts the inset view at the trailing edge of the top toolbar. On iOS and watchOS, this is the standard location for "Done," "Add," or "Options" buttons.
 
 ### Availability
-This placement is available on both **iOS** and **watchOS**.
+
+This placement works on **iOS** and **watchOS**.
 
 ### Use Case
-Ideal for a "Confirmation" or "Settings" button at the top-right of the picker interface.
+
+Ideal for a confirmation or settings button at the top-right of the picker.

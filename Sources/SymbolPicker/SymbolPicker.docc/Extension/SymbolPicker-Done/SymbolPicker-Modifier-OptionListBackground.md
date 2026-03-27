@@ -18,14 +18,14 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the default background color for the option list items.
+Set the default background color for option list items.
 
 ## Overview
 
-Use this modifier to specify the background color of items within the option list when they are in their default state.
+Apply this modifier to define the background color for items in their neutral state. You pass a `Color` to establish a base visual style for the list. This helps you integrate the picker's list rows with your application's theme.
 
 ### Parameters
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The background color to apply. |
+| `value` | `Color` | The color applied to the item background. |

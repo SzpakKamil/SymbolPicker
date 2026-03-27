@@ -13,23 +13,23 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Retrieves all available assets of a specified type, organized by category.
+Retrieves and organizes assets of a specific type.
 
-- Parameter type: The type of asset to fetch (e.g., ``SPSymbol`` or any ``SPDataAsset``).
-- Returns: An array of ``SPCategory`` objects containing the assets.
+- Parameter type: The asset type, such as ``SPSymbol``.
+- Returns: An array of categorized assets.
 
 ## Overview
 
-The `fetch(type:)` method is the primary entry point for populating the picker UI. It orchestrates the entire data loading pipeline, from cache checking to localized resource loading and final categorization.
+The `fetch(type:)` method populates the picker UI. It manages the entire loading pipeline, including caching and localization.
 
-### Execution Flow
+### Pipeline
 
-1.  **Cache Check**: It first checks if the requested data is already in the actor's thread-safe cache.
-2.  **Concurrency Management**: If a fetch for the same type is already in progress, it joins that existing task instead of starting a new one, preventing redundant operations.
-3.  **Locale Resolution**: It determines the most appropriate locale to load based on the user's system settings.
-4.  **Resource Loading**: It calls the `nonisolated` static `fetchAssets(locale:)` method on the provided asset type to load the raw JSON data. Because `fetchAssets` is non-isolated, it ensures that the computationally intensive disk I/O and JSON decoding operations do not block the ``SymbolPicker/SPDataManager`` actor's mailbox, maintaining high responsiveness for other requests.
-5.  **Grouping**: Finally, it organizes the flat list of assets into a categorized structure that can be directly consumed by SwiftUI's `Section` views.
+1. **Cache**: Checks if the data already exists in the thread-safe cache.
+2. **Concurrency**: Joins an existing task if a fetch for the same type is in progress.
+3. **Locale**: Finds the best locale based on system settings.
+4. **Loading**: Calls the static `fetchAssets(locale:)` method. This non-isolated step keeps disk I/O and JSON decoding from blocking other requests.
+5. **Grouping**: Sorts assets into categories for SwiftUI `Section` views.
 
-## Usage in UI
+### Usage
 
-This method is called when the ``SPOptionList`` is first initialized to populate the grid with assets.
+SymbolPicker calls this method when initializing the ``SPOptionList`` to fill the grid.

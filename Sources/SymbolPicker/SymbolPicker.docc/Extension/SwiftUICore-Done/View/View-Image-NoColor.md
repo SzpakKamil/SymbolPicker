@@ -1,6 +1,5 @@
 # ``SwiftUICore/View/symbolPicker(isPresented:image:configuration:)-(_,Binding<SPImage>,_)``
 
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "16.0")
@@ -17,9 +16,11 @@
 }
 
 ## Overview
-Presents a symbol picker that allows the user to select a custom image, which is synchronized with the provided binding.
 
-## Example Usage
+Presents a symbol picker for selecting a custom image. This version binds to a required image object.
+
+### Example Usage
+
 ```swift
 struct MyView: View {
     @State private var isPresented = false
@@ -36,3 +37,7 @@ struct MyView: View {
     }
 }
 ```
+
+### Details
+
+Use this modifier to let users choose photos from their library or bundled assets. It requires a non-optional binding, ensuring that your view state always contains a valid image model.

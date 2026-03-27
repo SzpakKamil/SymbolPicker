@@ -13,23 +13,23 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A collection of keywords associated with the asset, supporting SF Symbols, Emojis, and custom icons.
+Keywords for finding an asset.
 
 ## Overview
 
-The `tags` property provides a flexible list of keywords that users can use when searching for an asset. It allows for indexing search terms that are not present in the asset's ``SymbolPicker/SPDataAsset/annotation`` or ``SymbolPicker/SPDataAsset/category``.
+The `tags` property lists keywords for searching. These words do not need to appear in the ``SymbolPicker/SPDataAsset/annotation`` or ``SymbolPicker/SPDataAsset/category``.
 
-### Role in Search Discovery
+### Discovery
 
-Search queries are evaluated against these tags in the default implementation of ``SymbolPicker/SPDataAsset/matches(_:)``. Tags can include:
-- Synonyms or related concepts (e.g., a "heart" symbol could have tags like "love", "favorite", or "health").
-- Visual descriptions (e.g., "star" might have "five points").
-- Common misspellings or alternative names.
+The default `matches(_:)` method checks these tags. Tags include:
+- Synonyms like "love" or "health" for a heart.
+- Descriptions like "five points" for a star.
+- Alternative names.
 
-### Asset Refinement
+### Refinement
 
-By providing a rich set of tags, a type conforming to ``SPDataAsset`` can significantly improve the user's ability to find specific assets, especially in large libraries like the SF Symbol set or the Unicode emoji set.
+Detailed tags help you find specific items in large libraries like SF Symbols or Unicode emojis.
 
 ### Localization
 
-Tags should ideally be localized for each supported language. For instance, the tags for a "house" symbol would be different in English ("home", "building") than in Polish ("dom", "budynek"). This ensures that search is effective and intuitive for users regardless of their locale.
+Localize tags for every supported language. A "house" symbol should have "home" in English and "dom" in Polish.

@@ -12,13 +12,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Enables or disables the opacity (alpha) slider in the color picker.
+Toggles the opacity slider.
 
 ## Overview
 
-The `supportOpacity` property controls whether the user can adjust the transparency of their selected color. This setting is particularly relevant for the system's custom color picker if enabled.
+The `supportOpacity` property determines if users can adjust color transparency. This setting also controls the opacity options in the system color picker when active.
 
-### Usage in Code
+### Details
+
+Opacity settings apply to the selected color and update the preview in real time. Use this when your app needs to support translucent icons or backgrounds.
+
+### Example
 
 ```swift
 let config = SPColorPickerConfiguration()

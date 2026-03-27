@@ -1,6 +1,5 @@
 # ``SwiftUICore/View/symbolPicker(isPresented:systemImage:ckColor:configuration:)-(_,Binding<String?>,_,_)``
 
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -19,9 +18,11 @@
 }
 
 ## Overview
-Presents a symbol picker that allows the user to select an SF Symbol and a color, which are synchronized with the provided bindings. This overload specifically uses `CKColor` for precise color management. The symbol binding is optional.
 
-## Example Usage
+Presents a symbol picker for selecting an SF Symbol and a color. This version binds to an optional symbol name and a `CKColor`.
+
+### Example Usage
+
 ```swift
 struct MyView: View {
     @State private var isPresented = false
@@ -40,3 +41,7 @@ struct MyView: View {
     }
 }
 ```
+
+### Details
+
+The `systemImage` binding can be `nil`, letting users clear their choice. The system updates the `ckColor` binding whenever the user selects a new tint in the picker. This overload is ideal for apps using ColorKit for platform-agnostic color management.

@@ -18,22 +18,21 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A generic container view that dynamically resolves and renders a data asset based on the current selection.
+A generic view that resolves and renders a data asset.
 
 ## Overview
 
-`SPSelectionView` is a high-level component that acts as a bridge between the abstract ``SymbolPicker/SPSelection`` model and the platform-specific rendering views (``SymbolPicker/SPSymbolView``, ``SymbolPicker/SPEmojiView``, or ``SymbolPicker/SPImageView``).
+`SPSelectionView` bridges the abstract ``SymbolPicker/SPSelection`` model and specific rendering views like ``SymbolPicker/SPSymbolView`` or ``SymbolPicker/SPEmojiView``.
 
 ### Usage
 
-`SPSelectionView` is generic over a type conforming to ``SymbolPicker/SPDataAsset``. To use it, provide an optional ``SymbolPicker/SPSelection``:
+The view is generic over any type following the ``SymbolPicker/SPDataAsset`` protocol. Provide an optional ``SymbolPicker/SPSelection`` to initialize it:
 
 ```swift
 import SwiftUI
 import SymbolPicker
 
 struct MySelectionPreview: View {
-    // Example with a Symbol selection
     let selection: SPSelection<SPSymbol>? = SPSelection(
         asset: SPSymbol(systemName: "star.fill")
     )
@@ -45,27 +44,22 @@ struct MySelectionPreview: View {
 }
 ```
 
-### Dynamic Content Resolution
+### Content Resolution
 
-The view uses Swift generics to handle any asset type conforming to the ``SymbolPicker/SPDataAsset`` protocol. Its primary responsibility is to take a selection model and resolve it into its corresponding visual representation:
-- **Symbol Selection**: Automatically resolves to an ``SymbolPicker/SPSymbolView``.
-- **Emoji Selection**: Automatically resolves to an ``SymbolPicker/SPEmojiView``.
-- **Image Selection**: Automatically resolves to an ``SymbolPicker/SPImageView``.
+The view resolves selection models into visual forms:
+- **Symbol**: Renders an ``SymbolPicker/SPSymbolView``.
+- **Emoji**: Renders an ``SymbolPicker/SPEmojiView``.
+- **Image**: Renders an ``SymbolPicker/SPImageView``.
 
-### Reactive State Management
+### Reactivity
 
-`SPSelectionView` is designed to be fully reactive. When the bound selection changes, the view automatically updates its internal state and triggers a re-render of the appropriate sub-component. It utilizes a unique identifier based on the selection (via ``SymbolPicker/SPSelection/id``) to ensure that SwiftUI correctly identifies and animates transitions between different assets.
+`SPSelectionView` responds to binding changes. When the selection updates, the view triggers a re-render of the matching sub-component. It uses the ``SymbolPicker/SPSelection/id`` to track identity and animate transitions correctly in SwiftUI.
 
-### Use Case
+### Implementation
 
-This view is primarily used within the `SPOptionList` to render individual cells, but it can also be used in custom layouts where a generic, type-safe asset preview is needed.
-
-### Lifecycle and Rendering
-
-Because `SPSelectionView` frequently acts as a container for other rendering views, it uses a stable unique identifier derived from the ``SymbolPicker/SPSelection/id``. This allows SwiftUI to preserve its state and animations across layout changes while the internal rendering components use `.drawingGroup()` for optimal performance.
+The view populates cells in the `SPOptionList`. You can also use it in custom layouts where you need a type-safe asset preview. For better performance during scrolling, the internal components use the `.drawingGroup()` modifier.
 
 ## Topics
 
 ### Initialization
-
 - ``SymbolPicker/SPSelectionView/init(selection:)``

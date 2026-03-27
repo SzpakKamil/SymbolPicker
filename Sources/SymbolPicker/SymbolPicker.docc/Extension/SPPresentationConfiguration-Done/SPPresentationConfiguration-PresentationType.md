@@ -12,17 +12,19 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The type of modal presentation used for the SymbolPicker.
+You choose how the SymbolPicker appears on screen.
 
 ## Overview
 
-The `presentationType` property controls the overall container style of the picker when it is presented. It supports standard modal presentations like sheets and popovers.
+Set `presentationType` to define the container style. You can select standard modal types like sheets or popovers. This property ensures your picker matches the rest of your app's navigation flow. 
+
+When you pick a specific type, you override the system's adaptive behavior. This gives you consistent layouts across iPad and Mac, where the system might otherwise choose different styles.
 
 ### Values
 
-- **default**: Uses the platform's default presentation (usually a sheet on iOS and a popover on iPad/Mac).
-- **popover**: Explicitly requests a popover presentation.
-- **sheet**: Explicitly requests a standard sheet presentation.
+- **default**: You let the platform choose the best style, usually a sheet on iPhone and a popover on iPad or Mac.
+- **popover**: You force the picker into a floating panel anchored to your source view.
+- **sheet**: You present the picker as a modal sheet that slides up from the bottom.
 
 ### Usage in Code
 

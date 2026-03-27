@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the background color for asset cells in the picker's grid when they are focused.
+Set the background color for asset cells during focus.
 
 ## Overview
 
-Use this modifier to customize the cell background when it receives focus via keyboard or game controller navigation.
+Customize the cell background for keyboard or game controller navigation. This modifier updates the cell appearance when it receives focus.
 
 ### Example
 
-Set a custom focused background color:
+Apply a semi-transparent accent color to focused cells:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Color` | The background color applied when a cell is focused. |
+| `value` | `Color` | The background color for focused cells. |

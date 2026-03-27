@@ -12,13 +12,13 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A factor that determines the internal padding of list items, relative to their width.
+A multiplier for the internal padding of list items.
 
 ## Overview
 
-The `optionListInnerPaddingFactor` property controls the spacing between the content of an asset cell (symbol or emoji) and its background border. The final padding is calculated as `width * factor`.
+The `optionListInnerPaddingFactor` property sets the gap between an icon and its cell boundary. The system calculates the actual padding by multiplying the cell width by this factor.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

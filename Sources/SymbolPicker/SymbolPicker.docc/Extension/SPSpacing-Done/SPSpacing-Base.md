@@ -18,19 +18,19 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A configuration object that defines the layout and padding dimensions for specific picker components.
+A configuration object that defines the layout and padding for picker components.
 
 ## Overview
 
-`SPSpacing` allows for granular control over the sizing and padding of various UI elements within the `SymbolPicker`. It is designed to be highly adaptive, supporting different configurations for each platform and responding to changes in system `DynamicTypeSize`.
+`SPSpacing` provides granular control over the size and padding of UI elements in `SymbolPicker`. It adapts to every platform and responds to system `DynamicTypeSize` changes.
 
 ### Adaptive Layout
 
-The most powerful way to use `SPSpacing` is via the reactive initializer, which provides the current `DynamicTypeSize`. This allows you to return a ``SymbolPicker/SPSpacing/Sizing`` object that scales proportionally with the user's accessibility settings.
+Use the reactive initializer for the best results. It provides the current `DynamicTypeSize` so you can return a ``SymbolPicker/SPSpacing/Sizing`` object that scales with accessibility settings. This ensures your custom layout remains usable for all users.
 
 ### Component Targeting
 
-Each spacing object targets a specific ``SymbolPicker/SPSpacing/Component``, such as the color picker or the option list, ensuring that layout changes are scoped correctly.
+Each spacing object targets one ``SymbolPicker/SPSpacing/Component``, such as the color picker or the asset grid. This targeting ensures your layout changes only affect the intended part of the interface.
 
 ## Topics
 

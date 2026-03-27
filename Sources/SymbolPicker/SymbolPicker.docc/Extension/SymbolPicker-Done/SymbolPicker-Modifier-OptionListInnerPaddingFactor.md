@@ -18,14 +18,14 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the inner padding factor for the option list items.
+Adjust the internal spacing of option list items.
 
 ## Overview
 
-Use this modifier to control the internal spacing of individual items within the option list.
+Apply a padding factor to control how much space surrounds the text and icons within each list row. Higher values increase the gap between the item's content and its border. This modifier helps you match the picker's density to the rest of your app's design.
 
 ### Parameters
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `CGFloat` | The inner padding factor to apply. |
+| `value` | `CGFloat` | The multiplier used to calculate internal item padding. |

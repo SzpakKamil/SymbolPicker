@@ -1,6 +1,6 @@
 # ``SymbolPicker/SymbolPicker/init(emoji:color:configuration:)-(Binding<SPEmoji?>,_,_)``
 
-Creates a picker bound to an optional emoji and a SwiftUI color.
+Initialize a picker bound to an optional emoji and a SwiftUI color.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,10 +22,10 @@ Creates a picker bound to an optional emoji and a SwiftUI color.
 
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+You create a `SymbolPicker` by passing bindings to an optional `SPEmoji` and a SwiftUI `Color`. This allows your emoji selection to be empty initially. The picker stays in sync with your source of truth, updating the bindings whenever the user picks an emoji or changes the color tint. Customize the picker's look using the `configuration` parameter.
 
 ### Parameters
 
-- **emoji**: A binding to the emoji object.
-- **color**: A binding to a SwiftUI `Color` for representing the selection's tint.
-- **configuration**: The visual configuration for the picker.
+- **emoji**: The binding to your optional emoji state.
+- **color**: The binding to your SwiftUI `Color` for the tint.
+- **configuration**: Settings that define the picker's look and behavior.

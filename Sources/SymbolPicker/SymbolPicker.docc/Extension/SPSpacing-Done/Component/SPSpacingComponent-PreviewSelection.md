@@ -17,15 +17,12 @@ The preview area showing the currently selected asset.
 
 ## Overview
 
-Selecting `.previewSelection` as the target component allows you to customize the large preview area where the selected symbol, emoji, or image is prominently displayed.
+Targeting `.previewSelection` lets you customize the large preview area for selected symbols, emojis, or images.
 
 ### Visual Impact
 
-Modifying spacing for this component affects:
-- **Preview Dimensions**: Controls the size of the focal point in the `SPSelectionPreview`.
-- **Center Alignment**: Adjusting width and height ensures the preview fits perfectly within its designated layout area, especially on platforms with limited screen space like watchOS.
-- **Visual Breathing Room**: Customizing horizontal and vertical padding around the preview helps separate it from adjacent controls like the search bar or category picker.
+Changing these values affects the focal point in `SPSelectionPreview`. You can adjust the width and height to fit the preview into tight layouts, such as those on Apple Watch. Adding horizontal and vertical padding separates the preview from the search bar and category picker.
 
 ### Adaptive Behavior
 
-The preview selection area is often the most prominent part of the `SPSelectionPreview` configuration. By using dynamic sizing, you can ensure that the preview remains legible even when the user has set a very large dynamic type size.
+The preview area is a prominent part of the picker. By using dynamic sizing, you ensure the selected asset remains legible even when users set a large dynamic type size. This control helps maintain the visual hierarchy of the `SPSelectionPreview` across all Apple platforms.

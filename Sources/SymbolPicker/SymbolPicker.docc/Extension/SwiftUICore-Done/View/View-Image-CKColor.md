@@ -1,6 +1,5 @@
 # ``SwiftUICore/View/symbolPicker(isPresented:image:ckColor:configuration:)-(_,Binding<SPImage>,_,_)``
 
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "16.0")
@@ -17,9 +16,11 @@
 }
 
 ## Overview
-Presents a symbol picker that allows the user to select a custom image and a color, which are synchronized with the provided bindings. This overload specifically uses `CKColor` for precise color management.
 
-## Example Usage
+Presents a symbol picker for selecting a custom image and a color. This version uses `CKColor` for precise, platform-agnostic color management.
+
+### Example Usage
+
 ```swift
 struct MyView: View {
     @State private var isPresented = false
@@ -38,3 +39,7 @@ struct MyView: View {
     }
 }
 ```
+
+### Details
+
+This initializer requires a non-optional `SPImage`. Use it when your data model must always have a valid image selection. The picker updates the `ckColor` binding as users pick new tints from the palette.

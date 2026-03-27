@@ -13,22 +13,22 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The intrinsic pixel height of the image asset.
+The pixel height of the image asset.
 
 ## Overview
 
-The `height` property stores the original pixel height of the binary image data. 
+The `height` property stores the original height of the image data in pixels. 
 
-### Automated Resolution
+### Performance
 
-This property is typically calculated during the model's initialization phase. By using `CGImageSource`, `SPImage` resolves the actual height from the binary image stream (JPEG, PNG, HEIC) without fully decoding the pixel data into memory. This provides the UI with the necessary layout metadata with minimal memory overhead.
+The app calculates this value during initialization. `SPImage` uses `CGImageSource` to read the height from the file header (JPEG, PNG, or HEIC) without loading the full image into memory. This saves resources while providing the UI with needed metadata.
 
-### Role in Layout and Aspect Ratio
+### Layout and Aspect Ratio
 
-Along with ``SymbolPicker/SPImage/width``, this property is critical for the ``SymbolPicker/SPImageView`` rendering pipeline. It allows the view to:
-1. **Maintain Aspect Ratio**: Prevent image distortion by calculating the correct scaling factor for the rendering container.
-2. **Optimize Rendering**: Determine the initial fit (aspect fill vs aspect fit) based on the image's orientation (landscape, portrait, or square).
+The ``SymbolPicker/SPImageView`` uses this property along with ``SymbolPicker/SPImage/width`` to:
+1. **Maintain Aspect Ratio**: The view scales the image correctly to avoid stretching.
+2. **Optimize Fit**: The view decides whether to use aspect fill or aspect fit based on the image's orientation.
 
 ### Immutability
 
-The intrinsic `height` is a core property of the binary data and remains immutable for the life of the asset.
+The `height` property reflects the source data and never changes during the asset's life.

@@ -13,16 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The SF Symbols library version required for the asset.
+The required SF Symbols library version.
 
 ## Overview
 
-The `version` property indicates the minimum version of Apple's SF Symbols library that includes this specific symbol (e.g., 1.0, 3.0, 5.0).
+The `version` property indicates the minimum SF Symbols release that includes the asset, such as 1.0 or 5.0.
 
-### Version Tracking
+### Tracking
 
-As Apple introduces new SF Symbols with each major OS release, it is important to track which version a symbol belongs to. This information is used in conjunction with ``SymbolPicker/SPSymbol/isAvailable()`` to determine if a symbol can be rendered on the current device.
-
-### Data Integrity
-
-Including the version in the `SPSymbol` model ensures that the package can handle symbols from different eras of SF Symbols correctly, providing a reliable experience even when running on older operating systems that might lack the latest assets.
+Apple adds new SF Symbols with OS updates. This property works with ``SymbolPicker/SPSymbol/isAvailable()`` to determine if the current device can render the icon. By including the version in the model, SymbolPicker provides a reliable experience on older systems that lack the newest assets.

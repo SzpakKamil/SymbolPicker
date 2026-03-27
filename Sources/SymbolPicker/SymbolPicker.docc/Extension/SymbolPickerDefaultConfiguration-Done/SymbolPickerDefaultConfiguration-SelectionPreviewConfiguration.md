@@ -18,12 +18,12 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Resolves the configuration for the selection preview card.
+Resolves the configuration for the selection preview.
 
 ## Overview
 
-This method implements the ``SymbolPicker/SymbolPickerConfiguration/selectionPreviewConfiguration()`` protocol requirement by calling ``SymbolPicker/SymbolPickerDefaultConfiguration/currentSelectionPreviewConfiguration`` with the active ``SymbolPicker/SymbolPickerDefaultConfiguration/displayStyle``.
+This method fulfills the ``SymbolPicker/SymbolPickerConfiguration/selectionPreviewConfiguration()`` requirement. It calls the ``SymbolPicker/SymbolPickerDefaultConfiguration/currentSelectionPreviewConfiguration`` closure with the active ``SymbolPicker/SymbolPickerDefaultConfiguration/displayStyle``.
 
 ### Return Value
 
-Returns a ``SymbolPicker/SPSelectionPreviewConfiguration`` that governs the preview card's corner radius and scrolling animations.
+Returns an ``SymbolPicker/SPSelectionPreviewConfiguration`` that sets the preview card's corner radius and scroll animations.

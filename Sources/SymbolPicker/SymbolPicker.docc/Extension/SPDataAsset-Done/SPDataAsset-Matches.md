@@ -13,27 +13,27 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Checks if the asset should be included in search results for a given text, supporting SF Symbols, Emojis, and custom icons.
+You determine if an icon shows up in search results.
 
-- Parameter text: The string to search for.
-- Returns: `true` if the asset matches the search query; otherwise, `false`.
+- Parameter text: The search string you are checking.
+- Returns: `true` if the icon is relevant.
 
 ## Overview
 
-The `matches(_:)` method provides the logic for determining whether an asset is relevant to the user's search query. This is the primary way that searching is implemented for different asset types.
+The `matches(_:)` method decides if an asset belongs in the current search results. It runs every time a user types in the search bar.
 
-### Search Criteria
+### Criteria
 
-By default, the `matches(_:)` implementation provided by the protocol extension evaluates the search query against the following properties (case-insensitive):
-- ``SymbolPicker/SPDataAsset/annotation``: the localized name of the asset.
-- ``SymbolPicker/SPDataAsset/category``: the high-level group name.
-- ``SymbolPicker/SPDataAsset/subcategory``: the more specific classification name.
-- ``SymbolPicker/SPDataAsset/tags``: a list of keywords associated with the asset.
+The default implementation checks these properties:
+- ``SymbolPicker/SPDataAsset/annotation``: The localized name of the icon.
+- ``SymbolPicker/SPDataAsset/category``: The broad group name.
+- ``SymbolPicker/SPDataAsset/subcategory``: Specific groupings.
+- ``SymbolPicker/SPDataAsset/tags``: Any associated keywords.
 
 ### Customization
 
-While the default implementation is comprehensive for most cases, conforming types can override this method to provide more specialized search logic. For example, a symbols picker might want to prioritize matches in the symbol's name over tags.
+You can override this method to add specialized search logic. For example, you might prioritize name matches over tag matches to help users find exact icons faster.
 
-### Performance Considerations
+### Performance
 
-Because `matches(_:)` is called for every loaded asset during a search, the implementation should be as efficient as possible. Standard string comparisons and filtering are typically performant enough for most asset collections.
+Searching calls this method for every loaded asset. You should keep the logic simple to ensure the search bar stays responsive.

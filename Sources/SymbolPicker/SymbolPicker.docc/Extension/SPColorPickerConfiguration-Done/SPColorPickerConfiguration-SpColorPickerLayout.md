@@ -12,17 +12,21 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the layout direction and optional spacing for the color picker, returning the modified configuration.
+Configure the layout and spacing of the color picker.
 
-- Parameter type: The layout direction (e.g., `.row`, `.grid`).
-- Parameter spacing: Optional spacing between color cells.
-- Returns: The updated configuration instance.
+- Parameter type: Choose a direction like `.row` or `.grid`.
+- Parameter spacing: Set an optional distance between cells.
+- Returns: Your updated configuration.
 
 ## Overview
 
-`spColorPickerLayout(_:spacing:)` allows you to simultaneously configure the layout type (``SymbolPicker/SPColorPickerConfiguration/type``) and spacing (``SymbolPicker/SPColorPickerConfiguration/spacing``) of the color picker. It uses the ``SymbolPicker/SPColorPickerConfiguration/Direction`` enum to define how color cells are arranged.
+Use `spColorPickerLayout(_:spacing:)` to define how you want colors to appear. You can choose between a `.row` for horizontal scrolling or a `.grid` for a multi-line display. This method updates both the type and the spacing in a single call.
 
-### Usage in Code
+### Adjust Spacing
+
+Set the `spacing` to adjust the gap between color cells. If you omit it, the picker uses system defaults that match the current platform's design. This method returns the modified configuration, allowing you to chain it with other setup calls.
+
+### Example
 
 ```swift
 let config = SPColorPickerConfiguration()

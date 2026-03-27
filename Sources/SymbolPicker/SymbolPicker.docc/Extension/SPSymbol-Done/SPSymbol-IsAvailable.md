@@ -13,22 +13,22 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Performs a runtime check to verify if the symbol is supported on the current device.
+Verifies if the device supports the symbol.
 
 ## Overview
 
-The `isAvailable()` method is a critical safety feature that prevents the application from attempting to render SF Symbols that were introduced in later versions of the operating system than the one currently running.
+The `isAvailable()` method prevents SymbolPicker from showing SF Symbols introduced in OS versions newer than the one currently running.
 
-### Dynamic Verification
+### Verification
 
-Because the set of available SF Symbols is tied to the OS version, a hardcoded list is not sufficient. Instead, this method uses platform-native APIs:
-- **iOS/iPadOS/tvOS/watchOS**: Attempts to initialize a `UIImage` using the `systemName` initializer.
-- **macOS**: Attempts to initialize an `NSImage` using the `systemSymbolName:accessibilityDescription:` initializer.
+The method uses platform-native APIs to check availability:
+- **iOS, tvOS, and watchOS**: Attempts to build a `UIImage` with the system name.
+- **macOS**: Attempts to build an `NSImage` with the symbol name.
 
-### Combined Status
+### Status
 
-A symbol is only considered available if both its `filledName` and its `notFilled` variants are successfully resolved by the system. This ensures that a user's selection remains consistent even if they switch variants while the picker is open.
+A symbol is available only if the system resolves both the `filledName` and `notFilled` variants. This ensures the selection remains valid if you switch variants while the picker is open.
 
-### Filtering Impact
+### Impact
 
-This method is extensively used by the ``SymbolPicker/SPDataManager`` during the asset loading process. By excluding unavailable symbols early, the picker avoids displaying broken or missing glyphs, maintaining a polished user interface across all supported platforms.
+SymbolPicker uses this method early in the loading process to exclude missing icons. This maintains a reliable interface across every supported platform.

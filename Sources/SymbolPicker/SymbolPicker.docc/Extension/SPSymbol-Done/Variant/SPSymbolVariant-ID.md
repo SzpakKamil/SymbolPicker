@@ -13,24 +13,20 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A human-readable string representation of the symbol variant.
+A string representation of the variant.
 
 ## Overview
 
-The `id` property provides a capitalized string representation for each case of the variant enumeration. This is particularly useful when displaying the available variants in a user interface.
+The `id` property returns a capitalized string for each enum case. This is useful for building user interfaces that display the available styles.
 
 ### UI Integration
 
-Because this property returns a simple string, it can be easily integrated into SwiftUI controls such as:
-- **Pickers**: Providing labels for each option in a dropdown or segmented control.
-- **Labels**: Displaying the currently selected style in a settings or configuration view.
-- **Accessibility**: Serving as a descriptive label for the variant itself.
+The property returns a simple string, so you can use it in SwiftUI controls:
+- **Pickers**: Set labels for a dropdown or segmented control.
+- **Settings**: Show the active style in a configuration menu.
+- **Accessibility**: Provide descriptive labels for VoiceOver.
 
-### Case Mapping
+### Mapping
 
 - Returns `"Filled"` for the `.filled` case.
 - Returns `"Outlined"` for the `.outlined` case.
-
-### Technical Implementation
-
-This property ensures that the enumeration remains identifiable and easily presentable to the user, bridging the gap between internal logic and the visual interface.

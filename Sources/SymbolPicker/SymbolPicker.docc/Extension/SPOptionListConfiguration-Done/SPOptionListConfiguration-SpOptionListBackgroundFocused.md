@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the background color for focused items and returns the modified configuration.
+Sets the background color for focused items.
 
-- Parameter value: The new color.
-- Returns: The updated configuration instance.
+- Parameter value: The background color.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spOptionListBackgroundFocused(_:)` is a chainable method used to update the ``SymbolPicker/SPOptionListConfiguration/optionListBackgroundFocused`` property.
+The `spOptionListBackgroundFocused(_:)` method updates the ``SymbolPicker/SPOptionListConfiguration/optionListBackgroundFocused`` property. Use this to provide focus feedback when navigating with a keyboard or remote.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

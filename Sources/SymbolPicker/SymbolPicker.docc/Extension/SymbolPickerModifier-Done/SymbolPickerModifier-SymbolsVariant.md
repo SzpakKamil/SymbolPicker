@@ -18,24 +18,24 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the rendering variant applied to SF Symbols displayed in the picker.
+Set the rendering variant for SF Symbols in the picker.
 
 ## Overview
 
-Use this modifier to control how SF Symbols are rendered — for example, using hierarchical, palette, or multicolor variants to match your app's visual style.
+Control how SF Symbols appear in the grid. You can choose filled or outline variant to align with your app's visual style.
 
 ### Example
 
-Display symbols using the hierarchical rendering variant:
+Render symbols using the hierarchical variant:
 
 ```swift
 Text("Select Icon")
     .symbolPicker(isPresented: $isPresented, systemImage: $symbolName)
-    .spSymbolsVariant(.hierarchical)
+    .spSymbolsVariant(.outlined)
 ```
 
 ### Parameters
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `variant` | ``SymbolPicker/SPSymbol/Variant`` | The rendering variant to apply to the displayed SF Symbols. |
+| `variant` | ``SymbolPicker/SPSymbol/Variant`` | The SF Symbols rendering variant. |

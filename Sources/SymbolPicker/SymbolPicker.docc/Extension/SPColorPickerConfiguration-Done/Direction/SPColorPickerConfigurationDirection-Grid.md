@@ -13,15 +13,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Displays color cells in a multi-line grid.
+Displays colors in a multi-line grid.
 
 ## Overview
 
-When set to `.grid`, the color picker expands vertically to show multiple rows of color cells. This is ideal for detailed picker views or when a larger selection of colors is available, as it minimizes the need for horizontal scrolling.
+In `.grid` mode, the color picker shows multiple rows. This layout works for large palettes where you want to see all options without scrolling.
 
 ### Characteristics
-- **Visibility**: More colors are visible at once compared to a row layout.
-- **Scaling**: Adapts its row count based on the available width of the picker container.
+
+- **Visibility**: Users see more colors at once than in a row layout.
+- **Scaling**: The number of rows changes based on the container width.
 
 ### Use Case
-Recommended for full-screen sheets or detail views where vertical space is less constrained.
+
+Use this for full-screen sheets and detail views with vertical space.

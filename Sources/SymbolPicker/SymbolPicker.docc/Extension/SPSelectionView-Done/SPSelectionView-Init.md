@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a new selection view with a provided selection model.
+Initializes a selection view with a model.
 
 ## Overview
 
-The `init(selection:)` initializer creates a dynamic rendering component that resolves to the appropriate asset view based on the provided selection.
+The `init(selection:)` initializer builds a dynamic component that renders the asset matching your selection.
 
-### Parameter Configuration
+### Parameters
 
-- **`selection`**: An optional ``SymbolPicker/SPSelection`` object of a specific asset type. If `nil`, the view renders as an `EmptyView`.
+- **`selection`**: An optional ``SymbolPicker/SPSelection`` object. If `nil`, the view remains empty.
 
-### Initialization Process
+### Process
 
-Upon initialization, the view simply stores the optional ``SymbolPicker/SPSelection`` model. The dynamic resolution of the underlying asset type (e.g., ``SymbolPicker/SPSymbol``, ``SymbolPicker/SPEmoji``, or ``SymbolPicker/SPImage``) and the mapping to its corresponding view happens during the body resolution.
+The view stores the optional model. The system resolves the asset type and maps it to the correct rendering view during the layout phase.

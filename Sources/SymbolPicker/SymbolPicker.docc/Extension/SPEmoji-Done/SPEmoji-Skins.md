@@ -13,12 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-An optional array of skin variations for the emoji.
+An array of skin variations for the emoji.
 
 ## Overview
 
-The `skins` property contains an array of ``SymbolPicker/SPEmoji/Skin`` objects, each representing a specific variation (e.g., different Fitzpatrick skin tones) supported by the Unicode standard for this emoji.
+The `skins` property stores ``SymbolPicker/SPEmoji/Skin`` objects. Each item represents a variation, such as a Fitzpatrick skin tone, supported by Unicode.
 
-### Dynamic Rendering
+### Rendering
 
-When this array is non-nil, the `SymbolPicker` can offer a skin tone selector. The current selection is tracked by the ``SymbolPicker/SPEmoji/tone`` property.
+If this array contains data, SymbolPicker can show a skin tone selector. The ``SymbolPicker/SPEmoji/tone`` property tracks which variation is active.

@@ -12,14 +12,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the drag indicator visibility and returns the modified configuration.
+You toggle the visibility of the sheet's grab handle and get the updated configuration.
 
-- Parameter value: The visibility state (e.g., `.visible`, `.hidden`).
+- Parameter value: The visibility state.
 - Returns: The updated configuration instance.
 
 ## Overview
 
-`spPresentationDragIndicator(_:)` is a chainable method used to update the ``SymbolPicker/SPPresentationConfiguration/presentationDragIndicator`` property.
+`spPresentationDragIndicator(_:)` updates the ``SymbolPicker/SPPresentationConfiguration/presentationDragIndicator`` property. Use this chainable method to show the horizontal handle for better discoverability. You can also hide it to create a cleaner, more immersive UI for your users.
 
 ### Usage in Code
 

@@ -1,6 +1,6 @@
 # ``SymbolPicker/SymbolPicker/init(emoji:configuration:)-(Binding<SPEmoji>,_)``
 
-Creates a picker bound to a non-optional emoji.
+Initialize a picker bound to a required emoji selection.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,9 +22,9 @@ Creates a picker bound to a non-optional emoji.
 
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+You create a `SymbolPicker` by passing a binding to an `SPEmoji`. This ensures the picker remains in sync with your data model. When you choose a new emoji, the binding updates your state immediately. Use the `configuration` parameter to customize how the picker looks and behaves.
 
 ### Parameters
 
-- **emoji**: A binding to the emoji object.
-- **configuration**: The visual configuration for the picker.
+- **emoji**: The binding to your emoji state.
+- **configuration**: Settings that define the picker's layout and style.

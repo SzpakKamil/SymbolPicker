@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the background interaction behavior for the presented picker's surface.
+Set background interaction behavior for the presented picker surface.
 
 ## Overview
 
-Use this modifier to control whether the user can interact with the view behind the picker while it is presented.
+Determine if users can interact with views behind the picker. This modifier helps you control the flow of your application during asset selection.
 
 ### Example
 
-Allow interacting with the background view:
+Allow interaction with the background view while the picker is open:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | ``SymbolPicker/SPPresentationConfiguration/BackgroundInteraction`` | The desired background interaction behavior. |
+| `value` | ``SymbolPicker/SPPresentationConfiguration/BackgroundInteraction`` | The background interaction behavior. |

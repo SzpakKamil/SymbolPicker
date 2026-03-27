@@ -18,32 +18,28 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the visual variant for all SF Symbols displayed within the picker.
+Set the visual variant for all SF Symbols in the picker.
 
 ## Overview
 
-The symbol variant determines the rendering style of the icons. This allows you to maintain visual consistency with the rest of your application's design language.
+Control how the picker renders icons by choosing a symbol variant. This ensures the picker's visual style matches the rest of your app.
 
 ### Available Variants
 
-- **`.monochrome`**: The standard, single-color rendering style for symbols.
-- **`.hierarchical`**: A multi-layered rendering style that uses varying opacities of a single color to add depth and emphasis.
-- **`.palette`**: A multi-color rendering style where different layers of the symbol can be assigned distinct colors.
-- **`.multicolor`**: Uses the built-in multicolor definitions provided by SF Symbols for icons like weather or battery indicators.
-- **`.filled`**: Primarily displays the filled versions of symbols (the default).
-- **`.outlined`**: Primarily displays the outlined or thin versions of symbols.
+- **`.filled`**: Shows the solid version of symbols.
+- **`.outlined`**: Shows the thin or stroked version of symbols.
 
 ### Example
 
-Set the symbol variant to use hierarchical rendering for more visual depth:
+Apply hierarchical rendering to add depth to your icons:
 
 ```swift
 SymbolPicker(systemImage: $symbolName)
-    .spSymbolsVariant(.hierarchical)
+    .spSymbolsVariant(.outlined)
 ```
 
 ### Parameters
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `variant` | ``SymbolPicker/SPSymbol/Variant`` | The symbol variant to apply. |
+| `variant` | ``SymbolPicker/SPSymbol/Variant`` | The rendering style you want to apply. |

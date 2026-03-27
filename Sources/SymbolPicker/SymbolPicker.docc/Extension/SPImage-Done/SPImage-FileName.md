@@ -13,14 +13,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The original filename or system name of the image asset.
+The original name of the image asset.
 
 ## Overview
 
-The `fileName` property stores a human-readable name for the image. Unlike the ``SymbolPicker/SPImage/id``, which is an internal identifier, the `fileName` is intended to provide meaningful context to the user.
+The `fileName` property stores a readable name for the image. While the ``SymbolPicker/SPImage/id`` identifies the asset internally, `fileName` provides context for you and your users.
 
-### Source Integration
+### Source Examples
 
-- **Remote URLs**: When using the remote initializer, this property defaults to the last path component of the URL (e.g., `landscape.jpg`).
-- **System Symbols**: When converting a symbol to an `SPImage`, this property stores the system name (e.g., `star.circle.fill`).
-- **User Imports**: When selecting an image from the photo library, this property is populated with the name of the original file.
+- **Remote URLs**: The property defaults to the last part of the URL, like `landscape.jpg`.
+- **System Symbols**: The property stores the system name, such as `star.circle.fill`.
+- **User Imports**: The property takes the name of the original file from the photo library.

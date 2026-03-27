@@ -1,6 +1,5 @@
 # ``SwiftUICore/View/symbolPicker(isPresented:systemImage:configuration:)-(_,Binding<String?>,_)``
 
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -19,9 +18,11 @@
 }
 
 ## Overview
-Presents a symbol picker that allows the user to select an SF Symbol, which is synchronized with the provided binding. The symbol binding is optional.
+
+Presents a symbol picker for selecting an SF Symbol. This version uses an optional binding for the symbol name.
 
 ## Example Usage
+
 ```swift
 struct MyView: View {
     @State private var isPresented = false

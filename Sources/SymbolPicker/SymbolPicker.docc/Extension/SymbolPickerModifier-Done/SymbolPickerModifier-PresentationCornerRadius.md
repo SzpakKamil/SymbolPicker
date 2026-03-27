@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the corner radius for the presented picker's surface.
+Set the corner radius for the presented picker surface.
 
 ## Overview
 
-Use this modifier to customize the roundness of the corners of the sheet or popover that contains the symbol picker.
+Customize the roundness of sheet or popover corners. This modifier allows you to match the picker container to your app's design language.
 
 ### Example
 
-Make the picker's corners more rounded:
+Apply a 30-point corner radius to the picker:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `CGFloat` | The desired corner radius for the presentation surface. |
+| `value` | `CGFloat` | The corner radius for the presentation surface. |

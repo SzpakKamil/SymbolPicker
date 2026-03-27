@@ -21,16 +21,12 @@ Initializes a selection with an emoji and an array of color component values.
 
 ## Overview
 
-This initializer provides a way to create an emoji selection when color data is stored as raw numeric values, common in persistence layers or network responses.
+Initialize an emoji selection with raw numeric color values. This initializer supports data from persistence layers or network responses where colors are stored as simple arrays of numbers.
 
 ### Color Reconstruction
 
-The provided `colorValues` array is converted into a `ColorKit/CKColor`:
-- If 4 values are provided, they are interpreted as Red, Green, Blue, and Alpha.
-- If 3 values are provided, they are interpreted as Red, Green, and Blue.
+The `colorValues` array converts to a `ColorKit/CKColor`. Four values represent RGBA (Red, Green, Blue, Alpha), while three represent RGB. This process ensures your stored numeric data becomes a valid tint or background color for the emoji.
 
 ### Selection State
 
-When using this initializer:
-- The ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/emoji``.
-- The ``SymbolPicker/SPSelection/emoji`` property is populated with the provided character data.
+This method sets the selection ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/emoji``. It also populates the ``SymbolPicker/SPSelection/emoji` property with your character data.

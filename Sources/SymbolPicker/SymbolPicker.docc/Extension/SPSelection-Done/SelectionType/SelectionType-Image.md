@@ -13,25 +13,24 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Indicates that the selection is a custom photo or image asset.
+A selection type for photos and images.
 
 ## Overview
 
-When the `type` of an ``SymbolPicker/SPSelection`` is set to `.image`, the selection logic targets the ``SymbolPicker/SPSelection/image`` property. This type is primarily used for custom photos from the Photos library on iOS and macOS.
+Setting the `type` of an ``SymbolPicker/SPSelection`` to `.image` activates the ``SymbolPicker/SPSelection/image`` property. Use this type for photos from the user's library.
 
-### User Interaction and Customization
+### Customization
 
-Unlike static symbols or emojis, `.image` selections offer an interactive customization layer:
-- **Spatial Adjustments**: Users can modify the image's **scale** (zoom) and **offset** (X and Y positions) to perfectly frame their content.
-- **Dynamic Styling**: The selection's color is automatically synced to the image's average color, creating a unified look for the selection preview and any associated UI elements.
+Unlike symbols or emojis, `.image` selections allow adjustments.
+- **Positioning**: Users change the image scale and offset to frame content.
+- **Styling**: The system syncs the selection color to the image's average color for a consistent look.
 
 ### Data Handling
 
-In this state:
-- The `image` property contains the active asset (e.g., ``SymbolPicker/SPImage``).
-- The `asView()` method renders the image using its specialized view (e.g., ``SymbolPicker/SPImageView``), applying any user adjustments for scale and offset.
-- Custom images can be persisted by encoding their identifier, adjustment parameters, and calculated color.
+- The `image` property holds the ``SymbolPicker/SPImage`` asset.
+- The `asView()` method uses ``SymbolPicker/SPImageView`` and applies scale and offset values.
+- The system saves the image identifier, adjustments, and color when encoding.
 
 ### UI Integration
 
-The `SymbolPicker` displays a custom image browser when this type is active, presenting a grid of available image assets for selection.
+SymbolPicker shows an image browser for this type. Users pick from a grid of available photos.

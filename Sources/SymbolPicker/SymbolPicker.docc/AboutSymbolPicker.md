@@ -18,50 +18,50 @@
     @AutomaticSeeAlso(disabled)
 }
 
-Customizable SwiftUI asset selection.
+Pick SwiftUI assets through a single tool.
 
 ## Overview
 
-`SymbolPicker` is an evolution of asset selection for SwiftUI. It provides a unified, modular, and highly customizable interface for picking SF Symbols, Emojis, Colors, and Images. It's designed to be platform-adaptive and extensible, ensuring a native feel while giving developers complete control.
+SymbolPicker selects SF Symbols, Emojis, Colors, and Images in SwiftUI. It works on every Apple platform and gives you control over the native experience.
 
 ## Why Use SymbolPicker?
 
-SymbolPicker provides a robust alternative to standard pickers:
+SymbolPicker replaces standard pickers with a more flexible tool.
 
-- **Unified Interface**: Access symbols, emojis, colors, and images from a single component.
-- **Deep Customization**: Use the `.plain` style to build your own layout from scratch using `SPInsetedView`.
-- **Modular Configuration**: Define precise spacing, OS-specific scale factors, and layout structures.
-- **Global Localization**: Localized in 20+ languages out of the box.
-- **Accessibility**: First-class support for VoiceOver and Dynamic Type.
-- **Smart Search**: Built-in search functionality for quickly finding symbols and emojis.
+- **One Tool**: Select symbols, emojis, colors, and images in one place.
+- **Plain Style**: Use `.plain` style to build custom layouts with `SPInsetedView`.
+- **Flexible Settings**: Set spacing and scale factors for each operating system.
+- **Localization**: Use any of 20+ supported languages.
+- **Accessibility**: Support VoiceOver and Dynamic Type.
+- **Search**: Find assets quickly with the built-in search bar.
 
 ## Customization Modifiers
 
-Tailor the appearance and behavior using a wide range of SwiftUI modifiers.
+Change appearance and behavior with SwiftUI modifiers.
 
 - **Display and Layout**:
-  - `.spDisplayStyle(_:)`: Choose between standard or `.plain` layouts.
-  - `.spSymbolsVariant(_:)`: Set the preferred variant (filled vs. outlined).
-  - `.spPageTypes(_:)`: Configure which selection pages (Symbols, Emojis, etc.) are available.
-  - `.spSpacing(_:)`: Apply granular spacing configurations.
+  - `.spDisplayStyle(_:)`: Switch between standard and `.plain` layouts.
+  - `.spSymbolsVariant(_:)`: Pick filled or outlined icons.
+  - `.spPageTypes(_:)`: Choose pages like Symbols or Emojis.
+  - `.spSpacing(_:)`: Set exact spacing values.
 
 - **Color Picker**:
-  - `.spColorPickerEnabled(_:)`: Toggle color selection.
-  - `.spColorPickerColors(_:)`: Provide a custom list of colors.
-  - `.spColorPickerLayout(_:spacing:)`: Customize the color picker's grid layout.
+  - `.spColorPickerEnabled(_:)`: Turn the color picker on or off.
+  - `.spColorPickerColors(_:)`: Provide your own color list.
+  - `.spColorPickerLayout(_:spacing:)`: Define the grid layout.
 
 - **Option List Appearance**:
-  - Customize background and foreground colors for various states (normal, focused, pressed, selected).
-  - Adjust corner radius and inner padding factors.
+  - Set background and foreground colors for focused, pressed, or selected states.
+  - Control corner radius and padding.
 
 - **Selection Preview**:
-  - Configure the preview area's appearance, including corner radius, scale, and offset calculations.
+  - Adjust the preview's corner radius, scale, and offset.
 
-See <doc:Modifiers> for the complete API reference.
+See <doc:Modifiers> for the full API reference.
 
-## Advanced Configuration Example
+## Advanced Configuration
 
-Build a highly customized picker by implementing the `SymbolPickerConfiguration` protocol:
+Create a custom picker by implementing the `SymbolPickerConfiguration` protocol.
 
 ```swift
 struct CustomPickerConfig: SymbolPickerConfiguration {
@@ -74,7 +74,7 @@ struct CustomPickerConfig: SymbolPickerConfiguration {
             SPPagePicker()
         }
         SPInsetedView(placement: .safeAreaBottom) {
-            Text("Custom Footer View")
+            Text("Custom Footer")
         }
     }
 }
@@ -83,13 +83,13 @@ struct CustomPickerConfig: SymbolPickerConfiguration {
 .symbolPicker(isPresented: $isPresented, selection: $selection, configuration: CustomPickerConfig())
 ```
 
-## Target Use Cases
+## Use Cases
 
-- **Asset Management**: Ideal for apps requiring icon or emoji selection for categories, folders, or profiles.
-- **Branded Design Systems**: Perfect for matching app-specific aesthetics with modular components.
-- **Cross-Platform Apps**: Ensures a consistent yet platform-native experience across the Apple ecosystem.
+- **Asset Management**: Choose icons for categories or user profiles.
+- **Branded Design**: Match your app's look with custom components.
+- **Multi-Platform Apps**: Keep the experience consistent on iOS, macOS, and visionOS.
 
 ## Next Steps
 
-- Integrate SymbolPicker: <doc:SetUp>.
-- Explore all modifiers: <doc:Modifiers>.
+- Start using the library: <doc:SetUp>.
+- Check the modifiers: <doc:Modifiers>.

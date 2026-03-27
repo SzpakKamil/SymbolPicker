@@ -12,13 +12,19 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The spacing between color cells in the color picker.
+The distance between individual color cells.
 
 ## Overview
 
-The `spacing` property allows for fine-tuning the layout of the color picker component. If set to `nil`, a platform-appropriate default spacing is used.
+Adjust the `spacing` property to change the padding between colors in the picker. You use this to match the picker's density to your app's design.
 
-### Usage in Code
+### Flexible Layouts
+
+When you set this value to `nil`, the system chooses a default spacing. This default varies by platform to ensure the picker looks natural on iOS, macOS, or visionOS. 
+
+This property works with both `.row` and `.grid` layouts. In a grid, it controls both horizontal and vertical gaps, creating a uniform appearance across the entire set of colors.
+
+### Example
 
 ```swift
 let config = SPColorPickerConfiguration()

@@ -13,27 +13,27 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Asynchronously loads and decodes the assets from the app bundle for a specific locale, supporting SF Symbols, Emojis, and custom icons.
+Loads and decodes assets from the app bundle for a specific locale.
 
-- Parameter locale: A string representing the locale (e.g., "en", "pl").
-- Returns: An array of assets that are available on the current OS.
+- Parameter locale: The locale string like "en" or "pl".
+- Returns: An array of assets supported by the current OS.
 
 ## Overview
 
-The `fetchAssets(locale:)` method is the primary way that assets are loaded into the system. This method is called by the ``SymbolPicker/SPDataManager`` when it needs to populate the picker with assets for a specific type.
+`fetchAssets(locale:)` loads assets into the system. ``SymbolPicker/SPDataManager`` calls this method to fill the picker with items.
 
 ### Implementation Requirements
 
-A type conforming to ``SPDataAsset`` must implement this method to:
-- Construct the resource URL using its ``SymbolPicker/SPDataAsset/filePrefix`` and the provided locale string.
-- Load the contents of the JSON file from the bundle.
-- Decode the JSON data into an array of the conforming type.
-- Filter the results using ``SymbolPicker/SPDataAsset/isAvailable()`` to ensure that only supported assets are returned.
+Conforming types must:
+- Create the resource URL using ``SymbolPicker/SPDataAsset/filePrefix`` and the locale.
+- Load the JSON file from the bundle.
+- Decode the data into an array.
+- Filter the list with ``SymbolPicker/SPDataAsset/isAvailable()``.
 
-### Asynchronous & Non-isolated Operations
+### Performance
 
-Loading and decoding large asset files (especially for emojis) can be computationally intensive. By making this method `async` and `nonisolated`, the ``SymbolPicker/SPDataManager`` can perform these operations without blocking its own mailbox. This ensures that the data manager remains responsive to other requests while the heavy disk I/O and JSON decoding are handled on a background thread.
+Loading and decoding large files takes work. Using `async` and `nonisolated` for this method lets the data manager stay responsive by running heavy tasks in the background.
 
-### Fallback Behavior
+### Fallback
 
-Typically, this method should also include fallback logic (e.g., defaulting to "en" if the requested locale's file is missing) to ensure that the picker always has content to display.
+The method should default to "en" if it cannot find the requested locale file. This ensures the picker always shows content to the user.

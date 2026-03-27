@@ -12,14 +12,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the content interaction behavior for the presentation and returns the modified configuration.
+You choose how the picker reacts to scrolling gestures and get the updated configuration.
 
 - Parameter value: The content interaction style.
 - Returns: The updated configuration instance.
 
 ## Overview
 
-`spPresentationContentInteraction(_:)` is a chainable method used to update the ``SymbolPicker/SPPresentationConfiguration/presentationContentInteraction`` property, primarily for controlling sheet resizability during scrolling.
+`spPresentationContentInteraction(_:)` updates the ``SymbolPicker/SPPresentationConfiguration/presentationContentInteraction`` property. This chainable method gives you control over sheet resizability. You use it to prevent the sheet from moving up or down while a user is flicking through the symbol grid.
 
 ### Usage in Code
 

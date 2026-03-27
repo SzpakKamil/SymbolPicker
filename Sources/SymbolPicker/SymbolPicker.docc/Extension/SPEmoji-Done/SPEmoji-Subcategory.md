@@ -13,8 +13,15 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A more granular group within the primary category.
+A specific group within the main category.
 
 ## Overview
 
-The `subcategory` property provides a secondary level of organization (e.g., `"face-smiling"`, `"animal-mammal"`, `"transport-ground"`). It is primarily used to enhance the search results and fine-tune the internal categorization of the emoji library.
+The `subcategory` property offers a second level of organization for emojis. Examples include `"face-smiling"`, `"animal-mammal"`, or `"transport-ground"`.
+
+### Usage
+
+SymbolPicker uses subcategories to:
+- **Organize Results**: Group similar items together in the grid.
+- **Improve Search**: Find assets when a user's query matches a subcategory name.
+- **Navigation**: Help you browse large collections by breaking them into smaller, logical parts.

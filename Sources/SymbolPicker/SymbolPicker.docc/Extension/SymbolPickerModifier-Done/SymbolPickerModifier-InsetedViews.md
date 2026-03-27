@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Injects custom SwiftUI views into predefined "safe area" or "toolbar" slots within the presented picker.
+Inject custom SwiftUI views into predefined slots in the picker.
 
 ## Overview
 
-Use this modifier to add auxiliary views like buttons, labels, or custom selection previews to the picker's interface.
+Add auxiliary views like buttons, labels, or custom selection previews to the picker interface. You can place these views in the safe area or toolbar slots.
 
 ### Example
 
-Add a custom title to the top of the picker:
+Add a custom title to the picker bar:
 
 ```swift
 Text("Select Icon")
@@ -43,5 +43,5 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `replaceDefaults` | `Bool` | If `true`, existing default views in the targeted placement are removed. |
-| `views` | `() -> [SPInsetedView]` | A closure that returns the set of custom views to inject. |
+| `replaceDefaults` | `Bool` | Toggle to remove existing default views in the slot. |
+| `views` | `() -> [SPInsetedView]` | A closure that returns custom views. |

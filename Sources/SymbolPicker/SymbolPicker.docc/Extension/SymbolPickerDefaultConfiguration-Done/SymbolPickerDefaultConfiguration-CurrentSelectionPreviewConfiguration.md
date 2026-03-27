@@ -18,25 +18,25 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A closure that returns the configuration for the selection preview card.
+A closure for resolving the selection preview card settings.
 
 ## Overview
 
-The `currentSelectionPreviewConfiguration` property is a closure that resolves the settings for the card that previews the currently selected asset (``SymbolPicker/SPSelectionPreview``).
+The `currentSelectionPreviewConfiguration` property sets the look and animation for the selection preview area.
 
 ### Behavior
 
-By default, the closure returns a standard ``SymbolPicker/SPSelectionPreviewConfiguration`` object with default multipliers and behaviors.
+By default, the closure returns an ``SymbolPicker/SPSelectionPreviewConfiguration`` object with standard multipliers.
 
 ### Customization
 
-Provide a custom closure to dynamically control the preview's behavior, such as custom scaling or offset logic when the user scrolls the grid.
+Use a custom closure to control preview behavior dynamically, such as adding custom scaling when the user scrolls the grid.
 
 ```swift
 var config = SymbolPickerDefaultConfiguration()
 config.currentSelectionPreviewConfiguration = { style in
     var sConfig = SPSelectionPreviewConfiguration()
-    sConfig.cornerRadiusFactor = 1.5 // Custom corner radius multiplier
+    sConfig.cornerRadiusFactor = 1.5 
     return sConfig
 }
 ```

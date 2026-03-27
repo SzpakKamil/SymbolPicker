@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the inner padding factor for list items and returns the modified configuration.
+Sets the padding factor for list items.
 
-- Parameter value: The new padding factor (e.g., 0.2).
-- Returns: The updated configuration instance.
+- Parameter value: The multiplier for inner padding.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spOptionListInnerPaddingFactor(_:)` is a chainable method used to update the ``SymbolPicker/SPOptionListConfiguration/optionListInnerPaddingFactor`` property.
+The `spOptionListInnerPaddingFactor(_:)` method updates the ``SymbolPicker/SPOptionListConfiguration/optionListInnerPaddingFactor`` property. This setting controls the gap between the asset icon and the cell boundary.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

@@ -12,22 +12,21 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The layout orientation of the color picker component.
+The arrangement of color cells.
 
 ## Overview
 
-The `type` property defines how the color cells are arranged within the color picker. It uses the ``SymbolPicker/SPColorPickerConfiguration/Direction`` enum to specify the layout style.
+The `type` property sets whether colors appear in one row or a multi-line grid. It uses the `Direction` enum to control this layout.
 
-### Layout Styles
+### Layout Options
 
-- **row**: Arranges the colors in a single horizontal scrollable row.
-- **grid**: Arranges the colors in a multi-line grid.
+The `.row` layout lets users scroll horizontally through colors. This works well in toolbars and compact views. The `.grid` layout shows colors in multiple rows and columns, displaying the full palette at once.
 
-### Automatic Selection
+### Automated Selection
 
-By default, the layout is automatically chosen based on the overall picker's display style (compact vs. detail).
+SymbolPicker selects a layout based on how you show the picker. You can override this to fit your design. This ensures the color selection feels natural on any screen size.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPColorPickerConfiguration()

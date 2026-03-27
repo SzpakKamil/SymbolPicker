@@ -18,21 +18,19 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-The visual rendering style applied to all SF Symbols within the picker.
+The default visual style for SF Symbols.
 
 ## Overview
 
-The `symbolVariant` property controls how SF Symbols are drawn. This is useful for maintaining a consistent iconography style throughout your application.
+The `symbolVariant` property sets how SymbolPicker draws icons. Use this to match the picker's iconography to your app's design language.
 
-### Available Variants
+### Variants
 
-By default, this is set to ``SymbolPicker/SPSymbol/Variant/filled``. Other common options include `.hierarchical`, `.palette`, `.monochrome`, and `.outlined`.
+By default, the picker uses ``SymbolPicker/SPSymbol/Variant/filled``. You can switch to other options like `.outlined`, `.hierarchical`, `.palette`, or `.monochrome`.
 
 ### Customization
 
-Change the variant to match your application's design language.
-
 ```swift
 var config = SymbolPickerDefaultConfiguration()
-config.symbolVariant = .hierarchical // Use hierarchical rendering
+config.symbolVariant = .outlined // Use outlined rendering
 ```

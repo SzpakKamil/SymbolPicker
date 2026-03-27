@@ -13,11 +13,13 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Determines how the presentation content behaves during user interaction.
+You control how the picker reacts when you touch and drag its content.
 
 ## Overview
 
-The `presentationContentInteraction` property controls whether the content inside a sheet scrolls or resizes the sheet when dragged. It uses the ``SymbolPicker/SPPresentationConfiguration/ContentInteraction`` enum.
+Use `presentationContentInteraction` to decide if dragging scrolls the symbol list or resizes the sheet. This property uses the ``SymbolPicker/SPPresentationConfiguration/ContentInteraction`` enum.
+
+You need this control when your picker contains many symbols. Without it, a user trying to scroll down the grid might accidentally shrink the sheet. By setting this to `.scrolls`, you ensure the symbols stay interactive while the sheet remains stable.
 
 ### Default Value
 

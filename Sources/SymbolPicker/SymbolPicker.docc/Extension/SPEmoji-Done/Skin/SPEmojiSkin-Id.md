@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A unique identifier for the skin variation, typically its composite Unicode hexcode.
+A unique identifier for the skin variation.
 
 ## Overview
 
-The `id` property is the unique identifier for an `SPEmoji.Skin` instance. This identifier is essential for maintaining the stability of SwiftUI collection views (e.g., in a grid or list) when the variation data is used in conjunction with the `Identifiable` protocol.
+The `id` property uniquely identifies an `SPEmoji.Skin` instance. It uses the composite Unicode hexcode for the variation.
 
-### Format and Composition
+### Format
 
-The `id` is a hexcode string representing the precise combination of scalars that define the variation (e.g., `"1F44B-1F3FB"` for the Waving Hand: Light Skin Tone). For complex emoji variations, multiple scalar hexcodes are joined by hyphens, following standard Unicode naming conventions.
+The identifier stores the combination of scalars that define the variation, such as `"1F44B-1F3FB"` for a light skin tone waving hand. For complex variations, hyphens join multiple scalar hexcodes.
 
-### Role in the Lifecycle
+### Usage
 
-Beyond its identification purpose, the `id` serves as the primary source for resolving the actual emoji glyph via ``SymbolPicker/SPEmoji/Skin/emojiString()``. It is also the value used by the parent `SPEmoji` instance to identify and persist the currently selected skin variation.
+The `id` maintains stability in SwiftUI collections like grids or lists. It also serves as the source for the glyph via ``SymbolPicker/SPEmoji/Skin/emojiString()``. The parent `SPEmoji` uses this value to track and save the selected skin tone.

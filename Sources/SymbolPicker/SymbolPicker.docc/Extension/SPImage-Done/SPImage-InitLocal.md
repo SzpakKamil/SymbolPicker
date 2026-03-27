@@ -13,27 +13,25 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a new image asset from raw data.
+Initialize an image asset using binary data.
 
 ## Overview
 
-The `init(fileName:rawData:...)` initializer is the primary method for creating `SPImage` instances from locally provided binary data. It is most commonly used when integrating with a photo picker (e.g., `PHPickerViewController`) or when importing images from the file system.
+Use `init(fileName:rawData:...)` to create `SPImage` instances from local sources like `PHPickerViewController` or the file system. You pass the raw bytes and a name to build the asset.
 
-### Automated Metadata Resolution
+### Resolve Metadata Automatically
 
-A key feature of this initializer is its ability to infer missing information:
-- **Dimension Resolution**: If the provided `width` or `height` is `0`, the initializer uses `CGImageSourceCreateWithData` to inspect the `rawData` and extract the intrinsic pixel dimensions. This ensures the `SymbolPicker` grid can accurately maintain the asset's aspect ratio.
-- **Immediate Persistence**: The `rawData` is immediately written to the application's local `SymbolPicker/Images` directory. This allows the model instance itself to remain lightweight while the heavy asset data is managed by the file system.
+The initializer calculates missing information without extra steps. 
 
-### Best Practices
+If you set `width` or `height` to `0`, the system extracts the actual size from the bytes using `CGImageSourceCreateWithData`. This keeps the grid layout consistent even if you don't know the dimensions upfront.
 
-When using this initializer to import images from a photo library:
-1. Provide a meaningful `fileName` to ensure high-quality search results and accessibility labels.
-2. If the user has already performed cropping in the source picker, you can initialize the `zoom`, `offsetX`, and `offsetY` values to reflect that state.
+### Storage and Performance
+
+The system writes the `rawData` to the `SymbolPicker/Images` directory during initialization. Storing heavy data on disk keeps the model instance light. You can manage thousands of assets in memory because the binary data stays in the file system until you need to render it.
 
 ### Parameters
 
-- **`fileName`**: The name of the asset.
-- **`rawData`**: The binary image data (e.g., JPEG, PNG, HEIC).
-- **`zoom`, `offsetX`, `offsetY`**: Initial layout transformations.
-- **`width`, `height`**: The intrinsic pixel dimensions. If left at `0`, the initializer will calculate these from the `rawData`.
+- **`fileName`**: The name you assign to the asset.
+- **`rawData`**: The binary image data (JPEG, PNG, or HEIC).
+- **`zoom`, `offsetX`, `offsetY`**: The initial layout transformations.
+- **`width`, `height`**: The pixel dimensions. Set these to `0` to let the system calculate them from the data.

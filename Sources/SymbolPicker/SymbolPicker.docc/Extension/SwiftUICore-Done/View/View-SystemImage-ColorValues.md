@@ -1,6 +1,5 @@
 # ``SwiftUICore/View/symbolPicker(isPresented:systemImage:colorValues:configuration:)-(_,Binding<String>,_,_)``
 
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -19,9 +18,11 @@
 }
 
 ## Overview
-Presents a symbol picker that allows the user to select an SF Symbol and a color, which are synchronized with the provided bindings. This overload synchronizes with an array of color values (`[Double]`).
+
+Presents a symbol picker for selecting an SF Symbol and a color. This version binds the tint to an array of raw RGBA doubles (`[Double]`).
 
 ## Example Usage
+
 ```swift
 struct MyView: View {
     @State private var isPresented = false

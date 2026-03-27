@@ -1,7 +1,5 @@
 # ``SymbolPicker/SPDataManager/Error``
 
-Categorizes and handles failure scenarios that occur during asset loading, decoding, and searching.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,34 +18,28 @@ Categorizes and handles failure scenarios that occur during asset loading, decod
     @AutomaticArticleSubheading(disabled)
 }
 
+Failures during asset processing.
+
 ## Overview
 
-The `SPDataManager.Error` enum is primarily thrown by the following methods within the ``SymbolPicker/SPDataManager`` or during low-level asset processing:
-- ``SymbolPicker/SPDataManager/fetch(type:)`` (and its internal counterpart `fetchRaw`)
-- ``SymbolPicker/SPDataManager/search(_:for:)``
-- Concrete implementations of ``SymbolPicker/SPDataAsset/fetchAssets(locale:)``.
+The `SPDataManager.Error` enum maps failures in asset fetching and searching. Catch these in your UI layer to trigger fallback content.
 
-These errors are then propagated to the UI layer where they can be caught to display informative messages or trigger fallback content behaviors.
+### Scenarios
 
-### Common Error Scenarios
-
-- **Resource Missing**: The requested JSON data for a specific asset type and locale combination could not be found in the app bundle.
-- **Data Integrity**: The JSON content of an asset file could not be decoded into the expected Swift type, suggesting a schema mismatch or malformed data.
-- **System Constraints**: Low-level failures in constructing bundle URLs for resource files.
+- **Missing Files**: JSON data for the asset type and locale does not exist.
+- **Data Integrity**: JSON decoding failed due to a schema mismatch.
+- **System Constraints**: The bundle URL for a resource could not be created.
 
 ## Topics
 
 ### Properties
-
 - ``SymbolPicker/SPDataManager/Error/localizedDescription``
 
 ### Decoding Errors
-
 - ``SymbolPicker/SPDataManager/Error/decodingFailed(type:error:)``
 - ``SymbolPicker/SPDataManager/Error/unknownType(type:)``
 
 ### Data Errors 
-
 - ``SymbolPicker/SPDataManager/Error/bundleURLNotCreated(fileName:)``
 - ``SymbolPicker/SPDataManager/Error/fileNotFound(fileName:)``
 - ``SymbolPicker/SPDataManager/Error/otherError(error:)``

@@ -17,18 +17,17 @@
     @AutomaticSeeAlso(disabled)
 }
 
-
-An array of ``SymbolPicker/SPPageType`` asset types that will be available in the picker.
+The asset types available in the picker.
 
 ## Overview
 
-The `supportedTypes` property dictates which categories are presented as tabs in the picker. You can restrict the picker to only show specific types of assets (e.g., only symbols, or both symbols and emojis).
+The `supportedTypes` property sets which categories appear as tabs. You can limit the picker to specific assets, such as showing only symbols or hiding custom images.
 
 ### Available Types
 
-- **``SymbolPicker/SPPageType/symbol``**: Standard SF Symbols.
-- **``SymbolPicker/SPPageType/emoji``**: System emojis.
-- **``SymbolPicker/SPPageType/image``**: User-selected photos from the library (via PhotosPicker).
+- **`.symbol`**: SF Symbols.
+- **`.emoji`**: System emojis.
+- **`.image`**: User photos from the library.
 
 ### Customization
 

@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the default foreground color and returns the modified configuration.
+Sets the default foreground color for list items.
 
 - Parameter value: The new color.
-- Returns: The updated configuration instance.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spOptionListForeground(_:)` is a chainable method used to update the ``SymbolPicker/SPOptionListConfiguration/optionListForeground`` property.
+The `spOptionListForeground(_:)` method updates the ``SymbolPicker/SPOptionListConfiguration/optionListForeground`` property. It returns the configuration to allow for chaining.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

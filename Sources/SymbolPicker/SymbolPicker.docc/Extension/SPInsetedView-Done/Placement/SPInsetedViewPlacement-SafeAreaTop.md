@@ -13,11 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Placement at the top safe area of the picker container.
+Placement at the top safe area.
 
 ## Overview
 
-When set to `.safeAreaTop`, the inset view is pinned to the top of the picker's main container, outside of any scrollable content. This is an ideal location for headers, branding, or global navigation controls that should remain visible at all times.
+The `.safeAreaTop` case pins the inset view to the top of the picker container, outside the scroll view. Use this for headers, branding, or search fields that must stay visible at all times.
 
 ### Use Case
-Use this placement for a title bar or a custom search field that needs to stay anchored at the top of the picker interface.
+
+Ideal for a custom title bar or persistent search field at the top of the interface.

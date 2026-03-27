@@ -12,11 +12,13 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The background color of the SymbolPicker's presentation container.
+You define the color behind the symbol grid.
 
 ## Overview
 
-The `presentationBackgroundColor` property defines the color used for the background of the picker's modal container. By default, it uses `.clear` or standard system backgrounds depending on the platform and display style.
+The `presentationBackgroundColor` property sets the color for the picker's modal container. 
+
+By default, the picker uses standard system backgrounds. You override this when you need a specific aesthetic, such as matching a dark-themed picker to a custom app brand.
 
 ### Usage in Code
 

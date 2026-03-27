@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the array of colors available in the color picker and returns the modified configuration.
+Sets picker colors using a variadic list.
 
-- Parameter colors: A variadic list of `CKColor` objects.
-- Returns: The updated configuration instance.
+- Parameter colors: A list of `CKColor` objects.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spColorPickerColors(_:)` is a chainable method used to update the ``SymbolPicker/SPColorPickerConfiguration/colors`` property, accepting a variadic list of colors.
+The `spColorPickerColors(_:)` method updates the ``SymbolPicker/SPColorPickerConfiguration/colors`` property. It returns the configuration to allow chaining other settings.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPColorPickerConfiguration()

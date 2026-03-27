@@ -18,21 +18,21 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Configures the supported asset categories (page types) and the default selected category using an array.
+Select which asset categories the picker displays and set the initial view.
 
 ## Overview
 
-Use this modifier to restrict the picker to specific types of assets, such as only SF Symbols or only Emojis. This is useful for tailoring the picker to the specific data requirements of your application.
+Restrict your picker to specific content types like SF Symbols, Emojis, or custom images. This narrows the scope for your users and ensures they only select assets relevant to your data.
 
-### Category Selection
+### Category Control
 
-- **Supported Types**: You can include any combination of ``SymbolPicker/SPPageType/symbol``, ``SymbolPicker/SPPageType/emoji``, and ``SymbolPicker/SPPageType/image``.
-- **Initial Page**: The `defaultType` parameter determines which category is displayed when the picker first appears.
-- **UI Feedback**: The picker automatically shows or hides the category switcher (page picker) based on the number of supported types.
+- **Choose Types**: Include any mix of `.symbol`, `.emoji`, and `.image`.
+- **Set Start Page**: The `defaultType` parameter defines which category users see when they first open the picker.
+- **Adaptive UI**: The picker hides its category switcher if you only support one type.
 
 ### Example
 
-Restrict the picker to only show SF Symbols and Emojis, defaulting to Emojis:
+Show only SF Symbols and Emojis, starting the user on the Emoji tab:
 
 ```swift
 SymbolPicker(selection: $selection)
@@ -43,5 +43,5 @@ SymbolPicker(selection: $selection)
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `types` | `[SPPageType]` | An array of supported page types. |
-| `defaultType` | ``SymbolPicker/SPPageType`` | The page type to display initially. |
+| `types` | `[SPPageType]` | The list of categories you want to support. |
+| `defaultType` | ``SymbolPicker/SPPageType`` | The category that opens first. |

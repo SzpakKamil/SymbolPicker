@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Customizes the inseted views within the picker.
+Inject custom views into the picker layout.
 
 ## Overview
 
-Use this modifier to add or replace custom views (like headers or footers) within the picker's layout.
+Use this modifier to add or replace headers, footers, and other custom elements. You provide a closure that returns an array of `SPInsetedView` objects. These views appear within the picker's scrollable area, allowing you to brand the interface or add instructions.
 
 ### Parameters
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `replaceDefaults` | `Bool` | Whether to replace the default inseted views. |
-| `views` | `() -> [SPInsetedView]` | A closure that returns an array of custom views. |
+| `replaceDefaults` | `Bool` | Set to `true` to remove standard inseted views; `false` to keep them alongside your custom ones. |
+| `views` | `() -> [SPInsetedView]` | A closure returning the custom views you want to insert. |

@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets whether the integrated color picker supports opacity adjustments.
+Toggle opacity adjustment support in the integrated color picker.
 
 ## Overview
 
-When enabled, an opacity slider is provided within the color selection interface.
+Enable this option to provide an opacity slider in the color selection interface. This allows users to adjust the transparency of their selected color.
 
 ### Example
 
-Enable opacity support:
+Enable opacity support for the color picker:
 
 ```swift
 Text("Select Icon")
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Bool` | A Boolean value that indicates whether opacity support is enabled. |
+| `value` | `Bool` | Toggle for opacity support. |

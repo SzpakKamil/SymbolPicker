@@ -18,14 +18,16 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the background color for pressed option list items.
+Sets the background color for pressed list items.
 
 ## Overview
 
-Use this modifier to specify the background color of items within the option list when an item is being pressed.
+Use this modifier to set the background color for items in the option list during a press interaction.
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `value` | `Color` | The pressed background color to apply. |
+- **value**: The background color for the pressed state.
+
+### Details
+
+This color provides visual feedback when a user taps or clicks a cell in the picker grid. It helps signal that the interaction is active.

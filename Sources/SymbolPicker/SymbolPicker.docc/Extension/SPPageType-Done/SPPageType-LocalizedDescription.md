@@ -13,17 +13,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A human-readable, localized name for the page type.
+A localized name for the page type.
 
 ## Overview
 
-The `localizedDescription` property provides a user-facing title for each page category. This is used by the `SymbolPicker` to label tabs, section headers, or selection buttons in the user's preferred language.
+The `localizedDescription` property provides the label for page categories in the user's language. SymbolPicker uses these names for tabs and section headers.
 
-### Localization Support
+### Localization
 
-The property automatically handles localization by searching for the appropriate translation in the library's resource bundle. This ensures that the browsing interface remains consistent and accessible for users across different regions.
+The property finds the correct translation in the library bundle. This keeps the interface consistent for users in different regions.
 
-### Usage in Components
+### Components
 
-- **SPPagePicker**: Uses `localizedDescription` to label the navigation tabs, helping users understand which category they are currently browsing.
-- **Accessibility**: This property is also used to provide descriptive labels for screen readers and other assistive technologies.
+- **SPPagePicker**: Uses these descriptions to label navigation tabs.
+- **Accessibility**: Provides descriptive names for VoiceOver and other assistive tools.

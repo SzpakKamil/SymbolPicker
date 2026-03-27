@@ -1,7 +1,5 @@
 # ``SymbolPicker/SymbolPicker/init(image:configuration:)-(Binding<SPImage?>,_)``
 
-Creates a picker bound to an optional custom image.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "16.0")
@@ -17,11 +15,17 @@ Creates a picker bound to an optional custom image.
     @AutomaticArticleSubheading(disabled)
 }
 
+Creates a picker for an optional custom image.
+
 ## Overview
 
-This initializer provides a specialized binding for the asset selection, ensuring that the picker state is automatically synchronized with the provided source of truth.
+This initializer binds the picker to an optional image asset. It ensures the picker state stays in sync with your data.
 
 ### Parameters
 
-- **image**: A binding to the custom image object.
-- **configuration**: The visual configuration for the picker.
+- **image**: A binding to the optional ``SymbolPicker/SPImage`` object.
+- **configuration**: The layout and style settings for the picker.
+
+### Usage
+
+The picker updates the provided binding when the user selects a photo. Use this version when your app allows a `nil` state for the selected image.

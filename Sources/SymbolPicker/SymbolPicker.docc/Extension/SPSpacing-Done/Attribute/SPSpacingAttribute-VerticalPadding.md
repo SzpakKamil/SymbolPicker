@@ -13,22 +13,20 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Vertical padding around the component.
+Vertical padding sets the space above and below a component.
 
 ## Overview
 
-The `verticalPadding` attribute defines the amount of vertical space (top and bottom) added around a target component within the `SymbolPicker`.
+You use `verticalPadding` to define the space at the top and bottom of a component in `SymbolPicker`.
 
 ### Layout Role
 
-This attribute is primarily used for:
-- **Component Separation**: Provides visual distance between different parts of the picker, such as separating the search bar from the symbol grid.
-- **Section Integrity**: Ensures that headers and footers within the scrollable content have adequate spacing to clearly define their relationship to the data assets.
+This attribute separates interface elements. Use it to pull the search bar away from the symbol grid or to give headers and footers room. Clear vertical distance keeps the interface scannable and prevents the UI from feeling cramped.
 
-### End-User Impact
+### User Experience
 
-Correct vertical padding prevents different parts of the UI from blending together, improving scannability. It also ensures that interactive elements like the color picker have enough space around them to prevent accidental taps on neighboring symbols or emojis.
+Proper spacing protects interactive areas. It prevents users from accidentally tapping a neighboring symbol when they mean to pick a color. Balanced padding helps the eye distinguish between different sections of the picker.
 
 ### Technical Context
 
-This value is applied internally using SwiftUI's `.padding(.vertical, value)` modifier during the rendering of the component's container.
+The library applies this value through SwiftUI's `.padding(.vertical, value)` modifier. It affects the container holding the target component.

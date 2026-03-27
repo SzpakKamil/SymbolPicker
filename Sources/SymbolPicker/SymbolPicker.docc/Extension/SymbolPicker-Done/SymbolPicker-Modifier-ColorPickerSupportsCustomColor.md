@@ -18,14 +18,14 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets whether the color picker allows selecting custom colors beyond the predefined set.
+Allow users to select custom colors beyond the predefined palette.
 
 ## Overview
 
-When enabled, an additional option is provided to open a system color picker for any custom color.
+Enable this option to add a button that opens the system color picker. This gives users total control over the color selection, letting them choose any hue, saturation, or brightness. If you disable this, users can only pick from your specified or default color set.
 
 ### Parameters
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Bool` | A boolean value that indicates whether custom color selection is supported. |
+| `value` | `Bool` | Set to `true` to enable custom color selection; `false` to restrict users to the palette. |

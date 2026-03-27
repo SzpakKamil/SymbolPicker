@@ -18,14 +18,16 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets the foreground color for selected option list items.
+Sets the foreground color for selected list items.
 
 ## Overview
 
-Use this modifier to specify the color for text and icons within the option list when an item is in its selected state.
+Use this modifier to set the color for text and icons in the option list when a user selects an item.
 
 ### Parameters
 
-| Name | Type | Description |
-| :--- | :--- | :--- |
-| `value` | `Color` | The selected foreground color to apply. |
+- **value**: The foreground color for the selected state.
+
+### Details
+
+This color applies to the asset icon or text label within the grid or list cell. Use it to ensure high contrast against the selected background color.

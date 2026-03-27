@@ -21,14 +21,12 @@ Initializes a selection with an emoji and an optional SwiftUI color.
 
 ## Overview
 
-This initializer allows you to create an emoji selection and optionally apply a SwiftUI color as a tint or background color.
+Initialize a selection with an emoji and an optional SwiftUI color. You use this to create emoji selections with custom tint or background colors.
 
 ### Selection State
 
-When using this initializer:
-- The ``SymbolPicker/SPSelection/type`` is set to ``SymbolPicker/SPSelection/SelectionType/emoji``.
-- The ``SymbolPicker/SPSelection/emoji`` property is populated with the provided character data.
+This initializer sets the selection ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/emoji``. It populates the ``SymbolPicker/SPSelection/emoji`` property with the provided character data.
 
 ### Color Handling
 
-The provided SwiftUI `Color` is automatically converted into a `ColorKit/CKColor` for storage. This color is typically used as a background fill for the circular selection view when the emoji is displayed.
+The library converts the SwiftUI `Color` into a `ColorKit/CKColor` for storage. This color often serves as a background fill for the circular selection view when displaying the emoji. This conversion ensures the color remains consistent across all supported platforms.

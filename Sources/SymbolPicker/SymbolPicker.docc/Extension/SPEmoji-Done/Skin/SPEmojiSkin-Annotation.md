@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A localized, descriptive name for the skin variation.
+A localized name for the skin variation.
 
 ## Overview
 
-The `annotation` property provides a human-readable, localized label for the specific emoji variation (e.g., `"Light Skin Tone"`). This description is loaded from locale-specific JSON resources and is a primary target for accessibility tools.
+The `annotation` property provides a human-readable label for an emoji variation, such as "Light Skin Tone." SymbolPicker loads these descriptions from JSON files.
 
-### Accessibility Support
+### Accessibility
 
-This property is utilized as the default accessibility label in the `SymbolPicker` variation selector. By providing specific annotations for each variation, the picker ensures that users of assistive technologies (e.g., VoiceOver) receive accurate and meaningful descriptions of the glyphs they are selecting.
+The system uses this property as the default accessibility label in the skin tone selector. This ensures VoiceOver provides accurate descriptions of the choices.
 
-### Role in Search
+### Search
 
-While the primary emoji search is focused on the parent emoji's annotation, the skin variation's annotation enhances the search relevance, allowing for more specific results when a user is looking for a particular variation.
+The skin variation's annotation improves search relevance. It helps users find specific variations when they search for refined terms.

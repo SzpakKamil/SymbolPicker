@@ -13,19 +13,19 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a new symbol view with a provided symbol model.
+You create a view to render a specific SF Symbol.
 
 ## Overview
 
-The `init(symbol:)` initializer creates a reactive rendering component for a specific SF Symbol asset.
+The `init(symbol:)` initializer prepares your `SPSymbol` data for the screen. It sets up a reactive component that handles the rendering details for the chosen icon.
 
 ### Parameter Configuration
 
-- **`symbol`**: The ``SymbolPicker/SPSymbol`` data model containing the symbol's naming, availability, and optional variant data.
+- **`symbol`**: You provide the ``SymbolPicker/SPSymbol`` model. This contains the symbol's name, availability, and variant options.
 
 ### Initialization Process
 
-Upon initialization, the view captures the necessary properties from the symbol model to prepare for rendering:
-1. **Property Extraction**: Captures the symbol's ``SymbolPicker/SPSymbol/annotation``, ``SymbolPicker/SPSymbol/filledName``, and ``SymbolPicker/SPSymbol/notFilled`` names.
-2. **Availability Capture**: Checks and stores the result of ``SymbolPicker/SPSymbol/isAvailable()`` to determine if a fallback icon is needed.
-3. **Variant State**: Captures the preferred ``SymbolPicker/SPSymbol/Variant`` defined on the model.
+When you call this, the view extracts key details from your model:
+1. **Property Extraction**: It captures the annotation and the different names for filled and outline states.
+2. **Availability Check**: It runs ``SymbolPicker/SPSymbol/isAvailable()``. If the icon doesn't exist on the user's OS version, the view prepares a fallback icon.
+3. **Variant Setup**: It captures your preferred variant style from the model.

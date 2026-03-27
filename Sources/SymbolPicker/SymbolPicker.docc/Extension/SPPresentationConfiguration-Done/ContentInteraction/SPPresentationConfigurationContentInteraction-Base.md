@@ -18,15 +18,13 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Determines how the presentation content behaves during user interaction, such as dragging.
+You define how the picker responds to drag gestures.
 
 ## Overview
 
-When a user drags a sheet, the system must decide whether that gesture is intended to:
-1.  **Scroll** the content inside the sheet (e.g., browsing a long list of symbols).
-2.  **Resize** the sheet itself (e.g., expanding from `.medium` to `.large`).
+When you drag a sheet, the system chooses between two actions. You either scroll the content inside the sheet or you resize the sheet itself.
 
-The `ContentInteraction` enum gives you explicit control over this behavior, ensuring that complex layouts with internal scroll views behave predictably during user interaction.
+The `ContentInteraction` enum gives you explicit control. You use it to prevent gestures from conflicting. For example, you can lock the sheet height so a user only scrolls through the symbol grid. This keeps the experience predictable when your layout includes complex scroll views.
 
 ## Topics
 

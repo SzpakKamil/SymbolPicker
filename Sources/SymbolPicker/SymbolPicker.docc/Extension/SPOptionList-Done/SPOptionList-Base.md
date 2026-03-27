@@ -18,26 +18,26 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A generic grid/list view for displaying and selecting data assets like symbols, emojis, and images.
+You browse and select symbols or emojis in this adaptive grid.
 
 ## Overview
 
-`SPOptionList` is the primary component for browsing the available symbols and emojis within the `SymbolPicker` package. It provides a highly adaptive grid interface that scales according to the available width and the current dynamic type size.
+`SPOptionList` is the core browsing component of the `SymbolPicker`. It provides an adaptive grid that scales icons based on your screen width and dynamic type size.
 
 ### Key Capabilities
 
-- **Dynamic Grid Sizing**: Uses an adaptive grid to ensure that cells remain legible across all dynamic type sizes, from `small` to `accessibilityExtraExtraExtraLarge`.
-- **Generic Data Handling**: Works seamlessly with any asset type that conforms to ``SymbolPicker/SPDataAsset``. 
-- **Platform-Optimized Selection**: Handles single-tap selection and provides a long-press skin tone picker for emojis on supported platforms.
-- **Sectioned Layout**: Automatically organizes assets into logical groups (e.g., categories) for easier navigation.
+- **Dynamic Grid Sizing**: The grid ensures icons remain large enough to tap at any text size, from `small` to the largest accessibility settings.
+- **Generic Data Handling**: You can use this list with any asset type that follows the ``SymbolPicker/SPDataAsset`` protocol.
+- **Platform Selection**: It handles single taps for selection and offers a long-press skin tone picker for emojis.
+- **Sectioned Layout**: The list automatically groups assets into categories like "Nature" or "Activity" to help users navigate.
 
 ### Configuration-Driven Styling
 
-The visual appearance of the grid items—including colors, padding, and corner radii—is governed by the ``SymbolPicker/SPOptionListConfiguration``. This configuration is resolved from the environment, allowing for deep customization of the picker's aesthetic without modifying the underlying view logic.
+The grid's look—including colors, padding, and corner radius—comes from the ``SymbolPicker/SPOptionListConfiguration``. This lets you customize the picker's aesthetic without touching the internal view code.
 
 ### Integration
 
-To use `SPOptionList`, you simply provide a binding to an ``SymbolPicker/SPSelection`` object. The view will automatically resolve the asset type and render the appropriate grid.
+To use `SPOptionList`, provide a binding to an ``SymbolPicker/SPSelection`` object. The view resolves the asset type and builds the appropriate grid.
 
 ```swift
 SPOptionList(selection: $selection)

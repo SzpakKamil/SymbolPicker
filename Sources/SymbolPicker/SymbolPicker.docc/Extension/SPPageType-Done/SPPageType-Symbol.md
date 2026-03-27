@@ -17,8 +17,8 @@ A browsing page for symbols.
 
 ## Overview
 
-The `symbol` case represents a page in the `SymbolPicker` where users can browse, search, and select SF Symbols or custom vector icons.
+The `symbol` case sets the picker to show SF Symbols or custom vector icons.
 
-### Browsing Interface
+### Browsing
 
-When the symbol page is active, the picker typically displays a grid of icons with search and category filtering capabilities. This allows users to quickly find the specific symbol they need from thousands of available options.
+On this page, users see a grid of icons with search and category filtering. This helps users find specific symbols from the thousands of available options in the SF Symbols library. SymbolPicker handles the rendering and scaling of these vector assets to ensure they remain sharp at any size.

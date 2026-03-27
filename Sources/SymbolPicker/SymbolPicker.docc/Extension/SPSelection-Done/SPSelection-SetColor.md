@@ -19,15 +19,12 @@ Updates the color or tint associated with the selection.
 
 ## Overview
 
-The `setColor(_:)` method is the primary way to update the color of an existing ``SymbolPicker/SPSelection``. Because `SPSelection` is a struct, this is a mutating method.
+Update the color or tint of a selection. The `setColor(_:)` method is the primary way to change an ``SymbolPicker/SPSelection`` color. 
 
-### State Updates
+### State Management
 
-When this method is called:
-- The ``SymbolPicker/SPSelection/color`` property is updated with the new value.
-- If the current ``SymbolPicker/SPSelection/type`` is `.color`, the selection itself is updated.
-- If the type is `.symbol`, `.emoji`, or `.image`, the color is updated as a tint.
+Since `SPSelection` is a struct, this is a mutating method. It updates the ``SymbolPicker/SPSelection/color`` property with your new value. If the selection ``SymbolPicker/SPSelection/type`` is `.color`, the selection itself changes. For symbols, emojis, or images, the color acts as a tint or background fill.
 
-### Data Flow
+### UI Synchronization
 
-Calling this method triggers any SwiftUI bindings associated with the selection, causing the picker's preview and the application's UI to re-render with the new color immediately.
+Calling this method triggers any SwiftUI bindings associated with the selection. This causes the picker's preview and your application's UI to re-render with the new color immediately. This ensures the visual state always matches the underlying data model.

@@ -13,11 +13,12 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Placement at the top of the scrollable content.
+Placement at the top of the scrollable area.
 
 ## Overview
 
-When set to `.scrollContentTop`, the inset view is placed at the very beginning of the scrollable area. It scrolls along with the symbols or emojis, disappearing as the user moves down.
+The `.scrollContentTop` case puts the inset view at the start of the scrollable content. The view scrolls with the assets and disappears as the user moves down the list.
 
 ### Use Case
-Use this for introductory content, such as a localized welcome message or a dynamic category header that should only appear at the start of the collection.
+
+Use this for introductory content, such as a welcome message or a dynamic header that should only appear at the top of the collection.

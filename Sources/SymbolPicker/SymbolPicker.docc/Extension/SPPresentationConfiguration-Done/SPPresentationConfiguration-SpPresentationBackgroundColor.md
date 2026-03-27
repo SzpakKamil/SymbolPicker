@@ -12,14 +12,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the background color for the presentation and returns the modified configuration.
+You change the color of the picker's background and get the updated configuration.
 
 - Parameter value: The new background color.
 - Returns: The updated configuration instance.
 
 ## Overview
 
-`spPresentationBackgroundColor(_:)` is a chainable method used to update the ``SymbolPicker/SPPresentationConfiguration/presentationBackgroundColor`` property.
+`spPresentationBackgroundColor(_:)` is a chainable method. It updates the ``SymbolPicker/SPPresentationConfiguration/presentationBackgroundColor`` property. This design lets you set up your picker's look in a single, fluid block of code.
 
 ### Usage in Code
 

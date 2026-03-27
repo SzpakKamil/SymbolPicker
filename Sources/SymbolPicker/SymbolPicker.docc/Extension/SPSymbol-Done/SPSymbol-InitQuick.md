@@ -13,22 +13,22 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A "Quick" initializer for symbols where filled and outlined names are identical.
+Creates a symbol where filled and outlined names match.
 
-- Parameter systemName: The SF Symbol system name to use for both filled and outlined variants.
+- Parameter systemName: The SF Symbol name for both variants.
 
 ## Overview
 
-This initializer provides a convenient way to create an ``SymbolPicker/SPSymbol`` when the symbol does not have distinct "filled" and "outlined" variants, or when such distinction is not required.
+Use this initializer to create an ``SymbolPicker/SPSymbol`` when the icon does not have different "filled" and "outlined" versions.
 
-### Default Values
+### Defaults
 
-When using this initializer:
-- `filledName` and `notFilled` are both set to the provided `systemName`.
-- `id` is set to `systemName`.
-- `version` defaults to `1.0`.
-- All other metadata properties (`category`, `subcategory`, `tags`, `annotation`) are set to `nil`.
+When you use this initializer:
+- **Names**: Sets `filledName` and `notFilled` to the provided `systemName`.
+- **Identifier**: Sets `id` to the `systemName`.
+- **Version**: Defaults to `1.0`.
+- **Metadata**: Sets all other properties to `nil`.
 
-### Use Cases
+### Usage
 
-This is ideal for quickly creating symbol objects for testing or for simple symbols that do not follow the standard SF Symbol variant naming conventions.
+This method works well for testing or for simple symbols that do not use standard variant naming.

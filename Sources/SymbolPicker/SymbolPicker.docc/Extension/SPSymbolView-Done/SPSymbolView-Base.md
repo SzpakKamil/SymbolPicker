@@ -18,22 +18,21 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A dedicated view for rendering SF Symbols with support for variant-based selection.
+You use this view to display SF Symbols with automatic variant support.
 
 ## Overview
 
-`SPSymbolView` is a specialized rendering component designed specifically for SF Symbols within the ``SymbolPicker`` ecosystem. It handles the complexities of resolving symbol names based on the desired fill variant and ensuring that the icon is displayed correctly across all supported platforms.
+`SPSymbolView` handles the heavy lifting of icon rendering. It resolves symbol names based on your fill preferences and ensures the icon looks correct on every platform.
 
 ### Usage
 
-To use `SPSymbolView`, initialize it with an instance of ``SymbolPicker/SPSymbol``:
+Initialize the view with an instance of ``SymbolPicker/SPSymbol``:
 
 ```swift
 import SwiftUI
 import SymbolPicker
 
 struct MySymbolPreview: View {
-    // Using the system name initializer
     let symbol = SPSymbol(systemName: "heart.fill")
 
     var body: some View {
@@ -46,21 +45,21 @@ struct MySymbolPreview: View {
 
 ### Variant Awareness
 
-The view is highly reactive to the symbol's requested variant state. It uses a combination of explicit configuration and environmental defaults:
-- **Explicit Variant**: If an ``SymbolPicker/SPSymbol`` is initialized with a specific variant (e.g., `.filled` or `.none`), the view will strictly adhere to that choice.
-- **Environmental Variant**: If no explicit variant is set, the view resolves its state from the ``SymbolPicker/SPSymbol/Variant`` provided through the environment. This allows a single symbol to automatically switch between filled and outline states depending on where it is used in the UI.
+The view reacts to your requested variant state. It mixes your explicit choices with environmental defaults:
+- **Explicit Variant**: If you set an ``SymbolPicker/SPSymbol`` to `.filled`, the view strictly follows that choice.
+- **Environmental Variant**: If you leave the variant empty, the view reads the ``SymbolPicker/SPSymbol/Variant`` from the environment. This lets a single symbol switch between outline and filled states automatically as you move it through different parts of your UI.
 
 ### Adaptive Fallback
 
-In cases where a requested symbol is not available on the current operating system version, `SPSymbolView` automatically falls back to a standardized "question mark" icon. This ensures that the user interface remains stable and functional even when using newer SF Symbols on older platform versions.
+If you request a symbol that is too new for the user's operating system, `SPSymbolView` shows a standard "question mark" icon. This fallback keeps your interface stable and functional on older platform versions.
 
 ### Accessibility
 
-The view automatically applies appropriate accessibility labels derived from the symbol's annotation or its category (via ``SymbolPicker/SPPageType/symbol``), ensuring that the visual icons are fully navigable and understandable for users relying on assistive technologies.
+The view applies accessibility labels from the symbol's annotation or category. This ensures users who rely on assistive technologies can navigate and understand your icons.
 
 ### Rendering Performance
 
-`SPSymbolView` utilizes the `.drawingGroup()` modifier to offload rendering to the GPU. This ensures that even when many symbols are displayed simultaneously—such as in a large grid or list—the UI remains smooth and responsive by reducing the overhead on the main thread.
+`SPSymbolView` offloads rendering to the GPU using the `.drawingGroup()` modifier. This keeps your UI smooth and responsive even when you display thousands of symbols in a large grid.
 
 ## Topics
 

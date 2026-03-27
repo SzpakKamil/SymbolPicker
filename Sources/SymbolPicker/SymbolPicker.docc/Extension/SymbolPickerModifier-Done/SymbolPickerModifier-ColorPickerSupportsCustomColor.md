@@ -18,11 +18,11 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets whether the integrated color picker supports selecting arbitrary custom colors.
+Enable or disable custom color selection in the integrated color picker.
 
 ## Overview
 
-When enabled, a system color well or "plus" button is provided to open the platform's standard color picker for selecting any color beyond the predefined palette.
+When you enable this option, the picker displays a system color well or "plus" button. This allows users to open the platform standard color picker and select any color beyond your predefined palette.
 
 ### Example
 
@@ -38,4 +38,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `value` | `Bool` | A Boolean value that indicates whether custom color selection is enabled. |
+| `value` | `Bool` | Toggle for custom color selection. |

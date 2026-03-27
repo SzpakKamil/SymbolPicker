@@ -17,18 +17,17 @@
     @AutomaticSeeAlso(disabled)
 }
 
+Returns an ``SymbolPicker/SPPresentationConfiguration`` for the picker modal.
 
-Returns an ``SymbolPicker/SPPresentationConfiguration`` object that controls how the picker is presented.
-
-- Returns: A configuration object for modal presentation behaviors.
+- Returns: A configuration object for modal presentation.
 
 ## Overview
 
-The `presentationConfiguration()` method is responsible for defining the "shell" of the picker. It governs the presentation type (e.g., sheet or popover), the background color of the modal, corner radii, and drag interaction behaviors.
+The `presentationConfiguration()` method defines the picker's modal "shell." It sets the presentation type, such as sheet or popover, and controls background colors, corner radii, and drag behaviors.
 
 ### Customization
 
-When implementing this method in a custom ``SymbolPicker/SymbolPickerConfiguration``, you can use the fluent API provided by ``SymbolPicker/SPPresentationConfiguration`` to build a custom setup:
+Use the fluent API in ``SymbolPicker/SPPresentationConfiguration`` to build your setup:
 
 ```swift
 func presentationConfiguration() -> SPPresentationConfiguration {

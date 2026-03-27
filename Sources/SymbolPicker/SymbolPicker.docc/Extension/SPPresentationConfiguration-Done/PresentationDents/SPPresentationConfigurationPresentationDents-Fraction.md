@@ -13,14 +13,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A fractional presentation detent.
+You set the sheet height as a percentage of the screen.
 
 ## Overview
 
-When set to `.fraction(_:)`, the sheet's height is defined as a proportion of the available vertical space. This ensures that the picker maintains its relative size across different devices and orientations.
+The `.fraction(_:)` setting defines the sheet's height as a proportion of the vertical space. This ensures your picker maintains its relative size across different devices and orientations.
 
 ### Parameters
-- `fraction`: A value between 0.0 and 1.0 (e.g., 0.33 for a third of the screen height).
+- `fraction`: You pass a value between 0.0 and 1.0. For example, 0.33 takes up one-third of the screen.
 
 ### Use Case
-Useful for creating flexible layouts that should scale proportionally with the screen size (e.g., ensuring the picker always takes up roughly one-third of the screen on both a small iPhone and a large iPad).
+Use this for flexible layouts. It ensures your picker always covers a specific portion of the view, whether the user is on a small iPhone or a large iPad.

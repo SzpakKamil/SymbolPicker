@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-Sets a custom closure to calculate the scale of the selection preview card based on the grid's scroll position.
+Calculate the scale of the selection preview card based on the scroll position.
 
 ## Overview
 
-Use this modifier to create dynamic scaling effects for the preview card, such as shrinking it slightly as the user scrolls deeper into the asset grid.
+Use this modifier to create dynamic scaling effects. You can shrink the preview card as users scroll deeper into the asset grid to maintain visual balance.
 
 ### Example
 
-Scale the preview card based on scroll position:
+Scale the preview card based on scroll depth:
 
 ```swift
 Text("Select Icon")
@@ -40,4 +40,4 @@ Text("Select Icon")
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `closure` | `@Sendable (ScrollGeometry) -> CGFloat` | A closure that returns the desired scale factor for the preview card. |
+| `closure` | `@Sendable (ScrollGeometry) -> CGFloat` | A closure that returns the scale factor for the preview card. |

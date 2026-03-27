@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the corner radius factor for list items and returns the modified configuration.
+Sets the corner radius multiplier for list items.
 
-- Parameter value: The new corner radius factor (0.0 to 0.5).
-- Returns: The updated configuration instance.
+- Parameter value: The multiplier (0.0 to 0.5).
+- Returns: The updated configuration.
 
 ## Overview
 
-`spOptionListCornerRadiusFactor(_:)` is a chainable method used to update the ``SymbolPicker/SPOptionListConfiguration/optionListCornerRadiusFactor`` property.
+The `spOptionListCornerRadiusFactor(_:)` method updates the ``SymbolPicker/SPOptionListConfiguration/optionListCornerRadiusFactor`` property. This multiplier applies to the item width to set the final corner rounding in the asset grid.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

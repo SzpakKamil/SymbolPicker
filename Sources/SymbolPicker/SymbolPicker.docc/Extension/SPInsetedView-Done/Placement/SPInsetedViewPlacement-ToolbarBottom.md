@@ -10,14 +10,16 @@
 
 Placement in the center of the bottom toolbar.
 
-> Important: This placement is not intended for iOS use. While it is technically available for compatibility, it is primarily designed for use on **watchOS**.
+> Important: This placement is primarily for **watchOS**. While available on iOS for compatibility, use other placements for standard iOS layouts.
 
 ## Overview
 
-When set to `.toolbarBottom`, the inset view is placed in the center of the bottom toolbar. This is an ideal location for central navigation or selection displays.
+The `.toolbarBottom` case puts the inset view in the center of the bottom toolbar. Use this location for central navigation controls or status displays.
 
 ### Availability
-This placement is available on both **iOS** and **watchOS**.
+
+This placement works on **iOS** and **watchOS**.
 
 ### Use Case
-Ideal for a centered title or a dynamic status indicator in the bottom toolbar.
+
+Ideal for showing a centered title or a dynamic status indicator in the bottom bar.

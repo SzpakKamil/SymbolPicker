@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets whether custom colors are supported and returns the modified configuration.
+Toggles custom color selection.
 
-- Parameter value: `true` to enable custom color selection, `false` to disable.
-- Returns: The updated configuration instance.
+- Parameter value: Set `true` to enable custom selection.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spColorPickerSupportsCustomColor(_:)` is a chainable method used to update the ``SymbolPicker/SPColorPickerConfiguration/supportCustomColor`` property.
+The `spColorPickerSupportsCustomColor(_:)` method updates the ``SymbolPicker/SPColorPickerConfiguration/supportCustomColor`` property. It returns the configuration so you can chain other settings.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPColorPickerConfiguration()

@@ -16,9 +16,9 @@ The background color for selected list items.
 
 ## Overview
 
-The `optionListBackgroundSelected` property defines the background fill color for an asset cell when it has been chosen by the user.
+The `optionListBackgroundSelected` property sets the fill color for an asset cell after the user selects it.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPOptionListConfiguration()

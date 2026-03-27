@@ -13,24 +13,20 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Performs a runtime check to verify if the image data is locally available and renderable.
+Verify that image data exists and can render.
 
 ## Overview
 
-The `isAvailable()` method is a critical safety check for image assets. Unlike symbols or emojis—which are system-resident and can be verified by name or Unicode version—images rely on the integrity of the host application's local file system.
+Call `isAvailable()` to check an asset's integrity. Symbols and emojis live in the system, but images live in your app's local storage. This method ensures the file is where you expect it.
 
-### Verification Logic
+### The Two-Step Check
 
-This method executes a two-stage validation pipeline:
-1. **File System Verification**: Confirms that a physical file exists at the expected ``SymbolPicker/SPImage/localURL``. 
-2. **Structural Validation**: Uses `CGImageSourceCreateWithURL` to inspect the contents of the file. A result of `true` is only returned if:
-   - The file contains a complete image stream (`CGImageSourceGetStatus` is `.statusComplete`).
-   - The file contains at least one image frame.
+The check follows a clear logic. First, it looks for a physical file at the `localURL`. Second, it inspects the file using `CGImageSourceCreateWithURL`. You get `true` only if the image stream is complete and contains at least one frame.
 
-### Architectural Importance
+### Avoid Zombie Assets
 
-The `SPDataManager` uses this method to filter the image library during the asset loading phase. By excluding "zombie" assets—images where the metadata (like the ID and filename) is known but the binary data has been manually deleted or moved—the `SymbolPicker` avoids displaying broken image placeholders or causing SwiftUI rendering errors.
+The `SPDataManager` filters your library using this method. It removes "zombie" assets that have metadata but no actual file. This prevents broken placeholders and rendering errors in SwiftUI.
 
-### Performance Consideration
+### Speed and Memory
 
-Because this method reads from disk, it is highly optimized. It only performs the structural check if the file system check passes, and it avoids fully decoding the image into memory, keeping the overhead low even when scanning a large library of assets.
+This check is fast. It only inspects the file structure if the file exists. Since it skips full decoding, you can scan large libraries without slowing down the app or eating up memory.

@@ -18,15 +18,15 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-An enumeration defining the platforms supported by the `SymbolPicker` library.
+An enumeration for platforms supported by SymbolPicker.
 
 ## Overview
 
-The `SPSupportedPlatforms` enum is used for platform detection and version tracking within the library. It allows the picker to adapt its behavior and features to the specific platform it is running on.
+The `SPSupportedPlatforms` enum handles platform detection and version tracking. It lets the picker adapt its behavior and features to the specific system it runs on.
 
 ### Platform Tracking
 
-Each case of the enum represents a supported OS (iOS, macOS, tvOS, watchOS, or visionOS) and can optionally store the major version number of that OS.
+Each case represents a supported OS—iOS, macOS, tvOS, watchOS, or visionOS—and optionally stores the major version number.
 
 ## Topics
 

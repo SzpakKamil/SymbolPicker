@@ -1,6 +1,6 @@
 # ``SymbolPicker/SPPresentationConfiguration``
 
-A struct that defines the visual and behavioral settings for how the SymbolPicker is presented to the user.
+You configure how the SymbolPicker looks and behaves during presentation.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -22,15 +22,13 @@ A struct that defines the visual and behavioral settings for how the SymbolPicke
 
 ## Overview
 
-The `SPPresentationConfiguration` struct allows developers to customize the presentation behavior of the SymbolPicker. This includes controlling the corner radius, background interaction, drag indicators, and presentation dents.
+The `SPPresentationConfiguration` struct centralizes all your choices for the picker's modal UI. Instead of scattering modifiers across your views, you pack your settings into this object.
 
-### View Integration
+This struct directly influences the underlying SwiftUI sheet and popover logic. It controls everything from corner radius and background colors to how users interact with the app behind the picker.
 
-This configuration is primarily consumed by the main ``SymbolPicker/SymbolPicker`` view and its internal bridge layers. It directly influences how the SwiftUI `.sheet` or `.popover` modifiers are configured.
-
-- **Modal Style**: The ``presentationType`` property determines if the picker appears as a standard sheet, a fullscreen cover, or a popover (especially relevant for iPad and Mac).
-- **Sheet Behavior**: Properties like ``presentationDents`` and ``presentationDragIndicator`` control the resizable nature of the sheet on iOS, allowing for "compact" (half-screen) or "detail" (full-screen) modes.
-- **Background Interaction**: You can control whether the user can still interact with the views behind the picker using ``presentationBackgroundInteraction``.
+- **Modal Style**: You use ``presentationType`` to choose between sheets, popovers, or full-screen covers.
+- **Sheet Behavior**: You set heights with ``presentationDents`` and toggle the grab handle with ``presentationDragIndicator``.
+- **Background Interaction**: You decide if the user can still touch the main app using ``presentationBackgroundInteraction``.
 
 ### Usage Example
 

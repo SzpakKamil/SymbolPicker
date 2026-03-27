@@ -13,17 +13,13 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Indicates that the system was unable to locate the requested JSON file in the app bundle.
+Indicates a missing JSON file in the bundle.
 
-- Parameter fileName: The name of the JSON file that was not found.
+- Parameter fileName: The name of the missing resource.
 
 ## Overview
 
-The `fileNotFound` error is thrown as a final fallback when the ``SymbolPicker/SPDataManager`` has exhausted all locale-specific and default ("en") resource resolution strategies.
-
-### When it occurs
-
-This error signifies that the required data for an asset type is completely missing from the bundle. This typically happens if:
-- A new asset type's data files have not been added to the `Resources` folder.
-- The resource files are incorrectly named (e.g., they don't match the expected ``SymbolPicker/SPDataAsset/filePrefix``).
-- The `Resources` folder was not correctly processed during the package build.
+The system throws `fileNotFound` after exhausting all locale-specific and default ("en") search strategies. This happens when:
+- Data files for an asset type are missing from the `Resources` folder.
+- Resource names do not match the expected prefix.
+- The package build did not process the `Resources` folder correctly.

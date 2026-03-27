@@ -12,14 +12,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the available presentation detents and returns the modified configuration.
+You define the allowed heights for the picker sheet and get the updated configuration.
 
-- Parameter dents: A set of detents (e.g., `.medium`, `.large`).
+- Parameter dents: A set of height levels like `.medium` or `.large`.
 - Returns: The updated configuration instance.
 
 ## Overview
 
-`spPresentationDents(_:)` is a chainable method used to update the ``SymbolPicker/SPPresentationConfiguration/presentationDents`` property, defining the supported heights for the sheet presentation.
+`spPresentationDents(_:)` updates the ``SymbolPicker/SPPresentationConfiguration/presentationDents`` property. This chainable method lets you set the snap points for your sheet. By passing an array of detents, you enable the user to drag the picker between different sizes, such as a compact half-screen view and an expanded full-screen grid.
 
 ### Usage in Code
 

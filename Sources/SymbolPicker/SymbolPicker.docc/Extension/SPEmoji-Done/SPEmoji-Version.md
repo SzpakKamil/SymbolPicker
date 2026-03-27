@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The Unicode version where this emoji was introduced.
+The Unicode release version for the emoji.
 
 ## Overview
 
-The `version` property is a numeric representation of the Unicode standard version that first defined this emoji (e.g., `12.0`, `14.0`, `15.1`).
+The `version` property stores the Unicode standard number that first included the emoji, such as `12.0` or `15.1`.
 
-### Importance for Compatibility
+### Compatibility Checks
 
-This property is the foundation for the ``SymbolPicker/SPEmoji/isAvailable()`` method. Because different operating systems support different Unicode releases, the `version` allows the picker to dynamically hide emojis that cannot be correctly rendered on the current device.
+This property drives the ``SymbolPicker/SPEmoji/isAvailable()`` method. Because Apple updates Unicode support with OS releases, `version` lets the picker hide emojis that the current device cannot show.
 
-### Usage
+### Data Integrity
 
-While primarily used for internal availability checks, it can also be used for debugging and ensuring data integrity within the emoji catalogs.
+Catalog maintainers use this version to ensure the data matches official Unicode specifications. It also helps you debug why certain emojis appear on new devices but not on older ones.

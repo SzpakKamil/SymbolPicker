@@ -22,18 +22,16 @@ Initializes a new sizing object with optional layout dimensions.
 
 ## Overview
 
-The `Sizing` initializer is the primary way to specify dimensions within a dynamic spacing configuration. By using optional parameters for all attributes, it allows for a "diff-based" configuration style.
+Initialize `Sizing` to specify dimensions in a dynamic spacing configuration. Every parameter is optional, which enables a "diff-based" configuration style.
 
 ### Granular Overrides
 
-You do not need to provide all dimensions when creating a `Sizing` object. Any parameter left as `nil` will instruct the `SymbolPicker` to fall back to its internal default value for that specific attribute, component, and current dynamic type size.
-
-This is particularly useful when you only want to adjust, for example, the height of a component while keeping its standard width and padding.
+You only need to provide the dimensions you want to change. If you leave a parameter as `nil`, `SymbolPicker` falls back to its internal default for that component and dynamic type size. This is useful when you want to adjust the height of a component but keep its standard width and padding.
 
 ### Usage in Code
 
 ```swift
-// Only overriding height and vertical padding
+// Overrides height and vertical padding only
 let customSizing = SPSpacing.Sizing(
     height: 60,
     verticalPadding: 12

@@ -23,11 +23,11 @@ Initializes a static spacing configuration with fixed dimensions.
 
 ## Overview
 
-This initializer creates a spacing configuration with static values that do not respond to dynamic type size changes. Use it for UI elements that must maintain a consistent size regardless of user accessibility settings.
+Initialize a static spacing configuration for fixed dimensions.
 
-### Default Values
+### Static Constraints
 
-If any of the optional parameters are not provided, the `SymbolPicker` will automatically fall back to its internal default configuration values for that specific component and current dynamic type size.
+This configuration ignores dynamic type size changes. Use it for UI elements that must stay the same size regardless of user accessibility settings. If you omit any optional parameters, `SymbolPicker` falls back to its internal defaults for that component and the current dynamic type size.
 
 ### Usage in Code
 

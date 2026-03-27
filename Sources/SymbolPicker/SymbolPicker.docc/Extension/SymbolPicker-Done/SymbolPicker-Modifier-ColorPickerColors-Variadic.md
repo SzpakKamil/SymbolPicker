@@ -18,15 +18,14 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-
-Sets the available colors in the color picker using a variadic list.
+Supply a list of colors for the color picker.
 
 ## Overview
 
-Use this modifier to provide a predefined set of colors for the user to choose from.
+Pass multiple `CKColor` instances to populate the color selection grid. You control exactly which colors your users can choose by listing them as arguments. This modifier overrides the default palette and restricts the selection to your specified list.
 
 ### Parameters
 
 | Name | Type | Description |
 | :--- | :--- | :--- |
-| `colors` | `CKColor...` | A variadic list of colors to display in the picker. |
+| `colors` | `CKColor...` | The colors you want to show in the picker. |

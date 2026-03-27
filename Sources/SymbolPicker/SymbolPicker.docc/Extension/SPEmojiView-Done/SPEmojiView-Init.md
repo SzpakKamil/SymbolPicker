@@ -13,16 +13,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a new emoji view with a provided emoji model.
+Creates an emoji view.
 
 ## Overview
 
-The `init(emoji:)` initializer creates a rendering component for a specific emoji asset.
+The `init(emoji:)` initializer builds a rendering component for a specific emoji.
 
-### Parameter Configuration
+### Parameters
 
-- **`emoji`**: The ``SymbolPicker/SPEmoji`` data model containing the emoji's character, availability, and localization.
+- **`emoji`**: The ``SymbolPicker/SPEmoji`` model containing the character data and metadata.
 
-### Initialization Process
+### Process
 
-Upon initialization, the view stores the provided ``SymbolPicker/SPEmoji`` model. The actual logic for resolving the emoji string, checking native platform availability, and configuring accessibility labels is handled dynamically within the view's body property based on the current environment and model properties.
+The view stores the provided ``SymbolPicker/SPEmoji`` model. The system resolves the emoji string, checks platform support, and sets accessibility labels within the view's body during layout.

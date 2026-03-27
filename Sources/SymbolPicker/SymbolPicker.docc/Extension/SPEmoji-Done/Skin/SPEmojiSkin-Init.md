@@ -13,14 +13,14 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Initializes a new skin variation instance.
+Initializes a skin variation.
 
 ## Overview
 
-The `init(id:annotation:version:)` initializer is used to create a fully-specified `SPEmoji.Skin` instance. This is primarily used by the `Codable` implementation when decoding emoji variations from internal catalogs.
+The `init(id:annotation:version:)` initializer builds an `SPEmoji.Skin` instance. The system uses this method when decoding variations from the internal catalogs.
 
-### Key Parameters
+### Parameters
 
-- **`id`**: The Unicode hexcode string for the specific variation (e.g., `"1F44B-1F3FB"`).
-- **`annotation`**: The localized description of the variation (e.g., `"Light Skin Tone"`). This is optional and may be `nil` if the metadata is not available.
-- **`version`**: The Unicode standard release that introduced this variation (e.g., `12.0`, `14.0`, `15.0`).
+- **`id`**: The Unicode hexcode string, like `"1F44B-1F3FB"`.
+- **`annotation`**: The localized description, like `"Light Skin Tone"`.
+- **`version`**: The Unicode release version for this variation.

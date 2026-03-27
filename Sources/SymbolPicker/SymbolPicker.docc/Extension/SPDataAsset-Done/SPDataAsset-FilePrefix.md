@@ -13,22 +13,22 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The base name used to identify the data files in the bundle, supporting SF Symbols, Emojis, and custom icons.
+The base name for bundle data files.
 
 ## Overview
 
-The `filePrefix` is a static property that determines the file naming convention for a conforming asset type. For example, if a type's `filePrefix` is "symbols", the system looks for files named `symbols_en.json`, `symbols_pl.json`, etc.
+The `filePrefix` static property sets the file naming convention. If you set it to "symbols," the system looks for `symbols_en.json` or `symbols_pl.json`.
 
-### Resource Localization
+### Localization
 
-The `filePrefix` is essential for localized data fetching. The ``SymbolPicker/SPDataManager`` uses this prefix along with the user's current locale to locate and load the corresponding JSON resource.
+`filePrefix` is required for localized fetching. ``SymbolPicker/SPDataManager`` combines this prefix with the user's locale to find the correct JSON resource.
 
-### Cache Keys
+### Caching
 
-In addition to identifying file names, the `filePrefix` is used as a base for cache keys within the data manager. This ensures that assets are cached separately for different types (e.g., symbols are cached independently of emojis).
+The data manager uses `filePrefix` for cache keys. This keeps symbols separate from emojis in the cache.
 
-### Computed Metadata
+### Metadata
 
-The protocol extension for `SPDataAsset` uses `filePrefix` to derive other useful strings:
-- `localizationPrefix`: used to store the list of supported locales for a specific asset type.
-- `resolvedLocalePrefix`: used to store the specific locale that was successfully resolved and loaded for an asset type.
+The `SPDataAsset` extension uses the prefix to find:
+- `localizationPrefix`: Supported locales for the asset type.
+- `resolvedLocalePrefix`: The successfully loaded locale.

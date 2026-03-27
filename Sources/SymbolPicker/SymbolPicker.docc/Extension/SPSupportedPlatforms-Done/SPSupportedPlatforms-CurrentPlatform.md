@@ -17,8 +17,8 @@ Returns the current platform and its major OS version.
 
 ## Overview
 
-The `currentPlatform` static property automatically detects the platform and major version of the operating system where the library is currently running.
+The `currentPlatform` static property detects the platform and major version of the operating system where the library runs.
 
 ### Implementation
 
-It uses `ProcessInfo.processInfo.operatingSystemVersion.majorVersion` combined with platform-specific macros (`#if os(...)`) to return the correct enum case populated with the version number. This is the primary way the library determines its runtime environment.
+It uses `ProcessInfo` to get the OS version. Combined with platform macros like `#if os(iOS)`, the property returns the correct enum case with the version number. The library uses this to determine its runtime environment.

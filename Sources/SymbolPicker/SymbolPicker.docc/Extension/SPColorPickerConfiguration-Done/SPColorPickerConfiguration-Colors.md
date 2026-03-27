@@ -12,17 +12,17 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The array of colors available for selection in the color picker.
+Colors available in the picker.
 
 ## Overview
 
-The `colors` property defines the color palette presented to the user. Each element in this array is a `CKColor` (from ColorKit), providing high-precision color definitions and support for various color spaces.
+The `colors` property sets the palette users see. Each item is a `CKColor` from ColorKit. This ensures accurate colors across different devices and platforms.
 
 ### Default Palette
 
-By default, the picker provides a selection of standard system colors (red, orange, yellow, green, etc.).
+The picker begins with standard colors like red, orange, and blue.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPColorPickerConfiguration()

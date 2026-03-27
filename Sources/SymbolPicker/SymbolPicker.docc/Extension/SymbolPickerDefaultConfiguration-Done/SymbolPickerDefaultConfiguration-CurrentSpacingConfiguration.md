@@ -18,25 +18,23 @@
     @AutomaticArticleSubheading(disabled)
 }
 
-A closure that returns the set of spacings for the picker's components.
+A closure for resolving picker component spacings.
 
 ## Overview
 
-The `currentSpacingConfiguration` property is a closure that resolves the vertical and horizontal spacings (``SymbolPicker/SPSpacing``) between the picker's modular components.
+The `currentSpacingConfiguration` property resolves the vertical and horizontal gaps between the picker's modular parts.
 
 ### Behavior
 
-By default, the closure invokes the static ``SymbolPicker/SymbolPickerConfiguration/defaultSpacingConfiguration()`` method, providing platform-aware values that scale based on the system's dynamic type settings.
+By default, the closure calls the static `defaultSpacingConfiguration()` method. This provides platform-aware values that scale based on system dynamic type settings.
 
 ### Customization
-
-Provide a custom closure to adjust the spacing between elements like the search bar, category picker, and asset grid.
 
 ```swift
 var config = SymbolPickerDefaultConfiguration()
 config.currentSpacingConfiguration = { style in
     [
-        SPSpacing(value: 20, type: .vertical) // Add more vertical breathing room
+        SPSpacing(value: 20, type: .vertical) // Increase vertical spacing
     ]
 }
 ```

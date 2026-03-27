@@ -19,15 +19,12 @@ Updates the selection to a new symbol asset.
 
 ## Overview
 
-The `setSymbol(_:)` method switches the current ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/symbol`` and updates the underlying symbol data.
+Update the selection to a new symbol asset. The `setSymbol(_:)` method changes the selection ``SymbolPicker/SPSelection/type`` to ``SymbolPicker/SPSelection/SelectionType/symbol`` and refreshes the symbol data.
 
 ### Mutating State
 
-When this method is called:
-- The ``SymbolPicker/SPSelection/type`` is set to `.symbol`.
-- The ``SymbolPicker/SPSelection/symbol`` property is updated with the new asset.
-- Any existing emoji or custom image data is cleared by setting those properties to `nil`.
+This method clears any existing emoji or custom image data by setting those properties to `nil`. It updates the ``SymbolPicker/SPSelection/symbol`` property with the new asset.
 
 ### Generic Compatibility
 
-Since `SPSelection` is generic over its symbol data type, this method accepts any value that matches the generic parameter `DataAsset` (which must conform to ``SymbolPicker/SPDataAsset``).
+Since `SPSelection` is generic, this method accepts any asset that conforms to ``SymbolPicker/SPDataAsset``. This ensures that your custom symbol types work correctly with the standard selection logic.

@@ -13,17 +13,13 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-A generic catch-all for any other error that may occur during the asset fetching process.
+A catch-all for unexpected failures.
 
-- Parameter error: The underlying `Swift.Error` that was caught.
+- Parameter error: The underlying caught `Swift.Error`.
 
 ## Overview
 
-The `otherError` case is used in `do-catch` blocks within the asset fetching logic to capture and categorize non-specific errors that fall outside the defined custom error cases.
-
-### Usage
-
-This case ensures that the system remains robust even when unexpected errors occur, such as:
-- Unexpected disk access or permission issues.
-- Runtime exceptions during task management in the `SPDataManager` actor.
-- Errors propagated from custom `SPDataAsset` implementations that are not specifically handled.
+The `otherError` case captures non-specific failures that fall outside defined categories. It ensures the system remains robust during:
+- Unexpected disk or permission issues.
+- Runtime exceptions in the `SPDataManager` actor.
+- Errors from custom asset implementations.

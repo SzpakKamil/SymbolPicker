@@ -13,24 +13,24 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-The local file system path where the image's binary data is persisted.
+The file path where the app saves the image data.
 
 ## Overview
 
-The `localURL` property resolves the exact location of the asset's binary data on the device's storage. It is the primary reference used by the `SymbolPicker` to decouple lightweight model metadata from heavyweight pixel data.
+The `localURL` property points to the exact location of the image file on your device. It separates the light metadata from the heavy pixel data.
 
-### Architectural Logic
+### Storage Path
 
-The URL is constructed dynamically using the asset's ``SymbolPicker/SPImage/id``:
+The app builds this URL using the asset's ``SymbolPicker/SPImage/id``:
 `~/Library/Application Support/SymbolPicker/Images/\(id.uuidString).data`
 
-### Role in the Lifecycle
+### Usage
 
-The `localURL` is the focal point for several key operations:
-1. **Persistence**: During initialization, raw binary data is written to this URL.
-2. **Availability Check**: The ``SymbolPicker/SPImage/isAvailable()`` method verifies the existence and integrity of the file at this path.
-3. **Lazy Loading**: The ``SymbolPicker/SPImageView`` uses this URL as the source for its rendering engine. By loading from this URL only when the view is visible, the picker maintains a low memory footprint even with large image libraries.
+The `localURL` serves three main purposes:
+1. **Saving**: The app writes raw binary data to this path during setup.
+2. **Checking**: The ``SymbolPicker/SPImage/isAvailable()`` method checks if a file exists at this URL.
+3. **Loading**: The ``SymbolPicker/SPImageView`` uses this path to fetch pixels for the screen. By loading only when the view appears, the picker uses very little memory.
 
-### Portability and Sandbox Safety
+### Safety
 
-The property automatically resolves to the correct `Application Support` directory for the current user and application sandbox, ensuring that image assets are managed correctly across different devices and OS versions.
+The property resolves to the correct `Application Support` folder within the app's sandbox. This ensures your images remain safe and accessible across different OS versions and devices.

@@ -17,34 +17,29 @@
     @AutomaticSeeAlso(disabled)
 }
 
-
-Returns an array of ``SymbolPicker/SPInsetedView`` objects defining the custom layout of the picker.
+Returns an array of ``SymbolPicker/SPInsetedView`` objects for the picker layout.
 
 - Returns: A collection of inseted views.
 
 ## Overview
 
-The `insetViewsConfiguration()` method is a powerful layout mechanism that allows placing auxiliary views (like search bars, color pickers, or headers) into specific ``SymbolPicker/SPInsetedView/Placement`` slots within the picker UI.
+The `insetViewsConfiguration()` method lets you place custom SwiftUI views into specific ``SymbolPicker/SPInsetedView/Placement`` slots in the picker UI.
 
-### Inset View Placements
+### Placements
 
-- **``SymbolPicker/SPInsetedView/Placement/safeAreaTop`` / ``SymbolPicker/SPInsetedView/Placement/safeAreaBottom``**: Sticky views that stay at the top or bottom of the screen, typically used for headers, footers, or persistent controls.
-- **``SymbolPicker/SPInsetedView/Placement/scrollContentTop`` / ``SymbolPicker/SPInsetedView/Placement/scrollContentBottom``**: Views that scroll with the main list but sit outside the core content container. They are ideal for wrapping the entire picker content.
-- **``SymbolPicker/SPInsetedView/Placement/scrollSectionTop`` / ``SymbolPicker/SPInsetedView/Placement/scrollSectionBottom``**: Views that scroll and are placed immediately above or below the asset grid itself. They share the same row styling as the assets, making them perfect for headers or footers specific to the asset list.
-- **``SymbolPicker/SPInsetedView/Placement/toolbarTopTralling`` / ``SymbolPicker/SPInsetedView/Placement/toolbarTopLeading``**: Views placed directly into the platform's native toolbar. (Note: The enum uses `Tralling` for trailing).
-- **``SymbolPicker/SPInsetedView/Placement/toolbarBottomLeading``**: Views integrated into the leading side of the platform's native bottom toolbar. This position is typically used for secondary actions or dismissal options.
-- **``SymbolPicker/SPInsetedView/Placement/toolbarBottom``**: Views placed in the center of the native bottom toolbar. This high-visibility location is often reserved for primary actions or important status indicators.
-- **``SymbolPicker/SPInsetedView/Placement/toolbarBottomTralling``**: Views placed on the trailing side of the native bottom toolbar. (Note: The enum uses `Tralling` for trailing). This is generally the preferred location for confirmation or primary actions.
+- **`.safeAreaTop` / `.safeAreaBottom`**: Sticky views for headers or persistent controls.
+- **`.scrollContentTop` / `.scrollContentBottom`**: Views that scroll with the main list but wrap the core content.
+- **`.scrollSectionTop` / `.scrollSectionBottom`**: Views that scroll and sit immediately above or below the asset grid.
+- **`.toolbarTopTralling` / `.toolbarTopLeading`**: Views for the native top toolbar.
+- **`.toolbarBottomLeading` / `.toolbarBottom` / `.toolbarBottomTralling`**: Views for the native bottom toolbar.
 
 ### Customization
 
 ```swift
 func insetViewsConfiguration() -> [SPInsetedView] {
-    // Only show a custom header and the page picker
     SPInsetedView(placement: .safeAreaTop) {
         VStack {
-            Text("My Icon Picker")
-                .font(.headline)
+            Text("Icon Picker").font(.headline)
             Divider()
         }
     }

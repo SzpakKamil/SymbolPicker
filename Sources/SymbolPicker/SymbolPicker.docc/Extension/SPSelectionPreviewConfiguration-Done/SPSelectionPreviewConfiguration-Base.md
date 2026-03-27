@@ -1,7 +1,5 @@
 # ``SymbolPicker/SPSelectionPreviewConfiguration``
 
-A struct that configures the visual presentation and animation of the selection preview area.
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -20,26 +18,27 @@ A struct that configures the visual presentation and animation of the selection 
     @AutomaticArticleSubheading(disabled)
 }
 
+Configures the look and animation of the selection preview area.
+
 ## Overview
 
-The `SPSelectionPreviewConfiguration` struct provides customization for the area that displays the current selection at the top of the picker.
+`SPSelectionPreviewConfiguration` sets the properties for the hero preview at the top of the picker.
 
-### View Integration
+### Integration
 
-This configuration is primarily used by the ``SymbolPicker/SPSelectionPreview`` view.
+The ``SymbolPicker/SPSelectionPreview`` view uses this configuration to:
+- **Set Shape**: The ``selectionPreviewCornerRadiusFactor`` property sets the rounding for the preview. A factor of 1.0 creates a circle, while lower values create rounded rectangles.
+- **Animate Scrolling**: On iOS 26.0+, the preview area can shift its scale and offset as users scroll.
+    - **Scale**: Use ``calculateScale`` to shrink or grow the preview.
+    - **Offset**: Use ``calculateOffset`` to create "sticky" header or parallax effects.
 
-- **Visual Appearance**: The ``selectionPreviewCornerRadiusFactor`` property determines the shape of the large preview (e.g., a circle with a factor of 1.0 or a rounded rectangle with a lower factor).
-- **Dynamic Scroll Animations**: On platforms that support scroll geometry (iOS 26.0+, etc.), the preview area can dynamically adjust its scale and vertical offset as the user scrolls through the picker's asset list.
-    - **Scale Dynamics**: Use ``calculateScale`` to define how much the preview should shrink or grow during scrolling.
-    - **Offset Dynamics**: Use ``calculateOffset`` to define the vertical movement of the preview, typically used to create a "sticky header" effect.
-
-### Usage Example
+### Example
 
 ```swift
 let configuration = SPSelectionPreviewConfiguration()
     .spSelectionPreviewCornerRadiusFactor(0.4)
     .spSelectionPreviewCalculateScale { geometry in
-        // Custom scale logic based on scroll geometry
+        // Return scale based on scroll geometry
         return 1.0
     }
 ```
@@ -47,19 +46,13 @@ let configuration = SPSelectionPreviewConfiguration()
 ## Topics
 
 ### Sizing & Shape
-Visual properties of the preview area.
-
 - ``SymbolPicker/SPSelectionPreviewConfiguration/selectionPreviewCornerRadiusFactor``
 
 ### Dynamic Animations
-Closures for controlling the preview's behavior during scrolling.
-
 - ``SymbolPicker/SPSelectionPreviewConfiguration/calculateScale``
 - ``SymbolPicker/SPSelectionPreviewConfiguration/calculateOffset``
 
 ### Modification Methods
-Chainable methods for updating configuration properties.
-
 - ``SymbolPicker/SPSelectionPreviewConfiguration/spSelectionPreviewCornerRadiusFactor(_:)``
 - ``SymbolPicker/SPSelectionPreviewConfiguration/spSelectionPreviewCalculateOffset(_:)``
 - ``SymbolPicker/SPSelectionPreviewConfiguration/spSelectionPreviewCalculateScale(_:)``

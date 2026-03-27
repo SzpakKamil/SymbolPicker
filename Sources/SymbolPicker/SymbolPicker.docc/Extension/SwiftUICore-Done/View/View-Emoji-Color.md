@@ -1,6 +1,5 @@
 # ``SwiftUICore/View/symbolPicker(isPresented:emoji:color:configuration:)-(_,Binding<SPEmoji>,_,_)``
 
-
 @Metadata {
     @SupportedLanguage(swift)
     @Available(iOS, introduced: "15.0")
@@ -19,9 +18,11 @@
 }
 
 ## Overview
-Presents a symbol picker that allows the user to select an emoji and a color, which are synchronized with the provided bindings. This overload specifically uses SwiftUI's native `Color`.
 
-## Example Usage
+Presents a symbol picker for selecting an emoji and a color. This version binds to a required emoji and a SwiftUI `Color`.
+
+### Example Usage
+
 ```swift
 struct MyView: View {
     @State private var isPresented = false
@@ -40,3 +41,7 @@ struct MyView: View {
     }
 }
 ```
+
+### Details
+
+This modifier requires a valid `SPEmoji` instance in your state. The picker updates the `selectedColor` object whenever the user chooses a new tint from the palette.

@@ -12,16 +12,16 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Sets the closure for calculating the dynamic vertical offset of the selection preview and returns the modified configuration.
+Sets the vertical offset calculation for the selection preview.
 
-- Parameter closure: A `@Sendable` closure that takes `ScrollGeometry` and returns a `CGFloat` offset.
-- Returns: The updated configuration instance.
+- Parameter closure: A `@Sendable` closure that takes `ScrollGeometry` and returns a `CGFloat`.
+- Returns: The updated configuration.
 
 ## Overview
 
-`spSelectionPreviewCalculateOffset(_:)` is a chainable method used to update the ``SymbolPicker/SPSelectionPreviewConfiguration/calculateOffset`` property.
+The `spSelectionPreviewCalculateOffset(_:)` method updates the ``SymbolPicker/SPSelectionPreviewConfiguration/calculateOffset`` property. Use it to create dynamic positioning effects as the user scrolls.
 
-### Usage in Code
+### Example
 
 ```swift
 let config = SPSelectionPreviewConfiguration()
