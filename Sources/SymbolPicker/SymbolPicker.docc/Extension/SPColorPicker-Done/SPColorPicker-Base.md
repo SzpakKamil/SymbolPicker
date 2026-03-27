@@ -22,7 +22,7 @@ A component for selecting colors and tinting assets.
 
 ## Overview
 
-`SPColorPicker` lets users select colors to tint SF Symbols and customize app aesthetics.
+`SPColorPicker` lets users select colors to tint Symbols and customize app aesthetics.
 
 ### Configuration
 

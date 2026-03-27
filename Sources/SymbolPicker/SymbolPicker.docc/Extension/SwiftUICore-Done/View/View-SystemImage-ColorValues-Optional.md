@@ -19,7 +19,7 @@
 
 ## Overview
 
-Presents a symbol picker for selecting an SF Symbol and a color. This version binds the symbol name to an optional string and the tint to an array of RGBA doubles (`[Double]`).
+Presents a symbol picker for selecting a Symbol and a color. This version binds the symbol name to an optional string and the tint to an array of RGBA doubles (`[Double]`).
 
 ### Example Usage
 
@@ -45,6 +45,8 @@ struct MyView: View {
 ### Parameters
 
 - **isPresented**: A binding to a boolean that controls the picker's visibility.
-- **systemImage**: An optional binding for the SF Symbol name.
+systemImage: An optional binding for the SF Symbol name.
 - **colorValues**: A binding to an RGBA array for the tint color.
 - **configuration**: Settings for the picker's layout and style.
+
+

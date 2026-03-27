@@ -1,6 +1,6 @@
 # ``SymbolPicker/SymbolPicker``
 
-A platform-agnostic SwiftUI `View` for selecting SF Symbols, Emojis, and custom images.
+A platform-agnostic SwiftUI `View` for selecting Symbols, Emojis, and custom images.
 
 @Metadata {
     @SupportedLanguage(swift)
@@ -37,7 +37,7 @@ The picker manages its internal state—including selection, category, and searc
 
 ### Key Features
 
-- **Generic Assets**: You can browse SF Symbols, Emojis, and custom images in one interface.
+- **Generic Assets**: You can browse Symbols, Emojis, and custom images in one interface.
 - **Adaptive Layout**: The UI automatically adjusts for different platforms, screen sizes, and dynamic type settings.
 - **Search Integration**: The picker integrates with SwiftUI's `.searchable` system and offers enhanced styling on modern OS versions.
 - **Deep Customization**: You can refine every visual detail, from the color palette to the selection preview card, using modifiers.

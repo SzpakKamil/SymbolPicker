@@ -23,7 +23,7 @@ Symbols for SwiftUI.
 
 ## Overview
 
-SymbolPicker selects SF Symbols, Emojis, Colors, and Images. It works on all Apple platforms and adjusts to your layout.
+SymbolPicker selects Symbols, Emojis, Colors, and Images. It works on all Apple platforms and adjusts to your layout.
 
 @Image(source: "SymbolPicker-Banner", alt: "SymbolPicker banner showing symbols and icons.")
 

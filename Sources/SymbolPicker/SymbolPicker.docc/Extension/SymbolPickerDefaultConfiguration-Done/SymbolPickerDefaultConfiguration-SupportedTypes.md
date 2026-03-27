@@ -22,7 +22,7 @@ The available asset categories.
 
 ## Overview
 
-The `supportedTypes` property sets which categories—SF Symbols, Emojis, or User Photos—appear in the picker. By default, it includes every category in ``SymbolPicker/SPPageType/allCases``.
+The `supportedTypes` property sets which categories—Symbols, Emojis, or User Photos—appear in the picker. By default, it includes every category in ``SymbolPicker/SPPageType/allCases``.
 
 ### Navigation
 

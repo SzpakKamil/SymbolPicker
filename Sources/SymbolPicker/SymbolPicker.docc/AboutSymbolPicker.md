@@ -22,7 +22,7 @@ Pick SwiftUI assets through a single tool.
 
 ## Overview
 
-SymbolPicker selects SF Symbols, Emojis, Colors, and Images in SwiftUI. It works on every Apple platform and gives you control over the native experience.
+SymbolPicker selects Symbols, Emojis, Colors, and Images in SwiftUI. It works on every Apple platform and gives you control over the native experience.
 
 ## Why Use SymbolPicker?
 

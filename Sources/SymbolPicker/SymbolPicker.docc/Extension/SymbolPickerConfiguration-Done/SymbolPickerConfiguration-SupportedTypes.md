@@ -25,7 +25,7 @@ The `supportedTypes` property sets which categories appear as tabs. You can limi
 
 ### Available Types
 
-- **`.symbol`**: SF Symbols.
+- **`.symbol`**: Symbols.
 - **`.emoji`**: System emojis.
 - **`.image`**: User photos from the library.
 

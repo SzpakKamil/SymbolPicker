@@ -25,7 +25,7 @@ Initializes a default configuration.
 The default initializer sets up platform-aware values:
 - **Display Style**: Uses `.compact` on iOS 26+ and visionOS, or `.detail` on other platforms.
 - **Search**: Enabled by default.
-- **Categories**: Includes SF Symbols, Emojis, and Images.
+- **Categories**: Includes Symbols, Emojis, and Images.
 - **Symbol Variant**: Defaults to `.filled`.
 - **Closures**: Resolves standard layouts for toolbars, grids, and previews.
 

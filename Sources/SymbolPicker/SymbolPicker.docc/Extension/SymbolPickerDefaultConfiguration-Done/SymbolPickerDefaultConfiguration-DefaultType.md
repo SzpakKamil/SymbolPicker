@@ -22,7 +22,7 @@ The initial asset category.
 
 ## Overview
 
-The `defaultType` property sets the active page when the picker opens. By default, it uses ``SymbolPicker/SPPageType/symbol`` to show SF Symbols first.
+The `defaultType` property sets the active page when the picker opens. By default, it uses ``SymbolPicker/SPPageType/symbol`` to show Symbols first.
 
 ### Logic
 

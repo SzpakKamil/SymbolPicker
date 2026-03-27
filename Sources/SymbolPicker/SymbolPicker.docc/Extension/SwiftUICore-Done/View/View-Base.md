@@ -24,7 +24,7 @@ View extensions for presenting asset pickers.
 
 These view modifiers integrate ``SymbolPicker/SymbolPicker`` into your SwiftUI hierarchy. 
 
-The `symbolPicker` modifier supports various data types and selection patterns. Use it to present pickers for SF Symbols, emojis, or custom images. Each modifier uses a binding to manage visibility and a configuration object to set the layout and style.
+The `symbolPicker` modifier supports various data types and selection patterns. Use it to present pickers for Symbols, emojis, or custom images. Each modifier uses a binding to manage visibility and a configuration object to set the layout and style.
 
 ## Topics
 

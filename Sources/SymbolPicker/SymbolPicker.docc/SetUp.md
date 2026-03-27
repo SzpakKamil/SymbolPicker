@@ -22,7 +22,7 @@ Integrate SymbolPicker into your SwiftUI project.
 
 ## Overview
 
-SymbolPicker provides a selection tool for SF Symbols, Emojis, Colors, and Images. Add the package using Swift Package Manager (SPM) to begin.
+SymbolPicker provides a selection tool for Symbols, Emojis, Colors, and Images. Add the package using Swift Package Manager (SPM) to begin.
 
 ## Installing the Agent Skill
 
