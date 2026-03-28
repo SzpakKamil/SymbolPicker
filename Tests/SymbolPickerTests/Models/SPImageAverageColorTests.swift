@@ -5,11 +5,13 @@
 //  Created by KamilSzpak on 28/03/2026.
 //
 
-import CoreImage
 #if canImport(Testing)
 import Testing
 @testable import SymbolPicker
 
+#if canImport(CoreImage)
+import CoreImage
+#endif
 #if canImport(AppKit)
 import AppKit
 
@@ -69,7 +71,7 @@ struct SPImageAverageColorTests {
     }
 }
 
-#elseif canImport(UIKit)
+#elseif canImport(UIKit) && !os(tvOS) && !os(watchOS)
 import UIKit
 
 struct SPImageAverageColorTests {
