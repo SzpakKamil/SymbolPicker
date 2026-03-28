@@ -1,0 +1,95 @@
+name: Swift
+
+on:
+  push:
+    branches: [ "2.0" ]
+  pull_request:
+    branches: [ "2.0" ]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-macos-15:
+    name: Build macOS 15 (Swift 6.0)
+    runs-on: macos-15
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Select Xcode 16.0
+      run: |
+        sudo xcode-select -s /Applications/Xcode_16.0.app/Contents/Developer
+        swift --version
+
+    - name: Build
+      run: swift build -v
+
+    - name: Run tests
+      run: swift test -v
+
+  build-macos-26:
+    name: Build macOS 26 (Swift 6.2)
+    runs-on: macos-26
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Select Xcode 16.2
+      run: |
+        sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer || sudo xcode-select -s /Applications/Xcode_26.2.app/Contents/Developer
+        swift --version
+
+    - name: Build
+      run: swift build -v
+
+    - name: Run tests
+      run: swift test -v
+
+  build-ios:
+    name: Build iOS (Latest Swift)
+    runs-on: macos-15
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build for iOS
+      run: |
+         xcodebuild -scheme SymbolPicker -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build test
+
+  build-tvos:
+    name: Build tvOS (Latest Swift)
+    runs-on: macos-15
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build for tvOS
+      run: |
+        xcodebuild -scheme SymbolPicker -destination 'platform=tvOS Simulator,name=Apple TV' build test
+
+  build-watchos:
+    name: Build watchOS (Latest Swift)
+    runs-on: macos-15
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build for watchOS
+      run: |
+        xcodebuild -scheme SymbolPicker -destination 'platform=watchOS Simulator,name=Apple Watch Series 11 (46mm),OS=26.2' build test
+
+  build-visionos:
+    name: Build visionOS (Latest Swift)
+    runs-on: macos-15
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build for visionOS
+      run: |
+        xcodebuild -scheme SymbolPicker -destination 'platform=visionOS Simulator,name=Apple Vision Pro,OS=26.2' build test

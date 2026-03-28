@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "BA18942A-672E-40FF-9069-8919B03E4BF8",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SymbolPickerTests",
+        "name" : "SymbolPickerTests"
+      }
+    }
+  ],
+  "version" : 1
+}

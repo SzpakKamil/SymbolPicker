@@ -15,7 +15,7 @@ public extension SymbolPickerConfiguration {
     var insetViews: [SPInsetedView] { insetViewsConfiguration() }
     
     @SPInsetedViewBuilder
-    public static func defaultInsetViews(for displayStyle: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) -> [SPInsetedView] {
+    static func defaultInsetViews(for displayStyle: SPDisplayStyle, colorPicker: SPColorPickerConfiguration?) -> [SPInsetedView] {
         if displayStyle != .plain {
             #if os(tvOS)
             let spacing: CGFloat = 25

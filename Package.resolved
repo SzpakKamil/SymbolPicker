@@ -1,5 +1,5 @@
 {
-  "originHash" : "52b424264135e39141d0100aa055cf1be59e8e00c10d9c5dab94cae9a921f5f1",
+  "originHash" : "dc80b7134bebea82a371d9f95765674ed94c0a1b3d6b3506d353cddbc87257ac",
   "pins" : [
     {
       "identity" : "colorkit",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SzpakKamil/SearchBar.git",
       "state" : {
-        "revision" : "ab48d6f2e404cb4a7539d4d83276c92d42dcb7fa",
-        "version" : "2.1.6"
+        "revision" : "e72c14615b3b6473ca32cdb3b3bea4d40d5d28f1",
+        "version" : "2.1.7"
       }
     }
   ],

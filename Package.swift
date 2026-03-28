@@ -27,6 +27,13 @@ let package = Package(
                 .process("Resources")
             ]
         ),
+        .testTarget(
+            name: "SymbolPickerTests",
+            dependencies: [
+                "SymbolPicker",
+                .product(name: "ColorKit", package: "ColorKit")
+            ]
+        ),
     ]
 )
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 public extension SPInsetedView{
-    public enum Placement: Int, Identifiable, Sendable, Hashable{
+    enum Placement: Int, Identifiable, Sendable, Hashable{
         case safeAreaTop
         case safeAreaBottom
         case scrollContentTop
