@@ -59,7 +59,7 @@ jobs:
 
     - name: Build for iOS
       run: |
-         xcodebuild -scheme SymbolPicker -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build test
+         xcodebuild -scheme SymbolPicker -destination 'platform=iOS Simulator,name=iPhone 16 Pro,arch=arm64' build test
 
   build-tvos:
     name: Build tvOS (Latest Swift)
@@ -70,7 +70,7 @@ jobs:
 
     - name: Build for tvOS
       run: |
-        xcodebuild -scheme SymbolPicker -destination 'platform=tvOS Simulator,name=Apple TV' build test
+        xcodebuild -scheme SymbolPicker -destination 'platform=tvOS Simulator,name=Apple TV,arch=arm64' build test
 
   build-watchos:
     name: Build watchOS (Latest Swift)
@@ -81,7 +81,7 @@ jobs:
 
     - name: Build for watchOS
       run: |
-        xcodebuild -scheme SymbolPicker -destination 'platform=watchOS Simulator,name=Apple Watch Series 11 (46mm),OS=26.2' build test
+        xcodebuild -scheme SymbolPicker -destination 'platform=watchOS Simulator,name=Apple Watch Series 11 (46mm),OS=26.2,arch=arm64' build test
 
   build-visionos:
     name: Build visionOS (Latest Swift)
@@ -92,4 +92,4 @@ jobs:
 
     - name: Build for visionOS
       run: |
-        xcodebuild -scheme SymbolPicker -destination 'platform=visionOS Simulator,name=Apple Vision Pro,OS=26.2' build test
+        xcodebuild -scheme SymbolPicker -destination 'platform=visionOS Simulator,name=Apple Vision Pro,OS=26.2,arch=arm64' build test
