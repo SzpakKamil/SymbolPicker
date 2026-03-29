@@ -115,6 +115,7 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
     @ViewBuilder
     func viewContainer(@ViewBuilder view: () -> some View) -> some View{
         #if os(iOS)
+        #if compiler(>=6.2)
         if #available(iOS 26.0, *), style.displayStyle == .compact, style.getViews(for: .safeAreaBottom).isEmpty, !isDisplayedAsPopover, style.allowSearching{
             NavigationStack{
                 view()
@@ -146,6 +147,30 @@ public struct SymbolPicker<DataAsset: SPDataAsset, Configuration: SymbolPickerCo
                     .background(style.presentation.presentationBackgroundColor.ignoresSafeArea())
             }
         }
+        #else
+        if #available(iOS 17.0, *){
+            NavigationStack{
+                view()
+                    .navigationBarTitleDisplayMode(.inline)
+                    .padding(.top, -5)
+                    .background(style.presentation.presentationBackgroundColor.ignoresSafeArea())
+            }
+        }else if #available(iOS 16.0, *){
+            NavigationStack{
+                view()
+                    .navigationBarTitleDisplayMode(.inline)
+                    .padding(.top, -15)
+                    .background(style.presentation.presentationBackgroundColor.ignoresSafeArea())
+            }
+        }else{
+            NavigationView{
+                view()
+                    .navigationBarTitleDisplayMode(.inline)
+                    .padding(.top, -15)
+                    .background(style.presentation.presentationBackgroundColor.ignoresSafeArea())
+            }
+        }
+        #endif
         #else
         view()
         #endif
